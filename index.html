@@ -3,13 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>MAVRENX — Gaming Gear</title>
+
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
   <header>
+
     <div class="logo">MAVRENX</div>
 
     <nav>
@@ -18,16 +21,21 @@
       <a href="#faq">FAQ</a>
     </nav>
 
-    <button class="cart-button">
+    <button class="cart-button" onclick="openCart()">
       Cart (<span id="cart-count">0</span>)
     </button>
+
   </header>
 
 
   <main>
 
+    <!-- HERO -->
+
     <section class="hero">
+
       <div>
+
         <p class="tag">MAVRENX GAMING</p>
 
         <h1>
@@ -36,48 +44,105 @@
         </h1>
 
         <p class="hero-text">
-          Gaming gear made to make your setup look better
-          and feel better.
+          Premium gaming accessories and lighting
+          designed to make your setup stand out.
         </p>
 
-        <a href="#shop" class="button">Shop now</a>
+        <a href="#shop" class="button">
+          Shop now
+        </a>
+
       </div>
 
+
       <div class="hero-placeholder">
-        <span>PRODUCT IMAGE</span>
+
+        <span>
+          MAVRENX
+        </span>
+
       </div>
+
     </section>
 
 
+    <!-- SHOP -->
+
     <section id="shop" class="shop">
 
-      <p class="tag">FEATURED</p>
+      <p class="tag">
+        FEATURED PRODUCT
+      </p>
 
-      <h2>Our first product.</h2>
+      <h2>
+        Light up<br>
+        <span>your setup.</span>
+      </h2>
+
 
       <div class="product-card">
 
+
+        <!-- PRODUCT IMAGE -->
+
         <div class="product-image">
-          <span>PRODUCT IMAGE</span>
+
+          <img
+            src="neon-rope.jpg"
+            alt="MAVRENX 10 metre RGB LED Neon Rope Light"
+          >
+
         </div>
+
+
+        <!-- PRODUCT INFORMATION -->
 
         <div class="product-info">
 
-          <p class="tag">GAMING LIGHTING</p>
+          <p class="tag">
+            GAMING LIGHTING
+          </p>
 
-          <h3>RGB Gaming LED Strip</h3>
+          <h3>
+            RGB LED Neon Rope Light — 10M
+          </h3>
 
-          <p class="price">€19.99</p>
+          <p class="price">
+            €29.99
+          </p>
 
           <p>
-            Transform your gaming setup with vibrant RGB
-            lighting designed for desks, monitors and rooms.
+            Transform your gaming setup with vibrant
+            RGB neon lighting. Perfect for desks,
+            bedrooms, gaming rooms and decorative setups.
           </p>
+
+
+          <ul class="features">
+
+            <li>10 metre / 32.8 ft length</li>
+
+            <li>RGB colour lighting</li>
+
+            <li>Music synchronization</li>
+
+            <li>App control</li>
+
+            <li>Remote control</li>
+
+            <li>DIY installation</li>
+
+            <li>IP67 waterproof lighting strip</li>
+
+          </ul>
+
 
           <button
             class="button"
             onclick="addToCart()">
+
             Add to cart
+
           </button>
 
         </div>
@@ -87,39 +152,97 @@
     </section>
 
 
+    <!-- ABOUT -->
+
     <section id="about" class="about">
 
-      <p class="tag">ABOUT MAVRENX</p>
+      <p class="tag">
+        ABOUT MAVRENX
+      </p>
 
-      <h2>Gaming gear.<br><span>Nothing extra.</span></h2>
+      <h2>
+        Gaming gear.<br>
+        <span>Nothing extra.</span>
+      </h2>
 
       <p>
-        MAVRENX is built around simple gaming accessories
-        that make your setup stand out.
+        MAVRENX focuses on gaming accessories
+        that make your setup look better without
+        unnecessary clutter.
       </p>
 
     </section>
 
 
+    <!-- FAQ -->
+
     <section id="faq" class="faq">
 
-      <p class="tag">FAQ</p>
+      <p class="tag">
+        FAQ
+      </p>
 
-      <h2>Questions.</h2>
+      <h2>
+        Questions.
+      </h2>
+
 
       <details>
-        <summary>How long is the LED strip?</summary>
-        <p>The featured strip is 5 metres long.</p>
+
+        <summary>
+          How long is the LED rope?
+        </summary>
+
+        <p>
+          The featured product is approximately
+          10 metres (32.8 feet) long.
+        </p>
+
       </details>
 
-      <details>
-        <summary>How is it powered?</summary>
-        <p>It is powered through USB.</p>
-      </details>
 
       <details>
-        <summary>Can I change the colours?</summary>
-        <p>Yes. The RGB lighting supports multiple colours and modes.</p>
+
+        <summary>
+          Can I control the lighting?
+        </summary>
+
+        <p>
+          The product listing includes app,
+          remote and music-sync control.
+        </p>
+
+      </details>
+
+
+      <details>
+
+        <summary>
+          Can I use it outdoors?
+        </summary>
+
+        <p>
+          The lighting strip is advertised as
+          IP67 waterproof. Check the manufacturer's
+          instructions for the controller and
+          power components before outdoor use.
+        </p>
+
+      </details>
+
+
+      <details>
+
+        <summary>
+          Is it good for gaming setups?
+        </summary>
+
+        <p>
+          Yes. The long flexible design makes it
+          suitable for desks, gaming rooms,
+          bedrooms and decorative setups.
+        </p>
+
       </details>
 
     </section>
@@ -127,10 +250,47 @@
   </main>
 
 
+  <!-- CART -->
+
+  <div id="cart-panel" class="cart-panel">
+
+    <button
+      class="close-cart"
+      onclick="closeCart()">
+      ×
+    </button>
+
+    <h2>
+      Your Cart
+    </h2>
+
+    <div id="cart-items">
+
+      <p>
+        Your cart is empty.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- FOOTER -->
+
   <footer>
-    <div class="logo">MAVRENX</div>
-    <p>Gaming gear. Nothing extra.</p>
-    <small>© 2026 MAVRENX</small>
+
+    <div class="logo">
+      MAVRENX
+    </div>
+
+    <p>
+      Gaming gear. Nothing extra.
+    </p>
+
+    <small>
+      © 2026 MAVRENX
+    </small>
+
   </footer>
 
 
