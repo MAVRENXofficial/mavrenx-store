@@ -36,8 +36,7 @@ header {
   font-weight: 900;
   letter-spacing: 4px;
   color: #f0c84b;
-  text-shadow:
-    0 0 12px rgba(240, 200, 75, 0.35);
+  text-shadow: 0 0 12px rgba(240, 200, 75, 0.35);
 }
 
 nav {
@@ -151,14 +150,12 @@ h1 span {
 
 .button:hover {
   transform: translateY(-2px);
-  box-shadow:
-    0 0 20px rgba(212, 175, 55, 0.35);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.35);
 }
 
-/* PRODUCT PLACEHOLDERS */
+/* HERO PLACEHOLDER */
 
-.hero-placeholder,
-.product-image {
+.hero-placeholder {
   min-height: 450px;
 
   background:
@@ -215,6 +212,36 @@ h2 span {
 
 .product-image {
   min-height: 400px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(210, 20, 45, 0.08),
+      rgba(20, 80, 255, 0.08)
+    ),
+    #0c0d12;
+
+  border: 1px solid #d4af37;
+  border-radius: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 0 35px rgba(210, 20, 45, 0.08),
+    0 0 45px rgba(20, 80, 255, 0.08);
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  max-height: 500px;
+  object-fit: contain;
+  border-radius: 13px;
+  display: block;
 }
 
 .product-info h3 {
@@ -233,6 +260,28 @@ h2 span {
   color: #a8a8ae;
   max-width: 500px;
   margin-bottom: 30px;
+}
+
+/* PRODUCT FEATURES */
+
+.features {
+  list-style: none;
+  margin-bottom: 30px;
+  color: #c2c2c7;
+}
+
+.features li {
+  margin-bottom: 8px;
+  padding-left: 20px;
+  position: relative;
+}
+
+.features li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #f0c84b;
+  font-weight: bold;
 }
 
 /* ABOUT */
@@ -284,6 +333,45 @@ details p {
   margin-top: 15px;
 }
 
+/* CART PANEL */
+
+.cart-panel {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 400px;
+  max-width: 90%;
+  height: 100vh;
+  background: #0b0c10;
+  border-left: 1px solid #d4af37;
+  padding: 35px;
+  z-index: 100;
+  transition: right 0.3s ease;
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+}
+
+.cart-panel.active {
+  right: 0;
+}
+
+.close-cart {
+  float: right;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 32px;
+  cursor: pointer;
+}
+
+.cart-panel h2 {
+  font-size: 36px;
+  margin-top: 50px;
+}
+
+#cart-items {
+  color: #aaa;
+}
+
 /* FOOTER */
 
 footer {
@@ -318,4 +406,9 @@ footer p {
   .product-image {
     min-height: 300px;
   }
+
+  .cart-panel {
+    width: 90%;
+  }
+
 }
