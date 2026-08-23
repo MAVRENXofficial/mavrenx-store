@@ -11,8 +11,9 @@ html {
 body {
   font-family: Arial, Helvetica, sans-serif;
   background: #07080c;
-  color: #ffffff;
+  color: #fff;
   line-height: 1.6;
+  overflow-x: hidden;
 }
 
 /* =========================
@@ -20,33 +21,38 @@ body {
 ========================= */
 
 header {
-  height: 80px;
-  padding: 0 7%;
+  width: 100%;
+  min-height: 82px;
+  padding: 10px 6%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 25px;
+
+  background: rgba(7, 8, 12, 0.97);
   border-bottom: 1px solid #24262d;
+
   position: sticky;
   top: 0;
-  background: rgba(7, 8, 12, 0.96);
-  backdrop-filter: blur(12px);
-  z-index: 50;
+  z-index: 100;
 }
 
 .logo img {
-  width: 120px;
+  width: 115px;
   height: auto;
   display: block;
 }
 
 nav {
   display: flex;
-  gap: 30px;
+  align-items: center;
+  gap: 32px;
 }
 
 nav a {
   color: #aaa;
   text-decoration: none;
+  font-size: 16px;
   transition: 0.2s;
 }
 
@@ -57,22 +63,18 @@ nav a:hover {
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 9px;
 }
-
-/* =========================
-   HEADER BUTTONS
-========================= */
 
 .like-button,
 .cart-button {
   background: transparent;
   color: #d4af37;
   border: 1px solid #d4af37;
+  border-radius: 8px;
   padding: 10px 15px;
-  border-radius: 7px;
-  cursor: pointer;
   font-weight: bold;
+  cursor: pointer;
   transition: 0.2s;
 }
 
@@ -80,11 +82,6 @@ nav a:hover {
 .cart-button:hover {
   background: #d4af37;
   color: #07080c;
-  box-shadow: 0 0 18px rgba(212, 175, 55, 0.25);
-}
-
-.like-button {
-  font-size: 16px;
 }
 
 /* =========================
@@ -92,12 +89,14 @@ nav a:hover {
 ========================= */
 
 .hero {
+  width: 100%;
   min-height: 650px;
-  padding: 80px 7%;
+  padding: 90px 7%;
+
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: center;
+  gap: 70px;
 }
 
 .tag {
@@ -109,12 +108,20 @@ nav a:hover {
 }
 
 h1 {
-  font-size: clamp(55px, 8vw, 100px);
+  font-size: clamp(55px, 7vw, 100px);
   line-height: 0.95;
   margin-bottom: 30px;
 }
 
-h1 span,
+h1 span {
+  color: #d4af37;
+}
+
+h2 {
+  font-size: clamp(45px, 6vw, 75px);
+  line-height: 1;
+}
+
 h2 span {
   color: #777;
 }
@@ -129,39 +136,51 @@ h2 span {
   display: inline-block;
   background: #d4af37;
   color: #07080c;
-  padding: 14px 25px;
   border: 1px solid #d4af37;
   border-radius: 7px;
-  text-decoration: none;
+  padding: 14px 25px;
   font-weight: bold;
+  text-decoration: none;
   cursor: pointer;
   transition: 0.2s;
 }
 
 .button:hover {
   background: #f0cf55;
-  box-shadow: 0 0 25px rgba(212, 175, 55, 0.25);
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.2);
 }
 
 .hero-placeholder {
-  min-height: 450px;
-  background:
-    radial-gradient(circle at 30% 30%, rgba(255, 0, 60, 0.18), transparent 35%),
-    radial-gradient(circle at 70% 70%, rgba(0, 80, 255, 0.18), transparent 35%),
-    #11131a;
+  width: 100%;
+  height: 430px;
+
   border: 1px solid #d4af37;
-  border-radius: 14px;
+  border-radius: 15px;
+
+  background:
+    radial-gradient(
+      circle at 30% 30%,
+      rgba(255, 0, 60, 0.2),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 70% 70%,
+      rgba(0, 80, 255, 0.2),
+      transparent 35%
+    ),
+    #11131a;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   color: #d4af37;
-  font-size: 18px;
   font-weight: bold;
   letter-spacing: 5px;
 }
 
 /* =========================
-   SHOP
+   SECTIONS
 ========================= */
 
 .shop,
@@ -171,17 +190,22 @@ h2 span {
   border-top: 1px solid #24262d;
 }
 
-h2 {
-  font-size: clamp(40px, 6vw, 70px);
-  line-height: 1;
+.shop h2 {
   margin-bottom: 50px;
 }
 
+/* =========================
+   PRODUCT
+========================= */
+
 .product-card {
+  width: 100%;
+
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+
   align-items: center;
+  gap: 65px;
 }
 
 /* =========================
@@ -189,26 +213,35 @@ h2 {
 ========================= */
 
 .product-image {
-  min-height: 400px;
+  width: 100%;
   height: 500px;
-  background: #11131a;
-  border: 1px solid #d4af37;
-  border-radius: 14px;
+
+  position: relative;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
+
   overflow: hidden;
+
+  background: #101219;
+
+  border: 1px solid #d4af37;
+  border-radius: 15px;
+
   box-shadow:
-    0 0 30px rgba(212, 175, 55, 0.06);
+    0 0 35px rgba(212, 175, 55, 0.06);
 }
 
 .product-image img {
   width: 100%;
   height: 100%;
+
   object-fit: contain;
-  display: block;
+
   padding: 20px;
+
+  display: block;
 }
 
 /* =========================
@@ -219,8 +252,9 @@ h2 {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 50px;
-  height: 50px;
+
+  width: 52px;
+  height: 52px;
 
   display: flex;
   align-items: center;
@@ -236,6 +270,7 @@ h2 {
   line-height: 1;
 
   cursor: pointer;
+
   z-index: 20;
 
   transition: 0.2s;
@@ -259,23 +294,27 @@ h2 {
    PRODUCT INFO
 ========================= */
 
+.product-info {
+  min-width: 0;
+}
+
 .product-info h3 {
-  font-size: 36px;
-  line-height: 1.2;
+  font-size: clamp(30px, 3vw, 42px);
+  line-height: 1.15;
   margin-bottom: 15px;
 }
 
 .price {
   color: #d4af37;
-  font-size: 28px;
+  font-size: 30px;
   font-weight: bold;
   margin-bottom: 20px;
 }
 
 .product-info > p:not(.tag):not(.price) {
   color: #aaa;
-  max-width: 500px;
-  margin-bottom: 30px;
+  max-width: 550px;
+  margin-bottom: 25px;
 }
 
 .features {
@@ -287,25 +326,25 @@ h2 {
   margin-bottom: 7px;
 }
 
-/* =========================
-   PRODUCT BUTTONS
-========================= */
-
 .product-buttons {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   flex-wrap: wrap;
 }
 
 .like-product-button {
   background: transparent;
   color: #d4af37;
+
   border: 1px solid #d4af37;
-  padding: 14px 20px;
   border-radius: 7px;
+
+  padding: 14px 20px;
+
   font-weight: bold;
   cursor: pointer;
+
   transition: 0.2s;
 }
 
@@ -313,7 +352,138 @@ h2 {
 .like-product-button.liked {
   background: #d4af37;
   color: #07080c;
-  box-shadow: 0 0 20px rgba(212, 175, 55, 0.25);
+}
+
+/* =========================
+   CART + LIKES
+========================= */
+
+.cart-panel,
+.likes-panel {
+  position: fixed;
+
+  top: 0;
+  right: -450px;
+
+  width: min(430px, 92vw);
+  height: 100vh;
+
+  background: #0b0d12;
+
+  border-left: 1px solid #d4af37;
+
+  padding: 35px;
+
+  z-index: 200;
+
+  overflow-y: auto;
+
+  box-shadow:
+    -15px 0 40px rgba(0, 0, 0, 0.5);
+
+  transition: right 0.3s ease;
+}
+
+.cart-panel.active,
+.likes-panel.active {
+  right: 0;
+}
+
+.cart-panel h2,
+.likes-panel h2 {
+  color: #d4af37;
+  font-size: 40px;
+  margin-bottom: 35px;
+}
+
+.close-cart,
+.close-likes {
+  position: absolute;
+
+  top: 18px;
+  right: 20px;
+
+  background: transparent;
+  border: none;
+
+  color: white;
+
+  font-size: 35px;
+
+  cursor: pointer;
+}
+
+.close-cart:hover,
+.close-likes:hover {
+  color: #d4af37;
+}
+
+/* =========================
+   CART / LIKED ITEMS
+========================= */
+
+.cart-item,
+.liked-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  padding: 20px 0;
+
+  border-bottom: 1px solid #292c34;
+}
+
+.cart-item img,
+.liked-item img {
+  width: 80px;
+  height: 80px;
+
+  flex-shrink: 0;
+
+  object-fit: contain;
+
+  background: #11131a;
+
+  border: 1px solid #292c34;
+  border-radius: 8px;
+}
+
+.cart-item-info,
+.liked-item > div {
+  min-width: 0;
+}
+
+.cart-item h3,
+.liked-item h3 {
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+.cart-item p,
+.liked-item p {
+  color: #d4af37;
+  font-weight: bold;
+}
+
+.cart-item button,
+.liked-item button {
+  margin-top: 8px;
+
+  padding: 6px 10px;
+
+  background: transparent;
+  color: #aaa;
+
+  border: 1px solid #444;
+  border-radius: 5px;
+
+  cursor: pointer;
+}
+
+.cart-item button:hover,
+.liked-item button:hover {
+  color: white;
+  border-color: #d4af37;
 }
 
 /* =========================
@@ -323,16 +493,23 @@ h2 {
 .about > p:last-child {
   max-width: 600px;
   color: #aaa;
+  margin-top: 25px;
 }
 
 /* =========================
    FAQ
 ========================= */
 
+.faq h2 {
+  margin-bottom: 40px;
+}
+
 .faq details {
-  border-top: 1px solid #333;
-  padding: 25px 0;
   max-width: 800px;
+
+  padding: 23px 0;
+
+  border-top: 1px solid #333;
 }
 
 .faq details:last-child {
@@ -341,6 +518,7 @@ h2 {
 
 summary {
   cursor: pointer;
+
   font-size: 18px;
   font-weight: bold;
 }
@@ -351,14 +529,296 @@ summary:hover {
 
 details p {
   color: #999;
-  margin-top: 15px;
+  margin-top: 12px;
 }
 
 /* =========================
-   CART + LIKES PANELS
+   FOOTER
 ========================= */
 
-.cart-panel,
-.likes-panel {
-  position: fixed;
- 
+footer {
+  padding: 60px 7%;
+  border-top: 1px solid #24262d;
+  color: #777;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media screen and (max-width: 1000px) and (min-width: 701px) {
+
+  header {
+    padding-left: 4%;
+    padding-right: 4%;
+  }
+
+  nav {
+    gap: 18px;
+  }
+
+  .hero {
+    padding: 70px 5%;
+    gap: 35px;
+  }
+
+  .shop,
+  .about,
+  .faq {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  .product-card {
+    gap: 35px;
+  }
+
+  .product-image {
+    height: 400px;
+  }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media screen and (max-width: 700px) {
+
+  body {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* HEADER */
+
+  header {
+    min-height: 68px;
+    height: 68px;
+
+    padding: 7px 12px;
+
+    gap: 8px;
+  }
+
+  .logo img {
+    width: 72px;
+  }
+
+  nav {
+    display: none;
+  }
+
+  .header-actions {
+    margin-left: auto;
+    gap: 5px;
+  }
+
+  .like-button,
+  .cart-button {
+    padding: 8px 9px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+
+  /* HERO */
+
+  .hero {
+    min-height: auto;
+
+    display: block;
+
+    padding: 50px 18px 45px;
+  }
+
+  .hero-placeholder {
+    display: none;
+  }
+
+  h1 {
+    font-size: clamp(48px, 15vw, 65px);
+    line-height: 0.95;
+    margin-bottom: 25px;
+  }
+
+  .hero-text {
+    font-size: 15px;
+  }
+
+
+  /* SECTIONS */
+
+  .shop,
+  .about,
+  .faq {
+    padding: 60px 18px;
+  }
+
+  .shop h2 {
+    font-size: clamp(43px, 13vw, 58px);
+    margin-bottom: 35px;
+  }
+
+
+  /* PRODUCT = ONE COLUMN */
+
+  .product-card {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 32px;
+
+    align-items: stretch;
+  }
+
+
+  /* PRODUCT IMAGE */
+
+  .product-image {
+    width: 100%;
+
+    height: 270px;
+    min-height: 270px;
+
+    flex-shrink: 0;
+
+    border-radius: 12px;
+  }
+
+  .product-image img {
+    width: 100%;
+    height: 100%;
+
+    padding: 10px;
+
+    object-fit: contain;
+  }
+
+
+  /* ARROWS */
+
+  .image-arrow {
+    width: 44px;
+    height: 44px;
+
+    font-size: 28px;
+  }
+
+  .image-arrow.left {
+    left: 8px;
+  }
+
+  .image-arrow.right {
+    right: 8px;
+  }
+
+
+  /* PRODUCT INFO */
+
+  .product-info {
+    width: 100%;
+  }
+
+  .product-info h3 {
+    font-size: 29px;
+    line-height: 1.15;
+  }
+
+  .price {
+    font-size: 27px;
+  }
+
+  .features {
+    padding-right: 10px;
+  }
+
+
+  /* BUTTONS */
+
+  .product-buttons {
+    width: 100%;
+  }
+
+  .product-buttons .button,
+  .product-buttons .like-product-button {
+    flex: 1;
+    text-align: center;
+  }
+
+
+  /* PANELS */
+
+  .cart-panel,
+  .likes-panel {
+    width: 88vw;
+    max-width: 380px;
+
+    padding: 28px 20px;
+  }
+
+}
+
+
+/* =====================================================
+   SMALL PHONES
+===================================================== */
+
+@media screen and (max-width: 430px) {
+
+  header {
+    padding: 7px 9px;
+  }
+
+  .logo img {
+    width: 66px;
+  }
+
+  .like-button,
+  .cart-button {
+    padding: 7px 8px;
+    font-size: 11px;
+  }
+
+  .hero {
+    padding: 45px 15px 35px;
+  }
+
+  h1 {
+    font-size: 50px;
+  }
+
+  .shop,
+  .about,
+  .faq {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .shop h2 {
+    font-size: 45px;
+  }
+
+  .product-image {
+    height: 240px;
+    min-height: 240px;
+  }
+
+  .product-info h3 {
+    font-size: 27px;
+  }
+
+  .product-buttons {
+    flex-direction: column;
+  }
+
+  .product-buttons .button,
+  .product-buttons .like-product-button {
+    width: 100%;
+  }
+
+}
