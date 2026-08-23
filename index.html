@@ -1,1 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MAVRENX — Gaming Gear</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
 
+<body>
+
+  <header>
+    <div class="logo">MAVRENX</div>
+
+    <nav>
+      <a href="#shop">Shop</a>
+      <a href="#about">About</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+
+    <button class="cart-button">
+      Cart (<span id="cart-count">0</span>)
+    </button>
+  </header>
+
+
+  <main>
+
+    <section class="hero">
+      <div>
+        <p class="tag">MAVRENX GAMING</p>
+
+        <h1>
+          Upgrade<br>
+          your <span>setup.</span>
+        </h1>
+
+        <p class="hero-text">
+          Gaming gear made to make your setup look better
+          and feel better.
+        </p>
+
+        <a href="#shop" class="button">Shop now</a>
+      </div>
+
+      <div class="hero-placeholder">
+        <span>PRODUCT IMAGE</span>
+      </div>
+    </section>
+
+
+    <section id="shop" class="shop">
+
+      <p class="tag">FEATURED</p>
+
+      <h2>Our first product.</h2>
+
+      <div class="product-card">
+
+        <div class="product-image">
+          <span>PRODUCT IMAGE</span>
+        </div>
+
+        <div class="product-info">
+
+          <p class="tag">GAMING LIGHTING</p>
+
+          <h3>RGB Gaming LED Strip</h3>
+
+          <p class="price">€19.99</p>
+
+          <p>
+            Transform your gaming setup with vibrant RGB
+            lighting designed for desks, monitors and rooms.
+          </p>
+
+          <button
+            class="button"
+            onclick="addToCart()">
+            Add to cart
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section id="about" class="about">
+
+      <p class="tag">ABOUT MAVRENX</p>
+
+      <h2>Gaming gear.<br><span>Nothing extra.</span></h2>
+
+      <p>
+        MAVRENX is built around simple gaming accessories
+        that make your setup stand out.
+      </p>
+
+    </section>
+
+
+    <section id="faq" class="faq">
+
+      <p class="tag">FAQ</p>
+
+      <h2>Questions.</h2>
+
+      <details>
+        <summary>How long is the LED strip?</summary>
+        <p>The featured strip is 5 metres long.</p>
+      </details>
+
+      <details>
+        <summary>How is it powered?</summary>
+        <p>It is powered through USB.</p>
+      </details>
+
+      <details>
+        <summary>Can I change the colours?</summary>
+        <p>Yes. The RGB lighting supports multiple colours and modes.</p>
+      </details>
+
+    </section>
+
+  </main>
+
+
+  <footer>
+    <div class="logo">MAVRENX</div>
+    <p>Gaming gear. Nothing extra.</p>
+    <small>© 2026 MAVRENX</small>
+  </footer>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
