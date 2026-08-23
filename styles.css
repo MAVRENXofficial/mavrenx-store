@@ -445,10 +445,16 @@ footer p {
   box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
 }
 
-.image-arrow.left {
+.
+image-arrow.left {
   left: 15px;
 }
 
 .image-arrow.right {
   right: 15px;
+}
+.logo img {
+  width: 120px;
+  height: auto;
+  display: block;
 }
