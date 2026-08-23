@@ -412,3 +412,43 @@ footer p {
   }
 
 }
+.product-image {
+  position: relative;
+}
+
+.image-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 48px;
+  height: 48px;
+
+  border-radius: 50%;
+  border: 1px solid #d4af37;
+
+  background: rgba(5, 6, 9, 0.85);
+  color: #f0c84b;
+
+  font-size: 35px;
+  line-height: 1;
+
+  cursor: pointer;
+  z-index: 5;
+
+  transition: 0.2s;
+}
+
+.image-arrow:hover {
+  background: #d4af37;
+  color: #050609;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+}
+
+.image-arrow.left {
+  left: 15px;
+}
+
+.image-arrow.right {
+  right: 15px;
+}
