@@ -1,11 +1,10 @@
 let cartCount = 0;
 
 const productImages = [
-  "https://m.media-amazon.com/images/I/71ugRQSCacL._AC_SX342_SY445_QL70_FMwebp_.jpg",
-  "https://m.media-amazon.com/images/I/51Kad9g-8jL._AC_SR38,50_.jpg",
-  "https://m.media-amazon.com/images/I/51nxe5h4vQL._AC_SR38,50_.jpg",
-  "https://m.media-amazon.com/images/I/51mNpTyIaJL._AC_SR38,50_.jpg",
-  "https://m.media-amazon.com/images/I/5181oUsRCxL._AC_SR38,50_.jpg",
+  "https://m.media-amazon.com/images/I/71+x5N3Z7QL._AC_SX679_.jpg",
+  "https://m.media-amazon.com/images/I/71D+waz6LsL._AC_SX679_.jpg",
+  "https://m.media-amazon.com/images/I/81kf8ndZNoL._AC_SX679_.jpg",
+  "https://m.media-amazon.com/images/I/81QmxX1XyFL._AC_SX679_.jpg",
   "https://m.media-amazon.com/images/I/71RVtS3ExoL._AC_SX679_.jpg",
   "https://m.media-amazon.com/images/I/81EIn29oIjL._AC_SL1500_.jpg"
 ];
