@@ -3,407 +3,839 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>MAVRENX — Home & Everyday</title>
 
-  <link rel="stylesheet" href="styles.css">
+  <link
+    rel="stylesheet"
+    href="styles.css"
+  >
 </head>
+
 
 <body>
 
-<header>
 
-  <div class="logo">
-    MAVRENX
-  </div>
+  <!-- =========================================
+       HEADER
+  ========================================== -->
 
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#categories">Categories</a>
-    <a href="#shop">Shop</a>
-    <a href="#about">About</a>
-  </nav>
+  <header>
 
-  <div class="header-actions">
+    <!-- LOGO - NOT CLICKABLE -->
 
-    <button class="like-button" onclick="openLikes()">
-      ♡ <span id="likes-count">0</span>
-    </button>
+    <div class="logo">
 
-    <button class="cart-button" onclick="openCart()">
-      Cart (<span id="cart-count">0</span>)
-    </button>
+      <img
+        src="file_000000007fa081f4ac4862e52d82c4a9.png"
+        alt="MAVRENX"
+      >
 
-    <button
-      id="theme-button"
-      class="theme-button"
-      onclick="toggleTheme()">
-      ☾
-    </button>
-
-  </div>
-
-</header>
+    </div>
 
 
-<main>
+    <!-- DESKTOP NAVIGATION -->
 
-  <!-- HERO -->
+    <nav>
 
-  <section id="home" class="hero">
+      <a href="#home">
+        Home
+      </a>
 
-    <div class="hero-content">
+      <a href="#categories">
+        Categories
+      </a>
 
-      <p class="tag">MAVRENX HOME</p>
+      <a href="#shop">
+        Shop
+      </a>
 
-      <h1>
-        Better things.<br>
-        <span>Better home.</span>
-      </h1>
+      <a href="#about">
+        About
+      </a>
 
-      <p class="hero-text">
-        Useful, modern products for your home,
-        kitchen, bedroom and everyday life.
+    </nav>
+
+
+    <!-- HEADER BUTTONS -->
+
+    <div class="header-actions">
+
+
+      <!-- LIKED ITEMS -->
+
+      <button
+        class="like-button"
+        onclick="openLikes()"
+        aria-label="Open liked items"
+      >
+        ♡
+        <span id="likes-count">0</span>
+      </button>
+
+
+      <!-- CART -->
+
+      <button
+        class="cart-button"
+        onclick="openCart()"
+      >
+        Cart
+        (<span id="cart-count">0</span>)
+      </button>
+
+
+      <!-- LIGHT / DARK MODE -->
+
+      <button
+        id="theme-button"
+        class="theme-button"
+        onclick="toggleTheme()"
+        aria-label="Switch light and dark mode"
+      >
+        ☾
+      </button>
+
+
+    </div>
+
+  </header>
+
+
+
+  <!-- =========================================
+       MAIN
+  ========================================== -->
+
+  <main>
+
+
+    <!-- =========================================
+         HERO
+    ========================================== -->
+
+    <section
+      id="home"
+      class="hero"
+    >
+
+      <div class="hero-content">
+
+
+        <p class="tag">
+          MAVRENX HOME
+        </p>
+
+
+        <h1>
+          Better things.<br>
+          <span>Better home.</span>
+        </h1>
+
+
+        <p class="hero-text">
+
+          Discover useful products for cleaning,
+          lighting, kitchens, bedrooms,
+          smart homes and everyday life.
+
+        </p>
+
+
+        <a
+          href="#categories"
+          class="main-button"
+        >
+          Browse categories
+        </a>
+
+
+      </div>
+
+
+      <div class="hero-art">
+
+        <div class="hero-shape">
+
+          <span>
+            MAVRENX
+          </span>
+
+        </div>
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- =========================================
+         CATEGORIES
+    ========================================== -->
+
+    <section
+      id="categories"
+      class="categories"
+    >
+
+      <p class="tag">
+        SHOP BY CATEGORY
       </p>
 
-      <a href="#categories" class="main-button">
-        Browse categories
-      </a>
 
-    </div>
+      <h2>
+        Find what you<br>
+        <span>need.</span>
+      </h2>
 
-    <div class="hero-art">
 
-      <div class="hero-shape">
-        <span>HOME</span>
+      <div class="category-grid">
+
+
+        <!-- CLEANING -->
+
+        <a
+          href="#cleaning"
+          class="category-card"
+        >
+
+          <span class="category-icon">
+            🧹
+          </span>
+
+          <h3>
+            Cleaning
+          </h3>
+
+          <p>
+            Vacuums, cleaning tools and accessories.
+          </p>
+
+        </a>
+
+
+
+        <!-- LIGHTING -->
+
+        <a
+          href="#lighting"
+          class="category-card"
+        >
+
+          <span class="category-icon">
+            💡
+          </span>
+
+          <h3>
+            Lighting
+          </h3>
+
+          <p>
+            Lamps, LEDs and ambient lighting.
+          </p>
+
+        </a>
+
+
+
+        <!-- HOME -->
+
+        <a
+          href="#home-products"
+          class="category-card"
+        >
+
+          <span class="category-icon">
+            🏠
+          </span>
+
+          <h3>
+            Home
+          </h3>
+
+          <p>
+            Everyday essentials and useful gadgets.
+          </p>
+
+        </a>
+
+
+
+        <!-- KITCHEN -->
+
+        <a
+          href="#kitchen"
+          class="category-card"
+        >
+
+          <span class="category-icon">
+            🍳
+          </span>
+
+          <h3>
+            Kitchen
+          </h3>
+
+          <p>
+            Cooking tools and kitchen accessories.
+          </p>
+
+        </a>
+
+
+
+        <!-- SMART HOME -->
+
+        <a
+          href="#smart-home"
+          class="category-card"
+        >
+
+          <span class="category-icon">
+            🔌
+          </span>
+
+          <h3>
+            Smart Home
+          </h3>
+
+          <p>
+            Smart lights, devices and home technology.
+          </p>
+
+        </a>
+
+
+
+        <!-- BEDROOM -->
+
+        <a
+          href="#bedroom"
+          class="category-card"
+        >
+
+          <span class="category-icon">
+            🛏️
+          </span>
+
+          <h3>
+            Bedroom
+          </h3>
+
+          <p>
+            Comfort, lighting and organisation.
+          </p>
+
+        </a>
+
+
       </div>
 
-    </div>
-
-  </section>
+    </section>
 
 
-  <!-- CATEGORIES -->
 
-  <section id="categories" class="categories">
+    <!-- =========================================
+         MAIN SHOP
+    ========================================== -->
 
-    <p class="tag">SHOP BY CATEGORY</p>
+    <section
+      id="shop"
+      class="shop"
+    >
+
+      <p class="tag">
+        SHOP
+      </p>
+
+
+      <h2>
+        Explore<br>
+        <span>MAVRENX.</span>
+      </h2>
+
+
+      <p class="section-description">
+
+        We're currently finding great products
+        to add to the store.
+
+      </p>
+
+
+      <!--
+        PRODUCT CARDS WILL BE ADDED HERE
+      -->
+
+      <div
+        id="product-grid"
+        class="product-grid"
+      >
+      </div>
+
+
+    </section>
+
+
+
+    <!-- =========================================
+         CLEANING
+    ========================================== -->
+
+    <section
+      id="cleaning"
+      class="category-section"
+    >
+
+      <div class="category-heading">
+
+        <span class="big-icon">
+          🧹
+        </span>
+
+        <div>
+
+          <p class="tag">
+            CATEGORY
+          </p>
+
+          <h2>
+            Cleaning
+          </h2>
+
+          <p class="category-description">
+            Vacuums, cleaning equipment and useful
+            tools for keeping your home clean.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div
+        id="cleaning-products"
+        class="category-products"
+      >
+
+        <div class="empty-category">
+          Cleaning products coming soon.
+        </div>
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- =========================================
+         LIGHTING
+    ========================================== -->
+
+    <section
+      id="lighting"
+      class="category-section"
+    >
+
+      <div class="category-heading">
+
+        <span class="big-icon">
+          💡
+        </span>
+
+        <div>
+
+          <p class="tag">
+            CATEGORY
+          </p>
+
+          <h2>
+            Lighting
+          </h2>
+
+          <p class="category-description">
+            Lamps, LEDs and lighting products
+            for every room.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div
+        id="lighting-products"
+        class="category-products"
+      >
+
+        <div class="empty-category">
+          Lighting products coming soon.
+        </div>
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- =========================================
+         HOME
+    ========================================== -->
+
+    <section
+      id="home-products"
+      class="category-section"
+    >
+
+      <div class="category-heading">
+
+        <span class="big-icon">
+          🏠
+        </span>
+
+        <div>
+
+          <p class="tag">
+            CATEGORY
+          </p>
+
+          <h2>
+            Home
+          </h2>
+
+          <p class="category-description">
+            Useful everyday products for around
+            your home.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div
+        id="home-category-products"
+        class="category-products"
+      >
+
+        <div class="empty-category">
+          Home products coming soon.
+        </div>
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- =========================================
+         KITCHEN
+    ========================================== -->
+
+    <section
+      id="kitchen"
+      class="category-section"
+    >
+
+      <div class="category-heading">
+
+        <span class="big-icon">
+          🍳
+        </span>
+
+        <div>
+
+          <p class="tag">
+            CATEGORY
+          </p>
+
+          <h2>
+            Kitchen
+          </h2>
+
+          <p class="category-description">
+            Cooking tools, accessories and
+            useful kitchen products.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div
+        id="kitchen-products"
+        class="category-products"
+      >
+
+        <div class="empty-category">
+          Kitchen products coming soon.
+        </div>
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- =========================================
+         SMART HOME
+    ========================================== -->
+
+    <section
+      id="smart-home"
+      class="category-section"
+    >
+
+      <div class="category-heading">
+
+        <span class="big-icon">
+          🔌
+        </span>
+
+        <div>
+
+          <p class="tag">
+            CATEGORY
+          </p>
+
+          <h2>
+            Smart Home
+          </h2>
+
+          <p class="category-description">
+            Smart lights, connected devices and
+            useful home technology.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div
+        id="smart-home-products"
+        class="category-products"
+      >
+
+        <div class="empty-category">
+          Smart-home products coming soon.
+        </div>
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- =========================================
+         BEDROOM
+    ========================================== -->
+
+    <section
+      id="bedroom"
+      class="category-section"
+    >
+
+      <div class="category-heading">
+
+        <span class="big-icon">
+          🛏️
+        </span>
+
+        <div>
+
+          <p class="tag">
+            CATEGORY
+          </p>
+
+          <h2>
+            Bedroom
+          </h2>
+
+          <p class="category-description">
+            Comfort, lighting, storage and
+            bedroom accessories.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div
+        id="bedroom-products"
+        class="category-products"
+      >
+
+        <div class="empty-category">
+          Bedroom products coming soon.
+        </div>
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- =========================================
+         ABOUT
+    ========================================== -->
+
+    <section
+      id="about"
+      class="about"
+    >
+
+      <p class="tag">
+        ABOUT MAVRENX
+      </p>
+
+
+      <h2>
+        Useful products.<br>
+        <span>Simple shopping.</span>
+      </h2>
+
+
+      <p class="about-text">
+
+        MAVRENX brings together useful products
+        for your home and everyday life.
+
+        From vacuums and cleaning products
+        to lighting, kitchen accessories,
+        bedroom products and smart-home devices.
+
+      </p>
+
+
+    </section>
+
+
+  </main>
+
+
+
+  <!-- =========================================
+       LIKED ITEMS PANEL
+  ========================================== -->
+
+  <div
+    id="likes-panel"
+    class="side-panel likes-panel"
+  >
+
+    <!-- X BUTTON -->
+
+    <button
+      class="close-panel"
+      onclick="closeLikes()"
+      aria-label="Close liked items"
+    >
+      ×
+    </button>
+
 
     <h2>
-      Find what you<br>
-      <span>need.</span>
+      Liked Items
     </h2>
 
-    <div class="category-grid">
 
+    <div id="liked-items">
 
-      <a href="#cleaning" class="category-card">
-
-        <span class="category-icon">🧹</span>
-
-        <h3>Cleaning</h3>
-
-        <p>
-          Vacuums, cleaning tools and accessories.
-        </p>
-
-      </a>
-
-
-      <a href="#lighting" class="category-card">
-
-        <span class="category-icon">💡</span>
-
-        <h3>Lighting</h3>
-
-        <p>
-          Lamps, LEDs and ambient lighting.
-        </p>
-
-      </a>
-
-
-      <a href="#home-products" class="category-card">
-
-        <span class="category-icon">🏠</span>
-
-        <h3>Home</h3>
-
-        <p>
-          Everyday home products and useful gadgets.
-        </p>
-
-      </a>
-
-
-      <a href="#kitchen" class="category-card">
-
-        <span class="category-icon">🍳</span>
-
-        <h3>Kitchen</h3>
-
-        <p>
-          Cooking tools and kitchen accessories.
-        </p>
-
-      </a>
-
-
-      <a href="#smart-home" class="category-card">
-
-        <span class="category-icon">🔌</span>
-
-        <h3>Smart Home</h3>
-
-        <p>
-          Smart lights, connected devices and tech.
-        </p>
-
-      </a>
-
-
-      <a href="#bedroom" class="category-card">
-
-        <span class="category-icon">🛏️</span>
-
-        <h3>Bedroom</h3>
-
-        <p>
-          Comfort, lighting and bedroom accessories.
-        </p>
-
-      </a>
+      <p class="empty-message">
+        You haven't liked anything yet.
+      </p>
 
     </div>
 
-  </section>
+
+  </div>
 
 
-  <!-- SHOP -->
 
-  <section id="shop" class="shop">
+  <!-- =========================================
+       CART PANEL
+  ========================================== -->
 
-    <p class="tag">SHOP</p>
+  <div
+    id="cart-panel"
+    class="side-panel cart-panel"
+  >
+
+    <!-- X BUTTON -->
+
+    <button
+      class="close-panel"
+      onclick="closeCart()"
+      aria-label="Close cart"
+    >
+      ×
+    </button>
+
 
     <h2>
-      Explore<br>
-      <span>MAVRENX.</span>
+      Your Cart
     </h2>
 
-    <p class="section-description">
-      New products will be added here as we find them.
-    </p>
 
-  </section>
+    <div id="cart-items">
 
-
-  <!-- CLEANING -->
-
-  <section id="cleaning" class="category-section">
-
-    <div class="category-heading">
-
-      <span class="big-icon">🧹</span>
-
-      <div>
-        <p class="tag">CATEGORY</p>
-        <h2>Cleaning</h2>
-      </div>
+      <p class="empty-message">
+        Your cart is empty.
+      </p>
 
     </div>
 
-    <div class="empty-category">
-      Cleaning products coming soon.
+
+  </div>
+
+
+
+  <!-- =========================================
+       FOOTER
+  ========================================== -->
+
+  <footer>
+
+
+    <div class="logo">
+      MAVRENX
     </div>
 
-  </section>
-
-
-  <!-- LIGHTING -->
-
-  <section id="lighting" class="category-section">
-
-    <div class="category-heading">
-
-      <span class="big-icon">💡</span>
-
-      <div>
-        <p class="tag">CATEGORY</p>
-        <h2>Lighting</h2>
-      </div>
-
-    </div>
-
-    <div class="empty-category">
-      Lighting products coming soon.
-    </div>
-
-  </section>
-
-
-  <!-- HOME -->
-
-  <section id="home-products" class="category-section">
-
-    <div class="category-heading">
-
-      <span class="big-icon">🏠</span>
-
-      <div>
-        <p class="tag">CATEGORY</p>
-        <h2>Home</h2>
-      </div>
-
-    </div>
-
-    <div class="empty-category">
-      Home products coming soon.
-    </div>
-
-  </section>
-
-
-  <!-- KITCHEN -->
-
-  <section id="kitchen" class="category-section">
-
-    <div class="category-heading">
-
-      <span class="big-icon">🍳</span>
-
-      <div>
-        <p class="tag">CATEGORY</p>
-        <h2>Kitchen</h2>
-      </div>
-
-    </div>
-
-    <div class="empty-category">
-      Kitchen products coming soon.
-    </div>
-
-  </section>
-
-
-  <!-- SMART HOME -->
-
-  <section id="smart-home" class="category-section">
-
-    <div class="category-heading">
-
-      <span class="big-icon">🔌</span>
-
-      <div>
-        <p class="tag">CATEGORY</p>
-        <h2>Smart Home</h2>
-      </div>
-
-    </div>
-
-    <div class="empty-category">
-      Smart-home products coming soon.
-    </div>
-
-  </section>
-
-
-  <!-- BEDROOM -->
-
-  <section id="bedroom" class="category-section">
-
-    <div class="category-heading">
-
-      <span class="big-icon">🛏️</span>
-
-      <div>
-        <p class="tag">CATEGORY</p>
-        <h2>Bedroom</h2>
-      </div>
-
-    </div>
-
-    <div class="empty-category">
-      Bedroom products coming soon.
-    </div>
-
-  </section>
-
-
-  <!-- ABOUT -->
-
-  <section id="about" class="about">
-
-    <p class="tag">ABOUT MAVRENX</p>
-
-    <h2>
-      Useful products.<br>
-      <span>Simple shopping.</span>
-    </h2>
 
     <p>
-      MAVRENX is focused on useful products for
-      cleaning, home, lighting, kitchen, smart devices,
-      bedrooms and everyday life.
+      Better things. Better home.
     </p>
 
-  </section>
 
-</main>
-
-
-<!-- LIKES PANEL -->
-
-<div id="likes-panel" class="side-panel">
-
-  <button
-    class="close-panel"
-    onclick="closeLikes()">
-    ×
-  </button>
-
-  <h2>Liked Items</h2>
-
-  <div id="liked-items">
-    <p>You haven't liked anything yet.</p>
-  </div>
-
-</div>
+    <small>
+      © 2026 MAVRENX
+    </small>
 
 
-<!-- CART PANEL -->
-
-<div id="cart-panel" class="side-panel">
-
-  <button
-    class="close-panel"
-    onclick="closeCart()">
-    ×
-  </button>
-
-  <h2>Your Cart</h2>
-
-  <div id="cart-items">
-    <p>Your cart is empty.</p>
-  </div>
-
-</div>
+  </footer>
 
 
-<footer>
 
-  <div class="logo">
-    MAVRENX
-  </div>
+  <!-- JAVASCRIPT -->
 
-  <p>Better things. Better home.</p>
+  <script src="script.js"></script>
 
-  <small>© 2026 MAVRENX</small>
-
-</footer>
-
-
-<script src="script.js"></script>
 
 </body>
+
 </html>
