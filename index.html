@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
   <meta charset="UTF-8">
 
   <meta
@@ -15,15 +16,16 @@
     rel="stylesheet"
     href="styles.css"
   >
+
 </head>
 
 
 <body>
 
 
-  <!-- =========================
+  <!-- =========================================
        HEADER
-  ========================== -->
+  ========================================== -->
 
   <header>
 
@@ -72,8 +74,10 @@
         onclick="openLikes()"
         aria-label="Open liked items"
       >
+
         ♡
         <span id="likes-count">0</span>
+
       </button>
 
 
@@ -84,12 +88,14 @@
         onclick="openCart()"
         aria-label="Open cart"
       >
+
         Cart
         (<span id="cart-count">0</span>)
+
       </button>
 
 
-      <!-- THEME -->
+      <!-- LIGHT / DARK MODE -->
 
       <button
         id="theme-button"
@@ -107,66 +113,76 @@
 
 
 
-  <!-- =========================
-       NOTIFICATION POPUP
-  ========================== -->
+  <!-- =========================================
+       BIG NOTIFICATION POPUP
+  ========================================== -->
 
   <div
-    id="notification-prompt"
-    class="notification-prompt"
+    id="notification-overlay"
+    class="notification-overlay"
   >
 
-    <button
-      class="notification-close"
-      onclick="
-        document.getElementById('notification-prompt').style.display='none'
-      "
-      aria-label="Close notification message"
-    >
-      ×
-    </button>
+    <div class="notification-modal">
 
 
-    <div class="notification-icon">
-      🔔
-    </div>
+      <!-- X -->
+
+      <button
+        class="notification-close"
+        onclick="closeNotificationPopup()"
+        aria-label="Close notification popup"
+      >
+        ×
+      </button>
 
 
-    <div class="notification-content">
+      <!-- ICON -->
 
-      <h3>
-        Stay updated
-      </h3>
+      <div class="notification-big-icon">
+        🔔
+      </div>
 
+
+      <!-- TITLE -->
+
+      <h2>
+        Stay updated with
+        <span>MAVRENX</span>
+      </h2>
+
+
+      <!-- DESCRIPTION -->
 
       <p>
-        Get notifications when your order is confirmed,
-        prepared, shipped, in transit and delivered.
+
+        Get real-time notifications about your order.
+
+        We'll let you know when your order is
+        confirmed, prepared, shipped, in transit,
+        out for delivery and delivered.
+
       </p>
 
 
-      <div class="notification-actions">
+      <!-- ENABLE -->
+
+      <button
+        class="enable-notifications-button"
+        onclick="enableNotificationsFromPopup()"
+      >
+        Enable notifications
+      </button>
 
 
-        <button
-          class="enable-notifications-button"
-          onclick="enableNotifications()"
-        >
-          Enable notifications
-        </button>
+      <!-- NOT NOW -->
 
+      <button
+        class="not-now-button"
+        onclick="closeNotificationPopup()"
+      >
+        Not now
+      </button>
 
-        <button
-          class="not-now-button"
-          onclick="
-            document.getElementById('notification-prompt').style.display='none'
-          "
-        >
-          Not now
-        </button>
-
-
-      </div>
 
     </div>
 
@@ -174,17 +190,22 @@
 
 
 
+  <!-- =========================================
+       MAIN WEBSITE
+  ========================================== -->
+
   <main>
 
 
-    <!-- =========================
+    <!-- =========================================
          HERO
-    ========================== -->
+    ========================================== -->
 
     <section
       id="home"
       class="hero"
     >
+
 
       <div class="hero-content">
 
@@ -195,8 +216,13 @@
 
 
         <h1>
+
           Better things.<br>
-          <span>Better home.</span>
+
+          <span>
+            Better home.
+          </span>
+
         </h1>
 
 
@@ -220,7 +246,9 @@
       </div>
 
 
+
       <div class="hero-art">
+
 
         <div class="hero-shape">
 
@@ -230,6 +258,7 @@
 
         </div>
 
+
       </div>
 
 
@@ -237,14 +266,15 @@
 
 
 
-    <!-- =========================
+    <!-- =========================================
          CATEGORIES
-    ========================== -->
+    ========================================== -->
 
     <section
       id="categories"
       class="categories"
     >
+
 
       <p class="tag">
         SHOP BY CATEGORY
@@ -252,9 +282,15 @@
 
 
       <h2>
+
         Find what you<br>
-        <span>need.</span>
+
+        <span>
+          need.
+        </span>
+
       </h2>
+
 
 
       <div class="category-grid">
@@ -399,18 +435,20 @@
 
       </div>
 
+
     </section>
 
 
 
-    <!-- =========================
+    <!-- =========================================
          SHOP
-    ========================== -->
+    ========================================== -->
 
     <section
       id="shop"
       class="shop"
     >
+
 
       <p class="tag">
         SHOP
@@ -418,8 +456,13 @@
 
 
       <h2>
+
         Explore<br>
-        <span>MAVRENX.</span>
+
+        <span>
+          MAVRENX.
+        </span>
+
       </h2>
 
 
@@ -432,6 +475,9 @@
         id="product-grid"
         class="product-grid"
       >
+
+        <!-- PRODUCTS GO HERE -->
+
       </div>
 
 
@@ -439,20 +485,23 @@
 
 
 
-    <!-- =========================
+    <!-- =========================================
          CLEANING
-    ========================== -->
+    ========================================== -->
 
     <section
       id="cleaning"
       class="category-section"
     >
 
+
       <div class="category-heading">
+
 
         <span class="big-icon">
           🧹
         </span>
+
 
         <div>
 
@@ -465,12 +514,17 @@
           </h2>
 
           <p class="category-description">
-            Vacuums, cleaning tools and accessories.
+
+            Vacuums, cleaning tools
+            and accessories.
+
           </p>
 
         </div>
 
+
       </div>
+
 
 
       <div
@@ -479,29 +533,36 @@
       >
 
         <div class="empty-category">
-          Cleaning products coming soon.
+
+          Cleaning products
+          coming soon.
+
         </div>
 
       </div>
+
 
     </section>
 
 
 
-    <!-- =========================
+    <!-- =========================================
          LIGHTING
-    ========================== -->
+    ========================================== -->
 
     <section
       id="lighting"
       class="category-section"
     >
 
+
       <div class="category-heading">
+
 
         <span class="big-icon">
           💡
         </span>
+
 
         <div>
 
@@ -514,12 +575,17 @@
           </h2>
 
           <p class="category-description">
-            Lamps, LEDs and lighting for your space.
+
+            Lamps, LEDs and lighting
+            for your space.
+
           </p>
 
         </div>
 
+
       </div>
+
 
 
       <div
@@ -528,29 +594,36 @@
       >
 
         <div class="empty-category">
-          Lighting products coming soon.
+
+          Lighting products
+          coming soon.
+
         </div>
 
       </div>
+
 
     </section>
 
 
 
-    <!-- =========================
+    <!-- =========================================
          HOME
-    ========================== -->
+    ========================================== -->
 
     <section
       id="home-products"
       class="category-section"
     >
 
+
       <div class="category-heading">
+
 
         <span class="big-icon">
           🏠
         </span>
+
 
         <div>
 
@@ -563,12 +636,17 @@
           </h2>
 
           <p class="category-description">
-            Useful everyday products for your home.
+
+            Useful everyday products
+            for your home.
+
           </p>
 
         </div>
 
+
       </div>
+
 
 
       <div
@@ -577,29 +655,36 @@
       >
 
         <div class="empty-category">
-          Home products coming soon.
+
+          Home products
+          coming soon.
+
         </div>
 
       </div>
+
 
     </section>
 
 
 
-    <!-- =========================
+    <!-- =========================================
          KITCHEN
-    ========================== -->
+    ========================================== -->
 
     <section
       id="kitchen"
       class="category-section"
     >
 
+
       <div class="category-heading">
+
 
         <span class="big-icon">
           🍳
         </span>
+
 
         <div>
 
@@ -612,12 +697,17 @@
           </h2>
 
           <p class="category-description">
-            Kitchen gadgets, tools and accessories.
+
+            Kitchen gadgets,
+            tools and accessories.
+
           </p>
 
         </div>
 
+
       </div>
+
 
 
       <div
@@ -626,29 +716,36 @@
       >
 
         <div class="empty-category">
-          Kitchen products coming soon.
+
+          Kitchen products
+          coming soon.
+
         </div>
 
       </div>
+
 
     </section>
 
 
 
-    <!-- =========================
+    <!-- =========================================
          SMART HOME
-    ========================== -->
+    ========================================== -->
 
     <section
       id="smart-home"
       class="category-section"
     >
 
+
       <div class="category-heading">
+
 
         <span class="big-icon">
           🔌
         </span>
+
 
         <div>
 
@@ -661,12 +758,17 @@
           </h2>
 
           <p class="category-description">
-            Smart lights, devices and connected home technology.
+
+            Smart lights, devices
+            and connected home technology.
+
           </p>
 
         </div>
 
+
       </div>
+
 
 
       <div
@@ -675,29 +777,36 @@
       >
 
         <div class="empty-category">
-          Smart-home products coming soon.
+
+          Smart-home products
+          coming soon.
+
         </div>
 
       </div>
+
 
     </section>
 
 
 
-    <!-- =========================
+    <!-- =========================================
          BEDROOM
-    ========================== -->
+    ========================================== -->
 
     <section
       id="bedroom"
       class="category-section"
     >
 
+
       <div class="category-heading">
+
 
         <span class="big-icon">
           🛏️
         </span>
+
 
         <div>
 
@@ -710,12 +819,17 @@
           </h2>
 
           <p class="category-description">
-            Comfort, lighting, storage and accessories.
+
+            Comfort, lighting,
+            storage and accessories.
+
           </p>
 
         </div>
 
+
       </div>
+
 
 
       <div
@@ -724,23 +838,28 @@
       >
 
         <div class="empty-category">
-          Bedroom products coming soon.
+
+          Bedroom products
+          coming soon.
+
         </div>
 
       </div>
+
 
     </section>
 
 
 
-    <!-- =========================
+    <!-- =========================================
          ABOUT
-    ========================== -->
+    ========================================== -->
 
     <section
       id="about"
       class="about"
     >
+
 
       <p class="tag">
         ABOUT MAVRENX
@@ -748,8 +867,13 @@
 
 
       <h2>
+
         Useful products.<br>
-        <span>Simple shopping.</span>
+
+        <span>
+          Simple shopping.
+        </span>
+
       </h2>
 
 
@@ -768,14 +892,15 @@
 
 
 
-  <!-- =========================
+  <!-- =========================================
        LIKED ITEMS
-  ========================== -->
+  ========================================== -->
 
   <div
     id="likes-panel"
     class="side-panel"
   >
+
 
     <button
       class="close-panel"
@@ -804,14 +929,15 @@
 
 
 
-  <!-- =========================
+  <!-- =========================================
        CART
-  ========================== -->
+  ========================================== -->
 
   <div
     id="cart-panel"
     class="side-panel"
   >
+
 
     <button
       class="close-panel"
@@ -840,11 +966,12 @@
 
 
 
-  <!-- =========================
+  <!-- =========================================
        FOOTER
-  ========================== -->
+  ========================================== -->
 
   <footer>
+
 
     <div class="footer-logo">
       MAVRENX
@@ -860,27 +987,31 @@
       © 2026 MAVRENX
     </small>
 
+
   </footer>
 
 
 
-  <!-- =========================
+  <!-- =========================================
        FIREBASE
-  ========================== -->
+  ========================================== -->
 
   <script
-    src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js">
-  </script>
-
-  <script
-    src="https://www.gstatic.com/firebasejs/10.13.2/firebase-messaging-compat.js">
+    src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"
+  >
   </script>
 
 
+  <script
+    src="https://www.gstatic.com/firebasejs/10.13.2/firebase-messaging-compat.js"
+  >
+  </script>
 
-  <!-- =========================
-       MAVRENX SCRIPT
-  ========================== -->
+
+
+  <!-- =========================================
+       MAVRENX JAVASCRIPT
+  ========================================== -->
 
   <script src="script.js"></script>
 
