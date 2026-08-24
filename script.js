@@ -2,11 +2,22 @@
    MAVRENX STORE
 ========================================= */
 
+
+/* =========================================
+   SAVED DATA
+========================================= */
+
 let cart =
-  JSON.parse(localStorage.getItem("mavrenx-cart")) || [];
+  JSON.parse(
+    localStorage.getItem("mavrenx-cart")
+  ) || [];
+
 
 let likedItems =
-  JSON.parse(localStorage.getItem("mavrenx-liked")) || [];
+  JSON.parse(
+    localStorage.getItem("mavrenx-liked")
+  ) || [];
+
 
 
 /* =========================================
@@ -14,107 +25,163 @@ let likedItems =
 ========================================= */
 
 function saveCart() {
+
   localStorage.setItem(
     "mavrenx-cart",
     JSON.stringify(cart)
   );
+
 }
 
+
 function saveLikes() {
+
   localStorage.setItem(
     "mavrenx-liked",
     JSON.stringify(likedItems)
   );
+
 }
+
 
 
 /* =========================================
    ADD TO CART
 ========================================= */
 
-function addToCart(id, name, price, image) {
+function addToCart(
+  id,
+  name,
+  price,
+  image
+) {
 
-  const existingItem =
-    cart.find(item => item.id === id);
+  const existing =
+    cart.find(
+      item => item.id === id
+    );
 
-  if (existingItem) {
 
-    existingItem.quantity += 1;
+  if (existing) {
+
+    existing.quantity += 1;
 
   } else {
 
     cart.push({
+
       id: id,
+
       name: name,
-      price: Number(price),
+
+      price:
+        Number(price),
+
       image: image,
+
       quantity: 1
+
     });
 
   }
+
 
   saveCart();
 
   updateCart();
 
   openCart();
+
 }
 
 
+
 /* =========================================
-   CART QUANTITY
+   QUANTITY +
 ========================================= */
 
 function increaseQuantity(id) {
 
   const item =
-    cart.find(item => item.id === id);
+    cart.find(
+      item => item.id === id
+    );
 
-  if (!item) return;
+
+  if (!item) {
+    return;
+  }
+
 
   item.quantity += 1;
+
 
   saveCart();
 
   updateCart();
+
 }
 
+
+
+/* =========================================
+   QUANTITY -
+========================================= */
 
 function decreaseQuantity(id) {
 
   const item =
-    cart.find(item => item.id === id);
+    cart.find(
+      item => item.id === id
+    );
 
-  if (!item) return;
+
+  if (!item) {
+    return;
+  }
+
 
   item.quantity -= 1;
+
 
   if (item.quantity <= 0) {
 
     cart =
-      cart.filter(item => item.id !== id);
+      cart.filter(
+        item =>
+          item.id !== id
+      );
 
   }
+
 
   saveCart();
 
   updateCart();
+
 }
 
 
+
 /* =========================================
-   REMOVE FROM CART
+   REMOVE CART ITEM
 ========================================= */
 
 function removeFromCart(id) {
 
   cart =
-    cart.filter(item => item.id !== id);
+    cart.filter(
+      item =>
+        item.id !== id
+    );
+
 
   saveCart();
 
   updateCart();
+
 }
+
 
 
 /* =========================================
@@ -124,10 +191,15 @@ function removeFromCart(id) {
 function updateCart() {
 
   const count =
-    document.getElementById("cart-count");
+    document.getElementById(
+      "cart-count"
+    );
+
 
   const container =
-    document.getElementById("cart-items");
+    document.getElementById(
+      "cart-items"
+    );
 
 
   let totalQuantity = 0;
@@ -135,7 +207,8 @@ function updateCart() {
 
   cart.forEach(item => {
 
-    totalQuantity += item.quantity;
+    totalQuantity +=
+      Number(item.quantity) || 1;
 
   });
 
@@ -148,18 +221,23 @@ function updateCart() {
   }
 
 
-  if (!container) return;
+  if (!container) {
+    return;
+  }
 
 
   if (cart.length === 0) {
 
     container.innerHTML = `
+
       <p class="empty-message">
         Your cart is empty.
       </p>
+
     `;
 
     return;
+
   }
 
 
@@ -170,18 +248,32 @@ function updateCart() {
 
   cart.forEach(item => {
 
+    const quantity =
+      Number(item.quantity) || 1;
+
+
+    const price =
+      Number(item.price) || 0;
+
+
     totalPrice +=
-      item.price * item.quantity;
+      price * quantity;
 
 
     html += `
 
       <div class="cart-item">
 
-        <img
-          src="${item.image}"
-          alt="${item.name}"
-        >
+        ${
+          item.image
+            ? `
+              <img
+                src="${item.image}"
+                alt="${item.name}"
+              >
+            `
+            : ""
+        }
 
         <div class="cart-item-info">
 
@@ -189,24 +281,31 @@ function updateCart() {
             ${item.name}
           </h3>
 
+
           <p class="cart-price">
-            €${item.price.toFixed(2)}
+            €${price.toFixed(2)}
           </p>
 
 
           <div class="quantity-controls">
 
             <button
-              onclick="decreaseQuantity('${item.id}')">
+              type="button"
+              onclick="decreaseQuantity('${item.id}')"
+            >
               −
             </button>
 
+
             <span>
-              ${item.quantity}
+              ${quantity}
             </span>
 
+
             <button
-              onclick="increaseQuantity('${item.id}')">
+              type="button"
+              onclick="increaseQuantity('${item.id}')"
+            >
               +
             </button>
 
@@ -214,8 +313,10 @@ function updateCart() {
 
 
           <button
+            type="button"
             class="remove-item"
-            onclick="removeFromCart('${item.id}')">
+            onclick="removeFromCart('${item.id}')"
+          >
             Remove item
           </button>
 
@@ -240,9 +341,12 @@ function updateCart() {
         €${totalPrice.toFixed(2)}
       </strong>
 
+
       <button
+        type="button"
         class="checkout-button"
-        onclick="checkout()">
+        onclick="checkout()"
+      >
         Checkout
       </button>
 
@@ -251,68 +355,101 @@ function updateCart() {
   `;
 
 
-  container.innerHTML = html;
+  container.innerHTML =
+    html;
+
 }
 
 
+
 /* =========================================
-   OPEN / CLOSE CART
+   CART PANEL
 ========================================= */
 
 function openCart() {
 
   closeLikes();
 
+
   const panel =
-    document.getElementById("cart-panel");
+    document.getElementById(
+      "cart-panel"
+    );
+
 
   if (panel) {
 
-    panel.classList.add("active");
+    panel.classList.add(
+      "active"
+    );
 
   }
 
+
   updateCart();
+
 }
 
 
 function closeCart() {
 
   const panel =
-    document.getElementById("cart-panel");
+    document.getElementById(
+      "cart-panel"
+    );
+
 
   if (panel) {
 
-    panel.classList.remove("active");
+    panel.classList.remove(
+      "active"
+    );
 
   }
+
 }
 
 
+
 /* =========================================
-   LIKES
+   LIKE PRODUCT
 ========================================= */
 
-function toggleLike(id, name, price, image) {
+function toggleLike(
+  id,
+  name,
+  price,
+  image
+) {
 
   const existing =
-    likedItems.find(item => item.id === id);
+    likedItems.some(
+      item =>
+        item.id === id
+    );
 
 
   if (existing) {
 
     likedItems =
       likedItems.filter(
-        item => item.id !== id
+        item =>
+          item.id !== id
       );
 
   } else {
 
     likedItems.push({
+
       id: id,
+
       name: name,
-      price: Number(price),
+
+      price:
+        Number(price),
+
       image: image
+
     });
 
   }
@@ -323,26 +460,61 @@ function toggleLike(id, name, price, image) {
   updateLikes();
 
   updateProductLikeButtons();
+
 }
 
 
+
 /* =========================================
-   REMOVE LIKED ITEM
+   REMOVE LIKE
 ========================================= */
 
 function removeLike(id) {
 
   likedItems =
     likedItems.filter(
-      item => item.id !== id
+      item =>
+        item.id !== id
     );
+
 
   saveLikes();
 
   updateLikes();
 
   updateProductLikeButtons();
+
 }
+
+
+
+/* =========================================
+   ADD LIKED PRODUCT TO CART
+========================================= */
+
+function addLikedItemToCart(id) {
+
+  const item =
+    likedItems.find(
+      product =>
+        product.id === id
+    );
+
+
+  if (!item) {
+    return;
+  }
+
+
+  addToCart(
+    item.id,
+    item.name,
+    item.price,
+    item.image
+  );
+
+}
+
 
 
 /* =========================================
@@ -352,10 +524,15 @@ function removeLike(id) {
 function updateLikes() {
 
   const count =
-    document.getElementById("likes-count");
+    document.getElementById(
+      "likes-count"
+    );
+
 
   const container =
-    document.getElementById("liked-items");
+    document.getElementById(
+      "liked-items"
+    );
 
 
   if (count) {
@@ -366,18 +543,23 @@ function updateLikes() {
   }
 
 
-  if (!container) return;
+  if (!container) {
+    return;
+  }
 
 
   if (likedItems.length === 0) {
 
     container.innerHTML = `
+
       <p class="empty-message">
         You haven't liked anything yet.
       </p>
+
     `;
 
     return;
+
   }
 
 
@@ -390,10 +572,16 @@ function updateLikes() {
 
       <div class="liked-item">
 
-        <img
-          src="${item.image}"
-          alt="${item.name}"
-        >
+        ${
+          item.image
+            ? `
+              <img
+                src="${item.image}"
+                alt="${item.name}"
+              >
+            `
+            : ""
+        }
 
         <div class="liked-info">
 
@@ -401,24 +589,23 @@ function updateLikes() {
             ${item.name}
           </h3>
 
-          <p>
-            €${item.price.toFixed(2)}
+
+          <p class="cart-price">
+            €${Number(item.price).toFixed(2)}
           </p>
 
 
           <button
-            onclick="addToCart(
-              '${item.id}',
-              '${escapeText(item.name)}',
-              ${item.price},
-              '${item.image}'
-            )"
+            type="button"
+            class="main-button"
+            onclick="addLikedItemToCart('${item.id}')"
           >
             Add to cart
           </button>
 
 
           <button
+            type="button"
             class="remove-item"
             onclick="removeLike('${item.id}')"
           >
@@ -434,22 +621,33 @@ function updateLikes() {
   });
 
 
-  container.innerHTML = html;
+  container.innerHTML =
+    html;
+
 }
 
+
+
+/* =========================================
+   PRODUCT LIKE BUTTONS
+========================================= */
 
 function updateProductLikeButtons() {
 
   document
-    .querySelectorAll("[data-product-like]")
+    .querySelectorAll(
+      "[data-product-like]"
+    )
     .forEach(button => {
 
       const id =
         button.dataset.productLike;
 
+
       const liked =
         likedItems.some(
-          item => item.id === id
+          item =>
+            item.id === id
         );
 
 
@@ -465,45 +663,62 @@ function updateProductLikeButtons() {
       );
 
     });
+
 }
 
 
+
 /* =========================================
-   OPEN / CLOSE LIKES
+   LIKES PANEL
 ========================================= */
 
 function openLikes() {
 
   closeCart();
 
+
   const panel =
-    document.getElementById("likes-panel");
+    document.getElementById(
+      "likes-panel"
+    );
+
 
   if (panel) {
 
-    panel.classList.add("active");
+    panel.classList.add(
+      "active"
+    );
 
   }
 
+
   updateLikes();
+
 }
 
 
 function closeLikes() {
 
   const panel =
-    document.getElementById("likes-panel");
+    document.getElementById(
+      "likes-panel"
+    );
+
 
   if (panel) {
 
-    panel.classList.remove("active");
+    panel.classList.remove(
+      "active"
+    );
 
   }
+
 }
 
 
+
 /* =========================================
-   LIGHT / DARK MODE
+   THEME
 ========================================= */
 
 function toggleTheme() {
@@ -521,11 +736,14 @@ function toggleTheme() {
 
   localStorage.setItem(
     "mavrenx-theme",
-    dark ? "dark" : "light"
+    dark
+      ? "dark"
+      : "light"
   );
 
 
   updateThemeButton();
+
 }
 
 
@@ -543,10 +761,17 @@ function loadTheme() {
       "dark-mode"
     );
 
+  } else {
+
+    document.body.classList.remove(
+      "dark-mode"
+    );
+
   }
 
 
   updateThemeButton();
+
 }
 
 
@@ -558,7 +783,9 @@ function updateThemeButton() {
     );
 
 
-  if (!button) return;
+  if (!button) {
+    return;
+  }
 
 
   const dark =
@@ -568,12 +795,16 @@ function updateThemeButton() {
 
 
   button.textContent =
-    dark ? "☀" : "☾";
+    dark
+      ? "☀"
+      : "☾";
+
 }
 
 
+
 /* =========================================
-   CHECKOUT PLACEHOLDER
+   CHECKOUT
 ========================================= */
 
 function checkout() {
@@ -585,121 +816,82 @@ function checkout() {
     );
 
     return;
+
   }
 
 
   alert(
-    "Secure checkout will be connected to your payment provider."
+    "Secure checkout will be connected later."
   );
+
 }
 
 
-/* =========================================
-   HELPERS
-========================================= */
-
-function escapeText(text) {
-
-  return String(text)
-    .replace(/'/g, "\\'")
-    .replace(/"/g, "&quot;");
-}
-
 
 /* =========================================
-   CLICK OUTSIDE PANELS
-========================================= */
-
-document.addEventListener(
-  "click",
-  function(event) {
-
-    const cartPanel =
-      document.getElementById(
-        "cart-panel"
-      );
-
-    const likesPanel =
-      document.getElementById(
-        "likes-panel"
-      );
-
-    const cartButton =
-      document.querySelector(
-        ".cart-button"
-      );
-
-    const likeButton =
-      document.querySelector(
-        ".like-button"
-      );
-
-
-    if (
-      cartPanel &&
-      cartPanel.classList.contains("active") &&
-      !cartPanel.contains(event.target) &&
-      !cartButton?.contains(event.target)
-    ) {
-
-      closeCart();
-
-    }
-
-
-    if (
-      likesPanel &&
-      likesPanel.classList.contains("active") &&
-      !likesPanel.contains(event.target) &&
-      !likeButton?.contains(event.target)
-    ) {
-
-      closeLikes();
-
-    }
-
-  }
-);
-
-
-/* =========================================
-   START
-========================================= */
-
-document.addEventListener(
-  "DOMContentLoaded",
-  function() {
-
-    loadTheme();
-
-    updateCart();
-
-    updateLikes();
-
-    updateProductLikeButtons();
-
-  }
-);
-/* =========================================
-   FIREBASE PUSH NOTIFICATIONS
+   FIREBASE
 ========================================= */
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCSXAkvMhLGaJMBwGGY1SYqoDhulIMn5F4",
-  authDomain: "mavrenxsecurity.firebaseapp.com",
-  projectId: "mavrenxsecurity",
-  storageBucket: "mavrenxsecurity.firebasestorage.app",
-  messagingSenderId: "351069637181",
-  appId: "1:351069637181:web:d204c4904017679506b854",
-  measurementId: "G-MLY1MC2SDR"
+
+  apiKey:
+    "AIzaSyCSXAkvMhLGaJMBwGGY1SYqoDhulIMn5F4",
+
+  authDomain:
+    "mavrenxsecurity.firebaseapp.com",
+
+  projectId:
+    "mavrenxsecurity",
+
+  storageBucket:
+    "mavrenxsecurity.firebasestorage.app",
+
+  messagingSenderId:
+    "351069637181",
+
+  appId:
+    "1:351069637181:web:d204c4904017679506b854",
+
+  measurementId:
+    "G-MLY1MC2SDR"
+
 };
 
 
-/* START FIREBASE */
 
-firebase.initializeApp(firebaseConfig);
+/* =========================================
+   START FIREBASE
+========================================= */
 
-const messaging = firebase.messaging();
+let messaging = null;
+
+
+try {
+
+  if (
+    typeof firebase !==
+    "undefined"
+  ) {
+
+    firebase.initializeApp(
+      firebaseConfig
+    );
+
+
+    messaging =
+      firebase.messaging();
+
+  }
+
+} catch (error) {
+
+  console.error(
+    "Firebase startup error:",
+    error
+  );
+
+}
+
 
 
 /* =========================================
@@ -708,23 +900,51 @@ const messaging = firebase.messaging();
 
 async function enableNotifications() {
 
-  if (!("Notification" in window)) {
+  if (!window.isSecureContext) {
+
+    alert(
+      "Notifications require a secure HTTPS website."
+    );
+
+    return false;
+
+  }
+
+
+  if (
+    !("Notification" in window)
+  ) {
 
     alert(
       "This browser does not support notifications."
     );
 
-    return;
+    return false;
+
   }
 
 
-  if (!("serviceWorker" in navigator)) {
+  if (
+    !("serviceWorker" in navigator)
+  ) {
 
     alert(
-      "This browser does not support the notification service worker."
+      "This browser does not support notification service workers."
     );
 
-    return;
+    return false;
+
+  }
+
+
+  if (!messaging) {
+
+    alert(
+      "Notifications are not ready yet."
+    );
+
+    return false;
+
   }
 
 
@@ -734,13 +954,17 @@ async function enableNotifications() {
       await Notification.requestPermission();
 
 
-    if (permission !== "granted") {
+    if (
+      permission !==
+      "granted"
+    ) {
 
       alert(
         "Notifications were not enabled."
       );
 
-      return;
+      return false;
+
     }
 
 
@@ -768,11 +992,17 @@ async function enableNotifications() {
         "We couldn't create a notification token."
       );
 
-      return;
+      return false;
+
     }
 
 
-    /* TEMPORARILY SAVE TOKEN ON DEVICE */
+    /*
+      TEMPORARY TEST STORAGE.
+
+      Later this token will be stored
+      privately with the customer's account.
+    */
 
     localStorage.setItem(
       "mavrenx-notification-token",
@@ -791,6 +1021,9 @@ async function enableNotifications() {
     );
 
 
+    return true;
+
+
   } catch (error) {
 
     console.error(
@@ -803,45 +1036,221 @@ async function enableNotifications() {
       "There was a problem enabling notifications."
     );
 
+
+    return false;
+
   }
 
 }
+
 
 
 /* =========================================
    FOREGROUND NOTIFICATIONS
 ========================================= */
 
-messaging.onMessage(
-  function(payload) {
+if (messaging) {
 
-    console.log(
-      "MAVRENX notification received:",
-      payload
+  messaging.onMessage(
+    async function(payload) {
+
+      console.log(
+        "MAVRENX notification:",
+        payload
+      );
+
+
+      const title =
+        payload.notification?.title ||
+        "MAVRENX";
+
+
+      const body =
+        payload.notification?.body ||
+        "You have a new order update.";
+
+
+      if (
+        Notification.permission ===
+        "granted"
+      ) {
+
+        try {
+
+          const registration =
+            await navigator
+              .serviceWorker
+              .ready;
+
+
+          registration.showNotification(
+            title,
+            {
+              body: body
+            }
+          );
+
+        } catch (error) {
+
+          console.error(
+            "Notification display error:",
+            error
+          );
+
+        }
+
+      }
+
+    }
+  );
+
+}
+
+
+
+/* =========================================
+   CLOSE NOTIFICATION POPUP
+========================================= */
+
+function closeNotificationPopup() {
+
+  const popup =
+    document.getElementById(
+      "notification-overlay"
     );
 
 
-    const title =
-      payload.notification?.title ||
-      "MAVRENX";
+  if (popup) {
+
+    popup.style.display =
+      "none";
+
+  }
 
 
-    const body =
-      payload.notification?.body ||
-      "You have a new order update.";
+  /*
+    sessionStorage survives refresh,
+    but disappears after the browsing
+    session ends.
+  */
 
+  sessionStorage.setItem(
+    "mavrenx-popup-seen",
+    "yes"
+  );
+
+}
+
+
+
+/* =========================================
+   ENABLE FROM POPUP
+========================================= */
+
+async function enableNotificationsFromPopup() {
+
+  await enableNotifications();
+
+
+  closeNotificationPopup();
+
+}
+
+
+
+/* =========================================
+   ESC KEY
+========================================= */
+
+document.addEventListener(
+  "keydown",
+  function(event) {
 
     if (
-      Notification.permission ===
-      "granted"
+      event.key ===
+      "Escape"
     ) {
 
-      new Notification(
-        title,
-        {
-          body: body
-        }
+      closeCart();
+
+      closeLikes();
+
+    }
+
+  }
+);
+
+
+
+/* =========================================
+   WEBSITE START
+========================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function() {
+
+    loadTheme();
+
+    updateCart();
+
+    updateLikes();
+
+    updateProductLikeButtons();
+
+
+    const popup =
+      document.getElementById(
+        "notification-overlay"
       );
+
+
+    if (!popup) {
+      return;
+    }
+
+
+    const seen =
+      sessionStorage.getItem(
+        "mavrenx-popup-seen"
+      );
+
+
+    /*
+      If notifications are already enabled,
+      don't bother showing the popup.
+    */
+
+    if (
+      typeof Notification !==
+        "undefined" &&
+      Notification.permission ===
+        "granted"
+    ) {
+
+      popup.style.display =
+        "none";
+
+      return;
+
+    }
+
+
+    /*
+      If they've already seen it during
+      this browsing session, don't show
+      it again after refresh.
+    */
+
+    if (seen === "yes") {
+
+      popup.style.display =
+        "none";
+
+    } else {
+
+      popup.style.display =
+        "flex";
 
     }
 
