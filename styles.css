@@ -16,10 +16,7 @@ html {
 }
 
 body {
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 
   background: #ffffff;
   color: #171717;
@@ -61,6 +58,7 @@ body.dark-mode .product-card,
 body.dark-mode .product-image {
   background: #181b18;
   color: #ffffff;
+
   border-color: #303530;
 }
 
@@ -106,38 +104,26 @@ header {
 
   background: rgba(255, 255, 255, 0.96);
 
-  border-bottom:
-    1px solid #e4e7e4;
+  border-bottom: 1px solid #e4e7e4;
 }
 
 
 /* =========================================
-   LOGO
+   MAVRENX TEXT LOGO
 ========================================= */
 
-.logo {
-  width: 125px;
-  height: 58px;
+.logo-text {
+  color: #159947;
+
+  font-size: 24px;
+
+  font-weight: 900;
+
+  letter-spacing: 2px;
+
+  white-space: nowrap;
 
   flex-shrink: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-
-  overflow: hidden;
-}
-
-.logo img {
-  display: block;
-
-  width: 120px !important;
-  height: 55px !important;
-
-  max-width: 120px !important;
-  max-height: 55px !important;
-
-  object-fit: contain;
 
   pointer-events: none;
 }
@@ -165,8 +151,6 @@ nav a {
   font-weight: 600;
 
   cursor: pointer;
-
-  transition: color 0.2s ease;
 }
 
 nav a:hover {
@@ -175,7 +159,7 @@ nav a:hover {
 
 
 /* =========================================
-   HEADER ACTIONS
+   HEADER BUTTONS
 ========================================= */
 
 .header-actions {
@@ -193,8 +177,7 @@ nav a:hover {
 
   padding: 8px 12px;
 
-  border:
-    1px solid #159947;
+  border: 1px solid #159947;
 
   border-radius: 8px;
 
@@ -205,8 +188,6 @@ nav a:hover {
   font-weight: bold;
 
   cursor: pointer;
-
-  transition: 0.2s ease;
 }
 
 .like-button:hover,
@@ -229,8 +210,7 @@ nav a:hover {
 
   display: grid;
 
-  grid-template-columns:
-    1fr 1fr;
+  grid-template-columns: 1fr 1fr;
 
   gap: 60px;
 
@@ -250,12 +230,7 @@ nav a:hover {
 }
 
 h1 {
-  font-size:
-    clamp(
-      50px,
-      7vw,
-      95px
-    );
+  font-size: clamp(50px, 7vw, 95px);
 
   line-height: 0.98;
 
@@ -263,12 +238,7 @@ h1 {
 }
 
 h2 {
-  font-size:
-    clamp(
-      38px,
-      5vw,
-      65px
-    );
+  font-size: clamp(38px, 5vw, 65px);
 
   line-height: 1.05;
 }
@@ -325,8 +295,7 @@ h2 span {
   width: 330px;
   height: 330px;
 
-  border-radius:
-    36% 64% 55% 45%;
+  border-radius: 36% 64% 55% 45%;
 
   display: flex;
 
@@ -351,13 +320,12 @@ h2 span {
   letter-spacing: 5px;
 
   box-shadow:
-    0 25px 70px
-    rgba(21, 153, 71, 0.22);
+    0 25px 70px rgba(21, 153, 71, 0.22);
 }
 
 
 /* =========================================
-   MAIN SECTIONS
+   SECTIONS
 ========================================= */
 
 .categories,
@@ -367,13 +335,12 @@ h2 span {
   padding: 85px 7%;
 
   border-top:
-    1px solid
-    rgba(120, 120, 120, 0.15);
+    1px solid rgba(120, 120, 120, 0.15);
 }
 
 
 /* =========================================
-   CATEGORY CARDS
+   CATEGORIES
 ========================================= */
 
 .category-grid {
@@ -392,8 +359,7 @@ h2 span {
 
   padding: 28px;
 
-  border:
-    1px solid #e2e7e3;
+  border: 1px solid #e2e7e3;
 
   border-radius: 15px;
 
@@ -405,22 +371,16 @@ h2 span {
 
   cursor: pointer;
 
-  transition:
-    transform 0.2s ease,
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
+  transition: 0.2s ease;
 }
 
 .category-card:hover {
-  transform:
-    translateY(-5px);
+  transform: translateY(-5px);
 
-  border-color:
-    #159947;
+  border-color: #159947;
 
   box-shadow:
-    0 15px 35px
-    rgba(21, 153, 71, 0.08);
+    0 15px 35px rgba(21, 153, 71, 0.08);
 }
 
 .category-icon {
@@ -443,7 +403,7 @@ h2 span {
 
 
 /* =========================================
-   CATEGORY SECTION
+   CATEGORY SECTIONS
 ========================================= */
 
 .category-heading {
@@ -472,10 +432,7 @@ h2 span {
   display: grid;
 
   grid-template-columns:
-    repeat(
-      3,
-      minmax(0, 1fr)
-    );
+    repeat(3, minmax(0, 1fr));
 
   gap: 20px;
 }
@@ -497,10 +454,7 @@ h2 span {
   display: grid;
 
   grid-template-columns:
-    repeat(
-      3,
-      minmax(0, 1fr)
-    );
+    repeat(3, minmax(0, 1fr));
 
   gap: 20px;
 }
@@ -510,8 +464,7 @@ h2 span {
 
   padding: 30px;
 
-  border:
-    1px solid #e2e7e3;
+  border: 1px solid #e2e7e3;
 
   border-radius: 12px;
 
@@ -526,12 +479,11 @@ h2 span {
 
 
 /* =========================================
-   PRODUCT CARDS
+   PRODUCTS
 ========================================= */
 
 .product-card {
-  border:
-    1px solid #e2e7e3;
+  border: 1px solid #e2e7e3;
 
   border-radius: 14px;
 
@@ -552,6 +504,10 @@ h2 span {
   align-items: center;
 
   justify-content: center;
+}
+
+body.dark-mode .product-image {
+  background: #181b18;
 }
 
 .product-image img {
@@ -576,16 +532,6 @@ h2 span {
   margin-top: 15px;
 }
 
-.product-actions button {
-  flex: 1;
-
-  padding: 11px;
-
-  border-radius: 7px;
-
-  cursor: pointer;
-}
-
 
 /* =========================================
    ABOUT
@@ -608,31 +554,26 @@ h2 span {
   position: fixed;
 
   top: 0;
-
   right: -500px;
 
-  width:
-    min(430px, 92vw);
+  width: min(430px, 92vw);
 
   height: 100vh;
 
-  padding:
-    75px 25px 30px;
+  padding: 75px 25px 30px;
 
   background: #ffffff;
 
   color: #171717;
 
-  z-index: 1000;
+  z-index: 3000;
 
   overflow-y: auto;
 
   box-shadow:
-    -10px 0 35px
-    rgba(0, 0, 0, 0.18);
+    -10px 0 35px rgba(0, 0, 0, 0.18);
 
-  transition:
-    right 0.28s ease;
+  transition: right 0.28s ease;
 }
 
 .side-panel.active {
@@ -647,18 +588,16 @@ h2 span {
 
 
 /* =========================================
-   SIDE PANEL X
+   X BUTTON
 ========================================= */
 
 .close-panel {
   position: absolute;
 
   top: 18px;
-
   right: 18px;
 
   width: 42px;
-
   height: 42px;
 
   border: none;
@@ -670,8 +609,6 @@ h2 span {
   color: #111111;
 
   font-size: 29px;
-
-  line-height: 1;
 
   cursor: pointer;
 
@@ -701,8 +638,7 @@ h2 span {
 
   padding: 16px 0;
 
-  border-bottom:
-    1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
 }
 
 .cart-item img,
@@ -753,11 +689,9 @@ h2 span {
 
 .quantity-controls button {
   width: 36px;
-
   height: 36px;
 
-  border:
-    1px solid #159947;
+  border: 1px solid #159947;
 
   border-radius: 6px;
 
@@ -785,11 +719,6 @@ h2 span {
 
   font-weight: bold;
 }
-
-
-/* =========================================
-   REMOVE
-========================================= */
 
 .remove-item {
   margin-top: 10px;
@@ -821,8 +750,7 @@ h2 span {
 .cart-total strong {
   display: block;
 
-  margin:
-    5px 0 18px;
+  margin: 5px 0 18px;
 
   color: #159947;
 
@@ -847,13 +775,9 @@ h2 span {
   cursor: pointer;
 }
 
-.checkout-button:hover {
-  background: #107c39;
-}
-
 
 /* =========================================
-   NOTIFICATION OVERLAY
+   NOTIFICATION BACKGROUND
 ========================================= */
 
 .notification-overlay {
@@ -861,73 +785,60 @@ h2 span {
 
   inset: 0;
 
-  width: 100%;
-  height: 100%;
-
-  display: flex;
+  display: none;
 
   align-items: center;
 
   justify-content: center;
 
+  width: 100%;
+  height: 100%;
+
   padding: 20px;
 
   background:
-    rgba(0, 0, 0, 0.76);
+    rgba(0, 0, 0, 0.78);
 
-  backdrop-filter: blur(7px);
+  backdrop-filter: blur(8px);
 
-  -webkit-backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(8px);
 
-  z-index: 5000;
+  z-index: 9999;
 }
 
 
 /* =========================================
-   NOTIFICATION MODAL
+   NOTIFICATION POPUP
 ========================================= */
 
 .notification-modal {
   position: relative;
 
-  width:
-    min(580px, 100%);
+  width: min(580px, 100%);
 
   padding:
-    52px 40px 40px;
+    55px 40px 40px;
 
-  background:
-    #151815;
+  background: #151815;
 
-  color:
-    #ffffff;
+  color: #ffffff;
 
   border:
-    1px solid #303830;
+    1px solid #343b35;
 
-  border-radius:
-    24px;
+  border-radius: 24px;
 
-  text-align:
-    center;
+  text-align: center;
 
   box-shadow:
-    0 35px 100px
-    rgba(0, 0, 0, 0.6);
+    0 35px 100px rgba(0, 0, 0, 0.7);
 }
 
-
-/* =========================================
-   NOTIFICATION BELL
-========================================= */
-
 .notification-big-icon {
-  width: 88px;
+  width: 90px;
+  height: 90px;
 
-  height: 88px;
-
-  margin:
-    0 auto 24px;
+  margin: 0 auto 24px;
 
   display: flex;
 
@@ -935,223 +846,133 @@ h2 span {
 
   justify-content: center;
 
-  border-radius:
-    50%;
+  background: #203b29;
 
-  background:
-    #203b29;
+  border: 1px solid #2b5638;
 
-  border:
-    1px solid #2b5638;
+  border-radius: 50%;
 
-  font-size:
-    42px;
+  font-size: 42px;
 }
 
-
-/* =========================================
-   NOTIFICATION TITLE
-========================================= */
-
 .notification-modal h2 {
-  margin-bottom:
-    16px;
+  margin-bottom: 17px;
 
   font-size:
-    clamp(
-      30px,
-      5vw,
-      40px
-    );
+    clamp(30px, 5vw, 40px);
 
-  line-height:
-    1.1;
+  line-height: 1.1;
 }
 
 .notification-modal h2 span {
-  color:
-    #159947;
+  color: #159947;
 }
-
-
-/* =========================================
-   NOTIFICATION TEXT
-========================================= */
 
 .notification-modal p {
-  max-width:
-    465px;
+  max-width: 465px;
 
-  margin:
-    0 auto 30px;
+  margin: 0 auto 30px;
 
-  color:
-    #b6bbb6;
+  color: #b6bbb6;
 
-  font-size:
-    16px;
+  font-size: 16px;
 
-  line-height:
-    1.7;
+  line-height: 1.7;
 }
 
 
-/* =========================================
-   ENABLE NOTIFICATIONS
-========================================= */
+/* ENABLE */
 
 .enable-notifications-button {
-  width:
-    100%;
+  width: 100%;
 
-  min-height:
-    52px;
+  min-height: 54px;
 
-  padding:
-    15px 20px;
+  padding: 15px 20px;
 
-  border:
-    none;
+  border: none;
 
-  border-radius:
-    10px;
+  border-radius: 10px;
 
-  background:
-    #159947;
+  background: #159947;
 
-  color:
-    #ffffff;
+  color: #ffffff;
 
-  font-size:
-    16px;
+  font-size: 16px;
 
-  font-weight:
-    bold;
+  font-weight: bold;
 
-  cursor:
-    pointer;
-
-  transition:
-    0.2s;
+  cursor: pointer;
 }
 
 .enable-notifications-button:hover {
-  background:
-    #107c39;
-
-  transform:
-    translateY(-1px);
+  background: #107c39;
 }
 
 
-/* =========================================
-   NOT NOW
-========================================= */
+/* NOT NOW */
 
 .not-now-button {
-  width:
-    100%;
+  width: 100%;
 
-  min-height:
-    50px;
+  min-height: 50px;
 
-  margin-top:
-    11px;
+  margin-top: 11px;
 
-  padding:
-    13px 20px;
+  padding: 13px 20px;
 
-  border:
-    1px solid #3b413c;
+  border: 1px solid #3b413c;
 
-  border-radius:
-    10px;
+  border-radius: 10px;
 
-  background:
-    transparent;
+  background: transparent;
 
-  color:
-    #d7dad7;
+  color: #d7dad7;
 
-  font-size:
-    15px;
+  font-size: 15px;
 
-  font-weight:
-    bold;
+  font-weight: bold;
 
-  cursor:
-    pointer;
-
-  transition:
-    0.2s;
+  cursor: pointer;
 }
 
 .not-now-button:hover {
-  background:
-    #252925;
-
-  border-color:
-    #535a54;
+  background: #252925;
 }
 
 
-/* =========================================
-   NOTIFICATION X
-========================================= */
+/* NOTIFICATION X */
 
 .notification-close {
-  position:
-    absolute;
+  position: absolute;
 
-  top:
-    16px;
+  top: 16px;
+  right: 16px;
 
-  right:
-    16px;
+  width: 42px;
+  height: 42px;
 
-  width:
-    42px;
+  display: flex;
 
-  height:
-    42px;
+  align-items: center;
 
-  display:
-    flex;
+  justify-content: center;
 
-  align-items:
-    center;
+  border: none;
 
-  justify-content:
-    center;
+  border-radius: 50%;
 
-  border:
-    none;
+  background: #252925;
 
-  border-radius:
-    50%;
+  color: #ffffff;
 
-  background:
-    #252925;
+  font-size: 28px;
 
-  color:
-    #ffffff;
-
-  font-size:
-    28px;
-
-  line-height:
-    1;
-
-  cursor:
-    pointer;
-
-  transition:
-    0.2s;
+  cursor: pointer;
 }
 
 .notification-close:hover {
-  background:
-    #159947;
+  background: #159947;
 }
 
 
@@ -1160,28 +981,22 @@ h2 span {
 ========================================= */
 
 footer {
-  padding:
-    50px 7%;
+  padding: 50px 7%;
 
   border-top:
     1px solid #dddddd;
 }
 
 .footer-logo {
-  color:
-    #159947;
+  color: #159947;
 
-  font-size:
-    23px;
+  font-size: 23px;
 
-  font-weight:
-    900;
+  font-weight: 900;
 
-  letter-spacing:
-    2px;
+  letter-spacing: 2px;
 
-  margin-bottom:
-    8px;
+  margin-bottom: 8px;
 }
 
 
@@ -1192,107 +1007,63 @@ footer {
 @media (max-width: 900px) {
 
   header {
-    flex-wrap:
-      wrap;
+    flex-wrap: wrap;
 
-    padding:
-      10px 4%;
+    padding: 10px 4%;
   }
 
-
-  .logo {
-    width:
-      105px;
-
-    height:
-      50px;
+  .logo-text {
+    font-size: 20px;
   }
-
-
-  .logo img {
-    width:
-      100px !important;
-
-    height:
-      47px !important;
-
-    max-width:
-      100px !important;
-
-    max-height:
-      47px !important;
-  }
-
 
   nav {
-    order:
-      3;
+    order: 3;
 
-    width:
-      100%;
+    width: 100%;
 
-    justify-content:
-      center;
+    justify-content: center;
 
-    gap:
-      18px;
+    gap: 18px;
 
-    padding-top:
-      5px;
+    padding-top: 5px;
   }
-
 
   nav a {
-    font-size:
-      12px;
+    font-size: 12px;
   }
-
 
   .header-actions {
-    margin-left:
-      auto;
+    margin-left: auto;
   }
-
 
   .like-button,
   .cart-button,
   .theme-button {
-    padding:
-      7px 9px;
+    padding: 7px 9px;
 
-    font-size:
-      12px;
+    font-size: 12px;
   }
-
 
   .hero {
-    min-height:
-      auto;
+    min-height: auto;
 
-    grid-template-columns:
-      1fr;
+    grid-template-columns: 1fr;
 
-    padding:
-      65px 7%;
+    padding: 65px 7%;
   }
-
 
   .hero-art {
-    display:
-      none;
+    display: none;
   }
-
 
   .category-grid {
     grid-template-columns:
       repeat(2, 1fr);
   }
 
-
   .product-grid,
   .category-products {
-    grid-template-columns:
-      1fr;
+    grid-template-columns: 1fr;
   }
 
 }
@@ -1305,113 +1076,54 @@ footer {
 @media (max-width: 520px) {
 
   .category-grid {
-    grid-template-columns:
-      1fr;
+    grid-template-columns: 1fr;
   }
-
 
   nav {
-    justify-content:
-      flex-start;
+    justify-content: flex-start;
 
-    overflow-x:
-      auto;
+    overflow-x: auto;
   }
-
 
   .side-panel {
-    width:
-      92vw;
+    width: 92vw;
   }
-
 
   .categories,
   .shop,
   .category-section,
   .about {
-    padding:
-      65px 6%;
+    padding: 65px 6%;
   }
-
 
   .category-heading {
-    align-items:
-      flex-start;
+    align-items: flex-start;
   }
-
-
-  /* NOTIFICATION POPUP MOBILE */
 
   .notification-overlay {
-    padding:
-      16px;
+    padding: 15px;
   }
-
 
   .notification-modal {
-    width:
-      100%;
-
     padding:
-      46px 22px 26px;
+      48px 22px 26px;
 
-    border-radius:
-      20px;
+    border-radius: 20px;
   }
-
 
   .notification-big-icon {
-    width:
-      72px;
+    width: 74px;
+    height: 74px;
 
-    height:
-      72px;
-
-    margin-bottom:
-      20px;
-
-    font-size:
-      34px;
+    font-size: 34px;
   }
-
 
   .notification-modal h2 {
-    font-size:
-      29px;
+    font-size: 29px;
   }
-
 
   .notification-modal p {
-    font-size:
-      14px;
-
-    margin-bottom:
-      24px;
-  }
-
-
-  .enable-notifications-button,
-  .not-now-button {
-    font-size:
-      14px;
-  }
-
-
-  .notification-close {
-    top:
-      12px;
-
-    right:
-      12px;
-
-    width:
-      38px;
-
-    height:
-      38px;
-
-    font-size:
-      25px;
+    font-size: 14px;
   }
 
 }
