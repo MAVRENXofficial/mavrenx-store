@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
   <meta charset="UTF-8">
 
   <meta
@@ -9,35 +10,392 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>Track Your Order — MAVRENX</title>
+  <title>Track Order — MAVRENX</title>
 
   <link
     rel="stylesheet"
     href="styles.css"
   >
+
+  <style>
+
+    /* =========================================
+       TRACKING PAGE
+    ========================================= */
+
+    .track-page {
+      min-height: 80vh;
+      padding: 80px 7%;
+    }
+
+    .track-title {
+      margin-bottom: 18px;
+    }
+
+    .track-description {
+      max-width: 650px;
+      color: #777777;
+      margin-bottom: 35px;
+    }
+
+    body.dark-mode .track-description {
+      color: #aaaaaa;
+    }
+
+
+    /* SEARCH BOX */
+
+    .tracking-box {
+      max-width: 650px;
+
+      padding: 28px;
+
+      border: 1px solid #e1e6e2;
+
+      border-radius: 16px;
+
+      background: #f7f9f7;
+
+      margin-bottom: 45px;
+    }
+
+    body.dark-mode .tracking-box {
+      background: #181b18;
+      border-color: #303530;
+    }
+
+    .tracking-box label {
+      display: block;
+
+      margin-bottom: 8px;
+
+      font-weight: 700;
+    }
+
+    .tracking-box input {
+      width: 100%;
+
+      padding: 14px 15px;
+
+      margin-bottom: 18px;
+
+      border: 1px solid #ccd3cd;
+
+      border-radius: 8px;
+
+      background: #ffffff;
+
+      color: #111111;
+
+      font-size: 16px;
+
+      outline: none;
+
+      user-select: text;
+      -webkit-user-select: text;
+    }
+
+    .tracking-box input:focus {
+      border-color: #159947;
+    }
+
+    body.dark-mode .tracking-box input {
+      background: #101210;
+
+      color: #ffffff;
+
+      border-color: #3b423c;
+    }
+
+    .track-button {
+      width: 100%;
+
+      border: none;
+
+      font-size: 16px;
+    }
+
+
+    /* =========================================
+       RESULT
+    ========================================= */
+
+    .tracking-result {
+      display: none;
+
+      max-width: 750px;
+
+      margin-top: 30px;
+    }
+
+    .tracking-result.show {
+      display: block;
+    }
+
+
+    /* CURRENT STATUS */
+
+    .current-status {
+      padding: 25px;
+
+      margin-bottom: 30px;
+
+      border-radius: 15px;
+
+      background: #153c23;
+
+      color: #ffffff;
+
+      border: 1px solid #257744;
+    }
+
+    .current-status-label {
+      display: block;
+
+      margin-bottom: 5px;
+
+      color: #a9d8b8;
+
+      font-size: 12px;
+
+      font-weight: 800;
+
+      letter-spacing: 1.5px;
+    }
+
+    .current-status h2 {
+      font-size: 30px;
+    }
+
+
+    /* ERROR */
+
+    .tracking-error {
+      display: none;
+
+      max-width: 650px;
+
+      padding: 18px 20px;
+
+      margin-top: 20px;
+
+      border-radius: 10px;
+
+      background: #3c1616;
+
+      color: #ffbebe;
+
+      border: 1px solid #743333;
+    }
+
+    .tracking-error.show {
+      display: block;
+    }
+
+
+    /* LIVE INDICATOR */
+
+    .live-indicator {
+      display: flex;
+
+      align-items: center;
+
+      gap: 8px;
+
+      margin-top: 12px;
+
+      color: #9edcaf;
+
+      font-size: 13px;
+
+      font-weight: 700;
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+
+      border-radius: 50%;
+
+      background: #28d466;
+
+      box-shadow:
+        0 0 10px rgba(40, 212, 102, 0.8);
+    }
+
+
+    /* =========================================
+       TRACKING STEPS
+    ========================================= */
+
+    .tracking-steps {
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 0;
+    }
+
+    .tracking-step {
+      position: relative;
+
+      display: flex;
+
+      gap: 18px;
+
+      min-height: 95px;
+
+      opacity: 0.4;
+    }
+
+    .tracking-step::after {
+      content: "";
+
+      position: absolute;
+
+      left: 19px;
+      top: 42px;
+
+      width: 2px;
+      height: calc(100% - 8px);
+
+      background: #d9ded9;
+    }
+
+    .tracking-step:last-child::after {
+      display: none;
+    }
+
+
+    /* STEP NUMBER */
+
+    .step-number {
+      position: relative;
+
+      z-index: 2;
+
+      width: 40px;
+      height: 40px;
+
+      flex-shrink: 0;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      border-radius: 50%;
+
+      background: #e5e9e5;
+
+      color: #666666;
+
+      font-weight: 900;
+    }
+
+
+    /* COMPLETE */
+
+    .tracking-step.complete {
+      opacity: 1;
+    }
+
+    .tracking-step.complete .step-number {
+      background: #159947;
+
+      color: #ffffff;
+    }
+
+    .tracking-step.complete::after {
+      background: #159947;
+    }
+
+
+    /* CURRENT */
+
+    .tracking-step.current {
+      opacity: 1;
+    }
+
+    .tracking-step.current .step-number {
+      background: #159947;
+
+      color: #ffffff;
+
+      box-shadow:
+        0 0 0 6px
+        rgba(21, 153, 71, 0.15);
+    }
+
+
+    /* STEP TEXT */
+
+    .step-info {
+      padding-top: 5px;
+    }
+
+    .step-info strong {
+      display: block;
+
+      margin-bottom: 3px;
+
+      font-size: 17px;
+    }
+
+    .step-info p {
+      color: #777777;
+
+      font-size: 14px;
+    }
+
+    body.dark-mode .step-info p {
+      color: #aaaaaa;
+    }
+
+
+    /* =========================================
+       MOBILE
+    ========================================= */
+
+    @media (max-width: 520px) {
+
+      .track-page {
+        padding: 55px 6%;
+      }
+
+      .tracking-box {
+        padding: 20px;
+      }
+
+      .current-status h2 {
+        font-size: 25px;
+      }
+
+    }
+
+  </style>
+
 </head>
 
 
 <body>
 
 
-  <!-- =========================
+  <!-- =========================================
        HEADER
-  ========================== -->
+  ========================================== -->
 
   <header>
 
-    <div class="logo">
-      <img
-        src="file_000000007fa081f4ac4862e52d82c4a9.png"
-        alt="MAVRENX"
-      >
+    <div class="logo-text">
+      MAVRENX
     </div>
 
 
     <nav>
 
-      <a href="index.html">
+      <a href="index.html#home">
         Home
       </a>
 
@@ -53,16 +411,39 @@
         Track Order
       </a>
 
+      <a href="index.html#about">
+        About
+      </a>
+
     </nav>
 
 
     <div class="header-actions">
 
       <button
+        class="like-button"
+        onclick="openLikes()"
+      >
+        ♡
+        <span id="likes-count">
+          0
+        </span>
+      </button>
+
+
+      <button
+        class="cart-button"
+        onclick="openCart()"
+      >
+        Cart
+        (<span id="cart-count">0</span>)
+      </button>
+
+
+      <button
         id="theme-button"
         class="theme-button"
         onclick="toggleTheme()"
-        aria-label="Change theme"
       >
         ☾
       </button>
@@ -73,399 +454,411 @@
 
 
 
-  <!-- =========================
+  <!-- =========================================
        TRACK ORDER
-  ========================== -->
+  ========================================== -->
 
-  <main class="tracking-page">
+  <main>
 
+    <section class="track-page">
 
-    <section class="tracking-hero">
 
       <p class="tag">
-        MAVRENX ORDERS
+        MAVRENX DELIVERY
       </p>
 
 
-      <h1 class="tracking-title">
-        Track your<br>
-        <span>order.</span>
+      <h1 class="track-title">
+
+        Track your
+
+        <span>
+          order.
+        </span>
+
       </h1>
 
 
-      <p class="tracking-description">
+      <p class="track-description">
 
-        Enter your order number and the email
-        used during checkout to see the latest
-        status of your order.
+        Enter your MAVRENX order number to see
+        the latest delivery status.
+
+        Updates appear automatically in real time.
 
       </p>
 
 
-      <!-- TRACKING FORM -->
 
-      <form
-        id="tracking-form"
-        class="tracking-form"
-      >
+      <!-- SEARCH -->
 
+      <div class="tracking-box">
 
-        <label for="order-number">
-          Order number
-        </label>
+        <form id="tracking-form">
 
-
-        <input
-          type="text"
-          id="order-number"
-          name="order-number"
-          placeholder="Example: MX-10482"
-          autocomplete="off"
-          required
-        >
+          <label for="order-number">
+            Order number
+          </label>
 
 
-        <label for="order-email">
-          Email address
-        </label>
+          <input
+            id="order-number"
+            type="text"
+            placeholder="Example: TEST-ORDER-001"
+            autocomplete="off"
+            required
+          >
 
 
-        <input
-          type="email"
-          id="order-email"
-          name="order-email"
-          placeholder="you@example.com"
-          autocomplete="email"
-          required
-        >
+          <button
+            type="submit"
+            class="main-button track-button"
+          >
+            Track order
+          </button>
 
-
-        <button
-          type="submit"
-          class="track-button"
-        >
-          Track order
-        </button>
-
-
-        <p
-          id="tracking-message"
-          class="tracking-message"
-        >
-        </p>
-
-
-      </form>
-
-    </section>
-
-
-
-    <!-- =========================
-         TRACKING RESULT
-    ========================== -->
-
-    <section
-      id="tracking-result"
-      class="tracking-result"
-      hidden
-    >
-
-
-      <div class="tracking-result-header">
-
-        <div>
-
-          <p class="tag">
-            ORDER STATUS
-          </p>
-
-
-          <h2 id="tracking-order-number">
-            MX-00000
-          </h2>
-
-        </div>
-
-
-        <div
-          id="tracking-current-status"
-          class="status-badge"
-        >
-          Processing
-        </div>
+        </form>
 
       </div>
 
 
 
-      <!-- ORDER PROGRESS -->
-
-      <div class="order-progress">
-
-
-        <!-- ORDER RECEIVED -->
-
-        <div
-          class="progress-step"
-          data-step="received"
-        >
-
-          <div class="progress-icon">
-            ✓
-          </div>
-
-
-          <div class="progress-info">
-
-            <h3>
-              Order received
-            </h3>
-
-            <p>
-              Your MAVRENX order has been received.
-            </p>
-
-          </div>
-
-        </div>
-
-
-
-        <!-- PAYMENT -->
-
-        <div
-          class="progress-step"
-          data-step="payment"
-        >
-
-          <div class="progress-icon">
-            ✓
-          </div>
-
-
-          <div class="progress-info">
-
-            <h3>
-              Payment confirmed
-            </h3>
-
-            <p>
-              Your payment has been confirmed.
-            </p>
-
-          </div>
-
-        </div>
-
-
-
-        <!-- PREPARING -->
-
-        <div
-          class="progress-step"
-          data-step="preparing"
-        >
-
-          <div class="progress-icon">
-            3
-          </div>
-
-
-          <div class="progress-info">
-
-            <h3>
-              Preparing your order
-            </h3>
-
-            <p>
-              Your order is being prepared.
-            </p>
-
-          </div>
-
-        </div>
-
-
-
-        <!-- SUPPLIER -->
-
-        <div
-          class="progress-step"
-          data-step="supplier"
-        >
-
-          <div class="progress-icon">
-            4
-          </div>
-
-
-          <div class="progress-info">
-
-            <h3>
-              Order confirmed with supplier
-            </h3>
-
-            <p>
-              Your product has been ordered
-              from our fulfilment partner.
-            </p>
-
-          </div>
-
-        </div>
-
-
-
-        <!-- SHIPPED -->
-
-        <div
-          class="progress-step"
-          data-step="shipped"
-        >
-
-          <div class="progress-icon">
-            5
-          </div>
-
-
-          <div class="progress-info">
-
-            <h3>
-              Shipped
-            </h3>
-
-            <p>
-              Your package has left the supplier.
-            </p>
-
-          </div>
-
-        </div>
-
-
-
-        <!-- IN TRANSIT -->
-
-        <div
-          class="progress-step"
-          data-step="transit"
-        >
-
-          <div class="progress-icon">
-            6
-          </div>
-
-
-          <div class="progress-info">
-
-            <h3>
-              In transit
-            </h3>
-
-            <p>
-              Your package is travelling
-              to its destination.
-            </p>
-
-          </div>
-
-        </div>
-
-
-
-        <!-- OUT FOR DELIVERY -->
-
-        <div
-          class="progress-step"
-          data-step="delivery"
-        >
-
-          <div class="progress-icon">
-            7
-          </div>
-
-
-          <div class="progress-info">
-
-            <h3>
-              Out for delivery
-            </h3>
-
-            <p>
-              Your local courier is delivering
-              your package.
-            </p>
-
-          </div>
-
-        </div>
-
-
-
-        <!-- DELIVERED -->
-
-        <div
-          class="progress-step"
-          data-step="delivered"
-        >
-
-          <div class="progress-icon">
-            8
-          </div>
-
-
-          <div class="progress-info">
-
-            <h3>
-              Delivered
-            </h3>
-
-            <p>
-              Your order has been delivered.
-            </p>
-
-          </div>
-
-        </div>
-
-
-      </div>
-
-
-
-      <!-- TRACKING NUMBER -->
+      <!-- ERROR -->
 
       <div
-        id="shipping-tracking-box"
-        class="shipping-tracking-box"
-        hidden
+        id="tracking-error"
+        class="tracking-error"
+      >
+        We couldn't find that order.
+        Check the order number and try again.
+      </div>
+
+
+
+      <!-- RESULT -->
+
+      <div
+        id="tracking-result"
+        class="tracking-result"
       >
 
-        <p>
-          Tracking number
-        </p>
+
+        <!-- CURRENT STATUS -->
+
+        <div class="current-status">
+
+          <span class="current-status-label">
+            CURRENT STATUS
+          </span>
 
 
-        <strong
-          id="shipping-tracking-number"
-        >
-          —
-        </strong>
+          <h2 id="current-status-text">
+            Order received
+          </h2>
+
+
+          <div class="live-indicator">
+
+            <span class="live-dot">
+            </span>
+
+            Live tracking connected
+
+          </div>
+
+        </div>
+
+
+
+        <!-- STEPS -->
+
+        <div class="tracking-steps">
+
+
+          <div
+            class="tracking-step"
+            data-status="Order received"
+          >
+
+            <span class="step-number">
+              1
+            </span>
+
+            <div class="step-info">
+
+              <strong>
+                Order received
+              </strong>
+
+              <p>
+                We've received your order.
+              </p>
+
+            </div>
+
+          </div>
+
+
+
+          <div
+            class="tracking-step"
+            data-status="Payment confirmed"
+          >
+
+            <span class="step-number">
+              2
+            </span>
+
+            <div class="step-info">
+
+              <strong>
+                Payment confirmed
+              </strong>
+
+              <p>
+                Your payment has been confirmed.
+              </p>
+
+            </div>
+
+          </div>
+
+
+
+          <div
+            class="tracking-step"
+            data-status="Preparing"
+          >
+
+            <span class="step-number">
+              3
+            </span>
+
+            <div class="step-info">
+
+              <strong>
+                Preparing
+              </strong>
+
+              <p>
+                Your order is being prepared.
+              </p>
+
+            </div>
+
+          </div>
+
+
+
+          <div
+            class="tracking-step"
+            data-status="Order confirmed with supplier"
+          >
+
+            <span class="step-number">
+              4
+            </span>
+
+            <div class="step-info">
+
+              <strong>
+                Order confirmed with supplier
+              </strong>
+
+              <p>
+                Your items have been confirmed
+                with the supplier.
+              </p>
+
+            </div>
+
+          </div>
+
+
+
+          <div
+            class="tracking-step"
+            data-status="Shipped"
+          >
+
+            <span class="step-number">
+              5
+            </span>
+
+            <div class="step-info">
+
+              <strong>
+                Shipped
+              </strong>
+
+              <p>
+                Your parcel has left the supplier.
+              </p>
+
+            </div>
+
+          </div>
+
+
+
+          <div
+            class="tracking-step"
+            data-status="In transit"
+          >
+
+            <span class="step-number">
+              6
+            </span>
+
+            <div class="step-info">
+
+              <strong>
+                In transit
+              </strong>
+
+              <p>
+                Your parcel is travelling to you.
+              </p>
+
+            </div>
+
+          </div>
+
+
+
+          <div
+            class="tracking-step"
+            data-status="Out for delivery"
+          >
+
+            <span class="step-number">
+              7
+            </span>
+
+            <div class="step-info">
+
+              <strong>
+                Out for delivery
+              </strong>
+
+              <p>
+                Your parcel is on its way
+                to your address.
+              </p>
+
+            </div>
+
+          </div>
+
+
+
+          <div
+            class="tracking-step"
+            data-status="Delivered"
+          >
+
+            <span class="step-number">
+              8
+            </span>
+
+            <div class="step-info">
+
+              <strong>
+                Delivered
+              </strong>
+
+              <p>
+                Your order has been delivered.
+              </p>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
 
       </div>
 
 
     </section>
-
 
   </main>
 
 
 
-  <!-- =========================
+  <!-- =========================================
+       LIKES
+  ========================================== -->
+
+  <div
+    id="likes-panel"
+    class="side-panel"
+  >
+
+    <button
+      class="close-panel"
+      onclick="closeLikes()"
+    >
+      ×
+    </button>
+
+
+    <h2>
+      Liked Items
+    </h2>
+
+
+    <div id="liked-items">
+
+      <p class="empty-message">
+        You haven't liked anything yet.
+      </p>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =========================================
+       CART
+  ========================================== -->
+
+  <div
+    id="cart-panel"
+    class="side-panel"
+  >
+
+    <button
+      class="close-panel"
+      onclick="closeCart()"
+    >
+      ×
+    </button>
+
+
+    <h2>
+      Your Cart
+    </h2>
+
+
+    <div id="cart-items">
+
+      <p class="empty-message">
+        Your cart is empty.
+      </p>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =========================================
        FOOTER
-  ========================== -->
+  ========================================== -->
 
   <footer>
 
@@ -473,11 +866,9 @@
       MAVRENX
     </div>
 
-
     <p>
       Better things. Better home.
     </p>
-
 
     <small>
       © 2026 MAVRENX
@@ -487,7 +878,344 @@
 
 
 
+  <!-- =========================================
+       FIREBASE
+  ========================================== -->
+
+  <script
+    src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"
+  ></script>
+
+
+  <script
+    src="https://www.gstatic.com/firebasejs/10.13.2/firebase-messaging-compat.js"
+  ></script>
+
+
+  <script
+    src="https://www.gstatic.com/firebasejs/10.13.2/firebase-database-compat.js"
+  ></script>
+
+
+  <!-- MAVRENX MAIN JS -->
+
   <script src="script.js"></script>
+
+
+
+  <!-- =========================================
+       LIVE ORDER TRACKING
+  ========================================== -->
+
+  <script>
+
+    let activeTrackingReference = null;
+
+
+    const statusOrder = [
+
+      "Order received",
+
+      "Payment confirmed",
+
+      "Preparing",
+
+      "Order confirmed with supplier",
+
+      "Shipped",
+
+      "In transit",
+
+      "Out for delivery",
+
+      "Delivered"
+
+    ];
+
+
+
+    /* =========================================
+       CONNECT DATABASE
+    ========================================== */
+
+    const trackingDatabase =
+      firebase
+        .app()
+        .database(
+          "https://mavrenxsecurity-default-rtdb.europe-west1.firebasedatabase.app"
+        );
+
+
+
+    /* =========================================
+       TRACK FORM
+    ========================================== */
+
+    document
+      .getElementById(
+        "tracking-form"
+      )
+      .addEventListener(
+        "submit",
+        function(event) {
+
+          event.preventDefault();
+
+
+          const input =
+            document
+              .getElementById(
+                "order-number"
+              );
+
+
+          const orderNumber =
+            input
+              .value
+              .trim();
+
+
+          if (!orderNumber) {
+            return;
+          }
+
+
+          startTracking(
+            orderNumber
+          );
+
+        }
+      );
+
+
+
+    /* =========================================
+       START LIVE LISTENER
+    ========================================== */
+
+    function startTracking(
+      orderNumber
+    ) {
+
+      const result =
+        document.getElementById(
+          "tracking-result"
+        );
+
+
+      const error =
+        document.getElementById(
+          "tracking-error"
+        );
+
+
+      result.classList.remove(
+        "show"
+      );
+
+
+      error.classList.remove(
+        "show"
+      );
+
+
+
+      /*
+        Stop listening to the previous order
+        if the customer searches another one.
+      */
+
+      if (
+        activeTrackingReference
+      ) {
+
+        activeTrackingReference.off();
+
+      }
+
+
+
+      /*
+        Read only this specific tracking ID.
+      */
+
+      activeTrackingReference =
+        trackingDatabase
+          .ref(
+            "tracking/" +
+            orderNumber
+          );
+
+
+
+      /*
+        Firebase calls this again automatically
+        whenever the value changes.
+      */
+
+      activeTrackingReference.on(
+        "value",
+
+        function(snapshot) {
+
+          if (
+            !snapshot.exists()
+          ) {
+
+            result.classList.remove(
+              "show"
+            );
+
+
+            error.classList.add(
+              "show"
+            );
+
+
+            return;
+          }
+
+
+
+          const status =
+            snapshot.val();
+
+
+
+          error.classList.remove(
+            "show"
+          );
+
+
+          result.classList.add(
+            "show"
+          );
+
+
+          updateTrackingDisplay(
+            status
+          );
+
+        },
+
+        function(firebaseError) {
+
+          console.error(
+            "Tracking database error:",
+            firebaseError
+          );
+
+
+          result.classList.remove(
+            "show"
+          );
+
+
+          error.textContent =
+            "We couldn't load tracking right now. Please try again.";
+
+
+          error.classList.add(
+            "show"
+          );
+
+        }
+      );
+
+    }
+
+
+
+    /* =========================================
+       UPDATE PAGE
+    ========================================== */
+
+    function updateTrackingDisplay(
+      status
+    ) {
+
+      const statusText =
+        document.getElementById(
+          "current-status-text"
+        );
+
+
+      statusText.textContent =
+        status;
+
+
+
+      const currentIndex =
+        statusOrder.indexOf(
+          status
+        );
+
+
+
+      document
+        .querySelectorAll(
+          ".tracking-step"
+        )
+        .forEach(
+          function(
+            step,
+            index
+          ) {
+
+            step.classList.remove(
+              "complete"
+            );
+
+
+            step.classList.remove(
+              "current"
+            );
+
+
+
+            if (
+              currentIndex === -1
+            ) {
+
+              return;
+
+            }
+
+
+
+            if (
+              index < currentIndex
+            ) {
+
+              step.classList.add(
+                "complete"
+              );
+
+            }
+
+
+
+            if (
+              index === currentIndex
+            ) {
+
+              step.classList.add(
+                "complete"
+              );
+
+
+              step.classList.add(
+                "current"
+              );
+
+            }
+
+          }
+        );
+
+    }
+
+  </script>
 
 
 </body>
