@@ -18,10 +18,6 @@
 
   <style>
 
-    /* =========================================
-       TRACK PAGE
-    ========================================= */
-
     .track-page {
       min-height: 80vh;
       padding: 80px 7%;
@@ -41,22 +37,12 @@
       color: #aaaaaa;
     }
 
-
-    /* =========================================
-       TRACKING BOX
-    ========================================= */
-
     .tracking-box {
       max-width: 650px;
-
       padding: 28px;
-
       margin-bottom: 40px;
-
       border: 1px solid #e1e6e2;
-
       border-radius: 16px;
-
       background: #f7f9f7;
     }
 
@@ -67,31 +53,20 @@
 
     .tracking-box label {
       display: block;
-
       margin-bottom: 8px;
-
       font-weight: 700;
     }
 
     .tracking-box input {
       width: 100%;
-
       padding: 14px 15px;
-
       margin-bottom: 18px;
-
       border: 1px solid #ccd3cd;
-
       border-radius: 8px;
-
       background: #ffffff;
-
       color: #111111;
-
       font-size: 16px;
-
       outline: none;
-
       user-select: text;
       -webkit-user-select: text;
     }
@@ -108,32 +83,18 @@
 
     .track-button {
       width: 100%;
-
       border: none;
-
       font-size: 16px;
     }
 
-
-    /* =========================================
-       ERROR
-    ========================================= */
-
     .tracking-error {
       display: none;
-
       max-width: 650px;
-
       padding: 18px 20px;
-
       margin-bottom: 25px;
-
       border: 1px solid #743333;
-
       border-radius: 10px;
-
       background: #3c1616;
-
       color: #ffbebe;
     }
 
@@ -141,14 +102,8 @@
       display: block;
     }
 
-
-    /* =========================================
-       RESULT
-    ========================================= */
-
     .tracking-result {
       display: none;
-
       max-width: 750px;
     }
 
@@ -156,36 +111,21 @@
       display: block;
     }
 
-
-    /* =========================================
-       CURRENT STATUS
-    ========================================= */
-
     .current-status {
       padding: 25px;
-
       margin-bottom: 30px;
-
       border: 1px solid #257744;
-
       border-radius: 15px;
-
       background: #153c23;
-
       color: #ffffff;
     }
 
     .current-status-label {
       display: block;
-
       margin-bottom: 5px;
-
       color: #a9d8b8;
-
       font-size: 12px;
-
       font-weight: 800;
-
       letter-spacing: 1.5px;
     }
 
@@ -193,77 +133,44 @@
       font-size: 30px;
     }
 
-
-    /* =========================================
-       LIVE INDICATOR
-    ========================================= */
-
     .live-indicator {
       display: flex;
-
       align-items: center;
-
       gap: 8px;
-
       margin-top: 12px;
-
       color: #9edcaf;
-
       font-size: 13px;
-
       font-weight: 700;
     }
 
     .live-dot {
       width: 8px;
-
       height: 8px;
-
       border-radius: 50%;
-
       background: #28d466;
-
-      box-shadow:
-        0 0 10px
-        rgba(40, 212, 102, 0.8);
+      box-shadow: 0 0 10px rgba(40, 212, 102, 0.8);
     }
-
-
-    /* =========================================
-       TRACKING STEPS
-    ========================================= */
 
     .tracking-steps {
       display: flex;
-
       flex-direction: column;
     }
 
     .tracking-step {
       position: relative;
-
       display: flex;
-
       gap: 18px;
-
       min-height: 92px;
-
       opacity: 0.4;
     }
 
     .tracking-step::after {
       content: "";
-
       position: absolute;
-
       left: 19px;
-
       top: 42px;
-
       width: 2px;
-
       height: calc(100% - 8px);
-
       background: #d9ded9;
     }
 
@@ -271,41 +178,20 @@
       display: none;
     }
 
-
-    /* =========================================
-       STEP NUMBER
-    ========================================= */
-
     .step-number {
       position: relative;
-
       z-index: 2;
-
       width: 40px;
-
       height: 40px;
-
       flex-shrink: 0;
-
       display: flex;
-
       align-items: center;
-
       justify-content: center;
-
       border-radius: 50%;
-
       background: #e5e9e5;
-
       color: #666666;
-
       font-weight: 900;
     }
-
-
-    /* =========================================
-       COMPLETED STEP
-    ========================================= */
 
     .tracking-step.complete {
       opacity: 1;
@@ -313,7 +199,6 @@
 
     .tracking-step.complete .step-number {
       background: #159947;
-
       color: #ffffff;
     }
 
@@ -321,29 +206,15 @@
       background: #159947;
     }
 
-
-    /* =========================================
-       CURRENT STEP
-    ========================================= */
-
     .tracking-step.current {
       opacity: 1;
     }
 
     .tracking-step.current .step-number {
       background: #159947;
-
       color: #ffffff;
-
-      box-shadow:
-        0 0 0 6px
-        rgba(21, 153, 71, 0.15);
+      box-shadow: 0 0 0 6px rgba(21, 153, 71, 0.15);
     }
-
-
-    /* =========================================
-       STEP TEXT
-    ========================================= */
 
     .step-info {
       padding-top: 5px;
@@ -351,26 +222,18 @@
 
     .step-info strong {
       display: block;
-
       margin-bottom: 3px;
-
       font-size: 17px;
     }
 
     .step-info p {
       color: #777777;
-
       font-size: 14px;
     }
 
     body.dark-mode .step-info p {
       color: #aaaaaa;
     }
-
-
-    /* =========================================
-       MOBILE
-    ========================================= */
 
     @media (max-width: 520px) {
 
@@ -389,16 +252,13 @@
     }
 
   </style>
-
 </head>
 
 
 <body>
 
 
-  <!-- =========================================
-       HEADER
-  ========================================== -->
+  <!-- HEADER -->
 
   <header>
 
@@ -409,23 +269,23 @@
 
     <nav>
 
-      <a href="/">
+      <a href="index.html">
         Home
       </a>
 
-      <a href="/#categories">
+      <a href="index.html#categories">
         Categories
       </a>
 
-      <a href="/#shop">
+      <a href="index.html#shop">
         Shop
       </a>
 
-      <a href="/track.html">
+      <a href="track.html">
         Track Order
       </a>
 
-      <a href="/#about">
+      <a href="index.html#about">
         About
       </a>
 
@@ -466,14 +326,11 @@
 
 
 
-  <!-- =========================================
-       TRACK ORDER
-  ========================================== -->
+  <!-- TRACK ORDER -->
 
   <main>
 
     <section class="track-page">
-
 
       <p class="tag">
         MAVRENX DELIVERY
@@ -502,8 +359,6 @@
       </p>
 
 
-
-      <!-- SEARCH -->
 
       <div class="tracking-box">
 
@@ -536,8 +391,6 @@
 
 
 
-      <!-- ERROR -->
-
       <div
         id="tracking-error"
         class="tracking-error"
@@ -550,15 +403,11 @@
 
 
 
-      <!-- RESULT -->
-
       <div
         id="tracking-result"
         class="tracking-result"
       >
 
-
-        <!-- CURRENT STATUS -->
 
         <div class="current-status">
 
@@ -583,8 +432,6 @@
         </div>
 
 
-
-        <!-- TRACKING STEPS -->
 
         <div class="tracking-steps">
 
@@ -800,9 +647,7 @@
 
 
 
-  <!-- =========================================
-       LIKES
-  ========================================== -->
+  <!-- LIKES PANEL -->
 
   <div
     id="likes-panel"
@@ -834,9 +679,7 @@
 
 
 
-  <!-- =========================================
-       CART
-  ========================================== -->
+  <!-- CART PANEL -->
 
   <div
     id="cart-panel"
@@ -868,9 +711,7 @@
 
 
 
-  <!-- =========================================
-       FOOTER
-  ========================================== -->
+  <!-- FOOTER -->
 
   <footer>
 
@@ -878,9 +719,11 @@
       MAVRENX
     </div>
 
+
     <p>
       Better things. Better home.
     </p>
+
 
     <small>
       © 2026 MAVRENX
@@ -890,9 +733,7 @@
 
 
 
-  <!-- =========================================
-       FIREBASE
-  ========================================== -->
+  <!-- FIREBASE -->
 
   <script
     src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"
@@ -907,15 +748,11 @@
   ></script>
 
 
-  <!-- MAIN JAVASCRIPT -->
-
   <script src="script.js"></script>
 
 
 
-  <!-- =========================================
-       REAL-TIME ORDER TRACKING
-  ========================================== -->
+  <!-- LIVE TRACKING -->
 
   <script>
 
@@ -944,10 +781,6 @@
 
 
 
-    /* =========================================
-       FIREBASE DATABASE
-    ========================================== */
-
     const trackingDatabase =
       firebase
         .app()
@@ -957,14 +790,8 @@
 
 
 
-    /* =========================================
-       TRACK ORDER FORM
-    ========================================== */
-
     document
-      .getElementById(
-        "tracking-form"
-      )
+      .getElementById("tracking-form")
       .addEventListener(
         "submit",
         function(event) {
@@ -974,9 +801,7 @@
 
           const orderNumber =
             document
-              .getElementById(
-                "order-number"
-              )
+              .getElementById("order-number")
               .value
               .trim();
 
@@ -986,22 +811,14 @@
           }
 
 
-          startTracking(
-            orderNumber
-          );
+          startTracking(orderNumber);
 
         }
       );
 
 
 
-    /* =========================================
-       START LIVE TRACKING
-    ========================================== */
-
-    function startTracking(
-      orderNumber
-    ) {
+    function startTracking(orderNumber) {
 
       const result =
         document.getElementById(
@@ -1015,25 +832,13 @@
         );
 
 
-      result.classList.remove(
-        "show"
-      );
+      result.classList.remove("show");
 
-
-      error.classList.remove(
-        "show"
-      );
+      error.classList.remove("show");
 
 
 
-      /*
-        Stop listening to previous
-        order searches.
-      */
-
-      if (
-        activeTrackingReference
-      ) {
+      if (activeTrackingReference) {
 
         activeTrackingReference.off();
 
@@ -1041,36 +846,21 @@
 
 
 
-      /*
-        Listen only to this order.
-      */
-
       activeTrackingReference =
         trackingDatabase.ref(
-          "tracking/" +
-          orderNumber
+          "tracking/" + orderNumber
         );
 
 
 
-      /*
-        REAL-TIME FIREBASE LISTENER
-
-        Firebase automatically calls
-        this again whenever the status
-        changes.
-      */
-
       activeTrackingReference.on(
-        "value",
 
+        "value",
 
         function(snapshot) {
 
 
-          if (
-            !snapshot.exists()
-          ) {
+          if (!snapshot.exists()) {
 
             result.classList.remove(
               "show"
@@ -1116,7 +906,6 @@
 
         function(firebaseError) {
 
-
           console.error(
             "Tracking error:",
             firebaseError
@@ -1137,28 +926,20 @@
           );
 
         }
+
       );
 
     }
 
 
 
-    /* =========================================
-       UPDATE TRACKING DISPLAY
-    ========================================== */
+    function updateTrackingDisplay(status) {
 
-    function updateTrackingDisplay(
-      status
-    ) {
-
-
-      const statusText =
-        document.getElementById(
+      document
+        .getElementById(
           "current-status-text"
-        );
-
-
-      statusText.textContent =
+        )
+        .textContent =
         status;
 
 
@@ -1175,10 +956,7 @@
           ".tracking-step"
         )
         .forEach(
-          function(
-            step,
-            index
-          ) {
+          function(step, index) {
 
 
             step.classList.remove(
@@ -1192,17 +970,13 @@
 
 
 
-            if (
-              currentIndex === -1
-            ) {
+            if (currentIndex === -1) {
               return;
             }
 
 
 
-            if (
-              index < currentIndex
-            ) {
+            if (index < currentIndex) {
 
               step.classList.add(
                 "complete"
@@ -1212,9 +986,7 @@
 
 
 
-            if (
-              index === currentIndex
-            ) {
+            if (index === currentIndex) {
 
               step.classList.add(
                 "complete"
