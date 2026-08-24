@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
   <meta charset="UTF-8">
 
   <meta
@@ -16,7 +15,6 @@
     rel="stylesheet"
     href="styles.css"
   >
-
 
   <style>
 
@@ -118,7 +116,7 @@
 
 
     /* =========================================
-       TRACKING ERROR
+       ERROR
     ========================================= */
 
     .tracking-error {
@@ -197,7 +195,7 @@
 
 
     /* =========================================
-       LIVE STATUS
+       LIVE INDICATOR
     ========================================= */
 
     .live-indicator {
@@ -404,7 +402,6 @@
 
   <header>
 
-
     <div class="logo-text">
       MAVRENX
     </div>
@@ -412,23 +409,23 @@
 
     <nav>
 
-      <a href="/mavrenx-store/">
+      <a href="/">
         Home
       </a>
 
-      <a href="/mavrenx-store/#categories">
+      <a href="/#categories">
         Categories
       </a>
 
-      <a href="/mavrenx-store/#shop">
+      <a href="/#shop">
         Shop
       </a>
 
-      <a href="/mavrenx-store/track.html">
+      <a href="/track.html">
         Track Order
       </a>
 
-      <a href="/mavrenx-store/#about">
+      <a href="/#about">
         About
       </a>
 
@@ -437,16 +434,12 @@
 
     <div class="header-actions">
 
-
       <button
         class="like-button"
         onclick="openLikes()"
       >
         ♡
-
-        <span id="likes-count">
-          0
-        </span>
+        <span id="likes-count">0</span>
       </button>
 
 
@@ -455,7 +448,6 @@
         onclick="openCart()"
       >
         Cart
-
         (<span id="cart-count">0</span>)
       </button>
 
@@ -468,9 +460,7 @@
         ☾
       </button>
 
-
     </div>
-
 
   </header>
 
@@ -481,7 +471,6 @@
   ========================================== -->
 
   <main>
-
 
     <section class="track-page">
 
@@ -518,9 +507,7 @@
 
       <div class="tracking-box">
 
-
         <form id="tracking-form">
-
 
           <label for="order-number">
             Order number
@@ -543,9 +530,7 @@
             Track order
           </button>
 
-
         </form>
-
 
       </div>
 
@@ -559,8 +544,7 @@
       >
 
         We couldn't find that order.
-
-        Check your order number and try again.
+        Check the order number and try again.
 
       </div>
 
@@ -577,7 +561,6 @@
         <!-- CURRENT STATUS -->
 
         <div class="current-status">
-
 
           <span class="current-status-label">
             CURRENT STATUS
@@ -596,7 +579,6 @@
             Live tracking connected
 
           </div>
-
 
         </div>
 
@@ -810,12 +792,9 @@
 
         </div>
 
-
       </div>
 
-
     </section>
-
 
   </main>
 
@@ -829,7 +808,6 @@
     id="likes-panel"
     class="side-panel"
   >
-
 
     <button
       class="close-panel"
@@ -852,7 +830,6 @@
 
     </div>
 
-
   </div>
 
 
@@ -865,7 +842,6 @@
     id="cart-panel"
     class="side-panel"
   >
-
 
     <button
       class="close-panel"
@@ -888,7 +864,6 @@
 
     </div>
 
-
   </div>
 
 
@@ -899,21 +874,17 @@
 
   <footer>
 
-
     <div class="footer-logo">
       MAVRENX
     </div>
-
 
     <p>
       Better things. Better home.
     </p>
 
-
     <small>
       © 2026 MAVRENX
     </small>
-
 
   </footer>
 
@@ -927,30 +898,26 @@
     src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"
   ></script>
 
-
   <script
     src="https://www.gstatic.com/firebasejs/10.13.2/firebase-messaging-compat.js"
   ></script>
-
 
   <script
     src="https://www.gstatic.com/firebasejs/10.13.2/firebase-database-compat.js"
   ></script>
 
 
-
-  <!-- MAVRENX MAIN JS -->
+  <!-- MAIN JAVASCRIPT -->
 
   <script src="script.js"></script>
 
 
 
   <!-- =========================================
-       LIVE ORDER TRACKING
+       REAL-TIME ORDER TRACKING
   ========================================== -->
 
   <script>
-
 
     let activeTrackingReference = null;
 
@@ -978,7 +945,7 @@
 
 
     /* =========================================
-       DATABASE
+       FIREBASE DATABASE
     ========================================== */
 
     const trackingDatabase =
@@ -991,7 +958,7 @@
 
 
     /* =========================================
-       FORM
+       TRACK ORDER FORM
     ========================================== */
 
     document
@@ -1001,7 +968,6 @@
       .addEventListener(
         "submit",
         function(event) {
-
 
           event.preventDefault();
 
@@ -1024,20 +990,18 @@
             orderNumber
           );
 
-
         }
       );
 
 
 
     /* =========================================
-       START REAL-TIME TRACKING
+       START LIVE TRACKING
     ========================================== */
 
     function startTracking(
       orderNumber
     ) {
-
 
       const result =
         document.getElementById(
@@ -1062,6 +1026,11 @@
 
 
 
+      /*
+        Stop listening to previous
+        order searches.
+      */
+
       if (
         activeTrackingReference
       ) {
@@ -1072,6 +1041,10 @@
 
 
 
+      /*
+        Listen only to this order.
+      */
+
       activeTrackingReference =
         trackingDatabase.ref(
           "tracking/" +
@@ -1079,6 +1052,14 @@
         );
 
 
+
+      /*
+        REAL-TIME FIREBASE LISTENER
+
+        Firebase automatically calls
+        this again whenever the status
+        changes.
+      */
 
       activeTrackingReference.on(
         "value",
@@ -1090,7 +1071,6 @@
           if (
             !snapshot.exists()
           ) {
-
 
             result.classList.remove(
               "show"
@@ -1131,7 +1111,6 @@
             status
           );
 
-
         },
 
 
@@ -1157,17 +1136,15 @@
             "show"
           );
 
-
         }
       );
-
 
     }
 
 
 
     /* =========================================
-       UPDATE PAGE
+       UPDATE TRACKING DISPLAY
     ========================================== */
 
     function updateTrackingDisplay(
@@ -1218,9 +1195,7 @@
             if (
               currentIndex === -1
             ) {
-
               return;
-
             }
 
 
@@ -1252,13 +1227,10 @@
 
             }
 
-
           }
         );
 
-
     }
-
 
   </script>
 
