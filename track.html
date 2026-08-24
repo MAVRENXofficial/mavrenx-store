@@ -1,1 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Track Your Order — MAVRENX</title>
+
+  <link
+    rel="stylesheet"
+    href="styles.css"
+  >
+</head>
+
+
+<body>
+
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+
+  <header>
+
+    <div class="logo">
+      <img
+        src="file_000000007fa081f4ac4862e52d82c4a9.png"
+        alt="MAVRENX"
+      >
+    </div>
+
+
+    <nav>
+
+      <a href="index.html">
+        Home
+      </a>
+
+      <a href="index.html#categories">
+        Categories
+      </a>
+
+      <a href="index.html#shop">
+        Shop
+      </a>
+
+      <a href="track.html">
+        Track Order
+      </a>
+
+    </nav>
+
+
+    <div class="header-actions">
+
+      <button
+        id="theme-button"
+        class="theme-button"
+        onclick="toggleTheme()"
+        aria-label="Change theme"
+      >
+        ☾
+      </button>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- =========================
+       TRACK ORDER
+  ========================== -->
+
+  <main class="tracking-page">
+
+
+    <section class="tracking-hero">
+
+      <p class="tag">
+        MAVRENX ORDERS
+      </p>
+
+
+      <h1 class="tracking-title">
+        Track your<br>
+        <span>order.</span>
+      </h1>
+
+
+      <p class="tracking-description">
+
+        Enter your order number and the email
+        used during checkout to see the latest
+        status of your order.
+
+      </p>
+
+
+      <!-- TRACKING FORM -->
+
+      <form
+        id="tracking-form"
+        class="tracking-form"
+      >
+
+
+        <label for="order-number">
+          Order number
+        </label>
+
+
+        <input
+          type="text"
+          id="order-number"
+          name="order-number"
+          placeholder="Example: MX-10482"
+          autocomplete="off"
+          required
+        >
+
+
+        <label for="order-email">
+          Email address
+        </label>
+
+
+        <input
+          type="email"
+          id="order-email"
+          name="order-email"
+          placeholder="you@example.com"
+          autocomplete="email"
+          required
+        >
+
+
+        <button
+          type="submit"
+          class="track-button"
+        >
+          Track order
+        </button>
+
+
+        <p
+          id="tracking-message"
+          class="tracking-message"
+        >
+        </p>
+
+
+      </form>
+
+    </section>
+
+
+
+    <!-- =========================
+         TRACKING RESULT
+    ========================== -->
+
+    <section
+      id="tracking-result"
+      class="tracking-result"
+      hidden
+    >
+
+
+      <div class="tracking-result-header">
+
+        <div>
+
+          <p class="tag">
+            ORDER STATUS
+          </p>
+
+
+          <h2 id="tracking-order-number">
+            MX-00000
+          </h2>
+
+        </div>
+
+
+        <div
+          id="tracking-current-status"
+          class="status-badge"
+        >
+          Processing
+        </div>
+
+      </div>
+
+
+
+      <!-- ORDER PROGRESS -->
+
+      <div class="order-progress">
+
+
+        <!-- ORDER RECEIVED -->
+
+        <div
+          class="progress-step"
+          data-step="received"
+        >
+
+          <div class="progress-icon">
+            ✓
+          </div>
+
+
+          <div class="progress-info">
+
+            <h3>
+              Order received
+            </h3>
+
+            <p>
+              Your MAVRENX order has been received.
+            </p>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- PAYMENT -->
+
+        <div
+          class="progress-step"
+          data-step="payment"
+        >
+
+          <div class="progress-icon">
+            ✓
+          </div>
+
+
+          <div class="progress-info">
+
+            <h3>
+              Payment confirmed
+            </h3>
+
+            <p>
+              Your payment has been confirmed.
+            </p>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- PREPARING -->
+
+        <div
+          class="progress-step"
+          data-step="preparing"
+        >
+
+          <div class="progress-icon">
+            3
+          </div>
+
+
+          <div class="progress-info">
+
+            <h3>
+              Preparing your order
+            </h3>
+
+            <p>
+              Your order is being prepared.
+            </p>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- SUPPLIER -->
+
+        <div
+          class="progress-step"
+          data-step="supplier"
+        >
+
+          <div class="progress-icon">
+            4
+          </div>
+
+
+          <div class="progress-info">
+
+            <h3>
+              Order confirmed with supplier
+            </h3>
+
+            <p>
+              Your product has been ordered
+              from our fulfilment partner.
+            </p>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- SHIPPED -->
+
+        <div
+          class="progress-step"
+          data-step="shipped"
+        >
+
+          <div class="progress-icon">
+            5
+          </div>
+
+
+          <div class="progress-info">
+
+            <h3>
+              Shipped
+            </h3>
+
+            <p>
+              Your package has left the supplier.
+            </p>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- IN TRANSIT -->
+
+        <div
+          class="progress-step"
+          data-step="transit"
+        >
+
+          <div class="progress-icon">
+            6
+          </div>
+
+
+          <div class="progress-info">
+
+            <h3>
+              In transit
+            </h3>
+
+            <p>
+              Your package is travelling
+              to its destination.
+            </p>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- OUT FOR DELIVERY -->
+
+        <div
+          class="progress-step"
+          data-step="delivery"
+        >
+
+          <div class="progress-icon">
+            7
+          </div>
+
+
+          <div class="progress-info">
+
+            <h3>
+              Out for delivery
+            </h3>
+
+            <p>
+              Your local courier is delivering
+              your package.
+            </p>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- DELIVERED -->
+
+        <div
+          class="progress-step"
+          data-step="delivered"
+        >
+
+          <div class="progress-icon">
+            8
+          </div>
+
+
+          <div class="progress-info">
+
+            <h3>
+              Delivered
+            </h3>
+
+            <p>
+              Your order has been delivered.
+            </p>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+
+      <!-- TRACKING NUMBER -->
+
+      <div
+        id="shipping-tracking-box"
+        class="shipping-tracking-box"
+        hidden
+      >
+
+        <p>
+          Tracking number
+        </p>
+
+
+        <strong
+          id="shipping-tracking-number"
+        >
+          —
+        </strong>
+
+      </div>
+
+
+    </section>
+
+
+  </main>
+
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer>
+
+    <div class="footer-logo">
+      MAVRENX
+    </div>
+
+
+    <p>
+      Better things. Better home.
+    </p>
+
+
+    <small>
+      © 2026 MAVRENX
+    </small>
+
+  </footer>
+
+
+
+  <script src="script.js"></script>
+
+
+</body>
+
+</html>
