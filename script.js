@@ -1,42 +1,22 @@
-/* =========================================
-   MAVRENX STORE SCRIPT
-========================================= */
+/* =========================
+   MAVRENX SCRIPT
+========================= */
 
 
-/* =========================================
-   PRODUCT
-========================================= */
+/* =========================
+   SAVED DATA
+========================= */
 
-const product = {
-  id: "main-product",
-  name: "RGB LED Neon Rope Light — 10M",
-  price: 29.99,
-
-  images: [
-    "https://m.media-amazon.com/images/I/71ugRQSCacL._AC_SX342_SY445_QL70_FMwebp_.jpg",
-    "https://m.media-amazon.com/images/I/71+x5N3Z7QL._AC_SX679_.jpg",
-    "https://m.media-amazon.com/images/I/71D+waz6LsL._AC_SX679_.jpg",
-    "https://m.media-amazon.com/images/I/81kf8ndZNoL._AC_SX679_.jpg",
-    "https://m.media-amazon.com/images/I/81QmxX1XyFL._AC_SX679_.jpg"
-  ]
-};
-
-
-/* =========================================
-   LOAD SAVED DATA
-========================================= */
-
-let cart = JSON.parse(localStorage.getItem("mavrenx-cart")) || [];
+let cart =
+  JSON.parse(localStorage.getItem("mavrenx-cart")) || [];
 
 let likedItems =
   JSON.parse(localStorage.getItem("mavrenx-liked")) || [];
 
-let currentImage = 0;
 
-
-/* =========================================
-   SAVE DATA
-========================================= */
+/* =========================
+   CART
+========================= */
 
 function saveCart() {
   localStorage.setItem(
@@ -44,6 +24,117 @@ function saveCart() {
     JSON.stringify(cart)
   );
 }
+
+
+function updateCart() {
+  const count =
+    document.getElementById("cart-count");
+
+  const container =
+    document.getElementById("cart-items");
+
+  if (count) {
+    let totalItems = 0;
+
+    cart.forEach(item => {
+      totalItems += item.quantity || 1;
+    });
+
+    count.textContent = totalItems;
+  }
+
+  if (!container) {
+    return;
+  }
+
+  if (cart.length === 0) {
+    container.innerHTML = `
+      <p>Your cart is empty.</p>
+    `;
+
+    return;
+  }
+
+  let html = "";
+
+  cart.forEach(item => {
+    html += `
+      <div class="cart-item">
+
+        ${
+          item.image
+            ? `
+              <img
+                src="${item.image}"
+                alt="${item.name}"
+              >
+            `
+            : ""
+        }
+
+        <div class="cart-item-info">
+
+          <h3>
+            ${item.name}
+          </h3>
+
+          ${
+            typeof item.price === "number"
+              ? `
+                <p>
+                  €${item.price.toFixed(2)}
+                </p>
+              `
+              : ""
+          }
+
+          ${
+            item.quantity
+              ? `
+                <p>
+                  Quantity: ${item.quantity}
+                </p>
+              `
+              : ""
+          }
+
+        </div>
+
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+
+function openCart() {
+  const panel =
+    document.getElementById("cart-panel");
+
+  if (panel) {
+    panel.classList.add("active");
+  }
+
+  closeLikes();
+
+  updateCart();
+}
+
+
+function closeCart() {
+  const panel =
+    document.getElementById("cart-panel");
+
+  if (panel) {
+    panel.classList.remove("active");
+  }
+}
+
+
+/* =========================
+   LIKED ITEMS
+========================= */
 
 function saveLikes() {
   localStorage.setItem(
@@ -53,345 +144,45 @@ function saveLikes() {
 }
 
 
-/* =========================================
-   IMAGE SLIDER
-========================================= */
-
-function nextImage() {
-
-  currentImage++;
-
-  if (currentImage >= product.images.length) {
-    currentImage = 0;
-  }
-
-  updateProductImage();
-}
-
-
-function previousImage() {
-
-  currentImage--;
-
-  if (currentImage < 0) {
-    currentImage = product.images.length - 1;
-  }
-
-  updateProductImage();
-}
-
-
-function updateProductImage() {
-
-  const image =
-    document.getElementById("product-image");
-
-  if (!image) return;
-
-  image.src =
-    product.images[currentImage];
-}
-
-
-/* =========================================
-   CART
-========================================= */
-
-function addToCart() {
-
-  const existingItem =
-    cart.find(
-      item => item.id === product.id
-    );
-
-
-  if (existingItem) {
-
-    existingItem.quantity++;
-
-  } else {
-
-    cart.push({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      image: product.images[0],
-      quantity: 1
-    });
-
-  }
-
-
-  saveCart();
-
-  updateCart();
-
-}
-
-
-function removeFromCart(id) {
-
-  cart =
-    cart.filter(
-      item => item.id !== id
-    );
-
-  saveCart();
-
-  updateCart();
-
-}
-
-
-function updateCart() {
-
-  const cartCount =
-    document.getElementById("cart-count");
-
-  const cartItems =
-    document.getElementById("cart-items");
-
-
-  if (!cartCount || !cartItems) return;
-
-
-  let totalItems = 0;
-
-
-  cart.forEach(item => {
-
-    totalItems += item.quantity;
-
-  });
-
-
-  cartCount.textContent =
-    totalItems;
-
-
-  /* EMPTY CART */
-
-  if (cart.length === 0) {
-
-    cartItems.innerHTML = `
-      <p class="empty-message">
-        Your cart is empty.
-      </p>
-    `;
-
-    return;
-
-  }
-
-
-  let html = "";
-
-  let totalPrice = 0;
-
-
-  cart.forEach(item => {
-
-    totalPrice +=
-      item.price * item.quantity;
-
-
-    html += `
-
-      <div class="cart-item">
-
-        <img
-          src="${item.image}"
-          alt="${item.name}"
-        >
-
-        <div class="cart-item-info">
-
-          <h3>
-            ${item.name}
-          </h3>
-
-          <p>
-            €${item.price.toFixed(2)}
-          </p>
-
-          <p>
-            Quantity: ${item.quantity}
-          </p>
-
-          <button
-            onclick="removeFromCart('${item.id}')"
-          >
-            Remove
-          </button>
-
-        </div>
-
-      </div>
-
-    `;
-
-  });
-
-
-  html += `
-
-    <div class="cart-total">
-
-      <h3>
-        Total: €${totalPrice.toFixed(2)}
-      </h3>
-
-      <button
-        class="checkout-button"
-        onclick="checkout()"
-      >
-        Proceed to Checkout
-      </button>
-
-    </div>
-
-  `;
-
-
-  cartItems.innerHTML = html;
-
-}
-
-
-/* =========================================
-   OPEN / CLOSE CART
-========================================= */
-
-function openCart() {
-
-  const panel =
-    document.getElementById("cart-panel");
-
-  if (!panel) return;
-
-  panel.classList.add("active");
-
-  updateCart();
-
-}
-
-
-function closeCart() {
-
-  const panel =
-    document.getElementById("cart-panel");
-
-  if (!panel) return;
-
-  panel.classList.remove("active");
-
-}
-
-
-/* =========================================
-   LIKED ITEMS
-========================================= */
-
-function toggleLike() {
-
-  const existingItem =
-    likedItems.find(
-      item => item.id === product.id
-    );
-
-
-  if (existingItem) {
-
-    likedItems =
-      likedItems.filter(
-        item => item.id !== product.id
-      );
-
-  } else {
-
-    likedItems.push({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      image: product.images[0]
-    });
-
-  }
-
-
-  saveLikes();
-
-  updateLikes();
-
-  updateLikeButtons();
-
-}
-
-
-function removeLike(id) {
-
-  likedItems =
-    likedItems.filter(
-      item => item.id !== id
-    );
-
-  saveLikes();
-
-  updateLikes();
-
-  updateLikeButtons();
-
-}
-
-
 function updateLikes() {
-
-  const likesCount =
+  const count =
     document.getElementById("likes-count");
 
-  const likedItemsContainer =
+  const container =
     document.getElementById("liked-items");
 
-
-  if (likesCount) {
-
-    likesCount.textContent =
-      likedItems.length;
-
+  if (count) {
+    count.textContent = likedItems.length;
   }
 
-
-  if (!likedItemsContainer) return;
-
-
-  /* EMPTY */
+  if (!container) {
+    return;
+  }
 
   if (likedItems.length === 0) {
-
-    likedItemsContainer.innerHTML = `
-      <p class="empty-message">
-        You haven't liked anything yet.
-      </p>
+    container.innerHTML = `
+      <p>You haven't liked anything yet.</p>
     `;
 
     return;
-
   }
-
 
   let html = "";
 
-
   likedItems.forEach(item => {
-
     html += `
-
       <div class="liked-item">
 
-        <img
-          src="${item.image}"
-          alt="${item.name}"
-        >
+        ${
+          item.image
+            ? `
+              <img
+                src="${item.image}"
+                alt="${item.name}"
+              >
+            `
+            : ""
+        }
 
         <div>
 
@@ -399,244 +190,200 @@ function updateLikes() {
             ${item.name}
           </h3>
 
-          <p>
-            €${item.price.toFixed(2)}
-          </p>
-
-          <button
-            onclick="removeLike('${item.id}')"
-          >
-            Remove
-          </button>
+          ${
+            typeof item.price === "number"
+              ? `
+                <p>
+                  €${item.price.toFixed(2)}
+                </p>
+              `
+              : ""
+          }
 
         </div>
 
       </div>
-
     `;
-
   });
 
-
-  likedItemsContainer.innerHTML =
-    html;
-
+  container.innerHTML = html;
 }
 
-
-/* =========================================
-   UPDATE LIKE BUTTONS
-========================================= */
-
-function updateLikeButtons() {
-
-  const isLiked =
-    likedItems.some(
-      item => item.id === product.id
-    );
-
-
-  const productLikeButton =
-    document.querySelector(
-      ".like-product-button"
-    );
-
-
-  if (productLikeButton) {
-
-    if (isLiked) {
-
-      productLikeButton.classList.add(
-        "liked"
-      );
-
-      productLikeButton.innerHTML =
-        "♥ Liked";
-
-    } else {
-
-      productLikeButton.classList.remove(
-        "liked"
-      );
-
-      productLikeButton.innerHTML =
-        "♡ Like";
-
-    }
-
-  }
-
-}
-
-
-/* =========================================
-   OPEN / CLOSE LIKES
-========================================= */
 
 function openLikes() {
-
   const panel =
     document.getElementById("likes-panel");
 
-  if (!panel) return;
+  if (panel) {
+    panel.classList.add("active");
+  }
 
-  panel.classList.add("active");
+  closeCart();
 
   updateLikes();
-
 }
 
 
 function closeLikes() {
-
   const panel =
     document.getElementById("likes-panel");
 
-  if (!panel) return;
-
-  panel.classList.remove("active");
-
-}
-
-
-/* =========================================
-   CHECKOUT
-========================================= */
-
-function checkout() {
-
-  if (cart.length === 0) {
-
-    alert(
-      "Your cart is empty!"
-    );
-
-    return;
-
+  if (panel) {
+    panel.classList.remove("active");
   }
-
-
-  let total = 0;
-
-
-  cart.forEach(item => {
-
-    total +=
-      item.price * item.quantity;
-
-  });
-
-
-  alert(
-
-    "Checkout system coming next!\n\n" +
-
-    "Your total is €" +
-
-    total.toFixed(2)
-
-  );
-
 }
 
 
-/* =========================================
-   DARK / LIGHT MODE
-========================================= */
+/* =========================
+   LIGHT / DARK MODE
+========================= */
 
 function toggleTheme() {
-
   document.body.classList.toggle(
-    "light-mode"
+    "dark-mode"
   );
 
-
-  const isLight =
+  const isDark =
     document.body.classList.contains(
-      "light-mode"
+      "dark-mode"
     );
-
 
   localStorage.setItem(
     "mavrenx-theme",
-    isLight
-      ? "light"
-      : "dark"
+    isDark
+      ? "dark"
+      : "light"
   );
 
-
   updateThemeButton();
-
 }
 
 
 function loadTheme() {
-
   const savedTheme =
     localStorage.getItem(
       "mavrenx-theme"
     );
 
-
-  if (savedTheme === "light") {
-
+  if (savedTheme === "dark") {
     document.body.classList.add(
-      "light-mode"
+      "dark-mode"
     );
-
+  } else {
+    document.body.classList.remove(
+      "dark-mode"
+    );
   }
 
-
   updateThemeButton();
-
 }
 
 
 function updateThemeButton() {
-
   const button =
     document.getElementById(
       "theme-button"
     );
 
-
-  if (!button) return;
-
-
-  if (
-    document.body.classList.contains(
-      "light-mode"
-    )
-  ) {
-
-    button.innerHTML = "☀";
-
-  } else {
-
-    button.innerHTML = "☾";
-
+  if (!button) {
+    return;
   }
 
+  const isDark =
+    document.body.classList.contains(
+      "dark-mode"
+    );
+
+  if (isDark) {
+    button.textContent = "☀";
+  } else {
+    button.textContent = "☾";
+  }
 }
 
 
-/* =========================================
+/* =========================
+   CLICK OUTSIDE PANELS
+========================= */
+
+document.addEventListener(
+  "click",
+  function (event) {
+
+    const likesPanel =
+      document.getElementById(
+        "likes-panel"
+      );
+
+    const cartPanel =
+      document.getElementById(
+        "cart-panel"
+      );
+
+    const likeButton =
+      document.querySelector(
+        ".like-button"
+      );
+
+    const cartButton =
+      document.querySelector(
+        ".cart-button"
+      );
+
+
+    if (
+      likesPanel &&
+      likesPanel.classList.contains("active") &&
+      !likesPanel.contains(event.target) &&
+      !likeButton?.contains(event.target)
+    ) {
+      closeLikes();
+    }
+
+
+    if (
+      cartPanel &&
+      cartPanel.classList.contains("active") &&
+      !cartPanel.contains(event.target) &&
+      !cartButton?.contains(event.target)
+    ) {
+      closeCart();
+    }
+
+  }
+);
+
+
+/* =========================
+   ESCAPE KEY CLOSES PANELS
+========================= */
+
+document.addEventListener(
+  "keydown",
+  function (event) {
+
+    if (event.key === "Escape") {
+      closeLikes();
+      closeCart();
+    }
+
+  }
+);
+
+
+/* =========================
    START WEBSITE
-========================================= */
+========================= */
 
 document.addEventListener(
   "DOMContentLoaded",
   function () {
 
-    updateProductImage();
+    loadTheme();
 
     updateCart();
 
     updateLikes();
-
-    updateLikeButtons();
-
-    loadTheme();
 
   }
 );
