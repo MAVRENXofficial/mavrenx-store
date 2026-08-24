@@ -65,6 +65,8 @@
     <div class="header-actions">
 
 
+      <!-- LIKES -->
+
       <button
         class="like-button"
         onclick="openLikes()"
@@ -75,14 +77,30 @@
       </button>
 
 
+      <!-- CART -->
+
       <button
         class="cart-button"
         onclick="openCart()"
+        aria-label="Open cart"
       >
         Cart
         (<span id="cart-count">0</span>)
       </button>
 
+
+      <!-- NOTIFICATIONS -->
+
+      <button
+        class="notification-button"
+        onclick="enableNotifications()"
+        aria-label="Enable notifications"
+      >
+        🔔
+      </button>
+
+
+      <!-- THEME -->
 
       <button
         id="theme-button"
@@ -811,7 +829,7 @@
 
 
   <!-- =========================
-       MAVRENX JAVASCRIPT
+       MAVRENX SCRIPT
   ========================== -->
 
   <script src="script.js"></script>
