@@ -35,9 +35,7 @@
 
     .track-description {
       max-width: 650px;
-
       margin-bottom: 35px;
-
       color: #777777;
     }
 
@@ -47,7 +45,7 @@
 
 
     /* =========================================
-       TRACKING SEARCH BOX
+       TRACKING BOX
     ========================================= */
 
     .tracking-box {
@@ -66,7 +64,6 @@
 
     body.dark-mode .tracking-box {
       background: #181b18;
-
       border-color: #303530;
     }
 
@@ -98,7 +95,6 @@
       outline: none;
 
       user-select: text;
-
       -webkit-user-select: text;
     }
 
@@ -108,9 +104,7 @@
 
     body.dark-mode .tracking-box input {
       background: #101210;
-
       color: #ffffff;
-
       border-color: #3b423c;
     }
 
@@ -151,7 +145,7 @@
 
 
     /* =========================================
-       TRACKING RESULT
+       RESULT
     ========================================= */
 
     .tracking-result {
@@ -203,7 +197,7 @@
 
 
     /* =========================================
-       LIVE INDICATOR
+       LIVE STATUS
     ========================================= */
 
     .live-indicator {
@@ -418,37 +412,23 @@
 
     <nav>
 
-      <a
-        href="https://mavrenxofficial.github.io/"
-      >
+      <a href="/mavrenx-store/">
         Home
       </a>
 
-
-      <a
-        href="https://mavrenxofficial.github.io/#categories"
-      >
+      <a href="/mavrenx-store/#categories">
         Categories
       </a>
 
-
-      <a
-        href="https://mavrenxofficial.github.io/#shop"
-      >
+      <a href="/mavrenx-store/#shop">
         Shop
       </a>
 
-
-      <a
-        href="https://mavrenxofficial.github.io/track.html"
-      >
+      <a href="/mavrenx-store/track.html">
         Track Order
       </a>
 
-
-      <a
-        href="https://mavrenxofficial.github.io/#about"
-      >
+      <a href="/mavrenx-store/#about">
         About
       </a>
 
@@ -534,9 +514,7 @@
 
 
 
-      <!-- =========================================
-           SEARCH
-      ========================================== -->
+      <!-- SEARCH -->
 
       <div class="tracking-box">
 
@@ -573,9 +551,7 @@
 
 
 
-      <!-- =========================================
-           ERROR
-      ========================================== -->
+      <!-- ERROR -->
 
       <div
         id="tracking-error"
@@ -590,9 +566,7 @@
 
 
 
-      <!-- =========================================
-           RESULT
-      ========================================== -->
+      <!-- RESULT -->
 
       <div
         id="tracking-result"
@@ -628,9 +602,7 @@
 
 
 
-        <!-- =========================================
-             TRACKING STEPS
-        ========================================== -->
+        <!-- TRACKING STEPS -->
 
         <div class="tracking-steps">
 
@@ -967,9 +939,7 @@
 
 
 
-  <!-- =========================================
-       MAVRENX MAIN JS
-  ========================================== -->
+  <!-- MAVRENX MAIN JS -->
 
   <script src="script.js"></script>
 
@@ -1008,7 +978,7 @@
 
 
     /* =========================================
-       REALTIME DATABASE
+       DATABASE
     ========================================== */
 
     const trackingDatabase =
@@ -1021,7 +991,7 @@
 
 
     /* =========================================
-       TRACK FORM
+       FORM
     ========================================== */
 
     document
@@ -1036,14 +1006,11 @@
           event.preventDefault();
 
 
-          const input =
-            document.getElementById(
-              "order-number"
-            );
-
-
           const orderNumber =
-            input
+            document
+              .getElementById(
+                "order-number"
+              )
               .value
               .trim();
 
@@ -1064,7 +1031,7 @@
 
 
     /* =========================================
-       START TRACKING
+       START REAL-TIME TRACKING
     ========================================== */
 
     function startTracking(
@@ -1095,10 +1062,6 @@
 
 
 
-      /*
-        Stop listening to previous order
-      */
-
       if (
         activeTrackingReference
       ) {
@@ -1109,10 +1072,6 @@
 
 
 
-      /*
-        Listen only to this order
-      */
-
       activeTrackingReference =
         trackingDatabase.ref(
           "tracking/" +
@@ -1120,10 +1079,6 @@
         );
 
 
-
-      /*
-        REAL-TIME LISTENER
-      */
 
       activeTrackingReference.on(
         "value",
@@ -1212,7 +1167,7 @@
 
 
     /* =========================================
-       UPDATE TRACKING DISPLAY
+       UPDATE PAGE
     ========================================== */
 
     function updateTrackingDisplay(
