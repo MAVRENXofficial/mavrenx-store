@@ -702,10 +702,6 @@ function getNotificationButton() {
 }
 
 
-/* =========================================
-   CHANGE POPUP MESSAGE
-========================================= */
-
 function setNotificationMessage(
   message
 ) {
@@ -765,7 +761,7 @@ function closeNotificationPopup() {
 
 
 /* =========================================
-   NOTIFICATION SUPPORT CHECK
+   SUPPORT CHECK
 ========================================= */
 
 function checkNotificationSupport() {
@@ -793,7 +789,7 @@ function checkNotificationSupport() {
     return {
       supported: false,
       reason:
-        "This browser doesn't support the notification service needed by MAVRENX. Order tracking will still work normally."
+        "This browser doesn't support the notification service needed by MAVRENX."
     };
   }
 
@@ -801,7 +797,7 @@ function checkNotificationSupport() {
     return {
       supported: false,
       reason:
-        "Push notifications aren't available in this browser setup right now. You can still track your order normally."
+        "Push notifications aren't available in this browser setup right now."
     };
   }
 
@@ -833,17 +829,12 @@ async function enableNotifications() {
   }
 
 
-  /*
-    Browser has already blocked
-    notification permission.
-  */
-
   if (
     Notification.permission ===
     "denied"
   ) {
     setNotificationMessage(
-      "Notifications are blocked in this browser. That's okay — you can still use MAVRENX and track your order normally."
+      "Notifications are blocked in this browser. You can still use MAVRENX normally."
     );
 
     setNotificationButton(
@@ -855,10 +846,6 @@ async function enableNotifications() {
   }
 
 
-  /*
-    Browser already has permission.
-  */
-
   if (
     Notification.permission ===
     "granted"
@@ -866,10 +853,6 @@ async function enableNotifications() {
     return await createNotificationToken();
   }
 
-
-  /*
-    First-time permission request.
-  */
 
   try {
     setNotificationButton(
@@ -895,7 +878,7 @@ async function enableNotifications() {
       "denied"
     ) {
       setNotificationMessage(
-        "Notifications weren't allowed. No problem — MAVRENX will still work normally and you can track your order from the Track Order page."
+        "Notifications weren't allowed. You can still track your order normally."
       );
 
       setNotificationButton(
@@ -908,7 +891,7 @@ async function enableNotifications() {
 
 
     setNotificationMessage(
-      "Notifications weren't enabled. You can still track your order normally."
+      "Notifications weren't enabled."
     );
 
     setNotificationButton(
@@ -925,7 +908,7 @@ async function enableNotifications() {
     );
 
     setNotificationMessage(
-      "Notifications aren't available in this browser right now. You can still track your order normally."
+      "Notifications aren't available in this browser right now."
     );
 
     setNotificationButton(
@@ -974,7 +957,7 @@ async function createNotificationToken() {
 
     if (!token) {
       setNotificationMessage(
-        "Push notifications couldn't be activated in this browser. You can still track your order normally."
+        "Push notifications couldn't be activated in this browser."
       );
 
       setNotificationButton(
@@ -986,21 +969,8 @@ async function createNotificationToken() {
     }
 
 
-    /*
-      Temporary storage for testing.
-
-      Later we'll save this securely
-      with the customer's account/order.
-    */
-
     localStorage.setItem(
       "mavrenx-notification-token",
-      token
-    );
-
-
-    console.log(
-      "MAVRENX notification token:",
       token
     );
 
@@ -1011,8 +981,14 @@ async function createNotificationToken() {
     );
 
 
+    console.log(
+      "MAVRENX notification token:",
+      token
+    );
+
+
     setNotificationMessage(
-      "Notifications are enabled! You'll be able to receive MAVRENX order updates on this device."
+      "Notifications are enabled! MAVRENX can send order updates to this device."
     );
 
 
@@ -1022,12 +998,7 @@ async function createNotificationToken() {
     );
 
 
-    setTimeout(
-      function() {
-        closeNotificationPopup();
-      },
-      1200
-    );
+    showTokenTestButton();
 
 
     return true;
@@ -1039,14 +1010,8 @@ async function createNotificationToken() {
     );
 
 
-    /*
-      This can happen in browsers
-      such as Brave when their push
-      service is disabled.
-    */
-
     setNotificationMessage(
-      "Push notifications aren't available with this browser setup. You can still shop and track your order normally."
+      "Push notifications aren't available with this browser setup."
     );
 
 
@@ -1071,7 +1036,210 @@ async function enableNotificationsFromPopup() {
 
 
 /* =========================================
-   FOREGROUND PUSH MESSAGES
+   COPY TEST TOKEN
+========================================= */
+
+async function copyNotificationToken() {
+  const token =
+    localStorage.getItem(
+      "mavrenx-notification-token"
+    );
+
+
+  if (!token) {
+    alert(
+      "No notification token was found yet."
+    );
+
+    return;
+  }
+
+
+  try {
+    await navigator.clipboard.writeText(
+      token
+    );
+
+    alert(
+      "Test token copied!"
+    );
+
+  } catch (error) {
+
+    console.error(
+      "Clipboard error:",
+      error
+    );
+
+
+    /*
+      Fallback for browsers that
+      refuse clipboard access.
+    */
+
+    window.prompt(
+      "Copy this test token:",
+      token
+    );
+  }
+}
+
+
+/* =========================================
+   TEMPORARY PHONE TEST BUTTON
+========================================= */
+
+function showTokenTestButton() {
+  const token =
+    localStorage.getItem(
+      "mavrenx-notification-token"
+    );
+
+
+  if (!token) {
+    return;
+  }
+
+
+  if (
+    document.getElementById(
+      "mavrenx-token-test"
+    )
+  ) {
+    return;
+  }
+
+
+  const box =
+    document.createElement(
+      "div"
+    );
+
+
+  box.id =
+    "mavrenx-token-test";
+
+
+  box.style.position =
+    "fixed";
+
+  box.style.left =
+    "50%";
+
+  box.style.bottom =
+    "18px";
+
+  box.style.transform =
+    "translateX(-50%)";
+
+  box.style.width =
+    "min(420px, calc(100% - 30px))";
+
+  box.style.padding =
+    "14px";
+
+  box.style.background =
+    "#151815";
+
+  box.style.border =
+    "1px solid #159947";
+
+  box.style.borderRadius =
+    "14px";
+
+  box.style.zIndex =
+    "12000";
+
+  box.style.boxShadow =
+    "0 12px 40px rgba(0,0,0,.45)";
+
+  box.style.textAlign =
+    "center";
+
+  box.style.color =
+    "#ffffff";
+
+
+  box.innerHTML = `
+    <div
+      style="
+        font-weight:800;
+        margin-bottom:4px;
+      "
+    >
+      🔔 Notification test
+    </div>
+
+    <div
+      style="
+        font-size:12px;
+        color:#b9bdb9;
+        margin-bottom:10px;
+      "
+    >
+      Temporary testing button
+    </div>
+
+    <button
+      type="button"
+      onclick="copyNotificationToken()"
+      style="
+        width:100%;
+        border:0;
+        border-radius:9px;
+        padding:12px;
+        background:#159947;
+        color:white;
+        font-weight:800;
+        cursor:pointer;
+      "
+    >
+      Copy test token
+    </button>
+
+    <button
+      type="button"
+      onclick="hideTokenTestButton()"
+      style="
+        width:100%;
+        border:0;
+        padding:10px;
+        margin-top:5px;
+        background:transparent;
+        color:#aaaaaa;
+        cursor:pointer;
+      "
+    >
+      Hide
+    </button>
+  `;
+
+
+  document.body.appendChild(
+    box
+  );
+}
+
+
+/* =========================================
+   HIDE TEST BUTTON
+========================================= */
+
+function hideTokenTestButton() {
+  const box =
+    document.getElementById(
+      "mavrenx-token-test"
+    );
+
+
+  if (box) {
+    box.remove();
+  }
+}
+
+
+/* =========================================
+   FOREGROUND PUSH
 ========================================= */
 
 if (messaging) {
@@ -1083,9 +1251,11 @@ if (messaging) {
           payload
         );
 
+
         const title =
           payload.notification?.title ||
           "MAVRENX";
+
 
         const body =
           payload.notification?.body ||
@@ -1102,6 +1272,7 @@ if (messaging) {
               await navigator
                 .serviceWorker
                 .ready;
+
 
             await registration
               .showNotification(
@@ -1164,6 +1335,17 @@ document.addEventListener(
     updateProductLikeButtons();
 
 
+    /*
+      TEMPORARY TEST BUTTON
+
+      If this phone already has an
+      FCM token saved, show the copy
+      button immediately.
+    */
+
+    showTokenTestButton();
+
+
     const popup =
       getNotificationPopup();
 
@@ -1171,11 +1353,6 @@ document.addEventListener(
       return;
     }
 
-
-    /*
-      If notifications are already
-      allowed, never show the popup.
-    */
 
     if (
       "Notification" in window &&
@@ -1189,12 +1366,6 @@ document.addEventListener(
     }
 
 
-    /*
-      If browser permission has already
-      been denied, don't keep bothering
-      the customer on every visit.
-    */
-
     if (
       "Notification" in window &&
       Notification.permission ===
@@ -1206,11 +1377,6 @@ document.addEventListener(
       return;
     }
 
-
-    /*
-      Don't show again after a refresh
-      during the same browser session.
-    */
 
     const seenThisSession =
       sessionStorage.getItem(
@@ -1228,11 +1394,6 @@ document.addEventListener(
       return;
     }
 
-
-    /*
-      First entry during this session:
-      show once, then mark as seen.
-    */
 
     popup.style.display =
       "flex";
