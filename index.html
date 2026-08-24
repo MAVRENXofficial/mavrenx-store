@@ -89,17 +89,6 @@
       </button>
 
 
-      <!-- NOTIFICATIONS -->
-
-      <button
-        class="notification-button"
-        onclick="enableNotifications()"
-        aria-label="Enable notifications"
-      >
-        🔔
-      </button>
-
-
       <!-- THEME -->
 
       <button
@@ -115,6 +104,73 @@
     </div>
 
   </header>
+
+
+
+  <!-- =========================
+       NOTIFICATION POPUP
+  ========================== -->
+
+  <div
+    id="notification-prompt"
+    class="notification-prompt"
+  >
+
+    <button
+      class="notification-close"
+      onclick="
+        document.getElementById('notification-prompt').style.display='none'
+      "
+      aria-label="Close notification message"
+    >
+      ×
+    </button>
+
+
+    <div class="notification-icon">
+      🔔
+    </div>
+
+
+    <div class="notification-content">
+
+      <h3>
+        Stay updated
+      </h3>
+
+
+      <p>
+        Get notifications when your order is confirmed,
+        prepared, shipped, in transit and delivered.
+      </p>
+
+
+      <div class="notification-actions">
+
+
+        <button
+          class="enable-notifications-button"
+          onclick="enableNotifications()"
+        >
+          Enable notifications
+        </button>
+
+
+        <button
+          class="not-now-button"
+          onclick="
+            document.getElementById('notification-prompt').style.display='none'
+          "
+        >
+          Not now
+        </button>
+
+
+      </div>
+
+    </div>
+
+  </div>
 
 
 
@@ -428,7 +484,6 @@
 
       </div>
 
-
     </section>
 
 
@@ -477,7 +532,6 @@
         </div>
 
       </div>
-
 
     </section>
 
@@ -528,7 +582,6 @@
 
       </div>
 
-
     </section>
 
 
@@ -577,7 +630,6 @@
         </div>
 
       </div>
-
 
     </section>
 
@@ -628,7 +680,6 @@
 
       </div>
 
-
     </section>
 
 
@@ -677,7 +728,6 @@
         </div>
 
       </div>
-
 
     </section>
 
