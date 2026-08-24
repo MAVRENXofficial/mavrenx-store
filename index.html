@@ -1,45 +1,41 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>MAVRENX — Gaming Gear</title>
+  <title>MAVRENX — Home & Everyday</title>
 
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-  <!-- HEADER -->
-
   <header>
 
-    <div class="logo">
-      <img
-        src="file_000000007fa081f4ac4862e52d82c4a9.png"
-        alt="MAVRENX"
-      >
-    </div>
+    <div class="logo">MAVRENX</div>
 
     <nav>
+      <a href="#home">Home</a>
+      <a href="#categories">Categories</a>
       <a href="#shop">Shop</a>
       <a href="#about">About</a>
-      <a href="#faq">FAQ</a>
     </nav>
 
     <div class="header-actions">
 
-      <button
-        class="like-button"
-        onclick="openLikes()">
-        ♥ <span id="like-count">0</span>
+      <button class="like-button" onclick="openLikes()">
+        ♡ <span id="likes-count">0</span>
       </button>
 
-      <button
-        class="cart-button"
-        onclick="openCart()">
+      <button class="cart-button" onclick="openCart()">
         Cart (<span id="cart-count">0</span>)
+      </button>
+
+      <button id="theme-button" class="theme-button" onclick="toggleTheme()">
+        ☾
       </button>
 
     </div>
@@ -49,160 +45,150 @@
 
   <main>
 
-    <!-- HERO -->
+    <section id="home" class="hero">
 
-    <section class="hero">
+      <div class="hero-content">
 
-      <div>
-
-        <p class="tag">
-          MAVRENX GAMING
-        </p>
+        <p class="tag">MAVRENX HOME</p>
 
         <h1>
-          Upgrade<br>
-          your <span>setup.</span>
+          Better things.<br>
+          <span>Better home.</span>
         </h1>
 
         <p class="hero-text">
-          Premium gaming accessories and lighting
-          designed to make your setup stand out.
+          Useful, modern products for your home and everyday life.
         </p>
 
-        <a
-          href="#shop"
-          class="button">
+        <a href="#shop" class="button">
           Shop now
         </a>
 
       </div>
 
-
-      <div class="hero-placeholder">
-
-        <span>
+      <div class="hero-visual">
+        <div class="hero-circle">
           MAVRENX
-        </span>
+        </div>
+      </div>
+
+    </section>
+
+
+    <section id="categories" class="categories">
+
+      <p class="tag">SHOP BY CATEGORY</p>
+
+      <h2>
+        Everything for<br>
+        <span>your space.</span>
+      </h2>
+
+      <div class="category-grid">
+
+        <div class="category-card">
+          <span>🧹</span>
+          <h3>Cleaning</h3>
+          <p>Vacuums and cleaning tools</p>
+        </div>
+
+        <div class="category-card">
+          <span>💡</span>
+          <h3>Lighting</h3>
+          <p>Lamps and ambient lighting</p>
+        </div>
+
+        <div class="category-card">
+          <span>🏠</span>
+          <h3>Home</h3>
+          <p>Useful everyday essentials</p>
+        </div>
+
+        <div class="category-card">
+          <span>🍳</span>
+          <h3>Kitchen</h3>
+          <p>Modern kitchen products</p>
+        </div>
+
+        <div class="category-card">
+          <span>🔌</span>
+          <h3>Smart Home</h3>
+          <p>Connected devices</p>
+        </div>
+
+        <div class="category-card">
+          <span>🛏️</span>
+          <h3>Bedroom</h3>
+          <p>Comfort and organisation</p>
+        </div>
 
       </div>
 
     </section>
 
 
-    <!-- SHOP -->
+    <section id="shop" class="shop">
 
-    <section
-      id="shop"
-      class="shop">
-
-      <p class="tag">
-        FEATURED PRODUCT
-      </p>
+      <p class="tag">FEATURED PRODUCT</p>
 
       <h2>
-        Light up<br>
-        <span>your setup.</span>
+        Made for<br>
+        <span>everyday life.</span>
       </h2>
-
 
       <div class="product-card">
 
-
-        <!-- PRODUCT IMAGE -->
-
         <div class="product-image">
 
-          <button
-            class="image-arrow left"
-            onclick="previousImage()">
+          <button class="image-arrow left" onclick="previousImage()">
             ‹
           </button>
-
 
           <img
             id="product-image"
             src="https://m.media-amazon.com/images/I/71+x5N3Z7QL._AC_SX679_.jpg"
-            alt="RGB LED Neon Rope Light"
+            alt="Featured MAVRENX Product"
           >
 
-
-          <button
-            class="image-arrow right"
-            onclick="nextImage()">
+          <button class="image-arrow right" onclick="nextImage()">
             ›
           </button>
 
         </div>
 
 
-        <!-- PRODUCT INFORMATION -->
-
         <div class="product-info">
 
-          <p class="tag">
-            GAMING LIGHTING
-          </p>
+          <p class="tag">FEATURED</p>
 
-          <h3>
+          <h3 id="product-name">
             RGB LED Neon Rope Light — 10M
           </h3>
 
-          <p class="price">
+          <p id="product-price" class="price">
             €29.99
           </p>
 
-          <p>
-            Transform your gaming setup with vibrant
-            RGB neon lighting. Perfect for desks,
-            bedrooms, gaming rooms and decorative setups.
+          <p id="product-description">
+            A flexible lighting solution designed to add colour and atmosphere to your home.
           </p>
 
-
           <ul class="features">
-
-            <li>
-              10 metre / 32.8 ft length
-            </li>
-
-            <li>
-              RGB colour lighting
-            </li>
-
-            <li>
-              Music synchronization
-            </li>
-
-            <li>
-              App control
-            </li>
-
-            <li>
-              Remote control
-            </li>
-
-            <li>
-              DIY installation
-            </li>
-
-            <li>
-              IP67 waterproof lighting strip
-            </li>
-
+            <li>Long flexible design</li>
+            <li>RGB colour options</li>
+            <li>App and remote control</li>
+            <li>Music synchronization</li>
+            <li>Suitable for home decoration</li>
           </ul>
-
 
           <div class="product-buttons">
 
-            <button
-              class="button"
-              onclick="addToCart()">
+            <button class="button" onclick="addToCart()">
               Add to cart
             </button>
 
-            <button
-              class="like-product-button"
-              onclick="toggleLike()">
-              ♥ Like
+            <button class="like-product-button" onclick="toggleLike()">
+              ♡ Like
             </button>
 
           </div>
@@ -214,101 +200,47 @@
     </section>
 
 
-    <!-- ABOUT -->
+    <section id="about" class="about">
 
-    <section
-      id="about"
-      class="about">
-
-      <p class="tag">
-        ABOUT MAVRENX
-      </p>
+      <p class="tag">ABOUT MAVRENX</p>
 
       <h2>
-        Gaming gear.<br>
-        <span>Nothing extra.</span>
+        Useful products.<br>
+        <span>Nothing unnecessary.</span>
       </h2>
 
       <p>
-        MAVRENX focuses on gaming accessories
-        that make your setup look better without
-        unnecessary clutter.
+        MAVRENX brings together useful products for cleaning,
+        lighting, organisation, kitchen, bedroom and everyday life.
       </p>
 
     </section>
 
 
-    <!-- FAQ -->
+    <section class="faq">
 
-    <section
-      id="faq"
-      class="faq">
+      <p class="tag">FAQ</p>
 
-      <p class="tag">
-        FAQ
-      </p>
-
-      <h2>
-        Questions.
-      </h2>
-
+      <h2>Questions.</h2>
 
       <details>
-
-        <summary>
-          How long is the LED rope?
-        </summary>
-
-        <p>
-          The featured product is approximately
-          10 metres (32.8 feet) long.
-        </p>
-
+        <summary>How does delivery work?</summary>
+        <p>Delivery information will be available during checkout.</p>
       </details>
 
-
       <details>
-
-        <summary>
-          Can I control the lighting?
-        </summary>
-
-        <p>
-          The product listing includes app,
-          remote and music-sync control.
-        </p>
-
+        <summary>Can I save products?</summary>
+        <p>Yes. Press Like to save products to your liked items.</p>
       </details>
 
-
       <details>
-
-        <summary>
-          Can I use it outdoors?
-        </summary>
-
-        <p>
-          The lighting strip is advertised as
-          IP67 waterproof. Check the manufacturer's
-          instructions for the controller and
-          power components before outdoor use.
-        </p>
-
+        <summary>Does my cart stay saved?</summary>
+        <p>Yes. Your cart is saved in your browser.</p>
       </details>
 
-
       <details>
-
-        <summary>
-          Is it good for gaming setups?
-        </summary>
-
-        <p>
-          Yes. The long flexible design makes it
-          suitable for desks, gaming rooms,
-          bedrooms and decorative setups.
-        </p>
-
+        <summary>How do payments work?</summary>
+        <p>Secure payment checkout can be connected later.</p>
       </details>
 
     </section>
@@ -316,75 +248,47 @@
   </main>
 
 
-  <!-- LIKED ITEMS PANEL -->
+  <!-- LIKED ITEMS -->
 
-  <div
-    id="likes-panel"
-    class="likes-panel">
+  <div id="likes-panel" class="likes-panel">
 
-    <button
-      class="close-likes"
-      onclick="closeLikes()">
+    <button class="close-panel" onclick="closeLikes()">
       ×
     </button>
 
-    <h2>
-      Liked Items
-    </h2>
+    <h2>Liked Items</h2>
 
     <div id="liked-items">
-
-      <p>
-        You haven't liked anything yet.
-      </p>
-
+      <p>Your liked items will appear here.</p>
     </div>
 
   </div>
 
 
-  <!-- CART PANEL -->
+  <!-- CART -->
 
-  <div
-    id="cart-panel"
-    class="cart-panel">
+  <div id="cart-panel" class="cart-panel">
 
-    <button
-      class="close-cart"
-      onclick="closeCart()">
+    <button class="close-panel" onclick="closeCart()">
       ×
     </button>
 
-    <h2>
-      Your Cart
-    </h2>
+    <h2>Your Cart</h2>
 
     <div id="cart-items">
-
-      <p>
-        Your cart is empty.
-      </p>
-
+      <p>Your cart is empty.</p>
     </div>
 
   </div>
 
-
-  <!-- FOOTER -->
 
   <footer>
 
-    <div class="logo">
-      MAVRENX
-    </div>
+    <div class="logo">MAVRENX</div>
 
-    <p>
-      Gaming gear. Nothing extra.
-    </p>
+    <p>Better things. Better home.</p>
 
-    <small>
-      © 2026 MAVRENX
-    </small>
+    <small>© 2026 MAVRENX</small>
 
   </footer>
 
@@ -392,4 +296,5 @@
   <script src="script.js"></script>
 
 </body>
-  </html>
+</html>
+```
