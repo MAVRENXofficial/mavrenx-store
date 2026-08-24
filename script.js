@@ -680,3 +680,170 @@ document.addEventListener(
 
   }
 );
+/* =========================================
+   FIREBASE PUSH NOTIFICATIONS
+========================================= */
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCSXAkvMhLGaJMBwGGY1SYqoDhulIMn5F4",
+  authDomain: "mavrenxsecurity.firebaseapp.com",
+  projectId: "mavrenxsecurity",
+  storageBucket: "mavrenxsecurity.firebasestorage.app",
+  messagingSenderId: "351069637181",
+  appId: "1:351069637181:web:d204c4904017679506b854",
+  measurementId: "G-MLY1MC2SDR"
+};
+
+
+/* START FIREBASE */
+
+firebase.initializeApp(firebaseConfig);
+
+const messaging = firebase.messaging();
+
+
+/* =========================================
+   ENABLE NOTIFICATIONS
+========================================= */
+
+async function enableNotifications() {
+
+  if (!("Notification" in window)) {
+
+    alert(
+      "This browser does not support notifications."
+    );
+
+    return;
+  }
+
+
+  if (!("serviceWorker" in navigator)) {
+
+    alert(
+      "This browser does not support the notification service worker."
+    );
+
+    return;
+  }
+
+
+  try {
+
+    const permission =
+      await Notification.requestPermission();
+
+
+    if (permission !== "granted") {
+
+      alert(
+        "Notifications were not enabled."
+      );
+
+      return;
+    }
+
+
+    const registration =
+      await navigator.serviceWorker.register(
+        "./firebase-messaging-sw.js"
+      );
+
+
+    const token =
+      await messaging.getToken({
+
+        vapidKey:
+          "BPRe8I4x0JBgKbx4JgV68pX_R2aVpAJMacWlBfV0RS0D19P1i2Msr2BBcvcrLE8j18hacj-kDrFNmIif-tois8w",
+
+        serviceWorkerRegistration:
+          registration
+
+      });
+
+
+    if (!token) {
+
+      alert(
+        "We couldn't create a notification token."
+      );
+
+      return;
+    }
+
+
+    /* TEMPORARILY SAVE TOKEN ON DEVICE */
+
+    localStorage.setItem(
+      "mavrenx-notification-token",
+      token
+    );
+
+
+    console.log(
+      "MAVRENX notification token:",
+      token
+    );
+
+
+    alert(
+      "MAVRENX notifications are enabled!"
+    );
+
+
+  } catch (error) {
+
+    console.error(
+      "Notification error:",
+      error
+    );
+
+
+    alert(
+      "There was a problem enabling notifications."
+    );
+
+  }
+
+}
+
+
+/* =========================================
+   FOREGROUND NOTIFICATIONS
+========================================= */
+
+messaging.onMessage(
+  function(payload) {
+
+    console.log(
+      "MAVRENX notification received:",
+      payload
+    );
+
+
+    const title =
+      payload.notification?.title ||
+      "MAVRENX";
+
+
+    const body =
+      payload.notification?.body ||
+      "You have a new order update.";
+
+
+    if (
+      Notification.permission ===
+      "granted"
+    ) {
+
+      new Notification(
+        title,
+        {
+          body: body
+        }
+      );
+
+    }
+
+  }
+);
