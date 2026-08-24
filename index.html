@@ -1,1021 +1,1417 @@
-<!DOCTYPE html>
-<html lang="en">
+/* =========================================
+   RESET
+========================================= */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 
-<head>
+  user-select: none;
+  -webkit-user-select: none;
+}
 
-  <meta charset="UTF-8">
+html {
+  scroll-behavior: smooth;
+}
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+body {
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
 
-  <title>MAVRENX — Home & Everyday</title>
+  background: #ffffff;
+  color: #171717;
 
-  <link
-    rel="stylesheet"
-    href="styles.css"
-  >
+  line-height: 1.6;
 
-</head>
+  overflow-x: hidden;
 
+  transition:
+    background 0.25s ease,
+    color 0.25s ease;
+}
 
-<body>
 
+/* =========================================
+   DARK MODE
+========================================= */
 
-  <!-- =========================================
-       HEADER
-  ========================================== -->
+body.dark-mode {
+  background: #101210;
+  color: #ffffff;
+}
 
-  <header>
+body.dark-mode header {
+  background: #141714;
+  border-bottom-color: #303530;
+}
 
-    <div class="logo">
+body.dark-mode nav a {
+  color: #eeeeee;
+}
 
-      <img
-        src="file_000000007fa081f4ac4862e52d82c4a9.png"
-        alt="MAVRENX"
-      >
+body.dark-mode .category-card,
+body.dark-mode .empty-category,
+body.dark-mode .side-panel,
+body.dark-mode .cart-item,
+body.dark-mode .liked-item,
+body.dark-mode .product-card,
+body.dark-mode .product-image {
+  background: #181b18;
+  color: #ffffff;
+  border-color: #303530;
+}
 
-    </div>
+body.dark-mode .hero-text,
+body.dark-mode .section-description,
+body.dark-mode .category-description,
+body.dark-mode .about-text,
+body.dark-mode .category-card p,
+body.dark-mode .empty-message {
+  color: #aaaaaa;
+}
 
+body.dark-mode .close-panel {
+  background: #292d29;
+  color: #ffffff;
+}
 
-    <nav>
+body.dark-mode footer {
+  border-color: #303530;
+}
 
-      <a href="#home">
-        Home
-      </a>
 
-      <a href="#categories">
-        Categories
-      </a>
+/* =========================================
+   HEADER
+========================================= */
 
-      <a href="#shop">
-        Shop
-      </a>
+header {
+  width: 100%;
+  min-height: 76px;
 
-      <a href="track.html">
-        Track Order
-      </a>
+  padding: 10px 5%;
 
-      <a href="#about">
-        About
-      </a>
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-    </nav>
+  gap: 24px;
 
+  position: sticky;
+  top: 0;
 
-    <div class="header-actions">
+  z-index: 100;
 
+  background: rgba(255, 255, 255, 0.96);
 
-      <!-- LIKES -->
+  border-bottom:
+    1px solid #e4e7e4;
+}
 
-      <button
-        class="like-button"
-        onclick="openLikes()"
-        aria-label="Open liked items"
-      >
 
-        ♡
-        <span id="likes-count">0</span>
+/* =========================================
+   LOGO
+========================================= */
 
-      </button>
+.logo {
+  width: 125px;
+  height: 58px;
 
+  flex-shrink: 0;
 
-      <!-- CART -->
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 
-      <button
-        class="cart-button"
-        onclick="openCart()"
-        aria-label="Open cart"
-      >
+  overflow: hidden;
+}
 
-        Cart
-        (<span id="cart-count">0</span>)
+.logo img {
+  display: block;
 
-      </button>
+  width: 120px !important;
+  height: 55px !important;
 
+  max-width: 120px !important;
+  max-height: 55px !important;
 
-      <!-- LIGHT / DARK MODE -->
+  object-fit: contain;
 
-      <button
-        id="theme-button"
-        class="theme-button"
-        onclick="toggleTheme()"
-        aria-label="Change theme"
-      >
-        ☾
-      </button>
+  pointer-events: none;
+}
 
 
-    </div>
+/* =========================================
+   NAVIGATION
+========================================= */
 
-  </header>
+nav {
+  display: flex;
 
+  align-items: center;
 
+  gap: 26px;
+}
 
-  <!-- =========================================
-       BIG NOTIFICATION POPUP
-  ========================================== -->
+nav a {
+  color: #444444;
 
-  <div
-    id="notification-overlay"
-    class="notification-overlay"
-  >
+  text-decoration: none;
 
-    <div class="notification-modal">
+  font-size: 14px;
 
+  font-weight: 600;
 
-      <!-- X -->
+  cursor: pointer;
 
-      <button
-        class="notification-close"
-        onclick="closeNotificationPopup()"
-        aria-label="Close notification popup"
-      >
-        ×
-      </button>
+  transition: color 0.2s ease;
+}
 
+nav a:hover {
+  color: #159947;
+}
 
-      <!-- ICON -->
 
-      <div class="notification-big-icon">
-        🔔
-      </div>
+/* =========================================
+   HEADER ACTIONS
+========================================= */
 
+.header-actions {
+  display: flex;
 
-      <!-- TITLE -->
+  align-items: center;
 
-      <h2>
-        Stay updated with
-        <span>MAVRENX</span>
-      </h2>
+  gap: 8px;
+}
 
+.like-button,
+.cart-button,
+.theme-button {
+  min-height: 40px;
 
-      <!-- DESCRIPTION -->
+  padding: 8px 12px;
 
-      <p>
+  border:
+    1px solid #159947;
 
-        Get real-time notifications about your order.
+  border-radius: 8px;
 
-        We'll let you know when your order is
-        confirmed, prepared, shipped, in transit,
-        out for delivery and delivered.
+  background: transparent;
 
-      </p>
+  color: #159947;
 
+  font-weight: bold;
 
-      <!-- ENABLE -->
+  cursor: pointer;
 
-      <button
-        class="enable-notifications-button"
-        onclick="enableNotificationsFromPopup()"
-      >
-        Enable notifications
-      </button>
+  transition: 0.2s ease;
+}
 
+.like-button:hover,
+.cart-button:hover,
+.theme-button:hover {
+  background: #159947;
 
-      <!-- NOT NOW -->
+  color: #ffffff;
+}
 
-      <button
-        class="not-now-button"
-        onclick="closeNotificationPopup()"
-      >
-        Not now
-      </button>
 
+/* =========================================
+   HERO
+========================================= */
 
-    </div>
+.hero {
+  min-height: 580px;
 
-  </div>
+  padding: 85px 7%;
 
+  display: grid;
 
+  grid-template-columns:
+    1fr 1fr;
 
-  <!-- =========================================
-       MAIN WEBSITE
-  ========================================== -->
+  gap: 60px;
 
-  <main>
+  align-items: center;
+}
 
+.tag {
+  color: #159947;
 
-    <!-- =========================================
-         HERO
-    ========================================== -->
+  font-size: 12px;
 
-    <section
-      id="home"
-      class="hero"
-    >
+  font-weight: 800;
 
+  letter-spacing: 2.5px;
 
-      <div class="hero-content">
+  margin-bottom: 15px;
+}
 
+h1 {
+  font-size:
+    clamp(
+      50px,
+      7vw,
+      95px
+    );
 
-        <p class="tag">
-          MAVRENX HOME
-        </p>
+  line-height: 0.98;
 
+  margin-bottom: 25px;
+}
 
-        <h1>
+h2 {
+  font-size:
+    clamp(
+      38px,
+      5vw,
+      65px
+    );
 
-          Better things.<br>
+  line-height: 1.05;
+}
 
-          <span>
-            Better home.
-          </span>
+h1 span,
+h2 span {
+  color: #159947;
+}
 
-        </h1>
+.hero-text {
+  max-width: 530px;
 
+  margin-bottom: 28px;
 
-        <p class="hero-text">
+  color: #747474;
+}
 
-          Discover useful products for your home,
-          kitchen, bedroom, cleaning,
-          lighting and everyday life.
+.main-button {
+  display: inline-block;
 
-        </p>
+  padding: 13px 22px;
 
+  background: #159947;
 
-        <a
-          href="#categories"
-          class="main-button"
-        >
-          Browse categories
-        </a>
+  color: #ffffff;
 
+  border-radius: 8px;
 
-      </div>
+  text-decoration: none;
 
+  font-weight: bold;
 
+  cursor: pointer;
+}
 
-      <div class="hero-art">
+.main-button:hover {
+  background: #107c39;
+}
 
 
-        <div class="hero-shape">
+/* =========================================
+   HERO ART
+========================================= */
 
-          <span>
-            MAVRENX
-          </span>
+.hero-art {
+  display: flex;
 
-        </div>
+  justify-content: center;
 
+  align-items: center;
+}
 
-      </div>
+.hero-shape {
+  width: 330px;
+  height: 330px;
 
+  border-radius:
+    36% 64% 55% 45%;
 
-    </section>
+  display: flex;
 
+  align-items: center;
 
+  justify-content: center;
 
-    <!-- =========================================
-         CATEGORIES
-    ========================================== -->
+  background:
+    radial-gradient(
+      circle at 30% 25%,
+      #35cc6f,
+      transparent 35%
+    ),
+    #159947;
 
-    <section
-      id="categories"
-      class="categories"
-    >
+  color: #ffffff;
 
+  font-size: 25px;
 
-      <p class="tag">
-        SHOP BY CATEGORY
-      </p>
+  font-weight: 900;
 
+  letter-spacing: 5px;
 
-      <h2>
+  box-shadow:
+    0 25px 70px
+    rgba(21, 153, 71, 0.22);
+}
 
-        Find what you<br>
 
-        <span>
-          need.
-        </span>
+/* =========================================
+   MAIN SECTIONS
+========================================= */
 
-      </h2>
+.categories,
+.shop,
+.category-section,
+.about {
+  padding: 85px 7%;
 
+  border-top:
+    1px solid
+    rgba(120, 120, 120, 0.15);
+}
 
 
-      <div class="category-grid">
+/* =========================================
+   CATEGORY CARDS
+========================================= */
 
+.category-grid {
+  margin-top: 42px;
 
-        <!-- CLEANING -->
+  display: grid;
 
-        <a
-          href="#cleaning"
-          class="category-card"
-        >
+  grid-template-columns:
+    repeat(3, 1fr);
 
-          <span class="category-icon">
-            🧹
-          </span>
+  gap: 20px;
+}
 
-          <h3>
-            Cleaning
-          </h3>
+.category-card {
+  display: block;
 
-          <p>
-            Vacuums, cleaning tools and accessories.
-          </p>
+  padding: 28px;
 
-        </a>
+  border:
+    1px solid #e2e7e3;
 
+  border-radius: 15px;
 
+  background: #f7f9f7;
 
-        <!-- LIGHTING -->
+  color: #171717;
 
-        <a
-          href="#lighting"
-          class="category-card"
-        >
+  text-decoration: none;
 
-          <span class="category-icon">
-            💡
-          </span>
+  cursor: pointer;
 
-          <h3>
-            Lighting
-          </h3>
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
 
-          <p>
-            Lamps, LEDs and ambient lighting.
-          </p>
+.category-card:hover {
+  transform:
+    translateY(-5px);
 
-        </a>
+  border-color:
+    #159947;
 
+  box-shadow:
+    0 15px 35px
+    rgba(21, 153, 71, 0.08);
+}
 
+.category-icon {
+  display: block;
 
-        <!-- HOME -->
+  font-size: 38px;
 
-        <a
-          href="#home-products"
-          class="category-card"
-        >
+  margin-bottom: 12px;
+}
 
-          <span class="category-icon">
-            🏠
-          </span>
+.category-card h3 {
+  font-size: 21px;
 
-          <h3>
-            Home
-          </h3>
+  margin-bottom: 5px;
+}
 
-          <p>
-            Everyday essentials and useful gadgets.
-          </p>
+.category-card p {
+  color: #747474;
+}
 
-        </a>
 
+/* =========================================
+   CATEGORY SECTION
+========================================= */
 
+.category-heading {
+  display: flex;
 
-        <!-- KITCHEN -->
+  align-items: center;
 
-        <a
-          href="#kitchen"
-          class="category-card"
-        >
+  gap: 20px;
 
-          <span class="category-icon">
-            🍳
-          </span>
+  margin-bottom: 28px;
+}
 
-          <h3>
-            Kitchen
-          </h3>
+.big-icon {
+  font-size: 45px;
+}
 
-          <p>
-            Cooking tools and kitchen accessories.
-          </p>
+.category-description {
+  margin-top: 8px;
 
-        </a>
+  color: #747474;
+}
 
+.category-products {
+  margin-top: 25px;
 
+  display: grid;
 
-        <!-- SMART HOME -->
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(0, 1fr)
+    );
 
-        <a
-          href="#smart-home"
-          class="category-card"
-        >
+  gap: 20px;
+}
 
-          <span class="category-icon">
-            🔌
-          </span>
 
-          <h3>
-            Smart Home
-          </h3>
+/* =========================================
+   SHOP
+========================================= */
 
-          <p>
-            Smart lights, devices and home technology.
-          </p>
+.section-description {
+  margin-top: 20px;
 
-        </a>
+  color: #747474;
+}
 
+.product-grid {
+  margin-top: 35px;
 
+  display: grid;
 
-        <!-- BEDROOM -->
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(0, 1fr)
+    );
 
-        <a
-          href="#bedroom"
-          class="category-card"
-        >
+  gap: 20px;
+}
 
-          <span class="category-icon">
-            🛏️
-          </span>
+.empty-category {
+  min-height: 100px;
 
-          <h3>
-            Bedroom
-          </h3>
+  padding: 30px;
 
-          <p>
-            Comfort, lighting and organisation.
-          </p>
+  border:
+    1px solid #e2e7e3;
 
-        </a>
+  border-radius: 12px;
 
+  display: flex;
 
-      </div>
+  align-items: center;
 
+  background: #f7f9f7;
 
-    </section>
+  color: #777777;
+}
 
 
+/* =========================================
+   PRODUCT CARDS
+========================================= */
 
-    <!-- =========================================
-         SHOP
-    ========================================== -->
+.product-card {
+  border:
+    1px solid #e2e7e3;
 
-    <section
-      id="shop"
-      class="shop"
-    >
+  border-radius: 14px;
 
+  overflow: hidden;
 
-      <p class="tag">
-        SHOP
-      </p>
+  background: #ffffff;
+}
 
+.product-image {
+  width: 100%;
 
-      <h2>
+  min-height: 260px;
 
-        Explore<br>
+  background: #f4f5f4;
 
-        <span>
-          MAVRENX.
-        </span>
+  display: flex;
 
-      </h2>
+  align-items: center;
 
+  justify-content: center;
+}
 
-      <p class="section-description">
-        New products are coming soon.
-      </p>
+.product-image img {
+  width: 100%;
 
+  height: 300px;
 
-      <div
-        id="product-grid"
-        class="product-grid"
-      >
+  object-fit: contain;
 
-        <!-- PRODUCTS GO HERE -->
+  background: transparent;
+}
 
-      </div>
+.product-info {
+  padding: 20px;
+}
 
+.product-actions {
+  display: flex;
 
-    </section>
+  gap: 10px;
 
+  margin-top: 15px;
+}
 
+.product-actions button {
+  flex: 1;
 
-    <!-- =========================================
-         CLEANING
-    ========================================== -->
+  padding: 11px;
 
-    <section
-      id="cleaning"
-      class="category-section"
-    >
+  border-radius: 7px;
 
+  cursor: pointer;
+}
 
-      <div class="category-heading">
 
+/* =========================================
+   ABOUT
+========================================= */
 
-        <span class="big-icon">
-          🧹
-        </span>
+.about-text {
+  max-width: 720px;
 
+  margin-top: 25px;
 
-        <div>
+  color: #747474;
+}
 
-          <p class="tag">
-            CATEGORY
-          </p>
 
-          <h2>
-            Cleaning
-          </h2>
+/* =========================================
+   SIDE PANELS
+========================================= */
 
-          <p class="category-description">
+.side-panel {
+  position: fixed;
 
-            Vacuums, cleaning tools
-            and accessories.
+  top: 0;
 
-          </p>
+  right: -500px;
 
-        </div>
+  width:
+    min(430px, 92vw);
 
+  height: 100vh;
 
-      </div>
+  padding:
+    75px 25px 30px;
 
+  background: #ffffff;
 
+  color: #171717;
 
-      <div
-        id="cleaning-products"
-        class="category-products"
-      >
+  z-index: 1000;
 
-        <div class="empty-category">
+  overflow-y: auto;
 
-          Cleaning products
-          coming soon.
+  box-shadow:
+    -10px 0 35px
+    rgba(0, 0, 0, 0.18);
 
-        </div>
+  transition:
+    right 0.28s ease;
+}
 
-      </div>
+.side-panel.active {
+  right: 0;
+}
 
+.side-panel h2 {
+  font-size: 32px;
 
-    </section>
+  margin-bottom: 25px;
+}
 
 
+/* =========================================
+   SIDE PANEL X
+========================================= */
 
-    <!-- =========================================
-         LIGHTING
-    ========================================== -->
+.close-panel {
+  position: absolute;
 
-    <section
-      id="lighting"
-      class="category-section"
-    >
+  top: 18px;
 
+  right: 18px;
 
-      <div class="category-heading">
+  width: 42px;
 
+  height: 42px;
 
-        <span class="big-icon">
-          💡
-        </span>
+  border: none;
 
+  border-radius: 50%;
 
-        <div>
+  background: #ededed;
 
-          <p class="tag">
-            CATEGORY
-          </p>
+  color: #111111;
 
-          <h2>
-            Lighting
-          </h2>
+  font-size: 29px;
 
-          <p class="category-description">
+  line-height: 1;
 
-            Lamps, LEDs and lighting
-            for your space.
+  cursor: pointer;
 
-          </p>
+  display: flex;
 
-        </div>
+  align-items: center;
 
+  justify-content: center;
+}
 
-      </div>
+.close-panel:hover {
+  background: #159947;
 
+  color: #ffffff;
+}
 
 
-      <div
-        id="lighting-products"
-        class="category-products"
-      >
+/* =========================================
+   CART / LIKES
+========================================= */
 
-        <div class="empty-category">
+.cart-item,
+.liked-item {
+  display: flex;
 
-          Lighting products
-          coming soon.
+  gap: 15px;
 
-        </div>
+  padding: 16px 0;
 
-      </div>
+  border-bottom:
+    1px solid #dddddd;
+}
 
+.cart-item img,
+.liked-item img {
+  width: 90px;
 
-    </section>
+  height: 90px;
 
+  border-radius: 8px;
 
+  object-fit: contain;
 
-    <!-- =========================================
-         HOME
-    ========================================== -->
+  background: transparent;
+}
 
-    <section
-      id="home-products"
-      class="category-section"
-    >
+.cart-item-info,
+.liked-info {
+  flex: 1;
+}
 
+.cart-item h3,
+.liked-item h3 {
+  font-size: 16px;
 
-      <div class="category-heading">
+  margin-bottom: 4px;
+}
 
+.cart-price {
+  color: #159947;
 
-        <span class="big-icon">
-          🏠
-        </span>
+  font-weight: bold;
+}
 
 
-        <div>
+/* =========================================
+   QUANTITY
+========================================= */
 
-          <p class="tag">
-            CATEGORY
-          </p>
+.quantity-controls {
+  margin-top: 12px;
 
-          <h2>
-            Home
-          </h2>
+  display: flex;
 
-          <p class="category-description">
+  align-items: center;
 
-            Useful everyday products
-            for your home.
+  gap: 10px;
+}
 
-          </p>
+.quantity-controls button {
+  width: 36px;
 
-        </div>
+  height: 36px;
 
+  border:
+    1px solid #159947;
 
-      </div>
+  border-radius: 6px;
 
+  background: transparent;
 
+  color: #159947;
 
-      <div
-        id="home-category-products"
-        class="category-products"
-      >
+  font-size: 21px;
 
-        <div class="empty-category">
+  font-weight: bold;
 
-          Home products
-          coming soon.
+  cursor: pointer;
+}
 
-        </div>
+.quantity-controls button:hover {
+  background: #159947;
 
-      </div>
+  color: #ffffff;
+}
 
+.quantity-controls span {
+  min-width: 25px;
 
-    </section>
+  text-align: center;
 
+  font-weight: bold;
+}
 
 
-    <!-- =========================================
-         KITCHEN
-    ========================================== -->
+/* =========================================
+   REMOVE
+========================================= */
 
-    <section
-      id="kitchen"
-      class="category-section"
-    >
+.remove-item {
+  margin-top: 10px;
 
+  padding: 0;
 
-      <div class="category-heading">
+  border: none;
 
+  background: transparent;
 
-        <span class="big-icon">
-          🍳
-        </span>
+  color: #d34848;
 
+  font-weight: bold;
 
-        <div>
+  cursor: pointer;
+}
 
-          <p class="tag">
-            CATEGORY
-          </p>
 
-          <h2>
-            Kitchen
-          </h2>
+/* =========================================
+   CART TOTAL
+========================================= */
 
-          <p class="category-description">
+.cart-total {
+  margin-top: 25px;
 
-            Kitchen gadgets,
-            tools and accessories.
+  padding-top: 20px;
+}
 
-          </p>
+.cart-total strong {
+  display: block;
 
-        </div>
+  margin:
+    5px 0 18px;
 
+  color: #159947;
 
-      </div>
+  font-size: 25px;
+}
 
+.checkout-button {
+  width: 100%;
 
+  padding: 14px;
 
-      <div
-        id="kitchen-products"
-        class="category-products"
-      >
+  border: none;
 
-        <div class="empty-category">
+  border-radius: 8px;
 
-          Kitchen products
-          coming soon.
+  background: #159947;
 
-        </div>
+  color: #ffffff;
 
-      </div>
+  font-weight: bold;
 
+  cursor: pointer;
+}
 
-    </section>
+.checkout-button:hover {
+  background: #107c39;
+}
 
 
+/* =========================================
+   NOTIFICATION OVERLAY
+========================================= */
 
-    <!-- =========================================
-         SMART HOME
-    ========================================== -->
+.notification-overlay {
+  position: fixed;
 
-    <section
-      id="smart-home"
-      class="category-section"
-    >
+  inset: 0;
 
+  width: 100%;
+  height: 100%;
 
-      <div class="category-heading">
+  display: flex;
 
+  align-items: center;
 
-        <span class="big-icon">
-          🔌
-        </span>
+  justify-content: center;
 
+  padding: 20px;
 
-        <div>
+  background:
+    rgba(0, 0, 0, 0.76);
 
-          <p class="tag">
-            CATEGORY
-          </p>
+  backdrop-filter: blur(7px);
 
-          <h2>
-            Smart Home
-          </h2>
+  -webkit-backdrop-filter: blur(7px);
 
-          <p class="category-description">
+  z-index: 5000;
+}
 
-            Smart lights, devices
-            and connected home technology.
 
-          </p>
+/* =========================================
+   NOTIFICATION MODAL
+========================================= */
 
-        </div>
+.notification-modal {
+  position: relative;
 
+  width:
+    min(580px, 100%);
 
-      </div>
+  padding:
+    52px 40px 40px;
 
+  background:
+    #151815;
 
+  color:
+    #ffffff;
 
-      <div
-        id="smart-home-products"
-        class="category-products"
-      >
+  border:
+    1px solid #303830;
 
-        <div class="empty-category">
+  border-radius:
+    24px;
 
-          Smart-home products
-          coming soon.
+  text-align:
+    center;
 
-        </div>
+  box-shadow:
+    0 35px 100px
+    rgba(0, 0, 0, 0.6);
+}
 
-      </div>
 
+/* =========================================
+   NOTIFICATION BELL
+========================================= */
 
-    </section>
+.notification-big-icon {
+  width: 88px;
 
+  height: 88px;
 
+  margin:
+    0 auto 24px;
 
-    <!-- =========================================
-         BEDROOM
-    ========================================== -->
+  display: flex;
 
-    <section
-      id="bedroom"
-      class="category-section"
-    >
+  align-items: center;
 
+  justify-content: center;
 
-      <div class="category-heading">
+  border-radius:
+    50%;
 
+  background:
+    #203b29;
 
-        <span class="big-icon">
-          🛏️
-        </span>
+  border:
+    1px solid #2b5638;
 
+  font-size:
+    42px;
+}
 
-        <div>
 
-          <p class="tag">
-            CATEGORY
-          </p>
+/* =========================================
+   NOTIFICATION TITLE
+========================================= */
 
-          <h2>
-            Bedroom
-          </h2>
+.notification-modal h2 {
+  margin-bottom:
+    16px;
 
-          <p class="category-description">
+  font-size:
+    clamp(
+      30px,
+      5vw,
+      40px
+    );
 
-            Comfort, lighting,
-            storage and accessories.
+  line-height:
+    1.1;
+}
 
-          </p>
+.notification-modal h2 span {
+  color:
+    #159947;
+}
 
-        </div>
 
+/* =========================================
+   NOTIFICATION TEXT
+========================================= */
 
-      </div>
+.notification-modal p {
+  max-width:
+    465px;
 
+  margin:
+    0 auto 30px;
 
+  color:
+    #b6bbb6;
 
-      <div
-        id="bedroom-products"
-        class="category-products"
-      >
+  font-size:
+    16px;
 
-        <div class="empty-category">
+  line-height:
+    1.7;
+}
 
-          Bedroom products
-          coming soon.
 
-        </div>
+/* =========================================
+   ENABLE NOTIFICATIONS
+========================================= */
 
-      </div>
+.enable-notifications-button {
+  width:
+    100%;
 
+  min-height:
+    52px;
 
-    </section>
+  padding:
+    15px 20px;
 
+  border:
+    none;
 
+  border-radius:
+    10px;
 
-    <!-- =========================================
-         ABOUT
-    ========================================== -->
+  background:
+    #159947;
 
-    <section
-      id="about"
-      class="about"
-    >
+  color:
+    #ffffff;
 
+  font-size:
+    16px;
 
-      <p class="tag">
-        ABOUT MAVRENX
-      </p>
+  font-weight:
+    bold;
 
+  cursor:
+    pointer;
 
-      <h2>
+  transition:
+    0.2s;
+}
 
-        Useful products.<br>
+.enable-notifications-button:hover {
+  background:
+    #107c39;
 
-        <span>
-          Simple shopping.
-        </span>
+  transform:
+    translateY(-1px);
+}
 
-      </h2>
 
+/* =========================================
+   NOT NOW
+========================================= */
 
-      <p class="about-text">
+.not-now-button {
+  width:
+    100%;
 
-        MAVRENX brings together useful products
-        for your home and everyday life.
+  min-height:
+    50px;
 
-      </p>
+  margin-top:
+    11px;
 
+  padding:
+    13px 20px;
 
-    </section>
+  border:
+    1px solid #3b413c;
 
+  border-radius:
+    10px;
 
-  </main>
+  background:
+    transparent;
 
+  color:
+    #d7dad7;
 
+  font-size:
+    15px;
 
-  <!-- =========================================
-       LIKED ITEMS
-  ========================================== -->
+  font-weight:
+    bold;
 
-  <div
-    id="likes-panel"
-    class="side-panel"
-  >
+  cursor:
+    pointer;
 
+  transition:
+    0.2s;
+}
 
-    <button
-      class="close-panel"
-      onclick="closeLikes()"
-      aria-label="Close liked items"
-    >
-      ×
-    </button>
+.not-now-button:hover {
+  background:
+    #252925;
 
+  border-color:
+    #535a54;
+}
 
-    <h2>
-      Liked Items
-    </h2>
 
+/* =========================================
+   NOTIFICATION X
+========================================= */
 
-    <div id="liked-items">
+.notification-close {
+  position:
+    absolute;
 
-      <p class="empty-message">
-        You haven't liked anything yet.
-      </p>
+  top:
+    16px;
 
-    </div>
+  right:
+    16px;
 
+  width:
+    42px;
 
-  </div>
+  height:
+    42px;
 
+  display:
+    flex;
 
+  align-items:
+    center;
 
-  <!-- =========================================
-       CART
-  ========================================== -->
+  justify-content:
+    center;
 
-  <div
-    id="cart-panel"
-    class="side-panel"
-  >
+  border:
+    none;
 
+  border-radius:
+    50%;
 
-    <button
-      class="close-panel"
-      onclick="closeCart()"
-      aria-label="Close cart"
-    >
-      ×
-    </button>
+  background:
+    #252925;
 
+  color:
+    #ffffff;
 
-    <h2>
-      Your Cart
-    </h2>
+  font-size:
+    28px;
 
+  line-height:
+    1;
 
-    <div id="cart-items">
+  cursor:
+    pointer;
 
-      <p class="empty-message">
-        Your cart is empty.
-      </p>
+  transition:
+    0.2s;
+}
 
-    </div>
+.notification-close:hover {
+  background:
+    #159947;
+}
 
 
-  </div>
+/* =========================================
+   FOOTER
+========================================= */
 
+footer {
+  padding:
+    50px 7%;
 
+  border-top:
+    1px solid #dddddd;
+}
 
-  <!-- =========================================
-       FOOTER
-  ========================================== -->
+.footer-logo {
+  color:
+    #159947;
 
-  <footer>
+  font-size:
+    23px;
 
+  font-weight:
+    900;
 
-    <div class="footer-logo">
-      MAVRENX
-    </div>
+  letter-spacing:
+    2px;
 
+  margin-bottom:
+    8px;
+}
 
-    <p>
-      Better things. Better home.
-    </p>
 
+/* =========================================
+   TABLET
+========================================= */
 
-    <small>
-      © 2026 MAVRENX
-    </small>
+@media (max-width: 900px) {
 
+  header {
+    flex-wrap:
+      wrap;
 
-  </footer>
+    padding:
+      10px 4%;
+  }
 
 
+  .logo {
+    width:
+      105px;
 
-  <!-- =========================================
-       FIREBASE
-  ========================================== -->
+    height:
+      50px;
+  }
 
-  <script
-    src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"
-  >
-  </script>
 
+  .logo img {
+    width:
+      100px !important;
 
-  <script
-    src="https://www.gstatic.com/firebasejs/10.13.2/firebase-messaging-compat.js"
-  >
-  </script>
+    height:
+      47px !important;
 
+    max-width:
+      100px !important;
 
+    max-height:
+      47px !important;
+  }
 
-  <!-- =========================================
-       MAVRENX JAVASCRIPT
-  ========================================== -->
 
-  <script src="script.js"></script>
+  nav {
+    order:
+      3;
 
+    width:
+      100%;
 
-</body>
+    justify-content:
+      center;
 
-</html>
+    gap:
+      18px;
+
+    padding-top:
+      5px;
+  }
+
+
+  nav a {
+    font-size:
+      12px;
+  }
+
+
+  .header-actions {
+    margin-left:
+      auto;
+  }
+
+
+  .like-button,
+  .cart-button,
+  .theme-button {
+    padding:
+      7px 9px;
+
+    font-size:
+      12px;
+  }
+
+
+  .hero {
+    min-height:
+      auto;
+
+    grid-template-columns:
+      1fr;
+
+    padding:
+      65px 7%;
+  }
+
+
+  .hero-art {
+    display:
+      none;
+  }
+
+
+  .category-grid {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+
+  .product-grid,
+  .category-products {
+    grid-template-columns:
+      1fr;
+  }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 520px) {
+
+  .category-grid {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  nav {
+    justify-content:
+      flex-start;
+
+    overflow-x:
+      auto;
+  }
+
+
+  .side-panel {
+    width:
+      92vw;
+  }
+
+
+  .categories,
+  .shop,
+  .category-section,
+  .about {
+    padding:
+      65px 6%;
+  }
+
+
+  .category-heading {
+    align-items:
+      flex-start;
+  }
+
+
+  /* NOTIFICATION POPUP MOBILE */
+
+  .notification-overlay {
+    padding:
+      16px;
+  }
+
+
+  .notification-modal {
+    width:
+      100%;
+
+    padding:
+      46px 22px 26px;
+
+    border-radius:
+      20px;
+  }
+
+
+  .notification-big-icon {
+    width:
+      72px;
+
+    height:
+      72px;
+
+    margin-bottom:
+      20px;
+
+    font-size:
+      34px;
+  }
+
+
+  .notification-modal h2 {
+    font-size:
+      29px;
+  }
+
+
+  .notification-modal p {
+    font-size:
+      14px;
+
+    margin-bottom:
+      24px;
+  }
+
+
+  .enable-notifications-button,
+  .not-now-button {
+    font-size:
+      14px;
+  }
+
+
+  .notification-close {
+    top:
+      12px;
+
+    right:
+      12px;
+
+    width:
+      38px;
+
+    height:
+      38px;
+
+    font-size:
+      25px;
+  }
+
+}
