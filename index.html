@@ -9,14 +9,21 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>Track Order — MAVRENX</title>
+  <title>MAVRENX — Home & Everyday</title>
 
-  <link rel="stylesheet" href="styles.css">
+  <link
+    rel="stylesheet"
+    href="styles.css"
+  >
 </head>
+
 
 <body>
 
-  <!-- HEADER -->
+
+  <!-- =========================================
+       HEADER
+  ========================================== -->
 
   <header>
 
@@ -24,13 +31,31 @@
       MAVRENX
     </div>
 
+
     <nav>
-      <a href="index.html#home">Home</a>
-      <a href="index.html#categories">Categories</a>
-      <a href="index.html#shop">Shop</a>
-      <a href="track.html">Track Order</a>
-      <a href="index.html#about">About</a>
+
+      <a href="#home">
+        Home
+      </a>
+
+      <a href="#categories">
+        Categories
+      </a>
+
+      <a href="#shop">
+        Shop
+      </a>
+
+      <a href="track.html">
+        Track Order
+      </a>
+
+      <a href="#about">
+        About
+      </a>
+
     </nav>
+
 
     <div class="header-actions">
 
@@ -42,6 +67,7 @@
         <span id="likes-count">0</span>
       </button>
 
+
       <button
         class="cart-button"
         onclick="openCart()"
@@ -49,6 +75,7 @@
         Cart
         (<span id="cart-count">0</span>)
       </button>
+
 
       <button
         id="theme-button"
@@ -63,191 +90,734 @@
   </header>
 
 
-  <!-- TRACK ORDER -->
+
+  <!-- =========================================
+       NOTIFICATION POPUP
+  ========================================== -->
+
+  <div
+    id="notification-overlay"
+    class="notification-overlay"
+  >
+
+    <div class="notification-modal">
+
+      <button
+        class="notification-close"
+        onclick="closeNotificationPopup()"
+        aria-label="Close notification popup"
+      >
+        ×
+      </button>
+
+
+      <div class="notification-big-icon">
+        🔔
+      </div>
+
+
+      <h2>
+
+        Stay updated with
+
+        <span>
+          MAVRENX
+        </span>
+
+      </h2>
+
+
+      <p>
+
+        Get real-time updates about your order.
+
+        We'll notify you when your order is confirmed,
+        prepared, shipped, in transit,
+        out for delivery and delivered.
+
+      </p>
+
+
+      <button
+        class="enable-notifications-button"
+        onclick="enableNotificationsFromPopup()"
+      >
+        Enable notifications
+      </button>
+
+
+      <button
+        class="not-now-button"
+        onclick="closeNotificationPopup()"
+      >
+        Not now
+      </button>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =========================================
+       MAIN
+  ========================================== -->
 
   <main>
 
-    <section class="track-page">
 
-      <p class="tag">
-        MAVRENX DELIVERY
-      </p>
+    <!-- =========================================
+         HERO
+    ========================================== -->
 
-      <h1 class="track-title">
-        Track your
-        <span>order.</span>
-      </h1>
+    <section
+      id="home"
+      class="hero"
+    >
 
-      <p class="track-description">
-        Enter your order number and the email address
-        used during checkout.
-      </p>
+      <div class="hero-content">
 
 
-      <div class="tracking-box">
+        <p class="tag">
+          MAVRENX HOME
+        </p>
 
-        <form
-          id="tracking-form"
-          onsubmit="return false;"
+
+        <h1>
+
+          Better things.<br>
+
+          <span>
+            Better home.
+          </span>
+
+        </h1>
+
+
+        <p class="hero-text">
+
+          Discover useful products for your home,
+          kitchen, bedroom, cleaning,
+          lighting and everyday life.
+
+        </p>
+
+
+        <a
+          href="#categories"
+          class="main-button"
         >
+          Browse categories
+        </a>
 
-          <label for="order-number">
-            Order number
-          </label>
-
-          <input
-            id="order-number"
-            type="text"
-            placeholder="Example: MAV-1001"
-            autocomplete="off"
-          >
-
-
-          <label for="order-email">
-            Email address
-          </label>
-
-          <input
-            id="order-email"
-            type="email"
-            placeholder="you@example.com"
-            autocomplete="email"
-          >
-
-
-          <button
-            type="submit"
-            class="main-button track-button"
-          >
-            Track order
-          </button>
-
-        </form>
 
       </div>
 
 
-      <!-- ORDER STATUS -->
 
-      <div class="tracking-status">
+      <div class="hero-art">
 
-        <h2>
-          Order journey
-        </h2>
-
-
-        <div class="tracking-steps">
-
-          <div class="tracking-step">
-            <span>1</span>
-
-            <div>
-              <strong>Order received</strong>
-              <p>
-                We've received your order.
-              </p>
-            </div>
-          </div>
-
-
-          <div class="tracking-step">
-            <span>2</span>
-
-            <div>
-              <strong>Payment confirmed</strong>
-              <p>
-                Your payment has been confirmed.
-              </p>
-            </div>
-          </div>
-
-
-          <div class="tracking-step">
-            <span>3</span>
-
-            <div>
-              <strong>Preparing</strong>
-              <p>
-                Your order is being prepared.
-              </p>
-            </div>
-          </div>
-
-
-          <div class="tracking-step">
-            <span>4</span>
-
-            <div>
-              <strong>Order confirmed with supplier</strong>
-              <p>
-                Your items have been confirmed.
-              </p>
-            </div>
-          </div>
-
-
-          <div class="tracking-step">
-            <span>5</span>
-
-            <div>
-              <strong>Shipped</strong>
-              <p>
-                Your parcel has left the supplier.
-              </p>
-            </div>
-          </div>
-
-
-          <div class="tracking-step">
-            <span>6</span>
-
-            <div>
-              <strong>In transit</strong>
-              <p>
-                Your parcel is travelling to you.
-              </p>
-            </div>
-          </div>
-
-
-          <div class="tracking-step">
-            <span>7</span>
-
-            <div>
-              <strong>Out for delivery</strong>
-              <p>
-                Your parcel is on its way to your address.
-              </p>
-            </div>
-          </div>
-
-
-          <div class="tracking-step">
-            <span>8</span>
-
-            <div>
-              <strong>Delivered</strong>
-              <p>
-                Your order has been delivered.
-              </p>
-            </div>
-          </div>
-
+        <div class="hero-shape">
+          MAVRENX
         </div>
 
       </div>
 
+
     </section>
+
+
+
+    <!-- =========================================
+         CATEGORIES
+    ========================================== -->
+
+    <section
+      id="categories"
+      class="categories"
+    >
+
+
+      <p class="tag">
+        SHOP BY CATEGORY
+      </p>
+
+
+      <h2>
+
+        Find what you<br>
+
+        <span>
+          need.
+        </span>
+
+      </h2>
+
+
+
+      <div class="category-grid">
+
+
+        <!-- CLEANING -->
+
+        <a
+          href="#cleaning"
+          class="category-card"
+        >
+
+          <span class="category-icon">
+            🧹
+          </span>
+
+          <h3>
+            Cleaning
+          </h3>
+
+          <p>
+            Vacuums, cleaning tools and accessories.
+          </p>
+
+        </a>
+
+
+
+        <!-- LIGHTING -->
+
+        <a
+          href="#lighting"
+          class="category-card"
+        >
+
+          <span class="category-icon">
+            💡
+          </span>
+
+          <h3>
+            Lighting
+          </h3>
+
+          <p>
+            Lamps, LEDs and ambient lighting.
+          </p>
+
+        </a>
+
+
+
+        <!-- HOME -->
+
+        <a
+          href="#home-products"
+          class="category-card"
+        >
+
+          <span class="category-icon">
+            🏠
+          </span>
+
+          <h3>
+            Home
+          </h3>
+
+          <p>
+            Everyday essentials and useful gadgets.
+          </p>
+
+        </a>
+
+
+
+        <!-- KITCHEN -->
+
+        <a
+          href="#kitchen"
+          class="category-card"
+        >
+
+          <span class="category-icon">
+            🍳
+          </span>
+
+          <h3>
+            Kitchen
+          </h3>
+
+          <p>
+            Cooking tools and kitchen accessories.
+          </p>
+
+        </a>
+
+
+
+        <!-- SMART HOME -->
+
+        <a
+          href="#smart-home"
+          class="category-card"
+        >
+
+          <span class="category-icon">
+            🔌
+          </span>
+
+          <h3>
+            Smart Home
+          </h3>
+
+          <p>
+            Smart lights, devices and home technology.
+          </p>
+
+        </a>
+
+
+
+        <!-- BEDROOM -->
+
+        <a
+          href="#bedroom"
+          class="category-card"
+        >
+
+          <span class="category-icon">
+            🛏️
+          </span>
+
+          <h3>
+            Bedroom
+          </h3>
+
+          <p>
+            Comfort, lighting and organisation.
+          </p>
+
+        </a>
+
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- =========================================
+         SHOP
+    ========================================== -->
+
+    <section
+      id="shop"
+      class="shop"
+    >
+
+
+      <p class="tag">
+        SHOP
+      </p>
+
+
+      <h2>
+
+        Explore<br>
+
+        <span>
+          MAVRENX.
+        </span>
+
+      </h2>
+
+
+      <p class="section-description">
+        New products are coming soon.
+      </p>
+
+
+      <div
+        id="product-grid"
+        class="product-grid"
+      >
+      </div>
+
+
+    </section>
+
+
+
+    <!-- =========================================
+         CLEANING
+    ========================================== -->
+
+    <section
+      id="cleaning"
+      class="category-section"
+    >
+
+
+      <div class="category-heading">
+
+
+        <span class="big-icon">
+          🧹
+        </span>
+
+
+        <div>
+
+          <p class="tag">
+            CATEGORY
+          </p>
+
+          <h2>
+            Cleaning
+          </h2>
+
+          <p class="category-description">
+            Vacuums, cleaning tools and accessories.
+          </p>
+
+        </div>
+
+
+      </div>
+
+
+      <div
+        id="cleaning-products"
+        class="category-products"
+      >
+
+        <div class="empty-category">
+          Cleaning products coming soon.
+        </div>
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- =========================================
+         LIGHTING
+    ========================================== -->
+
+    <section
+      id="lighting"
+      class="category-section"
+    >
+
+
+      <div class="category-heading">
+
+
+        <span class="big-icon">
+          💡
+        </span>
+
+
+        <div>
+
+          <p class="tag">
+            CATEGORY
+          </p>
+
+          <h2>
+            Lighting
+          </h2>
+
+          <p class="category-description">
+            Lamps, LEDs and lighting for your space.
+          </p>
+
+        </div>
+
+
+      </div>
+
+
+      <div
+        id="lighting-products"
+        class="category-products"
+      >
+
+        <div class="empty-category">
+          Lighting products coming soon.
+        </div>
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- =========================================
+         HOME
+    ========================================== -->
+
+    <section
+      id="home-products"
+      class="category-section"
+    >
+
+
+      <div class="category-heading">
+
+
+        <span class="big-icon">
+          🏠
+        </span>
+
+
+        <div>
+
+          <p class="tag">
+            CATEGORY
+          </p>
+
+          <h2>
+            Home
+          </h2>
+
+          <p class="category-description">
+            Useful everyday products for your home.
+          </p>
+
+        </div>
+
+
+      </div>
+
+
+      <div
+        id="home-category-products"
+        class="category-products"
+      >
+
+        <div class="empty-category">
+          Home products coming soon.
+        </div>
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- =========================================
+         KITCHEN
+    ========================================== -->
+
+    <section
+      id="kitchen"
+      class="category-section"
+    >
+
+
+      <div class="category-heading">
+
+
+        <span class="big-icon">
+          🍳
+        </span>
+
+
+        <div>
+
+          <p class="tag">
+            CATEGORY
+          </p>
+
+          <h2>
+            Kitchen
+          </h2>
+
+          <p class="category-description">
+            Kitchen gadgets, tools and accessories.
+          </p>
+
+        </div>
+
+
+      </div>
+
+
+      <div
+        id="kitchen-products"
+        class="category-products"
+      >
+
+        <div class="empty-category">
+          Kitchen products coming soon.
+        </div>
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- =========================================
+         SMART HOME
+    ========================================== -->
+
+    <section
+      id="smart-home"
+      class="category-section"
+    >
+
+
+      <div class="category-heading">
+
+
+        <span class="big-icon">
+          🔌
+        </span>
+
+
+        <div>
+
+          <p class="tag">
+            CATEGORY
+          </p>
+
+          <h2>
+            Smart Home
+          </h2>
+
+          <p class="category-description">
+            Smart lights, devices and connected home technology.
+          </p>
+
+        </div>
+
+
+      </div>
+
+
+      <div
+        id="smart-home-products"
+        class="category-products"
+      >
+
+        <div class="empty-category">
+          Smart-home products coming soon.
+        </div>
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- =========================================
+         BEDROOM
+    ========================================== -->
+
+    <section
+      id="bedroom"
+      class="category-section"
+    >
+
+
+      <div class="category-heading">
+
+
+        <span class="big-icon">
+          🛏️
+        </span>
+
+
+        <div>
+
+          <p class="tag">
+            CATEGORY
+          </p>
+
+          <h2>
+            Bedroom
+          </h2>
+
+          <p class="category-description">
+            Comfort, lighting, storage and accessories.
+          </p>
+
+        </div>
+
+
+      </div>
+
+
+      <div
+        id="bedroom-products"
+        class="category-products"
+      >
+
+        <div class="empty-category">
+          Bedroom products coming soon.
+        </div>
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- =========================================
+         ABOUT
+    ========================================== -->
+
+    <section
+      id="about"
+      class="about"
+    >
+
+
+      <p class="tag">
+        ABOUT MAVRENX
+      </p>
+
+
+      <h2>
+
+        Useful products.<br>
+
+        <span>
+          Simple shopping.
+        </span>
+
+      </h2>
+
+
+      <p class="about-text">
+
+        MAVRENX brings together useful products
+        for your home and everyday life.
+
+      </p>
+
+
+    </section>
+
 
   </main>
 
 
-  <!-- LIKES PANEL -->
+
+  <!-- =========================================
+       LIKES PANEL
+  ========================================== -->
 
   <div
     id="likes-panel"
     class="side-panel"
   >
+
 
     <button
       class="close-panel"
@@ -256,9 +826,11 @@
       ×
     </button>
 
+
     <h2>
       Liked Items
     </h2>
+
 
     <div id="liked-items">
 
@@ -268,15 +840,20 @@
 
     </div>
 
+
   </div>
 
 
-  <!-- CART PANEL -->
+
+  <!-- =========================================
+       CART PANEL
+  ========================================== -->
 
   <div
     id="cart-panel"
     class="side-panel"
   >
+
 
     <button
       class="close-panel"
@@ -285,9 +862,11 @@
       ×
     </button>
 
+
     <h2>
       Your Cart
     </h2>
+
 
     <div id="cart-items">
 
@@ -297,40 +876,58 @@
 
     </div>
 
+
   </div>
 
 
-  <!-- FOOTER -->
+
+  <!-- =========================================
+       FOOTER
+  ========================================== -->
 
   <footer>
+
 
     <div class="footer-logo">
       MAVRENX
     </div>
 
+
     <p>
       Better things. Better home.
     </p>
+
 
     <small>
       © 2026 MAVRENX
     </small>
 
+
   </footer>
 
 
-  <!-- FIREBASE -->
+
+  <!-- =========================================
+       FIREBASE
+  ========================================== -->
 
   <script
     src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"
   ></script>
+
 
   <script
     src="https://www.gstatic.com/firebasejs/10.13.2/firebase-messaging-compat.js"
   ></script>
 
 
+
+  <!-- =========================================
+       MAIN JAVASCRIPT
+  ========================================== -->
+
   <script src="script.js"></script>
+
 
 </body>
 
