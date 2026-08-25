@@ -30,7 +30,6 @@ function saveCart() {
   );
 }
 
-
 function saveLikes() {
   localStorage.setItem(
     "mavrenx-liked",
@@ -55,7 +54,6 @@ function addToCart(
       item => item.id === id
     );
 
-
   if (existing) {
 
     existing.quantity += 1;
@@ -72,7 +70,6 @@ function addToCart(
 
   }
 
-
   saveCart();
 
   updateCart();
@@ -88,11 +85,9 @@ function increaseQuantity(id) {
       item => item.id === id
     );
 
-
   if (!item) {
     return;
   }
-
 
   item.quantity += 1;
 
@@ -109,14 +104,11 @@ function decreaseQuantity(id) {
       item => item.id === id
     );
 
-
   if (!item) {
     return;
   }
 
-
   item.quantity -= 1;
-
 
   if (item.quantity <= 0) {
 
@@ -126,7 +118,6 @@ function decreaseQuantity(id) {
       );
 
   }
-
 
   saveCart();
 
@@ -140,7 +131,6 @@ function removeFromCart(id) {
     cart.filter(
       item => item.id !== id
     );
-
 
   saveCart();
 
@@ -159,15 +149,12 @@ function updateCart() {
       "cart-count"
     );
 
-
   const container =
     document.getElementById(
       "cart-items"
     );
 
-
   let totalQuantity = 0;
-
 
   cart.forEach(item => {
 
@@ -176,7 +163,6 @@ function updateCart() {
 
   });
 
-
   if (count) {
 
     count.textContent =
@@ -184,11 +170,9 @@ function updateCart() {
 
   }
 
-
   if (!container) {
     return;
   }
-
 
   if (cart.length === 0) {
 
@@ -201,25 +185,20 @@ function updateCart() {
     return;
   }
 
-
   let html = "";
 
   let totalPrice = 0;
-
 
   cart.forEach(item => {
 
     const quantity =
       Number(item.quantity) || 1;
 
-
     const price =
       Number(item.price) || 0;
 
-
     totalPrice +=
       price * quantity;
-
 
     html += `
       <div class="cart-item">
@@ -282,7 +261,6 @@ function updateCart() {
 
   });
 
-
   html += `
     <div class="cart-total">
 
@@ -305,7 +283,6 @@ function updateCart() {
     </div>
   `;
 
-
   container.innerHTML = html;
 }
 
@@ -318,12 +295,10 @@ function openCart() {
 
   closeLikes();
 
-
   const panel =
     document.getElementById(
       "cart-panel"
     );
-
 
   if (panel) {
 
@@ -332,7 +307,6 @@ function openCart() {
     );
 
   }
-
 
   updateCart();
 }
@@ -344,7 +318,6 @@ function closeCart() {
     document.getElementById(
       "cart-panel"
     );
-
 
   if (panel) {
 
@@ -372,7 +345,6 @@ function toggleLike(
       item => item.id === id
     );
 
-
   if (existing) {
 
     likedItems =
@@ -391,7 +363,6 @@ function toggleLike(
 
   }
 
-
   saveLikes();
 
   updateLikes();
@@ -406,7 +377,6 @@ function removeLike(id) {
     likedItems.filter(
       item => item.id !== id
     );
-
 
   saveLikes();
 
@@ -424,11 +394,9 @@ function addLikedItemToCart(id) {
         product.id === id
     );
 
-
   if (!item) {
     return;
   }
-
 
   addToCart(
     item.id,
@@ -450,12 +418,10 @@ function updateLikes() {
       "likes-count"
     );
 
-
   const container =
     document.getElementById(
       "liked-items"
     );
-
 
   if (count) {
 
@@ -464,11 +430,9 @@ function updateLikes() {
 
   }
 
-
   if (!container) {
     return;
   }
-
 
   if (likedItems.length === 0) {
 
@@ -481,9 +445,7 @@ function updateLikes() {
     return;
   }
 
-
   let html = "";
-
 
   likedItems.forEach(item => {
 
@@ -534,7 +496,6 @@ function updateLikes() {
 
   });
 
-
   container.innerHTML = html;
 }
 
@@ -554,18 +515,15 @@ function updateProductLikeButtons() {
       const id =
         button.dataset.productLike;
 
-
       const liked =
         likedItems.some(
           item => item.id === id
         );
 
-
       button.textContent =
         liked
           ? "♥ Liked"
           : "♡ Like";
-
 
       button.classList.toggle(
         "liked",
@@ -584,12 +542,10 @@ function openLikes() {
 
   closeCart();
 
-
   const panel =
     document.getElementById(
       "likes-panel"
     );
-
 
   if (panel) {
 
@@ -598,7 +554,6 @@ function openLikes() {
     );
 
   }
-
 
   updateLikes();
 }
@@ -610,7 +565,6 @@ function closeLikes() {
     document.getElementById(
       "likes-panel"
     );
-
 
   if (panel) {
 
@@ -632,12 +586,10 @@ function toggleTheme() {
     "dark-mode"
   );
 
-
   const dark =
     document.body.classList.contains(
       "dark-mode"
     );
-
 
   localStorage.setItem(
     "mavrenx-theme",
@@ -645,7 +597,6 @@ function toggleTheme() {
       ? "dark"
       : "light"
   );
-
 
   updateThemeButton();
 }
@@ -657,7 +608,6 @@ function loadTheme() {
     localStorage.getItem(
       "mavrenx-theme"
     );
-
 
   if (saved === "dark") {
 
@@ -673,7 +623,6 @@ function loadTheme() {
 
   }
 
-
   updateThemeButton();
 }
 
@@ -685,17 +634,14 @@ function updateThemeButton() {
       "theme-button"
     );
 
-
   if (!button) {
     return;
   }
-
 
   const dark =
     document.body.classList.contains(
       "dark-mode"
     );
-
 
   button.textContent =
     dark
@@ -710,41 +656,36 @@ function updateThemeButton() {
 
 const spongeImages = [
 
-  "https://ae-pic-a1.aliexpress-media.com/kf/Se11ffac394ff459d9895d8295bbe27ead.jpg",
+  "https://ae-pic-a1.aliexpress-media.com/kf/Se11ffac394ff459d9895d8295bbe27ead.jpg_220x220q75.jpg_.avif",
 
-  "https://ae-pic-a1.aliexpress-media.com/kf/Scf67aebae10449a2822454605ed56195N.jpg",
+  "https://ae-pic-a1.aliexpress-media.com/kf/Scf67aebae10449a2822454605ed56195N.jpg_220x220q75.jpg_.avif",
 
-  "https://ae-pic-a1.aliexpress-media.com/kf/Sda9899dbd8ef4af39775d1a20d1ced0ao.jpg",
+  "https://ae-pic-a1.aliexpress-media.com/kf/Sda9899dbd8ef4af39775d1a20d1ced0ao.jpg_220x220q75.jpg_.avif",
 
-  "https://ae-pic-a1.aliexpress-media.com/kf/S4178ac99ae1d4d9f96a4f9425578af8bY.jpg",
+  "https://ae-pic-a1.aliexpress-media.com/kf/S4178ac99ae1d4d9f96a4f9425578af8bY.jpg_220x220q75.jpg_.avif",
 
-  "https://ae-pic-a1.aliexpress-media.com/kf/S10033e683b6047109d777d23c45b3131x.jpg",
+  "https://ae-pic-a1.aliexpress-media.com/kf/S10033e683b6047109d777d23c45b3131x.jpg_220x220q75.jpg_.avif",
 
-  "https://ae-pic-a1.aliexpress-media.com/kf/Sb865bea0bd644c689b16d424dc9cae1fV.jpg"
+  "https://ae-pic-a1.aliexpress-media.com/kf/Sb865bea0bd644c689b16d424dc9cae1fV.jpg_220x220q75.jpg_.avif"
 
 ];
 
 
-const spongeGalleryIndex = {
-  shop: 0,
-  cleaning: 0
-};
+let spongeGalleryIndex = 0;
 
+
+/* =========================================
+   SET PRODUCT IMAGE
+========================================= */
 
 function setSpongeImage(
   location,
   index
 ) {
 
-  if (
-    !Object.prototype.hasOwnProperty.call(
-      spongeGalleryIndex,
-      location
-    )
-  ) {
+  if (location !== "cleaning") {
     return;
   }
-
 
   if (
     index < 0 ||
@@ -753,17 +694,13 @@ function setSpongeImage(
     return;
   }
 
-
-  spongeGalleryIndex[location] =
+  spongeGalleryIndex =
     index;
-
 
   const mainImage =
     document.getElementById(
-      "sponge-main-image-" +
-      location
+      "sponge-main-image-cleaning"
     );
-
 
   if (mainImage) {
 
@@ -772,27 +709,25 @@ function setSpongeImage(
 
   }
 
-
   const thumbnailContainer =
     document.getElementById(
-      "sponge-thumbnails-" +
-      location
+      "sponge-thumbnails-cleaning"
     );
-
 
   if (!thumbnailContainer) {
     return;
   }
-
 
   const thumbnails =
     thumbnailContainer.querySelectorAll(
       ".gallery-thumbnail"
     );
 
-
   thumbnails.forEach(
-    function(thumbnail, thumbnailIndex) {
+    function(
+      thumbnail,
+      thumbnailIndex
+    ) {
 
       thumbnail.classList.toggle(
         "active",
@@ -804,34 +739,31 @@ function setSpongeImage(
 }
 
 
+/* =========================================
+   NEXT / PREVIOUS PRODUCT IMAGE
+========================================= */
+
 function changeSpongeImage(
   location,
   direction
 ) {
 
-  if (
-    !Object.prototype.hasOwnProperty.call(
-      spongeGalleryIndex,
-      location
-    )
-  ) {
+  if (location !== "cleaning") {
     return;
   }
 
-
   let nextIndex =
-    spongeGalleryIndex[location] +
+    spongeGalleryIndex +
     direction;
 
-
   if (
-    nextIndex >= spongeImages.length
+    nextIndex >=
+    spongeImages.length
   ) {
 
     nextIndex = 0;
 
   }
-
 
   if (nextIndex < 0) {
 
@@ -840,9 +772,8 @@ function changeSpongeImage(
 
   }
 
-
   setSpongeImage(
-    location,
+    "cleaning",
     nextIndex
   );
 }
@@ -862,7 +793,6 @@ function checkout() {
 
     return;
   }
-
 
   alert(
     "Secure checkout will be connected later."
@@ -906,7 +836,6 @@ const firebaseConfig = {
 
 let messaging = null;
 
-
 try {
 
   if (
@@ -924,7 +853,6 @@ try {
       );
 
     }
-
 
     messaging =
       firebase.messaging();
@@ -959,11 +887,9 @@ function getNotificationText() {
   const popup =
     getNotificationPopup();
 
-
   if (!popup) {
     return null;
   }
-
 
   return popup.querySelector("p");
 }
@@ -974,11 +900,9 @@ function getNotificationButton() {
   const popup =
     getNotificationPopup();
 
-
   if (!popup) {
     return null;
   }
-
 
   return popup.querySelector(
     ".enable-notifications-button"
@@ -992,7 +916,6 @@ function setNotificationMessage(
 
   const text =
     getNotificationText();
-
 
   if (text) {
 
@@ -1011,19 +934,15 @@ function setNotificationButton(
   const button =
     getNotificationButton();
 
-
   if (!button) {
     return;
   }
 
-
   button.textContent =
     text;
 
-
   button.disabled =
     disabled;
-
 
   if (disabled) {
 
@@ -1054,14 +973,12 @@ function closeNotificationPopup() {
   const popup =
     getNotificationPopup();
 
-
   if (popup) {
 
     popup.style.display =
       "none";
 
   }
-
 
   sessionStorage.setItem(
     "mavrenx-popup-seen",
@@ -1089,7 +1006,6 @@ function checkNotificationSupport() {
 
   }
 
-
   if (
     !("Notification" in window)
   ) {
@@ -1104,7 +1020,6 @@ function checkNotificationSupport() {
     };
 
   }
-
 
   if (
     !("serviceWorker" in navigator)
@@ -1121,7 +1036,6 @@ function checkNotificationSupport() {
 
   }
 
-
   if (!messaging) {
 
     return {
@@ -1134,7 +1048,6 @@ function checkNotificationSupport() {
     };
 
   }
-
 
   return {
     supported: true
@@ -1151,23 +1064,19 @@ async function enableNotifications() {
   const support =
     checkNotificationSupport();
 
-
   if (!support.supported) {
 
     setNotificationMessage(
       support.reason
     );
 
-
     setNotificationButton(
       "Notifications unavailable",
       true
     );
 
-
     return false;
   }
-
 
   if (
     Notification.permission ===
@@ -1178,16 +1087,13 @@ async function enableNotifications() {
       "Notifications are blocked in this browser. You can still use MAVRENX and track your order normally."
     );
 
-
     setNotificationButton(
       "Notifications blocked",
       true
     );
 
-
     return false;
   }
-
 
   if (
     Notification.permission ===
@@ -1199,7 +1105,6 @@ async function enableNotifications() {
 
   }
 
-
   try {
 
     setNotificationButton(
@@ -1207,11 +1112,9 @@ async function enableNotifications() {
       true
     );
 
-
     const permission =
       await Notification
         .requestPermission();
-
 
     if (
       permission ===
@@ -1223,7 +1126,6 @@ async function enableNotifications() {
 
     }
 
-
     if (
       permission ===
       "denied"
@@ -1233,30 +1135,24 @@ async function enableNotifications() {
         "Notifications weren't allowed. You can still shop and track your order normally."
       );
 
-
       setNotificationButton(
         "Notifications blocked",
         true
       );
 
-
       return false;
     }
-
 
     setNotificationMessage(
       "Notifications weren't enabled. You can still use MAVRENX normally."
     );
-
 
     setNotificationButton(
       "Enable notifications",
       false
     );
 
-
     return false;
-
 
   } catch (error) {
 
@@ -1265,17 +1161,14 @@ async function enableNotifications() {
       error
     );
 
-
     setNotificationMessage(
       "Notifications aren't available in this browser right now."
     );
-
 
     setNotificationButton(
       "Notifications unavailable",
       true
     );
-
 
     return false;
   }
@@ -1294,12 +1187,10 @@ async function createNotificationToken() {
       "Setting up MAVRENX notifications..."
     );
 
-
     setNotificationButton(
       "Setting up...",
       true
     );
-
 
     const registration =
       await navigator
@@ -1307,7 +1198,6 @@ async function createNotificationToken() {
         .register(
           "./firebase-messaging-sw.js"
         );
-
 
     const token =
       await messaging.getToken({
@@ -1320,51 +1210,42 @@ async function createNotificationToken() {
 
       });
 
-
     if (!token) {
 
       setNotificationMessage(
         "Push notifications couldn't be activated in this browser. You can still track your order normally."
       );
 
-
       setNotificationButton(
         "Notifications unavailable",
         true
       );
 
-
       return false;
     }
-
 
     localStorage.setItem(
       "mavrenx-notification-token",
       token
     );
 
-
     localStorage.setItem(
       "mavrenx-notifications-enabled",
       "yes"
     );
 
-
     console.log(
       "MAVRENX notifications registered."
     );
-
 
     setNotificationMessage(
       "Notifications are enabled! You'll receive MAVRENX order updates on this device."
     );
 
-
     setNotificationButton(
       "Notifications enabled ✓",
       true
     );
-
 
     setTimeout(
       function() {
@@ -1375,9 +1256,7 @@ async function createNotificationToken() {
       1200
     );
 
-
     return true;
-
 
   } catch (error) {
 
@@ -1386,17 +1265,14 @@ async function createNotificationToken() {
       error
     );
 
-
     setNotificationMessage(
       "Push notifications aren't available with this browser setup. You can still shop and track your order normally."
     );
-
 
     setNotificationButton(
       "Notifications unavailable",
       true
     );
-
 
     return false;
   }
@@ -1431,16 +1307,13 @@ if (messaging) {
           "MAVRENX notification received."
         );
 
-
         const title =
           payload.notification?.title ||
           "MAVRENX";
 
-
         const body =
           payload.notification?.body ||
           "You have a new order update.";
-
 
         if (
           "Notification" in window &&
@@ -1455,7 +1328,6 @@ if (messaging) {
                 .serviceWorker
                 .ready;
 
-
             await registration
               .showNotification(
                 title,
@@ -1463,7 +1335,6 @@ if (messaging) {
                   body: body
                 }
               );
-
 
           } catch (error) {
 
@@ -1479,7 +1350,6 @@ if (messaging) {
       }
 
     );
-
 
   } catch (error) {
 
@@ -1536,27 +1406,17 @@ document.addEventListener(
 
     updateProductLikeButtons();
 
-
-    setSpongeImage(
-      "shop",
-      0
-    );
-
-
     setSpongeImage(
       "cleaning",
       0
     );
 
-
     const popup =
       getNotificationPopup();
-
 
     if (!popup) {
       return;
     }
-
 
     if (
       "Notification" in window &&
@@ -1570,7 +1430,6 @@ document.addEventListener(
       return;
     }
 
-
     if (
       "Notification" in window &&
       Notification.permission ===
@@ -1583,12 +1442,10 @@ document.addEventListener(
       return;
     }
 
-
     const seenThisSession =
       sessionStorage.getItem(
         "mavrenx-popup-seen"
       );
-
 
     if (
       seenThisSession ===
@@ -1601,10 +1458,8 @@ document.addEventListener(
       return;
     }
 
-
     popup.style.display =
       "flex";
-
 
     sessionStorage.setItem(
       "mavrenx-popup-seen",
