@@ -297,12 +297,16 @@
         Categories
       </a>
 
-      <a href="index.html#shop">
+      <a href="index.html#categories">
         Shop
       </a>
 
       <a href="track.html">
         Track Order
+      </a>
+
+      <a href="mailto:mavrenx.store@outlook.com">
+        Support
       </a>
 
       <a href="index.html#about">
@@ -365,18 +369,22 @@
       </h1>
 
 
-      <p class="track-description">
-
+      <p
+        id="track-description"
+        class="track-description"
+      >
         Enter your MAVRENX order number
         to see the latest delivery status.
 
         Updates appear automatically
         when your order status changes.
-
       </p>
 
 
-      <div class="tracking-box">
+      <div
+        id="tracking-box"
+        class="tracking-box"
+      >
 
         <form id="tracking-form">
 
@@ -399,7 +407,7 @@
 
           <span class="order-format">
             Enter the complete order number exactly
-            as shown after your purchase.
+            as shown in your tracking information.
           </span>
 
 
@@ -825,12 +833,42 @@
             orderNumber;
 
 
+          updateTrackingUrl(
+            orderNumber
+          );
+
+
           startTracking(
             orderNumber
           );
 
         }
       );
+
+
+    function updateTrackingUrl(
+      orderNumber
+    ) {
+
+      const url =
+        new URL(
+          window.location.href
+        );
+
+
+      url.searchParams.set(
+        "order",
+        orderNumber
+      );
+
+
+      window.history.replaceState(
+        {},
+        "",
+        url
+      );
+
+    }
 
 
     function startTracking(
@@ -860,9 +898,7 @@
 
 
       if (activeTrackingReference) {
-
         activeTrackingReference.off();
-
       }
 
 
@@ -1022,6 +1058,56 @@
 
           }
         );
+
+    }
+
+
+    /*
+      DIRECT TRACKING LINK
+
+      Example:
+      track.html?order=MAVRENX-ABC123456789
+    */
+
+    const urlParameters =
+      new URLSearchParams(
+        window.location.search
+      );
+
+
+    const directOrderNumber =
+      (
+        urlParameters.get(
+          "order"
+        ) || ""
+      )
+        .trim()
+        .toUpperCase();
+
+
+    if (directOrderNumber) {
+
+      const input =
+        document.getElementById(
+          "order-number"
+        );
+
+
+      input.value =
+        directOrderNumber;
+
+
+      document
+        .getElementById(
+          "track-description"
+        )
+        .textContent =
+        "Your MAVRENX delivery status is shown below and updates automatically.";
+
+
+      startTracking(
+        directOrderNumber
+      );
 
     }
 
