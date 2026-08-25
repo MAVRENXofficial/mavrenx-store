@@ -11,14 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
       - name: Install packages
         run: |
-          pip install requests firebase-admin
+          python3 -m pip install requests firebase-admin
 
       - name: Sync all MAVRENX shipments
         env:
@@ -26,7 +21,7 @@ jobs:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
 
         run: |
-          python - <<'PY'
+          python3 - <<'PY'
           import os
           import json
           import requests
@@ -35,10 +30,6 @@ jobs:
           from firebase_admin import credentials
           from firebase_admin import db
 
-
-          # -----------------------------
-          # CONNECT TO FIREBASE
-          # -----------------------------
 
           service_account = json.loads(
               os.environ["FIREBASE_SERVICE_ACCOUNT"]
@@ -57,26 +48,20 @@ jobs:
           )
 
 
-          # -----------------------------
-          # GET ALL MAVRENX SHIPMENTS
-          # -----------------------------
-
           shipments = db.reference(
               "shipments"
           ).get() or {}
+
 
           if not shipments:
               print("No shipments found.")
               raise SystemExit(0)
 
 
-          # -----------------------------
-          # SHIP24 SETTINGS
-          # -----------------------------
-
           ship24_api_key = os.environ[
               "SHIP24_API_KEY"
           ].strip()
+
 
           headers = {
               "Authorization":
@@ -114,21 +99,22 @@ jobs:
           }
 
 
-          # -----------------------------
-          # CHECK EVERY SHIPMENT
-          # -----------------------------
-
           for order_id, shipment_data in shipments.items():
 
-              if not isinstance(shipment_data, dict):
+              if not isinstance(
+                  shipment_data,
+                  dict
+              ):
                   print(
                       f"{order_id}: invalid shipment data"
                   )
                   continue
 
+
               tracking_number = shipment_data.get(
                   "trackingNumber"
               )
+
 
               if not tracking_number:
                   print(
@@ -136,9 +122,11 @@ jobs:
                   )
                   continue
 
+
               print(
                   f"Checking {order_id}"
               )
+
 
               try:
 
@@ -158,14 +146,18 @@ jobs:
                       timeout=90
                   )
 
+
                   print(
                       f"{order_id}: Ship24 HTTP "
                       f"{response.status_code}"
                   )
 
+
                   response.raise_for_status()
 
+
                   data = response.json()
+
 
                   trackings = (
                       data
@@ -173,20 +165,24 @@ jobs:
                       .get("trackings", [])
                   )
 
+
                   if not trackings:
                       print(
                           f"{order_id}: no tracking results"
                       )
                       continue
 
+
                   shipment = (
                       trackings[0]
                       .get("shipment", {})
                   )
 
+
                   ship24_status = shipment.get(
                       "statusMilestone"
                   )
+
 
                   if not ship24_status:
                       print(
@@ -194,21 +190,26 @@ jobs:
                       )
                       continue
 
+
                   mavrenx_status = status_map.get(
                       ship24_status,
                       "Shipped"
                   )
 
 
-                  # -----------------------------
-                  # UPDATE CUSTOMER TRACKING
-                  # -----------------------------
-
                   db.reference(
                       "tracking/" + order_id
                   ).set(
                       mavrenx_status
                   )
+
+
+                  db.reference(
+                      "orders/" + order_id
+                  ).update({
+                      "status": mavrenx_status
+                  })
+
 
                   print(
                       f"{order_id}: "
