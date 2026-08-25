@@ -60,15 +60,14 @@
     .tracking-box input {
       width: 100%;
       padding: 14px 15px;
-      margin-bottom: 18px;
+      margin-bottom: 8px;
       border: 1px solid #ccd3cd;
       border-radius: 8px;
       background: #ffffff;
       color: #111111;
       font-size: 16px;
       outline: none;
-      user-select: text;
-      -webkit-user-select: text;
+      text-transform: uppercase;
     }
 
     .tracking-box input:focus {
@@ -79,6 +78,17 @@
       background: #101210;
       color: #ffffff;
       border-color: #3b423c;
+    }
+
+    .order-format {
+      display: block;
+      margin-bottom: 18px;
+      color: #777777;
+      font-size: 13px;
+    }
+
+    body.dark-mode .order-format {
+      color: #aaaaaa;
     }
 
     .track-button {
@@ -129,6 +139,14 @@
       letter-spacing: 1.5px;
     }
 
+    .tracked-order-number {
+      margin-bottom: 8px;
+      color: #a9d8b8;
+      font-size: 13px;
+      font-weight: 700;
+      word-break: break-word;
+    }
+
     .current-status h2 {
       font-size: 30px;
     }
@@ -148,7 +166,9 @@
       height: 8px;
       border-radius: 50%;
       background: #28d466;
-      box-shadow: 0 0 10px rgba(40, 212, 102, 0.8);
+      box-shadow:
+        0 0 10px
+        rgba(40, 212, 102, 0.8);
     }
 
     .tracking-steps {
@@ -213,7 +233,9 @@
     .tracking-step.current .step-number {
       background: #159947;
       color: #ffffff;
-      box-shadow: 0 0 0 6px rgba(21, 153, 71, 0.15);
+      box-shadow:
+        0 0 0 6px
+        rgba(21, 153, 71, 0.15);
     }
 
     .step-info {
@@ -257,8 +279,6 @@
 
 <body>
 
-
-  <!-- HEADER -->
 
   <header>
 
@@ -325,9 +345,6 @@
   </header>
 
 
-
-  <!-- TRACK ORDER -->
-
   <main>
 
     <section class="track-page">
@@ -354,10 +371,9 @@
         to see the latest delivery status.
 
         Updates appear automatically
-        in real time.
+        when your order status changes.
 
       </p>
-
 
 
       <div class="tracking-box">
@@ -365,17 +381,26 @@
         <form id="tracking-form">
 
           <label for="order-number">
-            Order number
+            MAVRENX order number
           </label>
 
 
           <input
             id="order-number"
             type="text"
-            placeholder="Example: TEST-ORDER-001"
+            placeholder="MAVRENX-XXXXXXXXXXXX"
             autocomplete="off"
+            autocapitalize="characters"
+            spellcheck="false"
+            maxlength="50"
             required
           >
+
+
+          <span class="order-format">
+            Enter the complete order number exactly
+            as shown after your purchase.
+          </span>
 
 
           <button
@@ -390,17 +415,13 @@
       </div>
 
 
-
       <div
         id="tracking-error"
         class="tracking-error"
       >
-
         We couldn't find that order.
         Check the order number and try again.
-
       </div>
-
 
 
       <div
@@ -408,12 +429,18 @@
         class="tracking-result"
       >
 
-
         <div class="current-status">
 
           <span class="current-status-label">
             CURRENT STATUS
           </span>
+
+
+          <div
+            id="tracked-order-number"
+            class="tracked-order-number"
+          >
+          </div>
 
 
           <h2 id="current-status-text">
@@ -430,7 +457,6 @@
           </div>
 
         </div>
-
 
 
         <div class="tracking-steps">
@@ -460,7 +486,6 @@
           </div>
 
 
-
           <div
             class="tracking-step"
             data-status="Payment confirmed"
@@ -485,7 +510,6 @@
           </div>
 
 
-
           <div
             class="tracking-step"
             data-status="Preparing"
@@ -508,7 +532,6 @@
             </div>
 
           </div>
-
 
 
           <div
@@ -536,7 +559,6 @@
           </div>
 
 
-
           <div
             class="tracking-step"
             data-status="Shipped"
@@ -559,7 +581,6 @@
             </div>
 
           </div>
-
 
 
           <div
@@ -586,7 +607,6 @@
           </div>
 
 
-
           <div
             class="tracking-step"
             data-status="Out for delivery"
@@ -610,7 +630,6 @@
             </div>
 
           </div>
-
 
 
           <div
@@ -646,9 +665,6 @@
   </main>
 
 
-
-  <!-- LIKES PANEL -->
-
   <div
     id="likes-panel"
     class="side-panel"
@@ -677,9 +693,6 @@
 
   </div>
 
-
-
-  <!-- CART PANEL -->
 
   <div
     id="cart-panel"
@@ -710,9 +723,6 @@
   </div>
 
 
-
-  <!-- FOOTER -->
-
   <footer>
 
     <div class="footer-logo">
@@ -732,9 +742,6 @@
   </footer>
 
 
-
-  <!-- FIREBASE -->
-
   <script
     src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"
   ></script>
@@ -750,9 +757,6 @@
 
   <script src="script.js"></script>
 
-
-
-  <!-- LIVE TRACKING -->
 
   <script>
 
@@ -780,7 +784,6 @@
     ];
 
 
-
     const trackingDatabase =
       firebase
         .app()
@@ -789,9 +792,10 @@
         );
 
 
-
     document
-      .getElementById("tracking-form")
+      .getElementById(
+        "tracking-form"
+      )
       .addEventListener(
         "submit",
         function(event) {
@@ -799,11 +803,17 @@
           event.preventDefault();
 
 
+          const input =
+            document.getElementById(
+              "order-number"
+            );
+
+
           const orderNumber =
-            document
-              .getElementById("order-number")
+            input
               .value
-              .trim();
+              .trim()
+              .toUpperCase();
 
 
           if (!orderNumber) {
@@ -811,14 +821,21 @@
           }
 
 
-          startTracking(orderNumber);
+          input.value =
+            orderNumber;
+
+
+          startTracking(
+            orderNumber
+          );
 
         }
       );
 
 
-
-    function startTracking(orderNumber) {
+    function startTracking(
+      orderNumber
+    ) {
 
       const result =
         document.getElementById(
@@ -832,10 +849,14 @@
         );
 
 
-      result.classList.remove("show");
+      result.classList.remove(
+        "show"
+      );
 
-      error.classList.remove("show");
 
+      error.classList.remove(
+        "show"
+      );
 
 
       if (activeTrackingReference) {
@@ -845,12 +866,10 @@
       }
 
 
-
       activeTrackingReference =
         trackingDatabase.ref(
           "tracking/" + orderNumber
         );
-
 
 
       activeTrackingReference.on(
@@ -881,10 +900,8 @@
           }
 
 
-
           const status =
             snapshot.val();
-
 
 
           error.classList.remove(
@@ -895,6 +912,14 @@
           result.classList.add(
             "show"
           );
+
+
+          document
+            .getElementById(
+              "tracked-order-number"
+            )
+            .textContent =
+            orderNumber;
 
 
           updateTrackingDisplay(
@@ -932,8 +957,9 @@
     }
 
 
-
-    function updateTrackingDisplay(status) {
+    function updateTrackingDisplay(
+      status
+    ) {
 
       document
         .getElementById(
@@ -943,12 +969,10 @@
         status;
 
 
-
       const currentIndex =
         statusOrder.indexOf(
           status
         );
-
 
 
       document
@@ -969,11 +993,9 @@
             );
 
 
-
             if (currentIndex === -1) {
               return;
             }
-
 
 
             if (index < currentIndex) {
@@ -983,7 +1005,6 @@
               );
 
             }
-
 
 
             if (index === currentIndex) {
