@@ -1,0 +1,97 @@
+name: Create MAVRENX Order
+
+on:
+  workflow_dispatch:
+    inputs:
+      order_id:
+        description: "MAVRENX order number"
+        required: true
+        type: string
+
+jobs:
+  create-order:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install Firebase Admin
+        run: |
+          python3 -m pip install firebase-admin
+
+      - name: Create order in Firebase
+        env:
+          ORDER_ID: ${{ inputs.order_id }}
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+
+        run: |
+          python3 - <<'PY'
+          import os
+          import json
+          import re
+          from datetime import datetime, timezone
+
+          import firebase_admin
+          from firebase_admin import credentials, db
+
+
+          order_id = os.environ["ORDER_ID"].strip().upper()
+
+          if not re.fullmatch(r"[A-Z0-9-]{4,50}", order_id):
+              raise ValueError(
+                  "Order ID can only contain letters, numbers and hyphens."
+              )
+
+
+          service_account = json.loads(
+              os.environ["FIREBASE_SERVICE_ACCOUNT"]
+          )
+
+          credential = credentials.Certificate(
+              service_account
+          )
+
+          firebase_admin.initialize_app(
+              credential,
+              {
+                  "databaseURL":
+                  "https://mavrenxsecurity-default-rtdb.europe-west1.firebasedatabase.app"
+              }
+          )
+
+
+          order_ref = db.reference(
+              f"orders/{order_id}"
+          )
+
+          tracking_ref = db.reference(
+              f"tracking/{order_id}"
+          )
+
+
+          if order_ref.get() is not None:
+              raise Exception(
+                  f"Order {order_id} already exists."
+              )
+
+
+          order_ref.set({
+              "status": "Order received",
+              "createdAt": datetime.now(
+                  timezone.utc
+              ).isoformat()
+          })
+
+
+          tracking_ref.set(
+              "Order received"
+          )
+
+
+          print(
+              f"Created MAVRENX order: {order_id}"
+          )
+
+          print(
+              "Tracking status: Order received"
+          )
+
+          PY
