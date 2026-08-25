@@ -5,7 +5,7 @@
 
 
 /* =========================================
-   SAVED CART + LIKES
+   CART + LIKES STORAGE
 ========================================= */
 
 let cart =
@@ -19,16 +19,13 @@ let likedItems =
   ) || [];
 
 
-/* =========================================
-   SAVE DATA
-========================================= */
-
 function saveCart() {
   localStorage.setItem(
     "mavrenx-cart",
     JSON.stringify(cart)
   );
 }
+
 
 function saveLikes() {
   localStorage.setItem(
@@ -48,18 +45,14 @@ function addToCart(
   price,
   image
 ) {
-
   const existing =
     cart.find(
       item => item.id === id
     );
 
   if (existing) {
-
     existing.quantity += 1;
-
   } else {
-
     cart.push({
       id: id,
       name: name,
@@ -67,19 +60,15 @@ function addToCart(
       image: image,
       quantity: 1
     });
-
   }
 
   saveCart();
-
   updateCart();
-
   openCart();
 }
 
 
 function increaseQuantity(id) {
-
   const item =
     cart.find(
       item => item.id === id
@@ -92,13 +81,11 @@ function increaseQuantity(id) {
   item.quantity += 1;
 
   saveCart();
-
   updateCart();
 }
 
 
 function decreaseQuantity(id) {
-
   const item =
     cart.find(
       item => item.id === id
@@ -111,29 +98,24 @@ function decreaseQuantity(id) {
   item.quantity -= 1;
 
   if (item.quantity <= 0) {
-
     cart =
       cart.filter(
         item => item.id !== id
       );
-
   }
 
   saveCart();
-
   updateCart();
 }
 
 
 function removeFromCart(id) {
-
   cart =
     cart.filter(
       item => item.id !== id
     );
 
   saveCart();
-
   updateCart();
 }
 
@@ -143,7 +125,6 @@ function removeFromCart(id) {
 ========================================= */
 
 function updateCart() {
-
   const count =
     document.getElementById(
       "cart-count"
@@ -157,17 +138,13 @@ function updateCart() {
   let totalQuantity = 0;
 
   cart.forEach(item => {
-
     totalQuantity +=
       Number(item.quantity) || 1;
-
   });
 
   if (count) {
-
     count.textContent =
       totalQuantity;
-
   }
 
   if (!container) {
@@ -175,7 +152,6 @@ function updateCart() {
   }
 
   if (cart.length === 0) {
-
     container.innerHTML = `
       <p class="empty-message">
         Your cart is empty.
@@ -186,11 +162,9 @@ function updateCart() {
   }
 
   let html = "";
-
   let totalPrice = 0;
 
   cart.forEach(item => {
-
     const quantity =
       Number(item.quantity) || 1;
 
@@ -258,7 +232,6 @@ function updateCart() {
 
       </div>
     `;
-
   });
 
   html += `
@@ -292,7 +265,6 @@ function updateCart() {
 ========================================= */
 
 function openCart() {
-
   closeLikes();
 
   const panel =
@@ -301,11 +273,9 @@ function openCart() {
     );
 
   if (panel) {
-
     panel.classList.add(
       "active"
     );
-
   }
 
   updateCart();
@@ -313,18 +283,15 @@ function openCart() {
 
 
 function closeCart() {
-
   const panel =
     document.getElementById(
       "cart-panel"
     );
 
   if (panel) {
-
     panel.classList.remove(
       "active"
     );
-
   }
 }
 
@@ -339,55 +306,44 @@ function toggleLike(
   price,
   image
 ) {
-
   const existing =
     likedItems.some(
       item => item.id === id
     );
 
   if (existing) {
-
     likedItems =
       likedItems.filter(
         item => item.id !== id
       );
-
   } else {
-
     likedItems.push({
       id: id,
       name: name,
       price: Number(price),
       image: image
     });
-
   }
 
   saveLikes();
-
   updateLikes();
-
   updateProductLikeButtons();
 }
 
 
 function removeLike(id) {
-
   likedItems =
     likedItems.filter(
       item => item.id !== id
     );
 
   saveLikes();
-
   updateLikes();
-
   updateProductLikeButtons();
 }
 
 
 function addLikedItemToCart(id) {
-
   const item =
     likedItems.find(
       product =>
@@ -412,7 +368,6 @@ function addLikedItemToCart(id) {
 ========================================= */
 
 function updateLikes() {
-
   const count =
     document.getElementById(
       "likes-count"
@@ -424,10 +379,8 @@ function updateLikes() {
     );
 
   if (count) {
-
     count.textContent =
       likedItems.length;
-
   }
 
   if (!container) {
@@ -435,7 +388,6 @@ function updateLikes() {
   }
 
   if (likedItems.length === 0) {
-
     container.innerHTML = `
       <p class="empty-message">
         You haven't liked anything yet.
@@ -448,7 +400,6 @@ function updateLikes() {
   let html = "";
 
   likedItems.forEach(item => {
-
     html += `
       <div class="liked-item">
 
@@ -493,7 +444,6 @@ function updateLikes() {
 
       </div>
     `;
-
   });
 
   container.innerHTML = html;
@@ -505,13 +455,11 @@ function updateLikes() {
 ========================================= */
 
 function updateProductLikeButtons() {
-
   document
     .querySelectorAll(
       "[data-product-like]"
     )
     .forEach(button => {
-
       const id =
         button.dataset.productLike;
 
@@ -529,7 +477,6 @@ function updateProductLikeButtons() {
         "liked",
         liked
       );
-
     });
 }
 
@@ -539,7 +486,6 @@ function updateProductLikeButtons() {
 ========================================= */
 
 function openLikes() {
-
   closeCart();
 
   const panel =
@@ -548,11 +494,9 @@ function openLikes() {
     );
 
   if (panel) {
-
     panel.classList.add(
       "active"
     );
-
   }
 
   updateLikes();
@@ -560,18 +504,15 @@ function openLikes() {
 
 
 function closeLikes() {
-
   const panel =
     document.getElementById(
       "likes-panel"
     );
 
   if (panel) {
-
     panel.classList.remove(
       "active"
     );
-
   }
 }
 
@@ -581,7 +522,6 @@ function closeLikes() {
 ========================================= */
 
 function toggleTheme() {
-
   document.body.classList.toggle(
     "dark-mode"
   );
@@ -603,24 +543,19 @@ function toggleTheme() {
 
 
 function loadTheme() {
-
   const saved =
     localStorage.getItem(
       "mavrenx-theme"
     );
 
   if (saved === "dark") {
-
     document.body.classList.add(
       "dark-mode"
     );
-
   } else {
-
     document.body.classList.remove(
       "dark-mode"
     );
-
   }
 
   updateThemeButton();
@@ -628,7 +563,6 @@ function loadTheme() {
 
 
 function updateThemeButton() {
-
   const button =
     document.getElementById(
       "theme-button"
@@ -655,7 +589,6 @@ function updateThemeButton() {
 ========================================= */
 
 const spongeImages = [
-
   "https://ae-pic-a1.aliexpress-media.com/kf/Se11ffac394ff459d9895d8295bbe27ead.jpg_220x220q75.jpg_.avif",
 
   "https://ae-pic-a1.aliexpress-media.com/kf/Scf67aebae10449a2822454605ed56195N.jpg_220x220q75.jpg_.avif",
@@ -667,22 +600,16 @@ const spongeImages = [
   "https://ae-pic-a1.aliexpress-media.com/kf/S10033e683b6047109d777d23c45b3131x.jpg_220x220q75.jpg_.avif",
 
   "https://ae-pic-a1.aliexpress-media.com/kf/Sb865bea0bd644c689b16d424dc9cae1fV.jpg_220x220q75.jpg_.avif"
-
 ];
 
 
 let spongeGalleryIndex = 0;
 
 
-/* =========================================
-   SET PRODUCT IMAGE
-========================================= */
-
 function setSpongeImage(
   location,
   index
 ) {
-
   if (location !== "cleaning") {
     return;
   }
@@ -703,10 +630,8 @@ function setSpongeImage(
     );
 
   if (mainImage) {
-
     mainImage.src =
       spongeImages[index];
-
   }
 
   const thumbnailContainer =
@@ -728,26 +653,19 @@ function setSpongeImage(
       thumbnail,
       thumbnailIndex
     ) {
-
       thumbnail.classList.toggle(
         "active",
         thumbnailIndex === index
       );
-
     }
   );
 }
 
 
-/* =========================================
-   NEXT / PREVIOUS PRODUCT IMAGE
-========================================= */
-
 function changeSpongeImage(
   location,
   direction
 ) {
-
   if (location !== "cleaning") {
     return;
   }
@@ -760,16 +678,12 @@ function changeSpongeImage(
     nextIndex >=
     spongeImages.length
   ) {
-
     nextIndex = 0;
-
   }
 
   if (nextIndex < 0) {
-
     nextIndex =
       spongeImages.length - 1;
-
   }
 
   setSpongeImage(
@@ -780,13 +694,15 @@ function changeSpongeImage(
 
 
 /* =========================================
-   CHECKOUT
+   STRIPE CHECKOUT
 ========================================= */
 
-function checkout() {
+const checkoutBackendUrl =
+  "https://mavrenx-checkout.matthewrizzwani.workers.dev";
 
+
+async function checkout() {
   if (cart.length === 0) {
-
     alert(
       "Your cart is empty."
     );
@@ -794,9 +710,106 @@ function checkout() {
     return;
   }
 
-  alert(
-    "Secure checkout will be connected later."
-  );
+  const checkoutButton =
+    document.querySelector(
+      ".checkout-button"
+    );
+
+  const originalText =
+    checkoutButton
+      ? checkoutButton.textContent
+      : "Checkout";
+
+  if (checkoutButton) {
+    checkoutButton.disabled = true;
+
+    checkoutButton.textContent =
+      "Opening secure checkout...";
+  }
+
+  try {
+    /*
+      Only send product IDs and quantities.
+
+      The real price is checked
+      inside the private Cloudflare
+      Worker.
+    */
+
+    const items =
+      cart.map(item => ({
+        id: item.id,
+        quantity:
+          Number(item.quantity) || 1
+      }));
+
+
+    const response =
+      await fetch(
+        checkoutBackendUrl +
+          "/create-checkout-session",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify({
+              items: items
+            })
+        }
+      );
+
+
+    let data = {};
+
+    try {
+      data =
+        await response.json();
+    } catch (error) {
+      data = {};
+    }
+
+
+    if (!response.ok) {
+      throw new Error(
+        data.error ||
+        "Checkout could not be started."
+      );
+    }
+
+
+    if (!data.url) {
+      throw new Error(
+        "Stripe checkout URL was not returned."
+      );
+    }
+
+
+    window.location.href =
+      data.url;
+
+  } catch (error) {
+    console.error(
+      "MAVRENX checkout error:",
+      error
+    );
+
+    alert(
+      error.message ||
+      "Checkout could not be started. Please try again."
+    );
+
+    if (checkoutButton) {
+      checkoutButton.disabled = false;
+
+      checkoutButton.textContent =
+        originalText;
+    }
+  }
 }
 
 
@@ -805,7 +818,6 @@ function checkout() {
 ========================================= */
 
 const firebaseConfig = {
-
   apiKey:
     "AIzaSyCSXAkvMhLGaJMBwGGY1SYqoDhulIMn5F4",
 
@@ -826,7 +838,6 @@ const firebaseConfig = {
 
   measurementId:
     "G-MLY1MC2SDR"
-
 };
 
 
@@ -836,36 +847,30 @@ const firebaseConfig = {
 
 let messaging = null;
 
-try {
 
+try {
   if (
     typeof firebase !==
     "undefined"
   ) {
-
     if (
       firebase.apps &&
       firebase.apps.length === 0
     ) {
-
       firebase.initializeApp(
         firebaseConfig
       );
-
     }
 
     messaging =
       firebase.messaging();
-
   }
 
 } catch (error) {
-
   console.error(
     "Firebase startup error:",
     error
   );
-
 }
 
 
@@ -874,16 +879,13 @@ try {
 ========================================= */
 
 function getNotificationPopup() {
-
   return document.getElementById(
     "notification-overlay"
   );
-
 }
 
 
 function getNotificationText() {
-
   const popup =
     getNotificationPopup();
 
@@ -896,7 +898,6 @@ function getNotificationText() {
 
 
 function getNotificationButton() {
-
   const popup =
     getNotificationPopup();
 
@@ -913,15 +914,12 @@ function getNotificationButton() {
 function setNotificationMessage(
   message
 ) {
-
   const text =
     getNotificationText();
 
   if (text) {
-
     text.textContent =
       message;
-
   }
 }
 
@@ -930,7 +928,6 @@ function setNotificationButton(
   text,
   disabled = false
 ) {
-
   const button =
     getNotificationButton();
 
@@ -945,21 +942,17 @@ function setNotificationButton(
     disabled;
 
   if (disabled) {
-
     button.style.opacity =
       "0.55";
 
     button.style.cursor =
       "not-allowed";
-
   } else {
-
     button.style.opacity =
       "1";
 
     button.style.cursor =
       "pointer";
-
   }
 }
 
@@ -969,15 +962,12 @@ function setNotificationButton(
 ========================================= */
 
 function closeNotificationPopup() {
-
   const popup =
     getNotificationPopup();
 
   if (popup) {
-
     popup.style.display =
       "none";
-
   }
 
   sessionStorage.setItem(
@@ -992,62 +982,49 @@ function closeNotificationPopup() {
 ========================================= */
 
 function checkNotificationSupport() {
-
   if (!window.isSecureContext) {
-
     return {
-
       supported: false,
 
       reason:
         "Notifications require a secure connection. You can still track your order normally."
-
     };
-
   }
+
 
   if (
     !("Notification" in window)
   ) {
-
     return {
-
       supported: false,
 
       reason:
         "Notifications aren't supported in this browser. You can still track your order normally."
-
     };
-
   }
+
 
   if (
     !("serviceWorker" in navigator)
   ) {
-
     return {
-
       supported: false,
 
       reason:
         "This browser doesn't support the notification service needed by MAVRENX."
-
     };
-
   }
 
+
   if (!messaging) {
-
     return {
-
       supported: false,
 
       reason:
         "Push notifications aren't available with this browser setup."
-
     };
-
   }
+
 
   return {
     supported: true
@@ -1060,12 +1037,11 @@ function checkNotificationSupport() {
 ========================================= */
 
 async function enableNotifications() {
-
   const support =
     checkNotificationSupport();
 
-  if (!support.supported) {
 
+  if (!support.supported) {
     setNotificationMessage(
       support.reason
     );
@@ -1078,11 +1054,11 @@ async function enableNotifications() {
     return false;
   }
 
+
   if (
     Notification.permission ===
     "denied"
   ) {
-
     setNotificationMessage(
       "Notifications are blocked in this browser. You can still use MAVRENX and track your order normally."
     );
@@ -1095,42 +1071,41 @@ async function enableNotifications() {
     return false;
   }
 
+
   if (
     Notification.permission ===
     "granted"
   ) {
-
     return await
       createNotificationToken();
-
   }
 
-  try {
 
+  try {
     setNotificationButton(
       "Waiting for permission...",
       true
     );
 
+
     const permission =
       await Notification
         .requestPermission();
+
 
     if (
       permission ===
       "granted"
     ) {
-
       return await
         createNotificationToken();
-
     }
+
 
     if (
       permission ===
       "denied"
     ) {
-
       setNotificationMessage(
         "Notifications weren't allowed. You can still shop and track your order normally."
       );
@@ -1143,6 +1118,7 @@ async function enableNotifications() {
       return false;
     }
 
+
     setNotificationMessage(
       "Notifications weren't enabled. You can still use MAVRENX normally."
     );
@@ -1154,8 +1130,8 @@ async function enableNotifications() {
 
     return false;
 
-  } catch (error) {
 
+  } catch (error) {
     console.error(
       "Notification permission error:",
       error
@@ -1180,9 +1156,7 @@ async function enableNotifications() {
 ========================================= */
 
 async function createNotificationToken() {
-
   try {
-
     setNotificationMessage(
       "Setting up MAVRENX notifications..."
     );
@@ -1192,6 +1166,7 @@ async function createNotificationToken() {
       true
     );
 
+
     const registration =
       await navigator
         .serviceWorker
@@ -1199,19 +1174,18 @@ async function createNotificationToken() {
           "./firebase-messaging-sw.js"
         );
 
+
     const token =
       await messaging.getToken({
-
         vapidKey:
           "BPRe8I4x0JBgKbx4JgV68pX_R2aVpAJMacWlBfV0RS0D19P1i2Msr2BBcvcrLE8j18hacj-kDrFNmIif-tois8w",
 
         serviceWorkerRegistration:
           registration
-
       });
 
-    if (!token) {
 
+    if (!token) {
       setNotificationMessage(
         "Push notifications couldn't be activated in this browser. You can still track your order normally."
       );
@@ -1224,55 +1198,63 @@ async function createNotificationToken() {
       return false;
     }
 
+
     localStorage.setItem(
       "mavrenx-notification-token",
       token
     );
+
 
     localStorage.setItem(
       "mavrenx-notifications-enabled",
       "yes"
     );
 
+
     console.log(
       "MAVRENX notifications registered."
     );
 
+
     setNotificationMessage(
       "Notifications are enabled! You'll receive MAVRENX order updates on this device."
     );
+
 
     setNotificationButton(
       "Notifications enabled ✓",
       true
     );
 
+
     setTimeout(
       function() {
-
         closeNotificationPopup();
-
       },
       1200
     );
 
+
     return true;
 
-  } catch (error) {
 
+  } catch (error) {
     console.error(
       "Firebase notification error:",
       error
     );
 
+
     setNotificationMessage(
       "Push notifications aren't available with this browser setup. You can still shop and track your order normally."
     );
+
 
     setNotificationButton(
       "Notifications unavailable",
       true
     );
+
 
     return false;
   }
@@ -1284,9 +1266,7 @@ async function createNotificationToken() {
 ========================================= */
 
 async function enableNotificationsFromPopup() {
-
   await enableNotifications();
-
 }
 
 
@@ -1296,37 +1276,35 @@ async function enableNotificationsFromPopup() {
 ========================================= */
 
 if (messaging) {
-
   try {
-
     messaging.onMessage(
-
       async function(payload) {
-
         console.log(
           "MAVRENX notification received."
         );
+
 
         const title =
           payload.notification?.title ||
           "MAVRENX";
 
+
         const body =
           payload.notification?.body ||
           "You have a new order update.";
+
 
         if (
           "Notification" in window &&
           Notification.permission ===
             "granted"
         ) {
-
           try {
-
             const registration =
               await navigator
                 .serviceWorker
                 .ready;
+
 
             await registration
               .showNotification(
@@ -1337,27 +1315,20 @@ if (messaging) {
               );
 
           } catch (error) {
-
             console.error(
               "Notification display error:",
               error
             );
-
           }
-
         }
-
       }
-
     );
 
   } catch (error) {
-
     console.error(
       "Foreground messaging error:",
       error
     );
-
   }
 }
 
@@ -1367,24 +1338,17 @@ if (messaging) {
 ========================================= */
 
 document.addEventListener(
-
   "keydown",
 
   function(event) {
-
     if (
       event.key ===
       "Escape"
     ) {
-
       closeCart();
-
       closeLikes();
-
     }
-
   }
-
 );
 
 
@@ -1393,11 +1357,9 @@ document.addEventListener(
 ========================================= */
 
 document.addEventListener(
-
   "DOMContentLoaded",
 
   function() {
-
     loadTheme();
 
     updateCart();
@@ -1411,61 +1373,64 @@ document.addEventListener(
       0
     );
 
+
     const popup =
       getNotificationPopup();
+
 
     if (!popup) {
       return;
     }
+
 
     if (
       "Notification" in window &&
       Notification.permission ===
         "granted"
     ) {
-
       popup.style.display =
         "none";
 
       return;
     }
+
 
     if (
       "Notification" in window &&
       Notification.permission ===
         "denied"
     ) {
-
       popup.style.display =
         "none";
 
       return;
     }
+
 
     const seenThisSession =
       sessionStorage.getItem(
         "mavrenx-popup-seen"
       );
 
+
     if (
       seenThisSession ===
       "yes"
     ) {
-
       popup.style.display =
         "none";
 
       return;
     }
 
+
     popup.style.display =
       "flex";
+
 
     sessionStorage.setItem(
       "mavrenx-popup-seen",
       "yes"
     );
-
   }
-
 );
