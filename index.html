@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
   <meta charset="UTF-8">
 
   <meta
@@ -9,12 +10,15 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>MAVRENX — Home & Everyday</title>
+  <title>
+    MAVRENX — Home & Everyday
+  </title>
 
   <link
     rel="stylesheet"
     href="styles.css"
   >
+
 </head>
 
 
@@ -34,15 +38,15 @@
 
     <nav>
 
-      <a href="#home">
+      <a href="index.html">
         Home
       </a>
 
-      <a href="#categories">
+      <a href="index.html#categories">
         Categories
       </a>
 
-      <a href="#shop">
+      <a href="index.html#shop">
         Shop
       </a>
 
@@ -50,7 +54,7 @@
         Track Order
       </a>
 
-      <a href="#about">
+      <a href="index.html#about">
         About
       </a>
 
@@ -64,7 +68,9 @@
         onclick="openLikes()"
       >
         ♡
-        <span id="likes-count">0</span>
+        <span id="likes-count">
+          0
+        </span>
       </button>
 
 
@@ -73,7 +79,11 @@
         onclick="openCart()"
       >
         Cart
-        (<span id="cart-count">0</span>)
+        (
+        <span id="cart-count">
+          0
+        </span>
+        )
       </button>
 
 
@@ -177,7 +187,6 @@
 
       <div class="hero-content">
 
-
         <p class="tag">
           MAVRENX HOME
         </p>
@@ -185,7 +194,8 @@
 
         <h1>
 
-          Better things.<br>
+          Better things.
+          <br>
 
           <span>
             Better home.
@@ -204,15 +214,13 @@
 
 
         <a
-          href="#categories"
+          href="#shop"
           class="main-button"
         >
-          Browse categories
+          Shop now
         </a>
 
-
       </div>
-
 
 
       <div class="hero-art">
@@ -222,7 +230,6 @@
         </div>
 
       </div>
-
 
     </section>
 
@@ -237,7 +244,6 @@
       class="categories"
     >
 
-
       <p class="tag">
         SHOP BY CATEGORY
       </p>
@@ -245,14 +251,14 @@
 
       <h2>
 
-        Find what you<br>
+        Find what you
+        <br>
 
         <span>
           need.
         </span>
 
       </h2>
-
 
 
       <div class="category-grid">
@@ -274,7 +280,7 @@
           </h3>
 
           <p>
-            Vacuums, cleaning tools and accessories.
+            Cleaning tools and useful accessories.
           </p>
 
         </a>
@@ -366,7 +372,7 @@
           </h3>
 
           <p>
-            Smart lights, devices and home technology.
+            Smart devices and useful home technology.
           </p>
 
         </a>
@@ -397,7 +403,6 @@
 
       </div>
 
-
     </section>
 
 
@@ -411,7 +416,6 @@
       class="shop"
     >
 
-
       <p class="tag">
         SHOP
       </p>
@@ -419,7 +423,8 @@
 
       <h2>
 
-        Explore<br>
+        Explore
+        <br>
 
         <span>
           MAVRENX.
@@ -429,7 +434,7 @@
 
 
       <p class="section-description">
-        New products are coming soon.
+        Useful products for your home and everyday life.
       </p>
 
 
@@ -437,8 +442,243 @@
         id="product-grid"
         class="product-grid"
       >
-      </div>
 
+
+        <!-- =========================================
+             ELECTRIC SPIN SCRUBBER
+        ========================================== -->
+
+        <div class="product-card">
+
+
+          <!-- PRODUCT GALLERY -->
+
+          <div class="product-gallery">
+
+            <div class="gallery-main">
+
+              <button
+                type="button"
+                class="gallery-arrow gallery-left"
+                onclick="changeSpongeImage('shop', -1)"
+                aria-label="Previous product image"
+              >
+                ‹
+              </button>
+
+
+              <img
+                id="sponge-main-image-shop"
+                class="gallery-main-image"
+                src="https://ae-pic-a1.aliexpress-media.com/kf/Se11ffac394ff459d9895d8295bbe27ead.jpg"
+                alt="Electric Spin Scrubber Sponge"
+              >
+
+
+              <button
+                type="button"
+                class="gallery-arrow gallery-right"
+                onclick="changeSpongeImage('shop', 1)"
+                aria-label="Next product image"
+              >
+                ›
+              </button>
+
+            </div>
+
+
+            <div
+              class="gallery-thumbnails"
+              id="sponge-thumbnails-shop"
+            >
+
+              <button
+                type="button"
+                class="gallery-thumbnail active"
+                onclick="setSpongeImage('shop', 0)"
+              >
+
+                <img
+                  src="https://ae-pic-a1.aliexpress-media.com/kf/Se11ffac394ff459d9895d8295bbe27ead.jpg"
+                  alt="Electric Spin Scrubber Sponge image 1"
+                >
+
+              </button>
+
+
+              <button
+                type="button"
+                class="gallery-thumbnail"
+                onclick="setSpongeImage('shop', 1)"
+              >
+
+                <img
+                  src="https://ae-pic-a1.aliexpress-media.com/kf/Scf67aebae10449a2822454605ed56195N.jpg"
+                  alt="Electric Spin Scrubber Sponge image 2"
+                >
+
+              </button>
+
+
+              <button
+                type="button"
+                class="gallery-thumbnail"
+                onclick="setSpongeImage('shop', 2)"
+              >
+
+                <img
+                  src="https://ae-pic-a1.aliexpress-media.com/kf/Sda9899dbd8ef4af39775d1a20d1ced0ao.jpg"
+                  alt="Electric Spin Scrubber Sponge image 3"
+                >
+
+              </button>
+
+
+              <button
+                type="button"
+                class="gallery-thumbnail"
+                onclick="setSpongeImage('shop', 3)"
+              >
+
+                <img
+                  src="https://ae-pic-a1.aliexpress-media.com/kf/S4178ac99ae1d4d9f96a4f9425578af8bY.jpg"
+                  alt="Electric Spin Scrubber Sponge image 4"
+                >
+
+              </button>
+
+
+              <button
+                type="button"
+                class="gallery-thumbnail"
+                onclick="setSpongeImage('shop', 4)"
+              >
+
+                <img
+                  src="https://ae-pic-a1.aliexpress-media.com/kf/S10033e683b6047109d777d23c45b3131x.jpg"
+                  alt="Electric Spin Scrubber Sponge image 5"
+                >
+
+              </button>
+
+
+              <button
+                type="button"
+                class="gallery-thumbnail"
+                onclick="setSpongeImage('shop', 5)"
+              >
+
+                <img
+                  src="https://ae-pic-a1.aliexpress-media.com/kf/Sb865bea0bd644c689b16d424dc9cae1fV.jpg"
+                  alt="Electric Spin Scrubber Sponge image 6"
+                >
+
+              </button>
+
+            </div>
+
+          </div>
+
+
+
+          <!-- PRODUCT DETAILS -->
+
+          <div class="product-info">
+
+            <p class="tag">
+              CLEANING
+            </p>
+
+
+            <h3 class="product-title">
+              Electric Spin Scrubber Sponge
+            </h3>
+
+
+            <p class="product-description">
+
+              Make everyday cleaning quicker and easier
+              with the Electric Spin Scrubber Sponge.
+
+              Its powered spinning head helps tackle
+              dirt and grime while reducing the amount
+              of scrubbing you need to do by hand.
+
+            </p>
+
+
+            <ul class="product-features">
+
+              <li>
+                Powered spinning cleaning head
+              </li>
+
+              <li>
+                Helps make everyday scrubbing easier
+              </li>
+
+              <li>
+                Great for kitchens and bathrooms
+              </li>
+
+              <li>
+                Suitable for sinks, tiles and hard surfaces
+              </li>
+
+              <li>
+                Compact handheld design
+              </li>
+
+              <li>
+                Useful for everyday home cleaning
+              </li>
+
+            </ul>
+
+
+            <div class="product-price">
+              €27.99
+            </div>
+
+
+            <div class="product-actions">
+
+              <button
+                type="button"
+                class="main-button"
+                onclick="addToCart(
+                  'spinning-sponge-001',
+                  'Electric Spin Scrubber Sponge',
+                  27.99,
+                  'https://ae-pic-a1.aliexpress-media.com/kf/Se11ffac394ff459d9895d8295bbe27ead.jpg'
+                )"
+              >
+                Add to cart
+              </button>
+
+
+              <button
+                type="button"
+                class="like-button"
+                data-product-like="spinning-sponge-001"
+                onclick="toggleLike(
+                  'spinning-sponge-001',
+                  'Electric Spin Scrubber Sponge',
+                  27.99,
+                  'https://ae-pic-a1.aliexpress-media.com/kf/Se11ffac394ff459d9895d8295bbe27ead.jpg'
+                )"
+              >
+                ♡ Like
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+      </div>
 
     </section>
 
@@ -453,9 +693,7 @@
       class="category-section"
     >
 
-
       <div class="category-heading">
-
 
         <span class="big-icon">
           🧹
@@ -473,11 +711,10 @@
           </h2>
 
           <p class="category-description">
-            Vacuums, cleaning tools and accessories.
+            Cleaning tools and useful accessories.
           </p>
 
         </div>
-
 
       </div>
 
@@ -487,12 +724,236 @@
         class="category-products"
       >
 
-        <div class="empty-category">
-          Cleaning products coming soon.
+
+        <!-- ELECTRIC SPIN SCRUBBER -->
+
+        <div class="product-card">
+
+
+          <div class="product-gallery">
+
+            <div class="gallery-main">
+
+              <button
+                type="button"
+                class="gallery-arrow gallery-left"
+                onclick="changeSpongeImage('cleaning', -1)"
+                aria-label="Previous product image"
+              >
+                ‹
+              </button>
+
+
+              <img
+                id="sponge-main-image-cleaning"
+                class="gallery-main-image"
+                src="https://ae-pic-a1.aliexpress-media.com/kf/Se11ffac394ff459d9895d8295bbe27ead.jpg"
+                alt="Electric Spin Scrubber Sponge"
+              >
+
+
+              <button
+                type="button"
+                class="gallery-arrow gallery-right"
+                onclick="changeSpongeImage('cleaning', 1)"
+                aria-label="Next product image"
+              >
+                ›
+              </button>
+
+            </div>
+
+
+            <div
+              class="gallery-thumbnails"
+              id="sponge-thumbnails-cleaning"
+            >
+
+              <button
+                type="button"
+                class="gallery-thumbnail active"
+                onclick="setSpongeImage('cleaning', 0)"
+              >
+
+                <img
+                  src="https://ae-pic-a1.aliexpress-media.com/kf/Se11ffac394ff459d9895d8295bbe27ead.jpg"
+                  alt="Electric Spin Scrubber Sponge image 1"
+                >
+
+              </button>
+
+
+              <button
+                type="button"
+                class="gallery-thumbnail"
+                onclick="setSpongeImage('cleaning', 1)"
+              >
+
+                <img
+                  src="https://ae-pic-a1.aliexpress-media.com/kf/Scf67aebae10449a2822454605ed56195N.jpg"
+                  alt="Electric Spin Scrubber Sponge image 2"
+                >
+
+              </button>
+
+
+              <button
+                type="button"
+                class="gallery-thumbnail"
+                onclick="setSpongeImage('cleaning', 2)"
+              >
+
+                <img
+                  src="https://ae-pic-a1.aliexpress-media.com/kf/Sda9899dbd8ef4af39775d1a20d1ced0ao.jpg"
+                  alt="Electric Spin Scrubber Sponge image 3"
+                >
+
+              </button>
+
+
+              <button
+                type="button"
+                class="gallery-thumbnail"
+                onclick="setSpongeImage('cleaning', 3)"
+              >
+
+                <img
+                  src="https://ae-pic-a1.aliexpress-media.com/kf/S4178ac99ae1d4d9f96a4f9425578af8bY.jpg"
+                  alt="Electric Spin Scrubber Sponge image 4"
+                >
+
+              </button>
+
+
+              <button
+                type="button"
+                class="gallery-thumbnail"
+                onclick="setSpongeImage('cleaning', 4)"
+              >
+
+                <img
+                  src="https://ae-pic-a1.aliexpress-media.com/kf/S10033e683b6047109d777d23c45b3131x.jpg"
+                  alt="Electric Spin Scrubber Sponge image 5"
+                >
+
+              </button>
+
+
+              <button
+                type="button"
+                class="gallery-thumbnail"
+                onclick="setSpongeImage('cleaning', 5)"
+              >
+
+                <img
+                  src="https://ae-pic-a1.aliexpress-media.com/kf/Sb865bea0bd644c689b16d424dc9cae1fV.jpg"
+                  alt="Electric Spin Scrubber Sponge image 6"
+                >
+
+              </button>
+
+            </div>
+
+          </div>
+
+
+
+          <div class="product-info">
+
+            <p class="tag">
+              CLEANING
+            </p>
+
+
+            <h3 class="product-title">
+              Electric Spin Scrubber Sponge
+            </h3>
+
+
+            <p class="product-description">
+
+              Make everyday cleaning quicker and easier
+              with the Electric Spin Scrubber Sponge.
+
+              Its powered spinning head helps tackle
+              dirt and grime while reducing the amount
+              of scrubbing you need to do by hand.
+
+            </p>
+
+
+            <ul class="product-features">
+
+              <li>
+                Powered spinning cleaning head
+              </li>
+
+              <li>
+                Helps make everyday scrubbing easier
+              </li>
+
+              <li>
+                Great for kitchens and bathrooms
+              </li>
+
+              <li>
+                Suitable for sinks, tiles and hard surfaces
+              </li>
+
+              <li>
+                Compact handheld design
+              </li>
+
+              <li>
+                Useful for everyday home cleaning
+              </li>
+
+            </ul>
+
+
+            <div class="product-price">
+              €27.99
+            </div>
+
+
+            <div class="product-actions">
+
+              <button
+                type="button"
+                class="main-button"
+                onclick="addToCart(
+                  'spinning-sponge-001',
+                  'Electric Spin Scrubber Sponge',
+                  27.99,
+                  'https://ae-pic-a1.aliexpress-media.com/kf/Se11ffac394ff459d9895d8295bbe27ead.jpg'
+                )"
+              >
+                Add to cart
+              </button>
+
+
+              <button
+                type="button"
+                class="like-button"
+                data-product-like="spinning-sponge-001"
+                onclick="toggleLike(
+                  'spinning-sponge-001',
+                  'Electric Spin Scrubber Sponge',
+                  27.99,
+                  'https://ae-pic-a1.aliexpress-media.com/kf/Se11ffac394ff459d9895d8295bbe27ead.jpg'
+                )"
+              >
+                ♡ Like
+              </button>
+
+            </div>
+
+          </div>
+
         </div>
 
-      </div>
 
+      </div>
 
     </section>
 
@@ -507,9 +968,7 @@
       class="category-section"
     >
 
-
       <div class="category-heading">
-
 
         <span class="big-icon">
           💡
@@ -532,7 +991,6 @@
 
         </div>
 
-
       </div>
 
 
@@ -547,7 +1005,6 @@
 
       </div>
 
-
     </section>
 
 
@@ -561,9 +1018,7 @@
       class="category-section"
     >
 
-
       <div class="category-heading">
-
 
         <span class="big-icon">
           🏠
@@ -586,7 +1041,6 @@
 
         </div>
 
-
       </div>
 
 
@@ -601,7 +1055,6 @@
 
       </div>
 
-
     </section>
 
 
@@ -615,9 +1068,7 @@
       class="category-section"
     >
 
-
       <div class="category-heading">
-
 
         <span class="big-icon">
           🍳
@@ -640,7 +1091,6 @@
 
         </div>
 
-
       </div>
 
 
@@ -655,7 +1105,6 @@
 
       </div>
 
-
     </section>
 
 
@@ -669,9 +1118,7 @@
       class="category-section"
     >
 
-
       <div class="category-heading">
-
 
         <span class="big-icon">
           🔌
@@ -689,11 +1136,10 @@
           </h2>
 
           <p class="category-description">
-            Smart lights, devices and connected home technology.
+            Smart devices and connected home technology.
           </p>
 
         </div>
-
 
       </div>
 
@@ -709,7 +1155,6 @@
 
       </div>
 
-
     </section>
 
 
@@ -723,9 +1168,7 @@
       class="category-section"
     >
 
-
       <div class="category-heading">
-
 
         <span class="big-icon">
           🛏️
@@ -748,7 +1191,6 @@
 
         </div>
 
-
       </div>
 
 
@@ -763,7 +1205,6 @@
 
       </div>
 
-
     </section>
 
 
@@ -777,7 +1218,6 @@
       class="about"
     >
 
-
       <p class="tag">
         ABOUT MAVRENX
       </p>
@@ -785,7 +1225,8 @@
 
       <h2>
 
-        Useful products.<br>
+        Useful products.
+        <br>
 
         <span>
           Simple shopping.
@@ -800,7 +1241,6 @@
         for your home and everyday life.
 
       </p>
-
 
     </section>
 
@@ -817,7 +1257,6 @@
     id="likes-panel"
     class="side-panel"
   >
-
 
     <button
       class="close-panel"
@@ -840,7 +1279,6 @@
 
     </div>
 
-
   </div>
 
 
@@ -853,7 +1291,6 @@
     id="cart-panel"
     class="side-panel"
   >
-
 
     <button
       class="close-panel"
@@ -876,7 +1313,6 @@
 
     </div>
 
-
   </div>
 
 
@@ -886,7 +1322,6 @@
   ========================================== -->
 
   <footer>
-
 
     <div class="footer-logo">
       MAVRENX
@@ -901,7 +1336,6 @@
     <small>
       © 2026 MAVRENX
     </small>
-
 
   </footer>
 
