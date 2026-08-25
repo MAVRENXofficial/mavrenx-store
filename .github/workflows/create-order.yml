@@ -2,11 +2,6 @@ name: Create MAVRENX Order
 
 on:
   workflow_dispatch:
-    inputs:
-      order_id:
-        description: "MAVRENX order number"
-        required: true
-        type: string
 
 jobs:
   create-order:
@@ -17,28 +12,19 @@ jobs:
         run: |
           python3 -m pip install firebase-admin
 
-      - name: Create order in Firebase
+      - name: Create secure MAVRENX order
         env:
-          ORDER_ID: ${{ inputs.order_id }}
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
 
         run: |
           python3 - <<'PY'
           import os
           import json
-          import re
+          import secrets
           from datetime import datetime, timezone
 
           import firebase_admin
           from firebase_admin import credentials, db
-
-
-          order_id = os.environ["ORDER_ID"].strip().upper()
-
-          if not re.fullmatch(r"[A-Z0-9-]{4,50}", order_id):
-              raise ValueError(
-                  "Order ID can only contain letters, numbers and hyphens."
-              )
 
 
           service_account = json.loads(
@@ -58,19 +44,24 @@ jobs:
           )
 
 
-          order_ref = db.reference(
-              f"orders/{order_id}"
-          )
+          while True:
+
+              order_id = (
+                  "MAVRENX-" +
+                  secrets.token_hex(6).upper()
+              )
+
+              order_ref = db.reference(
+                  f"orders/{order_id}"
+              )
+
+              if order_ref.get() is None:
+                  break
+
 
           tracking_ref = db.reference(
               f"tracking/{order_id}"
           )
-
-
-          if order_ref.get() is not None:
-              raise Exception(
-                  f"Order {order_id} already exists."
-              )
 
 
           order_ref.set({
@@ -86,12 +77,14 @@ jobs:
           )
 
 
-          print(
-              f"Created MAVRENX order: {order_id}"
-          )
+          print("")
+          print("==============================")
+          print("NEW MAVRENX ORDER")
+          print("==============================")
+          print(order_id)
+          print("==============================")
+          print("Status: Order received")
+          print("")
 
-          print(
-              "Tracking status: Order received"
-          )
 
           PY
