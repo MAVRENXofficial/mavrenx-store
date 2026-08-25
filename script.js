@@ -30,6 +30,7 @@ function saveCart() {
   );
 }
 
+
 function saveLikes() {
   localStorage.setItem(
     "mavrenx-liked",
@@ -48,14 +49,19 @@ function addToCart(
   price,
   image
 ) {
+
   const existing =
     cart.find(
       item => item.id === id
     );
 
+
   if (existing) {
+
     existing.quantity += 1;
+
   } else {
+
     cart.push({
       id: id,
       name: name,
@@ -63,62 +69,81 @@ function addToCart(
       image: image,
       quantity: 1
     });
+
   }
 
+
   saveCart();
+
   updateCart();
+
   openCart();
 }
 
 
 function increaseQuantity(id) {
+
   const item =
     cart.find(
       item => item.id === id
     );
 
+
   if (!item) {
     return;
   }
 
+
   item.quantity += 1;
 
   saveCart();
+
   updateCart();
 }
 
 
 function decreaseQuantity(id) {
+
   const item =
     cart.find(
       item => item.id === id
     );
 
+
   if (!item) {
     return;
   }
 
+
   item.quantity -= 1;
 
+
   if (item.quantity <= 0) {
+
     cart =
       cart.filter(
         item => item.id !== id
       );
+
   }
 
+
   saveCart();
+
   updateCart();
 }
 
 
 function removeFromCart(id) {
+
   cart =
     cart.filter(
       item => item.id !== id
     );
 
+
   saveCart();
+
   updateCart();
 }
 
@@ -128,33 +153,45 @@ function removeFromCart(id) {
 ========================================= */
 
 function updateCart() {
+
   const count =
     document.getElementById(
       "cart-count"
     );
+
 
   const container =
     document.getElementById(
       "cart-items"
     );
 
+
   let totalQuantity = 0;
 
+
   cart.forEach(item => {
+
     totalQuantity +=
       Number(item.quantity) || 1;
+
   });
 
+
   if (count) {
+
     count.textContent =
       totalQuantity;
+
   }
+
 
   if (!container) {
     return;
   }
 
+
   if (cart.length === 0) {
+
     container.innerHTML = `
       <p class="empty-message">
         Your cart is empty.
@@ -164,18 +201,25 @@ function updateCart() {
     return;
   }
 
+
   let html = "";
+
   let totalPrice = 0;
 
+
   cart.forEach(item => {
+
     const quantity =
       Number(item.quantity) || 1;
+
 
     const price =
       Number(item.price) || 0;
 
+
     totalPrice +=
       price * quantity;
+
 
     html += `
       <div class="cart-item">
@@ -235,7 +279,9 @@ function updateCart() {
 
       </div>
     `;
+
   });
+
 
   html += `
     <div class="cart-total">
@@ -259,6 +305,7 @@ function updateCart() {
     </div>
   `;
 
+
   container.innerHTML = html;
 }
 
@@ -268,33 +315,43 @@ function updateCart() {
 ========================================= */
 
 function openCart() {
+
   closeLikes();
+
 
   const panel =
     document.getElementById(
       "cart-panel"
     );
 
+
   if (panel) {
+
     panel.classList.add(
       "active"
     );
+
   }
+
 
   updateCart();
 }
 
 
 function closeCart() {
+
   const panel =
     document.getElementById(
       "cart-panel"
     );
 
+
   if (panel) {
+
     panel.classList.remove(
       "active"
     );
+
   }
 }
 
@@ -309,53 +366,69 @@ function toggleLike(
   price,
   image
 ) {
+
   const existing =
     likedItems.some(
       item => item.id === id
     );
 
+
   if (existing) {
+
     likedItems =
       likedItems.filter(
         item => item.id !== id
       );
+
   } else {
+
     likedItems.push({
       id: id,
       name: name,
       price: Number(price),
       image: image
     });
+
   }
 
+
   saveLikes();
+
   updateLikes();
+
   updateProductLikeButtons();
 }
 
 
 function removeLike(id) {
+
   likedItems =
     likedItems.filter(
       item => item.id !== id
     );
 
+
   saveLikes();
+
   updateLikes();
+
   updateProductLikeButtons();
 }
 
 
 function addLikedItemToCart(id) {
+
   const item =
     likedItems.find(
       product =>
         product.id === id
     );
 
+
   if (!item) {
     return;
   }
+
 
   addToCart(
     item.id,
@@ -371,26 +444,34 @@ function addLikedItemToCart(id) {
 ========================================= */
 
 function updateLikes() {
+
   const count =
     document.getElementById(
       "likes-count"
     );
+
 
   const container =
     document.getElementById(
       "liked-items"
     );
 
+
   if (count) {
+
     count.textContent =
       likedItems.length;
+
   }
+
 
   if (!container) {
     return;
   }
 
+
   if (likedItems.length === 0) {
+
     container.innerHTML = `
       <p class="empty-message">
         You haven't liked anything yet.
@@ -400,9 +481,12 @@ function updateLikes() {
     return;
   }
 
+
   let html = "";
 
+
   likedItems.forEach(item => {
+
     html += `
       <div class="liked-item">
 
@@ -447,7 +531,9 @@ function updateLikes() {
 
       </div>
     `;
+
   });
+
 
   container.innerHTML = html;
 }
@@ -458,28 +544,34 @@ function updateLikes() {
 ========================================= */
 
 function updateProductLikeButtons() {
+
   document
     .querySelectorAll(
       "[data-product-like]"
     )
     .forEach(button => {
+
       const id =
         button.dataset.productLike;
+
 
       const liked =
         likedItems.some(
           item => item.id === id
         );
 
+
       button.textContent =
         liked
           ? "♥ Liked"
           : "♡ Like";
 
+
       button.classList.toggle(
         "liked",
         liked
       );
+
     });
 }
 
@@ -489,33 +581,43 @@ function updateProductLikeButtons() {
 ========================================= */
 
 function openLikes() {
+
   closeCart();
+
 
   const panel =
     document.getElementById(
       "likes-panel"
     );
 
+
   if (panel) {
+
     panel.classList.add(
       "active"
     );
+
   }
+
 
   updateLikes();
 }
 
 
 function closeLikes() {
+
   const panel =
     document.getElementById(
       "likes-panel"
     );
 
+
   if (panel) {
+
     panel.classList.remove(
       "active"
     );
+
   }
 }
 
@@ -525,14 +627,17 @@ function closeLikes() {
 ========================================= */
 
 function toggleTheme() {
+
   document.body.classList.toggle(
     "dark-mode"
   );
+
 
   const dark =
     document.body.classList.contains(
       "dark-mode"
     );
+
 
   localStorage.setItem(
     "mavrenx-theme",
@@ -541,44 +646,56 @@ function toggleTheme() {
       : "light"
   );
 
+
   updateThemeButton();
 }
 
 
 function loadTheme() {
+
   const saved =
     localStorage.getItem(
       "mavrenx-theme"
     );
 
+
   if (saved === "dark") {
+
     document.body.classList.add(
       "dark-mode"
     );
+
   } else {
+
     document.body.classList.remove(
       "dark-mode"
     );
+
   }
+
 
   updateThemeButton();
 }
 
 
 function updateThemeButton() {
+
   const button =
     document.getElementById(
       "theme-button"
     );
 
+
   if (!button) {
     return;
   }
+
 
   const dark =
     document.body.classList.contains(
       "dark-mode"
     );
+
 
   button.textContent =
     dark
@@ -588,17 +705,164 @@ function updateThemeButton() {
 
 
 /* =========================================
+   SPONGE PRODUCT GALLERY
+========================================= */
+
+const spongeImages = [
+
+  "https://ae-pic-a1.aliexpress-media.com/kf/Se11ffac394ff459d9895d8295bbe27ead.jpg",
+
+  "https://ae-pic-a1.aliexpress-media.com/kf/Scf67aebae10449a2822454605ed56195N.jpg",
+
+  "https://ae-pic-a1.aliexpress-media.com/kf/Sda9899dbd8ef4af39775d1a20d1ced0ao.jpg",
+
+  "https://ae-pic-a1.aliexpress-media.com/kf/S4178ac99ae1d4d9f96a4f9425578af8bY.jpg",
+
+  "https://ae-pic-a1.aliexpress-media.com/kf/S10033e683b6047109d777d23c45b3131x.jpg",
+
+  "https://ae-pic-a1.aliexpress-media.com/kf/Sb865bea0bd644c689b16d424dc9cae1fV.jpg"
+
+];
+
+
+const spongeGalleryIndex = {
+  shop: 0,
+  cleaning: 0
+};
+
+
+function setSpongeImage(
+  location,
+  index
+) {
+
+  if (
+    !Object.prototype.hasOwnProperty.call(
+      spongeGalleryIndex,
+      location
+    )
+  ) {
+    return;
+  }
+
+
+  if (
+    index < 0 ||
+    index >= spongeImages.length
+  ) {
+    return;
+  }
+
+
+  spongeGalleryIndex[location] =
+    index;
+
+
+  const mainImage =
+    document.getElementById(
+      "sponge-main-image-" +
+      location
+    );
+
+
+  if (mainImage) {
+
+    mainImage.src =
+      spongeImages[index];
+
+  }
+
+
+  const thumbnailContainer =
+    document.getElementById(
+      "sponge-thumbnails-" +
+      location
+    );
+
+
+  if (!thumbnailContainer) {
+    return;
+  }
+
+
+  const thumbnails =
+    thumbnailContainer.querySelectorAll(
+      ".gallery-thumbnail"
+    );
+
+
+  thumbnails.forEach(
+    function(thumbnail, thumbnailIndex) {
+
+      thumbnail.classList.toggle(
+        "active",
+        thumbnailIndex === index
+      );
+
+    }
+  );
+}
+
+
+function changeSpongeImage(
+  location,
+  direction
+) {
+
+  if (
+    !Object.prototype.hasOwnProperty.call(
+      spongeGalleryIndex,
+      location
+    )
+  ) {
+    return;
+  }
+
+
+  let nextIndex =
+    spongeGalleryIndex[location] +
+    direction;
+
+
+  if (
+    nextIndex >= spongeImages.length
+  ) {
+
+    nextIndex = 0;
+
+  }
+
+
+  if (nextIndex < 0) {
+
+    nextIndex =
+      spongeImages.length - 1;
+
+  }
+
+
+  setSpongeImage(
+    location,
+    nextIndex
+  );
+}
+
+
+/* =========================================
    CHECKOUT
 ========================================= */
 
 function checkout() {
+
   if (cart.length === 0) {
+
     alert(
       "Your cart is empty."
     );
 
     return;
   }
+
 
   alert(
     "Secure checkout will be connected later."
@@ -611,6 +875,7 @@ function checkout() {
 ========================================= */
 
 const firebaseConfig = {
+
   apiKey:
     "AIzaSyCSXAkvMhLGaJMBwGGY1SYqoDhulIMn5F4",
 
@@ -631,6 +896,7 @@ const firebaseConfig = {
 
   measurementId:
     "G-MLY1MC2SDR"
+
 };
 
 
@@ -640,7 +906,9 @@ const firebaseConfig = {
 
 let messaging = null;
 
+
 try {
+
   if (
     typeof firebase !==
     "undefined"
@@ -650,13 +918,17 @@ try {
       firebase.apps &&
       firebase.apps.length === 0
     ) {
+
       firebase.initializeApp(
         firebaseConfig
       );
+
     }
+
 
     messaging =
       firebase.messaging();
+
   }
 
 } catch (error) {
@@ -665,6 +937,7 @@ try {
     "Firebase startup error:",
     error
   );
+
 }
 
 
@@ -673,31 +946,39 @@ try {
 ========================================= */
 
 function getNotificationPopup() {
+
   return document.getElementById(
     "notification-overlay"
   );
+
 }
 
 
 function getNotificationText() {
+
   const popup =
     getNotificationPopup();
+
 
   if (!popup) {
     return null;
   }
+
 
   return popup.querySelector("p");
 }
 
 
 function getNotificationButton() {
+
   const popup =
     getNotificationPopup();
+
 
   if (!popup) {
     return null;
   }
+
 
   return popup.querySelector(
     ".enable-notifications-button"
@@ -708,12 +989,16 @@ function getNotificationButton() {
 function setNotificationMessage(
   message
 ) {
+
   const text =
     getNotificationText();
 
+
   if (text) {
+
     text.textContent =
       message;
+
   }
 }
 
@@ -722,18 +1007,23 @@ function setNotificationButton(
   text,
   disabled = false
 ) {
+
   const button =
     getNotificationButton();
+
 
   if (!button) {
     return;
   }
 
+
   button.textContent =
     text;
 
+
   button.disabled =
     disabled;
+
 
   if (disabled) {
 
@@ -760,13 +1050,18 @@ function setNotificationButton(
 ========================================= */
 
 function closeNotificationPopup() {
+
   const popup =
     getNotificationPopup();
 
+
   if (popup) {
+
     popup.style.display =
       "none";
+
   }
+
 
   sessionStorage.setItem(
     "mavrenx-popup-seen",
@@ -782,46 +1077,62 @@ function closeNotificationPopup() {
 function checkNotificationSupport() {
 
   if (!window.isSecureContext) {
+
     return {
+
       supported: false,
 
       reason:
         "Notifications require a secure connection. You can still track your order normally."
+
     };
+
   }
 
 
   if (
     !("Notification" in window)
   ) {
+
     return {
+
       supported: false,
 
       reason:
         "Notifications aren't supported in this browser. You can still track your order normally."
+
     };
+
   }
 
 
   if (
     !("serviceWorker" in navigator)
   ) {
+
     return {
+
       supported: false,
 
       reason:
         "This browser doesn't support the notification service needed by MAVRENX."
+
     };
+
   }
 
 
   if (!messaging) {
+
     return {
+
       supported: false,
 
       reason:
         "Push notifications aren't available with this browser setup."
+
     };
+
   }
 
 
@@ -847,18 +1158,16 @@ async function enableNotifications() {
       support.reason
     );
 
+
     setNotificationButton(
       "Notifications unavailable",
       true
     );
 
+
     return false;
   }
 
-
-  /*
-    Browser already blocked them.
-  */
 
   if (
     Notification.permission ===
@@ -869,32 +1178,27 @@ async function enableNotifications() {
       "Notifications are blocked in this browser. You can still use MAVRENX and track your order normally."
     );
 
+
     setNotificationButton(
       "Notifications blocked",
       true
     );
 
+
     return false;
   }
 
-
-  /*
-    Already allowed.
-  */
 
   if (
     Notification.permission ===
     "granted"
   ) {
 
-    return await createNotificationToken();
+    return await
+      createNotificationToken();
 
   }
 
-
-  /*
-    Ask for permission.
-  */
 
   try {
 
@@ -914,7 +1218,8 @@ async function enableNotifications() {
       "granted"
     ) {
 
-      return await createNotificationToken();
+      return await
+        createNotificationToken();
 
     }
 
@@ -928,10 +1233,12 @@ async function enableNotifications() {
         "Notifications weren't allowed. You can still shop and track your order normally."
       );
 
+
       setNotificationButton(
         "Notifications blocked",
         true
       );
+
 
       return false;
     }
@@ -941,10 +1248,12 @@ async function enableNotifications() {
       "Notifications weren't enabled. You can still use MAVRENX normally."
     );
 
+
     setNotificationButton(
       "Enable notifications",
       false
     );
+
 
     return false;
 
@@ -961,10 +1270,12 @@ async function enableNotifications() {
       "Notifications aren't available in this browser right now."
     );
 
+
     setNotificationButton(
       "Notifications unavailable",
       true
     );
+
 
     return false;
   }
@@ -982,6 +1293,7 @@ async function createNotificationToken() {
     setNotificationMessage(
       "Setting up MAVRENX notifications..."
     );
+
 
     setNotificationButton(
       "Setting up...",
@@ -1015,22 +1327,16 @@ async function createNotificationToken() {
         "Push notifications couldn't be activated in this browser. You can still track your order normally."
       );
 
+
       setNotificationButton(
         "Notifications unavailable",
         true
       );
 
+
       return false;
     }
 
-
-    /*
-      Saved locally for now.
-
-      Later this will be connected
-      securely to the customer's
-      account/order in the backend.
-    */
 
     localStorage.setItem(
       "mavrenx-notification-token",
@@ -1062,7 +1368,9 @@ async function createNotificationToken() {
 
     setTimeout(
       function() {
+
         closeNotificationPopup();
+
       },
       1200
     );
@@ -1100,7 +1408,9 @@ async function createNotificationToken() {
 ========================================= */
 
 async function enableNotificationsFromPopup() {
+
   await enableNotifications();
+
 }
 
 
@@ -1114,6 +1424,7 @@ if (messaging) {
   try {
 
     messaging.onMessage(
+
       async function(payload) {
 
         console.log(
@@ -1162,8 +1473,11 @@ if (messaging) {
             );
 
           }
+
         }
+
       }
+
     );
 
 
@@ -1183,7 +1497,9 @@ if (messaging) {
 ========================================= */
 
 document.addEventListener(
+
   "keydown",
+
   function(event) {
 
     if (
@@ -1196,7 +1512,9 @@ document.addEventListener(
       closeLikes();
 
     }
+
   }
+
 );
 
 
@@ -1205,7 +1523,9 @@ document.addEventListener(
 ========================================= */
 
 document.addEventListener(
+
   "DOMContentLoaded",
+
   function() {
 
     loadTheme();
@@ -1217,6 +1537,18 @@ document.addEventListener(
     updateProductLikeButtons();
 
 
+    setSpongeImage(
+      "shop",
+      0
+    );
+
+
+    setSpongeImage(
+      "cleaning",
+      0
+    );
+
+
     const popup =
       getNotificationPopup();
 
@@ -1225,11 +1557,6 @@ document.addEventListener(
       return;
     }
 
-
-    /*
-      Already allowed:
-      don't show the popup again.
-    */
 
     if (
       "Notification" in window &&
@@ -1244,11 +1571,6 @@ document.addEventListener(
     }
 
 
-    /*
-      Already blocked:
-      don't annoy them repeatedly.
-    */
-
     if (
       "Notification" in window &&
       Notification.permission ===
@@ -1261,11 +1583,6 @@ document.addEventListener(
       return;
     }
 
-
-    /*
-      Don't show again after refresh
-      in the same browsing session.
-    */
 
     const seenThisSession =
       sessionStorage.getItem(
@@ -1285,10 +1602,6 @@ document.addEventListener(
     }
 
 
-    /*
-      First visit this session.
-    */
-
     popup.style.display =
       "flex";
 
@@ -1299,4 +1612,5 @@ document.addEventListener(
     );
 
   }
+
 );
