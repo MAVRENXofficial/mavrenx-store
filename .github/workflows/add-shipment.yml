@@ -1,0 +1,118 @@
+name: Add MAVRENX Shipment
+
+on:
+  workflow_dispatch:
+    inputs:
+      order_id:
+        description: "MAVRENX order number"
+        required: true
+        type: string
+
+      tracking_number:
+        description: "Carrier tracking number"
+        required: true
+        type: string
+
+jobs:
+  add-shipment:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install Firebase Admin
+        run: |
+          python3 -m pip install firebase-admin
+
+      - name: Add shipment to Firebase
+        env:
+          ORDER_ID: ${{ inputs.order_id }}
+          TRACKING_NUMBER: ${{ inputs.tracking_number }}
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+
+        run: |
+          python3 - <<'PY'
+          import os
+          import json
+          import re
+
+          import firebase_admin
+          from firebase_admin import credentials, db
+
+
+          order_id = os.environ["ORDER_ID"].strip().upper()
+          tracking_number = os.environ["TRACKING_NUMBER"].strip()
+
+
+          if not re.fullmatch(r"[A-Z0-9-]{4,50}", order_id):
+              raise ValueError(
+                  "Invalid MAVRENX order ID."
+              )
+
+
+          if not tracking_number:
+              raise ValueError(
+                  "Tracking number is required."
+              )
+
+
+          service_account = json.loads(
+              os.environ["FIREBASE_SERVICE_ACCOUNT"]
+          )
+
+          credential = credentials.Certificate(
+              service_account
+          )
+
+          firebase_admin.initialize_app(
+              credential,
+              {
+                  "databaseURL":
+                  "https://mavrenxsecurity-default-rtdb.europe-west1.firebasedatabase.app"
+              }
+          )
+
+
+          order_ref = db.reference(
+              f"orders/{order_id}"
+          )
+
+          shipment_ref = db.reference(
+              f"shipments/{order_id}"
+          )
+
+          tracking_ref = db.reference(
+              f"tracking/{order_id}"
+          )
+
+
+          order_data = order_ref.get()
+
+          if order_data is None:
+              raise Exception(
+                  f"Order {order_id} does not exist."
+              )
+
+
+          shipment_ref.set({
+              "trackingNumber": tracking_number
+          })
+
+
+          order_ref.update({
+              "status": "Order confirmed with supplier"
+          })
+
+
+          tracking_ref.set(
+              "Order confirmed with supplier"
+          )
+
+
+          print(
+              f"Shipment added for {order_id}"
+          )
+
+          print(
+              f"Tracking number: {tracking_number}"
+          )
+
+          PY
