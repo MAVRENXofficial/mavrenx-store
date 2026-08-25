@@ -6,33 +6,27 @@ on:
   schedule:
     - cron: "*/10 * * * *"
 
-
 jobs:
   sync-tracking:
-
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-
       - name: Install packages
         run: |
           pip install requests firebase-admin
 
-
-      - name: Check Ship24 and update Firebase
+      - name: Sync all MAVRENX shipments
         env:
           SHIP24_API_KEY: ${{ secrets.SHIP24_API_KEY }}
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
 
         run: |
           python - <<'PY'
-
           import os
           import json
           import requests
@@ -42,94 +36,58 @@ jobs:
           from firebase_admin import db
 
 
-          # ---------------------------------
-          # MAVRENX TEST ORDER
-          # ---------------------------------
+          # -----------------------------
+          # CONNECT TO FIREBASE
+          # -----------------------------
 
-          order_id = "TEST-ORDER-001"
+          service_account = json.loads(
+              os.environ["FIREBASE_SERVICE_ACCOUNT"]
+          )
 
-          tracking_number = "SHIP24_SAMPLE_IN_TRANSIT_000"
+          credential = credentials.Certificate(
+              service_account
+          )
 
-
-          # ---------------------------------
-          # ASK SHIP24 FOR TRACKING STATUS
-          # ---------------------------------
-
-          response = requests.post(
-              "https://api.ship24.com/public/v1/trackers/track",
-
-              headers={
-                  "Authorization":
-                      "Bearer " + os.environ["SHIP24_API_KEY"],
-
-                  "Content-Type":
-                      "application/json"
-              },
-
-              json={
-                  "trackingNumber": tracking_number
-              },
-
-              timeout=90
+          firebase_admin.initialize_app(
+              credential,
+              {
+                  "databaseURL":
+                  "https://mavrenxsecurity-default-rtdb.europe-west1.firebasedatabase.app"
+              }
           )
 
 
-          print(
-              "Ship24 HTTP status:",
-              response.status_code
-          )
+          # -----------------------------
+          # GET ALL MAVRENX SHIPMENTS
+          # -----------------------------
+
+          shipments = db.reference(
+              "shipments"
+          ).get() or {}
+
+          if not shipments:
+              print("No shipments found.")
+              raise SystemExit(0)
 
 
-          if not response.ok:
+          # -----------------------------
+          # SHIP24 SETTINGS
+          # -----------------------------
 
-              print(
-                  response.text
-              )
+          ship24_api_key = os.environ[
+              "SHIP24_API_KEY"
+          ].strip()
 
-              response.raise_for_status()
+          headers = {
+              "Authorization":
+                  "Bearer " + ship24_api_key,
 
+              "Content-Type":
+                  "application/json"
+          }
 
-          data = response.json()
-
-
-          trackings = (
-              data
-              .get("data", {})
-              .get("trackings", [])
-          )
-
-
-          if not trackings:
-
-              raise Exception(
-                  "Ship24 returned no tracking results."
-              )
-
-
-          shipment = (
-              trackings[0]
-              .get("shipment", {})
-          )
-
-
-          ship24_status = shipment.get(
-              "statusMilestone"
-          )
-
-
-          print(
-              "Ship24 status:",
-              ship24_status
-          )
-
-
-          # ---------------------------------
-          # CONVERT SHIP24 STATUS
-          # TO MAVRENX STATUS
-          # ---------------------------------
 
           status_map = {
-
               "pending":
                   "Order confirmed with supplier",
 
@@ -153,65 +111,121 @@ jobs:
 
               "exception":
                   "In transit"
-
           }
 
 
-          mavrenx_status = status_map.get(
-              ship24_status,
-              "Shipped"
-          )
+          # -----------------------------
+          # CHECK EVERY SHIPMENT
+          # -----------------------------
 
+          for order_id, shipment_data in shipments.items():
 
-          print(
-              "MAVRENX status:",
-              mavrenx_status
-          )
+              if not isinstance(shipment_data, dict):
+                  print(
+                      f"{order_id}: invalid shipment data"
+                  )
+                  continue
 
-
-          # ---------------------------------
-          # CONNECT TO FIREBASE
-          # ---------------------------------
-
-          service_account = json.loads(
-              os.environ[
-                  "FIREBASE_SERVICE_ACCOUNT"
-              ]
-          )
-
-
-          firebase_credential = (
-              credentials.Certificate(
-                  service_account
+              tracking_number = shipment_data.get(
+                  "trackingNumber"
               )
-          )
+
+              if not tracking_number:
+                  print(
+                      f"{order_id}: no tracking number"
+                  )
+                  continue
+
+              print(
+                  f"Checking {order_id}"
+              )
+
+              try:
+
+                  response = requests.post(
+                      "https://api.ship24.com/public/v1/trackers/track",
+
+                      headers=headers,
+
+                      json={
+                          "trackingNumber":
+                              tracking_number,
+
+                          "clientTrackerId":
+                              order_id
+                      },
+
+                      timeout=90
+                  )
+
+                  print(
+                      f"{order_id}: Ship24 HTTP "
+                      f"{response.status_code}"
+                  )
+
+                  response.raise_for_status()
+
+                  data = response.json()
+
+                  trackings = (
+                      data
+                      .get("data", {})
+                      .get("trackings", [])
+                  )
+
+                  if not trackings:
+                      print(
+                          f"{order_id}: no tracking results"
+                      )
+                      continue
+
+                  shipment = (
+                      trackings[0]
+                      .get("shipment", {})
+                  )
+
+                  ship24_status = shipment.get(
+                      "statusMilestone"
+                  )
+
+                  if not ship24_status:
+                      print(
+                          f"{order_id}: no status milestone"
+                      )
+                      continue
+
+                  mavrenx_status = status_map.get(
+                      ship24_status,
+                      "Shipped"
+                  )
 
 
-          firebase_admin.initialize_app(
+                  # -----------------------------
+                  # UPDATE CUSTOMER TRACKING
+                  # -----------------------------
 
-              firebase_credential,
+                  db.reference(
+                      "tracking/" + order_id
+                  ).set(
+                      mavrenx_status
+                  )
 
-              {
-                  "databaseURL":
-                  "https://mavrenxsecurity-default-rtdb.europe-west1.firebasedatabase.app"
-              }
+                  print(
+                      f"{order_id}: "
+                      f"{ship24_status} -> "
+                      f"{mavrenx_status}"
+                  )
 
-          )
 
+              except Exception as error:
 
-          # ---------------------------------
-          # UPDATE MAVRENX ORDER
-          # ---------------------------------
-
-          db.reference(
-              "tracking/" + order_id
-          ).set(
-              mavrenx_status
-          )
+                  print(
+                      f"{order_id}: ERROR: {error}"
+                  )
 
 
           print(
-              "Firebase updated successfully."
+              "MAVRENX tracking sync finished."
           )
 
           PY
