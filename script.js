@@ -751,7 +751,12 @@ async function checkout() {
 
           body:
             JSON.stringify({
-              items: items
+              items: items,
+
+              notificationToken:
+                localStorage.getItem(
+                  "mavrenx-notification-token"
+                ) || ""
             })
         }
       );
