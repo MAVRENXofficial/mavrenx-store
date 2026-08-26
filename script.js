@@ -1057,6 +1057,120 @@ function closeCheckoutResult() {
 }
 
 
+/* =========================================
+   COPY ORDER NUMBER
+========================================= */
+
+async function copyOrderNumber(
+  orderId,
+  button
+) {
+  try {
+
+    await navigator.clipboard.writeText(
+      orderId
+    );
+
+
+    if (button) {
+      const oldText =
+        button.textContent;
+
+
+      button.textContent =
+        "Copied ✓";
+
+
+      button.disabled =
+        true;
+
+
+      setTimeout(
+        function() {
+
+          button.textContent =
+            oldText;
+
+
+          button.disabled =
+            false;
+
+        },
+        1800
+      );
+    }
+
+  } catch (error) {
+
+    console.error(
+      "Copy order number error:",
+      error
+    );
+
+
+    const temporaryInput =
+      document.createElement(
+        "textarea"
+      );
+
+
+    temporaryInput.value =
+      orderId;
+
+
+    temporaryInput.style.position =
+      "fixed";
+
+
+    temporaryInput.style.opacity =
+      "0";
+
+
+    document.body.appendChild(
+      temporaryInput
+    );
+
+
+    temporaryInput.select();
+
+
+    try {
+      document.execCommand(
+        "copy"
+      );
+
+
+      if (button) {
+        button.textContent =
+          "Copied ✓";
+
+
+        setTimeout(
+          function() {
+
+            button.textContent =
+              "Copy order number";
+
+          },
+          1800
+        );
+      }
+
+    } catch (fallbackError) {
+
+      console.error(
+        "Fallback copy error:",
+        fallbackError
+      );
+
+    }
+
+
+    temporaryInput.remove();
+  }
+}
+
+
 function showConfirmedOrder(
   orderId,
   status
@@ -1128,11 +1242,23 @@ function showConfirmedOrder(
         display:block;
         font-size:20px;
         word-break:break-word;
-        margin-bottom:8px;
+        margin-bottom:14px;
       "
     >
       ${orderId}
     </strong>
+
+    <button
+      type="button"
+      class="not-now-button"
+      onclick="copyOrderNumber('${orderId}', this)"
+      style="
+        width:100%;
+        margin-bottom:14px;
+      "
+    >
+      Copy order number
+    </button>
 
     <div
       style="
@@ -1958,14 +2084,6 @@ document.addEventListener(
       0
     );
 
-
-    /*
-      Handle Stripe return first.
-
-      The screen is only confirmed after
-      the webhook-created Firebase order
-      can actually be found.
-    */
 
     const checkoutReturn =
       await handleCheckoutReturn();
