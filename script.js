@@ -728,13 +728,6 @@ async function checkout() {
   }
 
   try {
-    /*
-      Only send product IDs and quantities.
-
-      The real price is checked
-      inside the private Cloudflare
-      Worker.
-    */
 
     const items =
       cart.map(item => ({
@@ -809,6 +802,598 @@ async function checkout() {
       checkoutButton.textContent =
         originalText;
     }
+  }
+}
+
+
+/* =========================================
+   AFTER-PAYMENT ORDER SCREEN
+========================================= */
+
+const firebaseTrackingRestUrl =
+  "https://mavrenxsecurity-default-rtdb.europe-west1.firebasedatabase.app/tracking";
+
+
+function delay(milliseconds) {
+  return new Promise(
+    resolve =>
+      setTimeout(
+        resolve,
+        milliseconds
+      )
+  );
+}
+
+
+function bytesToHexClient(bytes) {
+  return Array
+    .from(bytes)
+    .map(
+      byte =>
+        byte
+          .toString(16)
+          .padStart(
+            2,
+            "0"
+          )
+    )
+    .join("");
+}
+
+
+async function createMavrenxOrderIdFromSession(
+  stripeSessionId
+) {
+  const encoded =
+    new TextEncoder()
+      .encode(
+        stripeSessionId
+      );
+
+
+  const hash =
+    await crypto.subtle.digest(
+      "SHA-256",
+      encoded
+    );
+
+
+  return (
+    "MAVRENX-" +
+    bytesToHexClient(
+      new Uint8Array(
+        hash
+      )
+    )
+      .toUpperCase()
+      .slice(
+        0,
+        12
+      )
+  );
+}
+
+
+async function getPublicTrackingStatus(
+  orderId
+) {
+  try {
+    const response =
+      await fetch(
+        firebaseTrackingRestUrl +
+          "/" +
+          encodeURIComponent(
+            orderId
+          ) +
+          ".json?time=" +
+          Date.now(),
+        {
+          method: "GET",
+          cache: "no-store"
+        }
+      );
+
+
+    if (!response.ok) {
+      return null;
+    }
+
+
+    const value =
+      await response.json();
+
+
+    if (
+      typeof value !== "string" ||
+      !value
+    ) {
+      return null;
+    }
+
+
+    return value;
+
+  } catch (error) {
+    console.error(
+      "Order verification error:",
+      error
+    );
+
+    return null;
+  }
+}
+
+
+async function waitForOrderConfirmation(
+  orderId
+) {
+  const attempts = 24;
+
+  for (
+    let attempt = 0;
+    attempt < attempts;
+    attempt++
+  ) {
+    const status =
+      await getPublicTrackingStatus(
+        orderId
+      );
+
+
+    if (status) {
+      return status;
+    }
+
+
+    await delay(
+      1250
+    );
+  }
+
+
+  return null;
+}
+
+
+function createCheckoutResultOverlay() {
+  let overlay =
+    document.getElementById(
+      "checkout-result-overlay"
+    );
+
+
+  if (overlay) {
+    return overlay;
+  }
+
+
+  overlay =
+    document.createElement(
+      "div"
+    );
+
+
+  overlay.id =
+    "checkout-result-overlay";
+
+
+  overlay.className =
+    "notification-overlay";
+
+
+  overlay.style.display =
+    "flex";
+
+
+  overlay.style.zIndex =
+    "99999";
+
+
+  overlay.innerHTML = `
+    <div class="notification-modal">
+
+      <div
+        id="checkout-result-icon"
+        class="notification-big-icon"
+      >
+        ⏳
+      </div>
+
+      <h2 id="checkout-result-title">
+        Finalizing your
+        <span>order...</span>
+      </h2>
+
+      <p id="checkout-result-message">
+        We're waiting for secure payment confirmation.
+        This normally takes only a few seconds.
+      </p>
+
+      <div
+        id="checkout-order-details"
+        style="
+          display:none;
+          margin:22px 0;
+          padding:18px;
+          border-radius:12px;
+          background:rgba(21,153,71,0.10);
+        "
+      >
+      </div>
+
+      <div id="checkout-result-actions">
+      </div>
+
+    </div>
+  `;
+
+
+  document.body.appendChild(
+    overlay
+  );
+
+
+  return overlay;
+}
+
+
+function closeCheckoutResult() {
+  const overlay =
+    document.getElementById(
+      "checkout-result-overlay"
+    );
+
+
+  if (overlay) {
+    overlay.remove();
+  }
+
+
+  window.history.replaceState(
+    {},
+    "",
+    "index.html"
+  );
+}
+
+
+function showConfirmedOrder(
+  orderId,
+  status
+) {
+  const overlay =
+    createCheckoutResultOverlay();
+
+
+  const icon =
+    overlay.querySelector(
+      "#checkout-result-icon"
+    );
+
+
+  const title =
+    overlay.querySelector(
+      "#checkout-result-title"
+    );
+
+
+  const message =
+    overlay.querySelector(
+      "#checkout-result-message"
+    );
+
+
+  const details =
+    overlay.querySelector(
+      "#checkout-order-details"
+    );
+
+
+  const actions =
+    overlay.querySelector(
+      "#checkout-result-actions"
+    );
+
+
+  icon.textContent =
+    "✓";
+
+
+  title.innerHTML =
+    `Your order is <span>confirmed.</span>`;
+
+
+  message.textContent =
+    "Your MAVRENX order has been created successfully. Save your order number or use the button below to track it anytime.";
+
+
+  details.style.display =
+    "block";
+
+
+  details.innerHTML = `
+    <div
+      style="
+        font-size:12px;
+        font-weight:800;
+        letter-spacing:1px;
+        margin-bottom:6px;
+      "
+    >
+      MAVRENX ORDER NUMBER
+    </div>
+
+    <strong
+      style="
+        display:block;
+        font-size:20px;
+        word-break:break-word;
+        margin-bottom:8px;
+      "
+    >
+      ${orderId}
+    </strong>
+
+    <div
+      style="
+        font-size:14px;
+      "
+    >
+      Status: ${status}
+    </div>
+  `;
+
+
+  const trackingUrl =
+    "track.html?order=" +
+    encodeURIComponent(
+      orderId
+    );
+
+
+  actions.innerHTML = `
+    <a
+      href="${trackingUrl}"
+      class="main-button"
+      style="
+        display:block;
+        width:100%;
+        text-align:center;
+        margin-bottom:12px;
+      "
+    >
+      Track your order
+    </a>
+
+    <button
+      type="button"
+      class="not-now-button"
+      onclick="closeCheckoutResult()"
+    >
+      Continue shopping
+    </button>
+  `;
+
+
+  cart = [];
+
+  saveCart();
+
+  updateCart();
+
+
+  window.history.replaceState(
+    {},
+    "",
+    "index.html?checkout=success&order=" +
+      encodeURIComponent(
+        orderId
+      )
+  );
+}
+
+
+function showOrderStillProcessing() {
+  const overlay =
+    createCheckoutResultOverlay();
+
+
+  const icon =
+    overlay.querySelector(
+      "#checkout-result-icon"
+    );
+
+
+  const title =
+    overlay.querySelector(
+      "#checkout-result-title"
+    );
+
+
+  const message =
+    overlay.querySelector(
+      "#checkout-result-message"
+    );
+
+
+  const actions =
+    overlay.querySelector(
+      "#checkout-result-actions"
+    );
+
+
+  icon.textContent =
+    "⏳";
+
+
+  title.innerHTML =
+    `We're still <span>finalizing.</span>`;
+
+
+  message.textContent =
+    "Your order confirmation is taking a little longer than usual. If you just completed payment, wait a moment and refresh this page.";
+
+
+  actions.innerHTML = `
+    <button
+      type="button"
+      class="main-button"
+      style="
+        width:100%;
+        margin-bottom:12px;
+      "
+      onclick="window.location.reload()"
+    >
+      Check again
+    </button>
+
+    <button
+      type="button"
+      class="not-now-button"
+      onclick="closeCheckoutResult()"
+    >
+      Return to store
+    </button>
+  `;
+}
+
+
+async function handleCheckoutReturn() {
+  const parameters =
+    new URLSearchParams(
+      window.location.search
+    );
+
+
+  if (
+    parameters.get(
+      "checkout"
+    ) !== "success"
+  ) {
+    return false;
+  }
+
+
+  sessionStorage.setItem(
+    "mavrenx-popup-seen",
+    "yes"
+  );
+
+
+  const notificationPopup =
+    getNotificationPopup();
+
+
+  if (notificationPopup) {
+    notificationPopup.style.display =
+      "none";
+  }
+
+
+  closeCart();
+  closeLikes();
+
+
+  createCheckoutResultOverlay();
+
+
+  const existingOrderId =
+    (
+      parameters.get(
+        "order"
+      ) || ""
+    )
+      .trim()
+      .toUpperCase();
+
+
+  if (
+    /^MAVRENX-[A-F0-9]{12}$/
+      .test(
+        existingOrderId
+      )
+  ) {
+    const existingStatus =
+      await getPublicTrackingStatus(
+        existingOrderId
+      );
+
+
+    if (existingStatus) {
+      showConfirmedOrder(
+        existingOrderId,
+        existingStatus
+      );
+
+      return true;
+    }
+
+
+    showOrderStillProcessing();
+
+    return true;
+  }
+
+
+  const sessionId =
+    (
+      parameters.get(
+        "session_id"
+      ) || ""
+    )
+      .trim();
+
+
+  if (
+    !sessionId ||
+    !sessionId.startsWith(
+      "cs_"
+    )
+  ) {
+    showOrderStillProcessing();
+
+    return true;
+  }
+
+
+  try {
+    const orderId =
+      await createMavrenxOrderIdFromSession(
+        sessionId
+      );
+
+
+    const status =
+      await waitForOrderConfirmation(
+        orderId
+      );
+
+
+    if (!status) {
+      showOrderStillProcessing();
+
+      return true;
+    }
+
+
+    showConfirmedOrder(
+      orderId,
+      status
+    );
+
+
+    return true;
+
+  } catch (error) {
+    console.error(
+      "Checkout return error:",
+      error
+    );
+
+
+    showOrderStillProcessing();
+
+    return true;
   }
 }
 
@@ -1359,7 +1944,7 @@ document.addEventListener(
 document.addEventListener(
   "DOMContentLoaded",
 
-  function() {
+  async function() {
     loadTheme();
 
     updateCart();
@@ -1372,6 +1957,23 @@ document.addEventListener(
       "cleaning",
       0
     );
+
+
+    /*
+      Handle Stripe return first.
+
+      The screen is only confirmed after
+      the webhook-created Firebase order
+      can actually be found.
+    */
+
+    const checkoutReturn =
+      await handleCheckoutReturn();
+
+
+    if (checkoutReturn) {
+      return;
+    }
 
 
     const popup =
