@@ -1,639 +1,138 @@
-<!DOCTYPE html>
-<html lang="en">
+importScripts(
+  "https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"
+);
 
-<head>
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <title>MAVRENX Notification Test</title>
-</head>
-
-<body>
-
-  <h1>MAVRENX Notification Test</h1>
-
-  <p id="status">
-    Ready.
-  </p>
-
-  <button
-    id="send-test"
-    type="button"
-  >
-    Send test notification
-  </button>
+importScripts(
+  "https://www.gstatic.com/firebasejs/10.13.2/firebase-messaging-compat.js"
+);
 
 
-  <script
-    src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"
-  ></script>
+firebase.initializeApp({
 
-  <script
-    src="https://www.gstatic.com/firebasejs/10.13.2/firebase-messaging-compat.js"
-  ></script>
+  apiKey:
+    "AIzaSyCSXAkvMhLGaJMBwGGY1SYqoDhulIMn5F4",
 
+  authDomain:
+    "mavrenxsecurity.firebaseapp.com",
 
-  <script>
+  projectId:
+    "mavrenxsecurity",
 
-    const firebaseConfig = {
-      apiKey:
-        "AIzaSyCSXAkvMhLGaJMBwGGY1SYqoDhulIMn5F4",
+  storageBucket:
+    "mavrenxsecurity.firebasestorage.app",
 
-      authDomain:
-        "mavrenxsecurity.firebaseapp.com",
+  messagingSenderId:
+    "351069637181",
 
-      projectId:
-        "mavrenxsecurity",
+  appId:
+    "1:351069637181:web:d204c4904017679506b854",
 
-      storageBucket:
-        "mavrenxsecurity.firebasestorage.app",
+  measurementId:
+    "G-MLY1MC2SDR"
 
-      messagingSenderId:
-        "351069637181",
-
-      appId:
-        "1:351069637181:web:d204c4904017679506b854",
-
-      measurementId:
-        "G-MLY1MC2SDR"
-    };
+});
 
 
-    const VAPID_KEY =
-      "BPRe8I4x0JBgKbx4JgV68pX_R2aVpAJMacWlBfV0RS0D19P1i2Msr2BBcvcrLE8j18hacj-kDrFNmIif-tois8w";
+const messaging =
+  firebase.messaging();
 
 
-    const BACKEND =
-      "https://mavrenx-checkout.matthewrizzwani.workers.dev";
+/* =========================================
+   NOTIFICATION CLICK
+========================================= */
+
+self.addEventListener(
+  "notificationclick",
+
+  function(event) {
+
+    event.notification.close();
 
 
-    const statusText =
-      document.getElementById(
-        "status"
-      );
+    const notificationData =
+      event.notification.data || {};
 
 
-    const button =
-      document.getElementById(
-        "send-test"
-      );
+    const fcmMessage =
+      notificationData.FCM_MSG || {};
 
 
-    if (!firebase.apps.length) {
-      firebase.initializeApp(
-        firebaseConfig
-      );
-    }
+    const targetUrl =
+
+      notificationData.trackingUrl ||
+
+      notificationData.url ||
+
+      fcmMessage.data?.trackingUrl ||
+
+      fcmMessage.data?.url ||
+
+      fcmMessage.fcmOptions?.link ||
+
+      "https://mavrenxofficial.github.io/mavrenx-store/";
 
 
-    const messaging =
-      firebase.messaging();
+    event.waitUntil(
+
+      clients
+        .matchAll({
+
+          type:
+            "window",
+
+          includeUncontrolled:
+            true
+
+        })
+
+        .then(
+
+          async function(windowClients) {
+
+            for (
+              const client of windowClients
+            ) {
+
+              if (
+                "focus" in client
+              ) {
+
+                await client.focus();
 
 
-    messaging.onMessage(
-      async function(payload) {
+                if (
+                  "navigate" in client
+                ) {
 
-        statusText.textContent =
-          "Notification received successfully!";
+                  await client.navigate(
+                    targetUrl
+                  );
 
-
-        const title =
-          payload.notification?.title ||
-          "MAVRENX";
-
-
-        const body =
-          payload.notification?.body ||
-          "Notification received.";
+                }
 
 
-        try {
-
-          const registration =
-            await navigator
-              .serviceWorker
-              .ready;
-
-
-          await registration
-            .showNotification(
-              title,
-              {
-                body: body
+                return;
               }
-            );
-
-        } catch (error) {
-
-          console.error(
-            error
-          );
-
-        }
-      }
-    );
-
-
-    async function sendTestNotification() {
-
-      button.disabled =
-        true;
-
-
-      statusText.textContent =
-        "Preparing notification token...";
-
-
-      try {
-
-        if (
-          !("Notification" in window)
-        ) {
-          throw new Error(
-            "This browser does not support notifications."
-          );
-        }
-
-
-        let permission =
-          Notification.permission;
-
-
-        if (
-          permission !== "granted"
-        ) {
-
-          permission =
-            await Notification
-              .requestPermission();
-
-        }
-
-
-        if (
-          permission !== "granted"
-        ) {
-          throw new Error(
-            "Notification permission was not granted."
-          );
-        }
-
-
-        const registration =
-          await navigator
-            .serviceWorker
-            .register(
-              "./firebase-messaging-sw.js"
-            );
-
-
-        await navigator
-          .serviceWorker
-          .ready;
-
-
-        statusText.textContent =
-          "Creating Firebase token...";
-
-
-        const token =
-          await messaging.getToken({
-
-            vapidKey:
-              VAPID_KEY,
-
-            serviceWorkerRegistration:
-              registration
-
-          });
-
-
-        if (!token) {
-          throw new Error(
-            "Firebase did not return a notification token."
-          );
-        }
-
-
-        localStorage.setItem(
-          "mavrenx-notification-token",
-          token
-        );
-
-
-        localStorage.setItem(
-          "mavrenx-notifications-enabled",
-          "yes"
-        );
-
-
-        statusText.textContent =
-          "Token created. Sending test...";
-
-
-        const response =
-          await fetch(
-            BACKEND +
-              "/test-notification",
-            {
-
-              method:
-                "POST",
-
-              headers: {
-                "Content-Type":
-                  "application/json"
-              },
-
-              body:
-                JSON.stringify({
-                  notificationToken:
-                    token
-                })
 
             }
-          );
 
 
-        let data = {};
+            if (
+              clients.openWindow
+            ) {
 
-
-        try {
-
-          data =
-            await response.json();
-
-        } catch (error) {
-
-          data = {};
-
-        }
-
-
-        if (!response.ok) {
-
-          throw new Error(
-            data.details ||
-            data.error ||
-            "Test notification failed."
-          );
-
-        }
-
-
-        statusText.textContent =
-          "TEST SENT ✓ Watch for your MAVRENX notification.";
-
-
-      } catch (error) {
-
-        console.error(
-          error
-        );
-
-
-        statusText.textContent =
-          "ERROR: " +
-          error.message;
-
-      }
-
-
-      button.disabled =
-        false;
-    }
-
-
-    button.addEventListener(
-      "click",
-      sendTestNotification
-    );
-
-  </script>
-
-</body>
-
-</html><!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <title>MAVRENX Notification Test</title>
-</head>
-
-<body>
-
-  <h1>MAVRENX Notification Test</h1>
-
-  <p id="status">
-    Ready.
-  </p>
-
-  <button
-    id="send-test"
-    type="button"
-  >
-    Send test notification
-  </button>
-
-
-  <script
-    src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"
-  ></script>
-
-  <script
-    src="https://www.gstatic.com/firebasejs/10.13.2/firebase-messaging-compat.js"
-  ></script>
-
-
-  <script>
-
-    const firebaseConfig = {
-      apiKey:
-        "AIzaSyCSXAkvMhLGaJMBwGGY1SYqoDhulIMn5F4",
-
-      authDomain:
-        "mavrenxsecurity.firebaseapp.com",
-
-      projectId:
-        "mavrenxsecurity",
-
-      storageBucket:
-        "mavrenxsecurity.firebasestorage.app",
-
-      messagingSenderId:
-        "351069637181",
-
-      appId:
-        "1:351069637181:web:d204c4904017679506b854",
-
-      measurementId:
-        "G-MLY1MC2SDR"
-    };
-
-
-    const VAPID_KEY =
-      "BPRe8I4x0JBgKbx4JgV68pX_R2aVpAJMacWlBfV0RS0D19P1i2Msr2BBcvcrLE8j18hacj-kDrFNmIif-tois8w";
-
-
-    const BACKEND =
-      "https://mavrenx-checkout.matthewrizzwani.workers.dev";
-
-
-    const statusText =
-      document.getElementById(
-        "status"
-      );
-
-
-    const button =
-      document.getElementById(
-        "send-test"
-      );
-
-
-    if (!firebase.apps.length) {
-      firebase.initializeApp(
-        firebaseConfig
-      );
-    }
-
-
-    const messaging =
-      firebase.messaging();
-
-
-    messaging.onMessage(
-      async function(payload) {
-
-        statusText.textContent =
-          "Notification received successfully!";
-
-
-        const title =
-          payload.notification?.title ||
-          "MAVRENX";
-
-
-        const body =
-          payload.notification?.body ||
-          "Notification received.";
-
-
-        try {
-
-          const registration =
-            await navigator
-              .serviceWorker
-              .ready;
-
-
-          await registration
-            .showNotification(
-              title,
-              {
-                body: body
-              }
-            );
-
-        } catch (error) {
-
-          console.error(
-            error
-          );
-
-        }
-      }
-    );
-
-
-    async function sendTestNotification() {
-
-      button.disabled =
-        true;
-
-
-      statusText.textContent =
-        "Preparing notification token...";
-
-
-      try {
-
-        if (
-          !("Notification" in window)
-        ) {
-          throw new Error(
-            "This browser does not support notifications."
-          );
-        }
-
-
-        let permission =
-          Notification.permission;
-
-
-        if (
-          permission !== "granted"
-        ) {
-
-          permission =
-            await Notification
-              .requestPermission();
-
-        }
-
-
-        if (
-          permission !== "granted"
-        ) {
-          throw new Error(
-            "Notification permission was not granted."
-          );
-        }
-
-
-        const registration =
-          await navigator
-            .serviceWorker
-            .register(
-              "./firebase-messaging-sw.js"
-            );
-
-
-        await navigator
-          .serviceWorker
-          .ready;
-
-
-        statusText.textContent =
-          "Creating Firebase token...";
-
-
-        const token =
-          await messaging.getToken({
-
-            vapidKey:
-              VAPID_KEY,
-
-            serviceWorkerRegistration:
-              registration
-
-          });
-
-
-        if (!token) {
-          throw new Error(
-            "Firebase did not return a notification token."
-          );
-        }
-
-
-        localStorage.setItem(
-          "mavrenx-notification-token",
-          token
-        );
-
-
-        localStorage.setItem(
-          "mavrenx-notifications-enabled",
-          "yes"
-        );
-
-
-        statusText.textContent =
-          "Token created. Sending test...";
-
-
-        const response =
-          await fetch(
-            BACKEND +
-              "/test-notification",
-            {
-
-              method:
-                "POST",
-
-              headers: {
-                "Content-Type":
-                  "application/json"
-              },
-
-              body:
-                JSON.stringify({
-                  notificationToken:
-                    token
-                })
+              return clients.openWindow(
+                targetUrl
+              );
 
             }
-          );
 
+          }
 
-        let data = {};
+        )
 
-
-        try {
-
-          data =
-            await response.json();
-
-        } catch (error) {
-
-          data = {};
-
-        }
-
-
-        if (!response.ok) {
-
-          throw new Error(
-            data.details ||
-            data.error ||
-            "Test notification failed."
-          );
-
-        }
-
-
-        statusText.textContent =
-          "TEST SENT ✓ Watch for your MAVRENX notification.";
-
-
-      } catch (error) {
-
-        console.error(
-          error
-        );
-
-
-        statusText.textContent =
-          "ERROR: " +
-          error.message;
-
-      }
-
-
-      button.disabled =
-        false;
-    }
-
-
-    button.addEventListener(
-      "click",
-      sendTestNotification
     );
 
-  </script>
+  }
 
-</body>
-
-</html>
+);
