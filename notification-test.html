@@ -1,138 +1,334 @@
-importScripts(
-  "https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"
-);
+<!DOCTYPE html>
+<html lang="en">
 
-importScripts(
-  "https://www.gstatic.com/firebasejs/10.13.2/firebase-messaging-compat.js"
-);
+<head>
+  <meta charset="UTF-8">
 
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-firebase.initializeApp({
+  <title>MAVRENX Notification Test</title>
+</head>
 
-  apiKey:
-    "AIzaSyCSXAkvMhLGaJMBwGGY1SYqoDhulIMn5F4",
+<body>
 
-  authDomain:
-    "mavrenxsecurity.firebaseapp.com",
+  <h1>MAVRENX Notification Test</h1>
 
-  projectId:
-    "mavrenxsecurity",
+  <p id="status">
+    Ready.
+  </p>
 
-  storageBucket:
-    "mavrenxsecurity.firebasestorage.app",
-
-  messagingSenderId:
-    "351069637181",
-
-  appId:
-    "1:351069637181:web:d204c4904017679506b854",
-
-  measurementId:
-    "G-MLY1MC2SDR"
-
-});
+  <button
+    id="send-test"
+    type="button"
+  >
+    Send test notification
+  </button>
 
 
-const messaging =
-  firebase.messaging();
+  <script
+    src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"
+  ></script>
+
+  <script
+    src="https://www.gstatic.com/firebasejs/10.13.2/firebase-messaging-compat.js"
+  ></script>
 
 
-/* =========================================
-   NOTIFICATION CLICK
-========================================= */
+  <script>
 
-self.addEventListener(
-  "notificationclick",
+    const firebaseConfig = {
+      apiKey:
+        "AIzaSyCSXAkvMhLGaJMBwGGY1SYqoDhulIMn5F4",
 
-  function(event) {
+      authDomain:
+        "mavrenxsecurity.firebaseapp.com",
 
-    event.notification.close();
+      projectId:
+        "mavrenxsecurity",
 
+      storageBucket:
+        "mavrenxsecurity.firebasestorage.app",
 
-    const notificationData =
-      event.notification.data || {};
+      messagingSenderId:
+        "351069637181",
 
+      appId:
+        "1:351069637181:web:d204c4904017679506b854",
 
-    const fcmMessage =
-      notificationData.FCM_MSG || {};
-
-
-    const targetUrl =
-
-      notificationData.trackingUrl ||
-
-      notificationData.url ||
-
-      fcmMessage.data?.trackingUrl ||
-
-      fcmMessage.data?.url ||
-
-      fcmMessage.fcmOptions?.link ||
-
-      "https://mavrenxofficial.github.io/mavrenx-store/";
+      measurementId:
+        "G-MLY1MC2SDR"
+    };
 
 
-    event.waitUntil(
-
-      clients
-        .matchAll({
-
-          type:
-            "window",
-
-          includeUncontrolled:
-            true
-
-        })
-
-        .then(
-
-          async function(windowClients) {
-
-            for (
-              const client of windowClients
-            ) {
-
-              if (
-                "focus" in client
-              ) {
-
-                await client.focus();
+    const VAPID_KEY =
+      "BPRe8I4x0JBgKbx4JgV68pX_R2aVpAJMacWlBfV0RS0D19P1i2Msr2BBcvcrLE8j18hacj-kDrFNmIif-tois8w";
 
 
-                if (
-                  "navigate" in client
-                ) {
+    const BACKEND =
+      "https://mavrenx-checkout.matthewrizzwani.workers.dev";
 
-                  await client.navigate(
+
+    const statusText =
+      document.getElementById(
+        "status"
+      );
+
+
+    const button =
+      document.getElementById(
+        "send-test"
+      );
+
+
+    if (!firebase.apps.length) {
+      firebase.initializeApp(
+        firebaseConfig
+      );
+    }
+
+
+    const messaging =
+      firebase.messaging();
+
+
+    messaging.onMessage(
+      async function(payload) {
+
+        statusText.textContent =
+          "Notification received successfully!";
+
+
+        const title =
+          payload.notification?.title ||
+          "MAVRENX";
+
+
+        const body =
+          payload.notification?.body ||
+          "Notification received.";
+
+
+        const targetUrl =
+          payload.data?.trackingUrl ||
+          payload.data?.url ||
+          "https://mavrenxofficial.github.io/mavrenx-store/";
+
+
+        try {
+
+          const registration =
+            await navigator
+              .serviceWorker
+              .ready;
+
+
+          await registration
+            .showNotification(
+              title,
+              {
+                body: body,
+
+                data: {
+                  url:
                     targetUrl
-                  );
-
                 }
-
-
-                return;
               }
+            );
 
-            }
+        } catch (error) {
 
+          console.error(
+            error
+          );
 
-            if (
-              clients.openWindow
-            ) {
+        }
 
-              return clients.openWindow(
-                targetUrl
-              );
-
-            }
-
-          }
-
-        )
-
+      }
     );
 
-  }
 
-);
+    async function sendTestNotification() {
+
+      button.disabled =
+        true;
+
+
+      statusText.textContent =
+        "Preparing notification token...";
+
+
+      try {
+
+        if (
+          !("Notification" in window)
+        ) {
+          throw new Error(
+            "This browser does not support notifications."
+          );
+        }
+
+
+        let permission =
+          Notification.permission;
+
+
+        if (
+          permission !== "granted"
+        ) {
+
+          permission =
+            await Notification
+              .requestPermission();
+
+        }
+
+
+        if (
+          permission !== "granted"
+        ) {
+          throw new Error(
+            "Notification permission was not granted."
+          );
+        }
+
+
+        const registration =
+          await navigator
+            .serviceWorker
+            .register(
+              "./firebase-messaging-sw.js"
+            );
+
+
+        await navigator
+          .serviceWorker
+          .ready;
+
+
+        statusText.textContent =
+          "Creating Firebase token...";
+
+
+        const token =
+          await messaging.getToken({
+
+            vapidKey:
+              VAPID_KEY,
+
+            serviceWorkerRegistration:
+              registration
+
+          });
+
+
+        if (!token) {
+          throw new Error(
+            "Firebase did not return a notification token."
+          );
+        }
+
+
+        localStorage.setItem(
+          "mavrenx-notification-token",
+          token
+        );
+
+
+        localStorage.setItem(
+          "mavrenx-notifications-enabled",
+          "yes"
+        );
+
+
+        statusText.textContent =
+          "Token created. Sending test...";
+
+
+        const response =
+          await fetch(
+            BACKEND +
+              "/test-notification",
+            {
+
+              method:
+                "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body:
+                JSON.stringify({
+                  notificationToken:
+                    token
+                })
+
+            }
+          );
+
+
+        let data =
+          {};
+
+
+        try {
+
+          data =
+            await response.json();
+
+        } catch (error) {
+
+          data =
+            {};
+
+        }
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            data.details ||
+            data.error ||
+            "Test notification failed."
+          );
+
+        }
+
+
+        statusText.textContent =
+          "TEST SENT ✓ Watch for your MAVRENX notification.";
+
+
+      } catch (error) {
+
+        console.error(
+          error
+        );
+
+
+        statusText.textContent =
+          "ERROR: " +
+          error.message;
+
+      }
+
+
+      button.disabled =
+        false;
+    }
+
+
+    button.addEventListener(
+      "click",
+      sendTestNotification
+    );
+
+  </script>
+
+</body>
+
+</html>
