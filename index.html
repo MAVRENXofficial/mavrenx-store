@@ -22,7 +22,188 @@
     href="styles.css"
   >
 
+
+  <style>
+
+    /* =========================================
+       OIL DISPENSER OPTIONS
+    ========================================== */
+
+    .product-options {
+      margin-top: 22px;
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 14px;
+    }
+
+
+    .product-option-group label {
+      display: block;
+
+      margin-bottom: 7px;
+
+      font-size: 13px;
+
+      font-weight: 800;
+
+      letter-spacing: 0.4px;
+    }
+
+
+    .product-option-group select {
+      width: 100%;
+
+      min-height: 48px;
+
+      padding: 10px 12px;
+
+      border:
+        1px solid #d9dfda;
+
+      border-radius: 9px;
+
+      background: #ffffff;
+
+      color: #171717;
+
+      font: inherit;
+
+      cursor: pointer;
+
+      user-select: auto;
+
+      -webkit-user-select: auto;
+    }
+
+
+    body.dark-mode
+    .product-option-group select {
+      background: #151815;
+
+      color: #ffffff;
+
+      border-color: #343a34;
+    }
+
+
+    .best-value-note {
+      display: none;
+
+      margin-top: 12px;
+
+      padding: 6px 11px;
+
+      border-radius: 999px;
+
+      background:
+        rgba(21, 153, 71, 0.10);
+
+      color: #159947;
+
+      font-size: 12px;
+
+      font-weight: 800;
+    }
+
+
+    .oil-price-line {
+      display: flex;
+
+      align-items: baseline;
+
+      flex-wrap: wrap;
+
+      gap: 10px;
+
+      margin-top: 20px;
+    }
+
+
+    .oil-price-label {
+      color: #747474;
+
+      font-size: 13px;
+
+      font-weight: 700;
+    }
+
+
+    body.dark-mode
+    .oil-price-label {
+      color: #aaaaaa;
+    }
+
+
+    .cart-variant {
+      margin:
+        3px 0 6px;
+
+      color: #747474;
+
+      font-size: 13px;
+
+      line-height: 1.4;
+    }
+
+
+    body.dark-mode
+    .cart-variant {
+      color: #aaaaaa;
+    }
+
+
+    .oil-main-media {
+      width: 100%;
+
+      height: 100%;
+
+      object-fit: contain;
+
+      padding: 10px;
+
+      display: block;
+    }
+
+
+    .oil-video-thumbnail {
+      width: 100%;
+
+      height: 100%;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      border-radius: 5px;
+
+      background: #151815;
+
+      color: #ffffff;
+
+      font-size: 22px;
+
+      font-weight: 900;
+    }
+
+
+    @media (max-width: 520px) {
+
+      .product-options {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+  </style>
+
 </head>
+
 
 
 <body>
@@ -407,16 +588,11 @@
       </div>
 
 
-
       <div
         id="cleaning-products"
         class="category-products"
       >
 
-
-        <!-- =========================================
-             ELECTRIC SPIN SCRUBBER
-        ========================================== -->
 
         <div class="product-card">
 
@@ -454,7 +630,6 @@
               </button>
 
             </div>
-
 
 
             <div
@@ -789,9 +964,291 @@
         class="category-products"
       >
 
-        <div class="empty-category">
-          Kitchen products coming soon.
+
+        <!-- =========================================
+             OIL DISPENSER
+        ========================================== -->
+
+        <div
+          class="product-card"
+          id="oil-dispenser-product"
+        >
+
+
+          <div class="product-gallery">
+
+
+            <div
+              class="gallery-main"
+              id="oil-gallery-main"
+            >
+
+              <button
+                type="button"
+                class="gallery-arrow gallery-left"
+                onclick="changeOilMedia(-1)"
+                aria-label="Previous product media"
+              >
+                ‹
+              </button>
+
+
+              <img
+                id="oil-main-media"
+                class="oil-main-media"
+                src="https://ae-pic-a1.aliexpress-media.com/kf/S6d9ee7baf36b4e6a8375e288ca4bb7c32.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+                alt="2-in-1 Oil Dispenser and Sprayer"
+              >
+
+
+              <button
+                type="button"
+                class="gallery-arrow gallery-right"
+                onclick="changeOilMedia(1)"
+                aria-label="Next product media"
+              >
+                ›
+              </button>
+
+            </div>
+
+
+
+            <div
+              class="gallery-thumbnails"
+              id="oil-thumbnails"
+            >
+
+
+              <button
+                type="button"
+                class="gallery-thumbnail"
+                onclick="setOilMedia(0)"
+                aria-label="Product video"
+              >
+                <span class="oil-video-thumbnail">
+                  ▶
+                </span>
+              </button>
+
+
+              <button
+                type="button"
+                class="gallery-thumbnail active"
+                onclick="setOilMedia(1)"
+              >
+                <img
+                  src="https://ae-pic-a1.aliexpress-media.com/kf/S6d9ee7baf36b4e6a8375e288ca4bb7c32.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+                  alt="Oil dispenser product image 1"
+                >
+              </button>
+
+
+              <button
+                type="button"
+                class="gallery-thumbnail"
+                onclick="setOilMedia(2)"
+              >
+                <img
+                  src="https://ae-pic-a1.aliexpress-media.com/kf/Sf9c33a3e973d43ccb8d9d56bc1e9ebb6B.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+                  alt="Oil dispenser product image 2"
+                >
+              </button>
+
+
+              <button
+                type="button"
+                class="gallery-thumbnail"
+                onclick="setOilMedia(3)"
+              >
+                <img
+                  src="https://ae-pic-a1.aliexpress-media.com/kf/Se80f2b93425b49cd8e99909b2cd41283D.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+                  alt="Oil dispenser product image 3"
+                >
+              </button>
+
+
+              <button
+                type="button"
+                class="gallery-thumbnail"
+                onclick="setOilMedia(4)"
+              >
+                <img
+                  src="https://ae-pic-a1.aliexpress-media.com/kf/S945af6e2d1f047c0a5152d3ac963a78aH.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+                  alt="Oil dispenser product image 4"
+                >
+              </button>
+
+
+              <button
+                type="button"
+                class="gallery-thumbnail"
+                onclick="setOilMedia(5)"
+              >
+                <img
+                  src="https://ae-pic-a1.aliexpress-media.com/kf/S3d8dac18b262410485b6bd1088aeec27i.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+                  alt="Oil dispenser product image 5"
+                >
+              </button>
+
+
+              <button
+                type="button"
+                class="gallery-thumbnail"
+                onclick="setOilMedia(6)"
+              >
+                <img
+                  src="https://ae-pic-a1.aliexpress-media.com/kf/S62e6449b84f34c228e5c4c0240277e298.png?has_lang=1&ver=2_220x220.png_.avif"
+                  alt="Oil dispenser product image 6"
+                >
+              </button>
+
+
+            </div>
+
+          </div>
+
+
+
+          <div class="product-info">
+
+
+            <p class="tag">
+              KITCHEN
+            </p>
+
+
+            <h3 class="product-title">
+              2-in-1 Oil Dispenser & Sprayer
+            </h3>
+
+
+            <p class="product-description">
+              Pour or spray from one convenient bottle.
+              Great for everyday kitchen use with
+              cooking oil, olive oil, vinegar,
+              soy sauce and other suitable
+              pourable liquids.
+            </p>
+
+
+            <ul class="product-features">
+
+              <li>
+                2-in-1 spray and pour design
+              </li>
+
+              <li>
+                Choose between 1 bottle or 2 bottles
+              </li>
+
+              <li>
+                Multiple colour options
+              </li>
+
+              <li>
+                Useful for everyday cooking
+              </li>
+
+              <li>
+                Controlled pouring and spraying
+              </li>
+
+            </ul>
+
+
+
+            <div class="product-options">
+
+
+              <div class="product-option-group">
+
+                <label for="oil-pack-size">
+                  Pack size
+                </label>
+
+                <select
+                  id="oil-pack-size"
+                  onchange="updateOilVariantOptions()"
+                >
+
+                  <option value="single">
+                    1 Bottle — €15.99
+                  </option>
+
+                  <option value="double">
+                    2 Bottles — €22.99
+                  </option>
+
+                </select>
+
+              </div>
+
+
+
+              <div class="product-option-group">
+
+                <label for="oil-variant">
+                  Colour
+                </label>
+
+                <select id="oil-variant">
+                </select>
+
+              </div>
+
+
+            </div>
+
+
+
+            <div
+              id="oil-best-value-note"
+              class="best-value-note"
+            >
+              BEST VALUE
+            </div>
+
+
+
+            <div class="oil-price-line">
+
+              <div
+                class="product-price"
+                id="oil-product-price"
+              >
+                €15.99
+              </div>
+
+              <span
+                class="oil-price-label"
+                id="oil-pack-label"
+              >
+                1 bottle
+              </span>
+
+            </div>
+
+
+
+            <div class="product-actions">
+
+              <button
+                type="button"
+                class="main-button"
+                onclick="addOilDispenserToCart()"
+              >
+                Add to cart
+              </button>
+
+            </div>
+
+
+          </div>
+
+
         </div>
+
 
       </div>
 
@@ -1065,6 +1522,861 @@
 
 
   <script src="script.js"></script>
+
+
+
+  <!-- =========================================
+       OIL DISPENSER JAVASCRIPT
+  ========================================== -->
+
+  <script>
+
+    const oilDispenserMedia = [
+
+      {
+        type: "video",
+
+        src:
+          "https://video.aliexpress-media.com/play/u/ae_sg_item/3000001848793/p/1/e/6/t/10301/5000484474124.mp4?from=edge&definition=h265"
+      },
+
+
+      {
+        type: "image",
+
+        src:
+          "https://ae-pic-a1.aliexpress-media.com/kf/S6d9ee7baf36b4e6a8375e288ca4bb7c32.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+      },
+
+
+      {
+        type: "image",
+
+        src:
+          "https://ae-pic-a1.aliexpress-media.com/kf/Sf9c33a3e973d43ccb8d9d56bc1e9ebb6B.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+      },
+
+
+      {
+        type: "image",
+
+        src:
+          "https://ae-pic-a1.aliexpress-media.com/kf/Se80f2b93425b49cd8e99909b2cd41283D.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+      },
+
+
+      {
+        type: "image",
+
+        src:
+          "https://ae-pic-a1.aliexpress-media.com/kf/S945af6e2d1f047c0a5152d3ac963a78aH.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+      },
+
+
+      {
+        type: "image",
+
+        src:
+          "https://ae-pic-a1.aliexpress-media.com/kf/S3d8dac18b262410485b6bd1088aeec27i.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+      },
+
+
+      {
+        type: "image",
+
+        src:
+          "https://ae-pic-a1.aliexpress-media.com/kf/S62e6449b84f34c228e5c4c0240277e298.png?has_lang=1&ver=2_220x220.png_.avif"
+      }
+
+    ];
+
+
+
+    const oilSingleVariants = [
+
+      [
+        "Dark-BLACK",
+        "Dark Black"
+      ],
+
+      [
+        "Dark-WHITE",
+        "Dark White"
+      ],
+
+      [
+        "Dark-GREEN",
+        "Dark Green"
+      ],
+
+      [
+        "Clear-BLACK",
+        "Clear Black"
+      ],
+
+      [
+        "Clear-WHITE",
+        "Clear White"
+      ],
+
+      [
+        "Clear-GREEN",
+        "Clear Green"
+      ],
+
+      [
+        "Clear-YELLOW",
+        "Clear Yellow"
+      ],
+
+      [
+        "Clear-GREY",
+        "Clear Grey"
+      ]
+
+    ];
+
+
+
+    const oilDoubleVariants = [
+
+      [
+        "Dark2psc-BLACK",
+        "Black + Black"
+      ],
+
+      [
+        "Dark2psc-GREEN",
+        "Green + Green"
+      ],
+
+      [
+        "Dark2psc-WHITE",
+        "White + White"
+      ],
+
+      [
+        "Dark2psc-BLACK-GREEN",
+        "Black + Green"
+      ],
+
+      [
+        "Dark2psc-BLACK-WHITE",
+        "Black + White"
+      ]
+
+    ];
+
+
+
+    let oilGalleryIndex = 1;
+
+
+
+    function updateOilVariantOptions() {
+
+      const packSelect =
+        document.getElementById(
+          "oil-pack-size"
+        );
+
+
+      const variantSelect =
+        document.getElementById(
+          "oil-variant"
+        );
+
+
+      const priceElement =
+        document.getElementById(
+          "oil-product-price"
+        );
+
+
+      const packLabel =
+        document.getElementById(
+          "oil-pack-label"
+        );
+
+
+      const bestValue =
+        document.getElementById(
+          "oil-best-value-note"
+        );
+
+
+      if (
+        !packSelect ||
+        !variantSelect
+      ) {
+        return;
+      }
+
+
+      const isDouble =
+        packSelect.value ===
+        "double";
+
+
+      const variants =
+        isDouble
+          ? oilDoubleVariants
+          : oilSingleVariants;
+
+
+      variantSelect.innerHTML =
+        variants
+          .map(
+            function(variant) {
+
+              return `
+                <option
+                  value="${variant[0]}"
+                >
+                  ${variant[1]}
+                </option>
+              `;
+
+            }
+          )
+          .join("");
+
+
+      if (priceElement) {
+
+        priceElement.textContent =
+          isDouble
+            ? "€22.99"
+            : "€15.99";
+
+      }
+
+
+      if (packLabel) {
+
+        packLabel.textContent =
+          isDouble
+            ? "2 bottles"
+            : "1 bottle";
+
+      }
+
+
+      if (bestValue) {
+
+        bestValue.style.display =
+          isDouble
+            ? "inline-block"
+            : "none";
+
+      }
+
+    }
+
+
+
+    function setOilMedia(index) {
+
+      if (
+        index < 0 ||
+        index >=
+          oilDispenserMedia.length
+      ) {
+        return;
+      }
+
+
+      oilGalleryIndex =
+        index;
+
+
+      const media =
+        oilDispenserMedia[index];
+
+
+      const main =
+        document.getElementById(
+          "oil-gallery-main"
+        );
+
+
+      if (!main) {
+        return;
+      }
+
+
+      const current =
+        main.querySelector(
+          ".oil-main-media"
+        );
+
+
+      if (current) {
+        current.remove();
+      }
+
+
+      let element;
+
+
+      if (
+        media.type ===
+        "video"
+      ) {
+
+        element =
+          document.createElement(
+            "video"
+          );
+
+
+        element.src =
+          media.src;
+
+
+        element.controls =
+          true;
+
+
+        element.muted =
+          true;
+
+
+        element.playsInline =
+          true;
+
+
+        element.preload =
+          "metadata";
+
+      } else {
+
+        element =
+          document.createElement(
+            "img"
+          );
+
+
+        element.src =
+          media.src;
+
+
+        element.alt =
+          "2-in-1 Oil Dispenser and Sprayer";
+
+      }
+
+
+      element.className =
+        "oil-main-media";
+
+
+      const rightArrow =
+        main.querySelector(
+          ".gallery-right"
+        );
+
+
+      main.insertBefore(
+        element,
+        rightArrow
+      );
+
+
+      document
+        .querySelectorAll(
+          "#oil-thumbnails .gallery-thumbnail"
+        )
+        .forEach(
+          function(
+            thumbnail,
+            thumbnailIndex
+          ) {
+
+            thumbnail.classList.toggle(
+              "active",
+              thumbnailIndex === index
+            );
+
+          }
+        );
+
+    }
+
+
+
+    function changeOilMedia(
+      direction
+    ) {
+
+      let next =
+        oilGalleryIndex +
+        direction;
+
+
+      if (
+        next >=
+        oilDispenserMedia.length
+      ) {
+
+        next = 0;
+
+      }
+
+
+      if (next < 0) {
+
+        next =
+          oilDispenserMedia.length -
+          1;
+
+      }
+
+
+      setOilMedia(
+        next
+      );
+
+    }
+
+
+
+    function addOilDispenserToCart() {
+
+      const packSelect =
+        document.getElementById(
+          "oil-pack-size"
+        );
+
+
+      const variantSelect =
+        document.getElementById(
+          "oil-variant"
+        );
+
+
+      if (
+        !packSelect ||
+        !variantSelect
+      ) {
+        return;
+      }
+
+
+      const isDouble =
+        packSelect.value ===
+        "double";
+
+
+      const checkoutId =
+        isDouble
+          ? "oil-dispenser-double-001"
+          : "oil-dispenser-single-001";
+
+
+      const price =
+        isDouble
+          ? 22.99
+          : 15.99;
+
+
+      const variant =
+        variantSelect.value;
+
+
+      const colourLabel =
+        variantSelect.options[
+          variantSelect.selectedIndex
+        ].textContent;
+
+
+      const packLabel =
+        isDouble
+          ? "2 Bottles"
+          : "1 Bottle";
+
+
+      const cartId =
+        checkoutId +
+        "::" +
+        variant;
+
+
+      const existing =
+        cart.find(
+          function(item) {
+
+            return (
+              item.id ===
+              cartId
+            );
+
+          }
+        );
+
+
+      if (existing) {
+
+        existing.quantity += 1;
+
+      } else {
+
+        cart.push({
+
+          id:
+            cartId,
+
+          checkoutId:
+            checkoutId,
+
+          variant:
+            variant,
+
+          variantLabel:
+            packLabel +
+            " • " +
+            colourLabel,
+
+          name:
+            "2-in-1 Oil Dispenser & Sprayer",
+
+          price:
+            price,
+
+          image:
+            oilDispenserMedia[1].src,
+
+          quantity:
+            1
+
+        });
+
+      }
+
+
+      saveCart();
+
+      updateCart();
+
+      openCart();
+
+    }
+
+
+
+    /* =========================================
+       SHOW VARIANT IN CART
+    ========================================== */
+
+    const originalUpdateCart =
+      updateCart;
+
+
+    updateCart =
+      function() {
+
+        originalUpdateCart();
+
+
+        const container =
+          document.getElementById(
+            "cart-items"
+          );
+
+
+        if (
+          !container ||
+          cart.length === 0
+        ) {
+          return;
+        }
+
+
+        const rows =
+          container.querySelectorAll(
+            ".cart-item"
+          );
+
+
+        rows.forEach(
+          function(
+            row,
+            index
+          ) {
+
+            const item =
+              cart[index];
+
+
+            if (
+              !item ||
+              !item.variantLabel
+            ) {
+              return;
+            }
+
+
+            const info =
+              row.querySelector(
+                ".cart-item-info"
+              );
+
+
+            const price =
+              row.querySelector(
+                ".cart-price"
+              );
+
+
+            if (
+              !info ||
+              !price
+            ) {
+              return;
+            }
+
+
+            const variantText =
+              document.createElement(
+                "p"
+              );
+
+
+            variantText.className =
+              "cart-variant";
+
+
+            variantText.textContent =
+              item.variantLabel;
+
+
+            info.insertBefore(
+              variantText,
+              price
+            );
+
+          }
+        );
+
+      };
+
+
+
+    /* =========================================
+       CHECKOUT WITH VARIANTS
+    ========================================== */
+
+    checkout =
+      async function() {
+
+        if (
+          cart.length === 0
+        ) {
+
+          alert(
+            "Your cart is empty."
+          );
+
+          return;
+
+        }
+
+
+        const checkoutButton =
+          document.querySelector(
+            ".checkout-button"
+          );
+
+
+        const originalText =
+          checkoutButton
+            ? checkoutButton.textContent
+            : "Checkout";
+
+
+        if (checkoutButton) {
+
+          checkoutButton.disabled =
+            true;
+
+
+          checkoutButton.textContent =
+            "Opening secure checkout...";
+
+        }
+
+
+        try {
+
+
+          const items =
+            cart.map(
+              function(item) {
+
+                return {
+
+                  id:
+                    item.checkoutId ||
+                    item.id,
+
+                  quantity:
+                    Number(
+                      item.quantity
+                    ) || 1,
+
+                  variant:
+                    item.variant ||
+                    "",
+
+                  variantLabel:
+                    item.variantLabel ||
+                    ""
+
+                };
+
+              }
+            );
+
+
+
+          const response =
+            await fetch(
+
+              checkoutBackendUrl +
+              "/create-checkout-session",
+
+              {
+
+                method:
+                  "POST",
+
+                headers: {
+
+                  "Content-Type":
+                    "application/json"
+
+                },
+
+                body:
+                  JSON.stringify({
+
+                    items:
+                      items,
+
+                    notificationToken:
+                      localStorage.getItem(
+                        "mavrenx-notification-token"
+                      ) || ""
+
+                  })
+
+              }
+
+            );
+
+
+
+          let data = {};
+
+
+          try {
+
+            data =
+              await response.json();
+
+          } catch (error) {
+
+            data = {};
+
+          }
+
+
+
+          if (
+            !response.ok
+          ) {
+
+            throw new Error(
+
+              data.error ||
+
+              "Checkout could not be started."
+
+            );
+
+          }
+
+
+
+          if (!data.url) {
+
+            throw new Error(
+
+              "Stripe checkout URL was not returned."
+
+            );
+
+          }
+
+
+
+          window.location.href =
+            data.url;
+
+
+        } catch (error) {
+
+
+          console.error(
+
+            "MAVRENX checkout error:",
+
+            error
+
+          );
+
+
+          alert(
+
+            error.message ||
+
+            "Checkout could not be started. Please try again."
+
+          );
+
+
+          if (checkoutButton) {
+
+            checkoutButton.disabled =
+              false;
+
+
+            checkoutButton.textContent =
+              originalText;
+
+          }
+
+        }
+
+      };
+
+
+
+    document.addEventListener(
+
+      "DOMContentLoaded",
+
+      function() {
+
+        updateOilVariantOptions();
+
+        setOilMedia(1);
+
+      }
+
+    );
+
+  </script>
 
 
 </body>
