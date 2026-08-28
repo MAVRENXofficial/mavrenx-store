@@ -1,1 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>MAVRENX Status Test</title>
+</head>
+
+<body>
+
+  <h1>MAVRENX Order Status Test</h1>
+
+  <p id="status">
+    Ready.
+  </p>
+
+  <button
+    id="send"
+    type="button"
+  >
+    Preview Shipped notification
+  </button>
+
+
+  <script>
+
+    const statusText =
+      document.getElementById("status");
+
+    const button =
+      document.getElementById("send");
+
+
+    async function sendShippedTest() {
+
+      button.disabled = true;
+
+      statusText.textContent =
+        "Sending Shipped notification...";
+
+
+      try {
+
+        if (
+          !("Notification" in window)
+        ) {
+          throw new Error(
+            "Notifications aren't supported."
+          );
+        }
+
+
+        if (
+          Notification.permission !== "granted"
+        ) {
+
+          const permission =
+            await Notification.requestPermission();
+
+          if (
+            permission !== "granted"
+          ) {
+            throw new Error(
+              "Notifications aren't allowed."
+            );
+          }
+        }
+
+
+        const registration =
+          await navigator
+            .serviceWorker
+            .register(
+              "./firebase-messaging-sw.js"
+            );
+
+
+        await navigator
+          .serviceWorker
+          .ready;
+
+
+        await registration
+          .showNotification(
+            "MAVRENX order update",
+            {
+
+              body:
+                "Your order is now: Shipped.",
+
+              tag:
+                "mavrenx-shipped-test",
+
+              renotify:
+                true,
+
+              data: {
+
+                url:
+                  "https://mavrenxofficial.github.io/mavrenx-store/",
+
+                trackingUrl:
+                  "https://mavrenxofficial.github.io/mavrenx-store/"
+
+              }
+
+            }
+          );
+
+
+        statusText.textContent =
+          "SHIPPED TEST SENT ✓";
+
+
+      } catch (error) {
+
+        statusText.textContent =
+          "ERROR: " + error.message;
+
+      }
+
+
+      button.disabled = false;
+
+    }
+
+
+    button.addEventListener(
+      "click",
+      sendShippedTest
+    );
+
+  </script>
+
+</body>
+
+</html>
