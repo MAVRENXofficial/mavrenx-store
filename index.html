@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
   <meta charset="UTF-8">
 
   <meta
@@ -14,7 +13,7 @@
 
   <meta
     name="description"
-    content="Discover useful MAVRENX products for your home, cleaning, kitchen, bedroom and everyday life."
+    content="Discover useful MAVRENX products for your home, cleaning, kitchen, bedroom, lighting and everyday life."
   >
 
   <link
@@ -22,43 +21,30 @@
     href="styles.css"
   >
 
-
   <style>
-
     /* =========================================
-       OIL DISPENSER OPTIONS
+       FINAL MAVRENX PRODUCT SYSTEM
     ========================================== */
 
     .product-options {
       margin-top: 22px;
-
       display: grid;
-
       grid-template-columns:
         repeat(2, minmax(0, 1fr));
-
       gap: 14px;
     }
 
-
     .product-option-group label {
       display: block;
-
       margin-bottom: 7px;
-
       font-size: 13px;
-
       font-weight: 800;
-
       letter-spacing: 0.4px;
     }
 
-
     .product-option-group select {
       width: 100%;
-
       min-height: 48px;
-
       padding: 10px 12px;
 
       border:
@@ -67,35 +53,25 @@
       border-radius: 9px;
 
       background: #ffffff;
-
       color: #171717;
 
       font: inherit;
-
       cursor: pointer;
-
-      user-select: auto;
-
-      -webkit-user-select: auto;
     }
-
 
     body.dark-mode
     .product-option-group select {
       background: #151815;
-
       color: #ffffff;
-
       border-color: #343a34;
     }
 
+    .product-fixed-detail {
+      display: inline-block;
+      width: fit-content;
 
-    .best-value-note {
-      display: none;
-
-      margin-top: 12px;
-
-      padding: 6px 11px;
+      margin-top: 16px;
+      padding: 7px 11px;
 
       border-radius: 999px;
 
@@ -105,38 +81,8 @@
       color: #159947;
 
       font-size: 12px;
-
       font-weight: 800;
     }
-
-
-    .oil-price-line {
-      display: flex;
-
-      align-items: baseline;
-
-      flex-wrap: wrap;
-
-      gap: 10px;
-
-      margin-top: 20px;
-    }
-
-
-    .oil-price-label {
-      color: #747474;
-
-      font-size: 13px;
-
-      font-weight: 700;
-    }
-
-
-    body.dark-mode
-    .oil-price-label {
-      color: #aaaaaa;
-    }
-
 
     .cart-variant {
       margin:
@@ -145,65 +91,132 @@
       color: #747474;
 
       font-size: 13px;
-
       line-height: 1.4;
     }
-
 
     body.dark-mode
     .cart-variant {
       color: #aaaaaa;
     }
 
+    /*
+      Keep galleries clean and compact instead
+      of stretching low-resolution images.
+    */
 
-    .oil-main-media {
+    .product-gallery {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .gallery-main {
       width: 100%;
+      max-width: 520px;
 
+      aspect-ratio: 1 / 1;
+
+      margin-inline: auto;
+    }
+
+    .generic-main-media {
+      width: 100%;
       height: 100%;
+
+      display: block;
 
       object-fit: contain;
 
-      padding: 10px;
-
-      display: block;
+      padding: 12px;
     }
 
+    video.generic-main-media {
+      padding: 0;
+      background: #111111;
+    }
 
-    .oil-video-thumbnail {
+    .gallery-thumbnails {
       width: 100%;
+      max-width: 520px;
 
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(52px, 1fr));
+
+      gap: 8px;
+    }
+
+    .gallery-thumbnail {
+      max-width: 80px;
+    }
+
+    .gallery-thumbnail img {
+      object-fit: contain;
+    }
+
+    .video-thumbnail {
+      width: 100%;
       height: 100%;
 
       display: flex;
 
       align-items: center;
-
       justify-content: center;
 
       border-radius: 5px;
 
       background: #151815;
-
       color: #ffffff;
 
-      font-size: 22px;
-
+      font-size: 20px;
       font-weight: 900;
     }
 
+    body.dark-mode
+    .gallery-main,
+    body.dark-mode
+    .gallery-thumbnail {
+      background: #151815;
+    }
 
-    @media (max-width: 520px) {
+    .product-card + .product-card {
+      margin-top: 26px;
+    }
 
+    @media (max-width: 700px) {
       .product-options {
         grid-template-columns: 1fr;
       }
 
+      .gallery-main {
+        max-width: 390px;
+      }
+
+      .gallery-thumbnails {
+        max-width: 390px;
+      }
     }
 
+    @media (max-width: 480px) {
+      .gallery-main {
+        max-width: 320px;
+      }
+
+      .gallery-thumbnails {
+        max-width: 320px;
+
+        grid-template-columns:
+          repeat(5, minmax(0, 1fr));
+      }
+
+      .gallery-thumbnail {
+        max-width: none;
+      }
+    }
   </style>
 
 </head>
-
 
 
 <body>
@@ -226,11 +239,11 @@
         Home
       </a>
 
-      <a href="index.html#categories">
+      <a href="#categories">
         Categories
       </a>
 
-      <a href="index.html#categories">
+      <a href="#categories">
         Shop
       </a>
 
@@ -242,7 +255,7 @@
         Support
       </a>
 
-      <a href="index.html#about">
+      <a href="#about">
         About
       </a>
 
@@ -289,7 +302,7 @@
 
 
   <!-- =========================================
-       NOTIFICATION POPUP
+       NOTIFICATIONS
   ========================================== -->
 
   <div
@@ -426,12 +439,10 @@
 
       <div class="category-grid">
 
-
         <a
           href="#cleaning"
           class="category-card"
         >
-
           <span class="category-icon">
             🧹
           </span>
@@ -443,7 +454,6 @@
           <p>
             Cleaning tools and useful accessories.
           </p>
-
         </a>
 
 
@@ -451,7 +461,6 @@
           href="#lighting"
           class="category-card"
         >
-
           <span class="category-icon">
             💡
           </span>
@@ -461,9 +470,8 @@
           </h3>
 
           <p>
-            Lamps, LEDs and ambient lighting.
+            LEDs, ambient lights and useful lighting.
           </p>
-
         </a>
 
 
@@ -471,7 +479,6 @@
           href="#home-products"
           class="category-card"
         >
-
           <span class="category-icon">
             🏠
           </span>
@@ -483,7 +490,6 @@
           <p>
             Everyday essentials and useful gadgets.
           </p>
-
         </a>
 
 
@@ -491,7 +497,6 @@
           href="#kitchen"
           class="category-card"
         >
-
           <span class="category-icon">
             🍳
           </span>
@@ -503,7 +508,6 @@
           <p>
             Cooking tools and kitchen accessories.
           </p>
-
         </a>
 
 
@@ -511,7 +515,6 @@
           href="#smart-home"
           class="category-card"
         >
-
           <span class="category-icon">
             🔌
           </span>
@@ -521,9 +524,8 @@
           </h3>
 
           <p>
-            Smart devices and useful home technology.
+            Smart devices and useful technology.
           </p>
-
         </a>
 
 
@@ -531,7 +533,6 @@
           href="#bedroom"
           class="category-card"
         >
-
           <span class="category-icon">
             🛏️
           </span>
@@ -541,11 +542,9 @@
           </h3>
 
           <p>
-            Comfort, lighting and organisation.
+            Comfort and ambient room products.
           </p>
-
         </a>
-
 
       </div>
 
@@ -591,241 +590,7 @@
       <div
         id="cleaning-products"
         class="category-products"
-      >
-
-
-        <!-- =========================================
-             ELECTRIC SPIN SCRUBBER
-        ========================================== -->
-
-        <div class="product-card">
-
-
-          <div class="product-gallery">
-
-
-            <div class="gallery-main">
-
-              <button
-                type="button"
-                class="gallery-arrow gallery-left"
-                onclick="changeSpongeImage('cleaning', -1)"
-                aria-label="Previous product image"
-              >
-                ‹
-              </button>
-
-
-              <img
-                id="sponge-main-image-cleaning"
-                class="gallery-main-image"
-                src="https://ae-pic-a1.aliexpress-media.com/kf/Se11ffac394ff459d9895d8295bbe27ead.jpg_220x220q75.jpg_.avif"
-                alt="Electric Spin Scrubber Sponge"
-              >
-
-
-              <button
-                type="button"
-                class="gallery-arrow gallery-right"
-                onclick="changeSpongeImage('cleaning', 1)"
-                aria-label="Next product image"
-              >
-                ›
-              </button>
-
-            </div>
-
-
-            <div
-              class="gallery-thumbnails"
-              id="sponge-thumbnails-cleaning"
-            >
-
-
-              <button
-                type="button"
-                class="gallery-thumbnail active"
-                onclick="setSpongeImage('cleaning', 0)"
-              >
-
-                <img
-                  src="https://ae-pic-a1.aliexpress-media.com/kf/Se11ffac394ff459d9895d8295bbe27ead.jpg_220x220q75.jpg_.avif"
-                  alt="Product image 1"
-                >
-
-              </button>
-
-
-              <button
-                type="button"
-                class="gallery-thumbnail"
-                onclick="setSpongeImage('cleaning', 1)"
-              >
-
-                <img
-                  src="https://ae-pic-a1.aliexpress-media.com/kf/Scf67aebae10449a2822454605ed56195N.jpg_220x220q75.jpg_.avif"
-                  alt="Product image 2"
-                >
-
-              </button>
-
-
-              <button
-                type="button"
-                class="gallery-thumbnail"
-                onclick="setSpongeImage('cleaning', 2)"
-              >
-
-                <img
-                  src="https://ae-pic-a1.aliexpress-media.com/kf/Sda9899dbd8ef4af39775d1a20d1ced0ao.jpg_220x220q75.jpg_.avif"
-                  alt="Product image 3"
-                >
-
-              </button>
-
-
-              <button
-                type="button"
-                class="gallery-thumbnail"
-                onclick="setSpongeImage('cleaning', 3)"
-              >
-
-                <img
-                  src="https://ae-pic-a1.aliexpress-media.com/kf/S4178ac99ae1d4d9f96a4f9425578af8bY.jpg_220x220q75.jpg_.avif"
-                  alt="Product image 4"
-                >
-
-              </button>
-
-
-              <button
-                type="button"
-                class="gallery-thumbnail"
-                onclick="setSpongeImage('cleaning', 4)"
-              >
-
-                <img
-                  src="https://ae-pic-a1.aliexpress-media.com/kf/S10033e683b6047109d777d23c45b3131x.jpg_220x220q75.jpg_.avif"
-                  alt="Product image 5"
-                >
-
-              </button>
-
-
-              <button
-                type="button"
-                class="gallery-thumbnail"
-                onclick="setSpongeImage('cleaning', 5)"
-              >
-
-                <img
-                  src="https://ae-pic-a1.aliexpress-media.com/kf/Sb865bea0bd644c689b16d424dc9cae1fV.jpg_220x220q75.jpg_.avif"
-                  alt="Product image 6"
-                >
-
-              </button>
-
-
-            </div>
-
-          </div>
-
-
-
-          <div class="product-info">
-
-            <p class="tag">
-              CLEANING
-            </p>
-
-
-            <h3 class="product-title">
-              Electric Spin Scrubber Sponge
-            </h3>
-
-
-            <p class="product-description">
-              Make everyday cleaning quicker and easier
-              with the Electric Spin Scrubber Sponge.
-              Its powered spinning head helps tackle
-              dirt and grime while reducing the amount
-              of scrubbing you need to do by hand.
-            </p>
-
-
-            <ul class="product-features">
-
-              <li>
-                Powered spinning cleaning head
-              </li>
-
-              <li>
-                Helps make everyday scrubbing easier
-              </li>
-
-              <li>
-                Ideal for everyday household cleaning
-              </li>
-
-              <li>
-                Useful for kitchens and bathrooms
-              </li>
-
-              <li>
-                Suitable for sinks, tiles and hard surfaces
-              </li>
-
-              <li>
-                Compact handheld design
-              </li>
-
-            </ul>
-
-
-            <div class="product-price">
-              €27.99
-            </div>
-
-
-            <div class="product-actions">
-
-              <button
-                type="button"
-                class="main-button"
-                onclick="addToCart(
-                  'spinning-sponge-001',
-                  'Electric Spin Scrubber Sponge',
-                  27.99,
-                  'https://ae-pic-a1.aliexpress-media.com/kf/Se11ffac394ff459d9895d8295bbe27ead.jpg_220x220q75.jpg_.avif'
-                )"
-              >
-                Add to cart
-              </button>
-
-
-              <button
-                type="button"
-                class="like-button"
-                data-product-like="spinning-sponge-001"
-                onclick="toggleLike(
-                  'spinning-sponge-001',
-                  'Electric Spin Scrubber Sponge',
-                  27.99,
-                  'https://ae-pic-a1.aliexpress-media.com/kf/Se11ffac394ff459d9895d8295bbe27ead.jpg_220x220q75.jpg_.avif'
-                )"
-              >
-                ♡ Like
-              </button>
-
-            </div>
-
-          </div>
-
-
-        </div>
-
-
-      </div>
+      ></div>
 
     </section>
 
@@ -846,6 +611,7 @@
           💡
         </span>
 
+
         <div>
 
           <p class="tag">
@@ -857,7 +623,7 @@
           </h2>
 
           <p class="category-description">
-            Lamps, LEDs and lighting for your space.
+            LEDs, ambient lights and useful lighting.
           </p>
 
         </div>
@@ -868,13 +634,7 @@
       <div
         id="lighting-products"
         class="category-products"
-      >
-
-        <div class="empty-category">
-          Lighting products coming soon.
-        </div>
-
-      </div>
+      ></div>
 
     </section>
 
@@ -895,6 +655,7 @@
           🏠
         </span>
 
+
         <div>
 
           <p class="tag">
@@ -906,7 +667,7 @@
           </h2>
 
           <p class="category-description">
-            Useful everyday products for your home.
+            Everyday essentials and useful gadgets.
           </p>
 
         </div>
@@ -915,15 +676,9 @@
 
 
       <div
-        id="home-category-products"
+        id="home-products-container"
         class="category-products"
-      >
-
-        <div class="empty-category">
-          Home products coming soon.
-        </div>
-
-      </div>
+      ></div>
 
     </section>
 
@@ -944,6 +699,7 @@
           🍳
         </span>
 
+
         <div>
 
           <p class="tag">
@@ -955,7 +711,7 @@
           </h2>
 
           <p class="category-description">
-            Kitchen gadgets, tools and accessories.
+            Cooking tools and useful kitchen accessories.
           </p>
 
         </div>
@@ -966,214 +722,7 @@
       <div
         id="kitchen-products"
         class="category-products"
-      >
-
-
-        <!-- =========================================
-             OIL DISPENSER
-        ========================================== -->
-
-        <div
-          class="product-card"
-          id="oil-dispenser-product"
-        >
-
-
-          <div class="product-gallery">
-
-
-            <div
-              class="gallery-main"
-              id="oil-gallery-main"
-            >
-
-              <button
-                type="button"
-                class="gallery-arrow gallery-left"
-                onclick="changeOilMedia(-1)"
-                aria-label="Previous product media"
-              >
-                ‹
-              </button>
-
-
-              <img
-                class="oil-main-media"
-                src="https://ae-pic-a1.aliexpress-media.com/kf/S6d9ee7baf36b4e6a8375e288ca4bb7c32.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
-                alt="2-in-1 Oil Dispenser and Sprayer"
-              >
-
-
-              <button
-                type="button"
-                class="gallery-arrow gallery-right"
-                onclick="changeOilMedia(1)"
-                aria-label="Next product media"
-              >
-                ›
-              </button>
-
-            </div>
-
-
-            <div
-              class="gallery-thumbnails"
-              id="oil-thumbnails"
-            >
-            </div>
-
-          </div>
-
-
-
-          <div class="product-info">
-
-
-            <p class="tag">
-              KITCHEN
-            </p>
-
-
-            <h3 class="product-title">
-              2-in-1 Oil Dispenser & Sprayer
-            </h3>
-
-
-            <p class="product-description">
-              Pour or spray from one convenient bottle.
-              Great for everyday kitchen use with
-              cooking oil, olive oil, vinegar,
-              soy sauce and other suitable
-              pourable liquids.
-            </p>
-
-
-            <ul class="product-features">
-
-              <li>
-                2-in-1 spray and pour design
-              </li>
-
-              <li>
-                Choose between 1 bottle or 2 bottles
-              </li>
-
-              <li>
-                Dark and clear bottle styles available
-              </li>
-
-              <li>
-                Multiple colour options
-              </li>
-
-              <li>
-                Useful for everyday cooking
-              </li>
-
-              <li>
-                Controlled pouring and spraying
-              </li>
-
-            </ul>
-
-
-
-            <div class="product-options">
-
-
-              <div class="product-option-group">
-
-                <label for="oil-pack-size">
-                  Pack size
-                </label>
-
-                <select
-                  id="oil-pack-size"
-                  onchange="updateOilVariantOptions()"
-                >
-
-                  <option value="single">
-                    1 Bottle — €15.99
-                  </option>
-
-                  <option value="double">
-                    2 Bottles — €22.99
-                  </option>
-
-                </select>
-
-              </div>
-
-
-
-              <div class="product-option-group">
-
-                <label for="oil-variant">
-                  Colour
-                </label>
-
-                <select
-                  id="oil-variant"
-                  onchange="syncOilMediaToSelection(true)"
-                >
-                </select>
-
-              </div>
-
-
-            </div>
-
-
-
-            <div
-              id="oil-best-value-note"
-              class="best-value-note"
-            >
-              BEST VALUE
-            </div>
-
-
-
-            <div class="oil-price-line">
-
-              <div
-                class="product-price"
-                id="oil-product-price"
-              >
-                €15.99
-              </div>
-
-              <span
-                class="oil-price-label"
-                id="oil-pack-label"
-              >
-                1 bottle
-              </span>
-
-            </div>
-
-
-
-            <div class="product-actions">
-
-              <button
-                type="button"
-                class="main-button"
-                onclick="addOilDispenserToCart()"
-              >
-                Add to cart
-              </button>
-
-            </div>
-
-
-          </div>
-
-
-        </div>
-
-
-      </div>
+      ></div>
 
     </section>
 
@@ -1194,6 +743,7 @@
           🔌
         </span>
 
+
         <div>
 
           <p class="tag">
@@ -1205,7 +755,7 @@
           </h2>
 
           <p class="category-description">
-            Smart devices and connected home technology.
+            Smart devices and useful everyday technology.
           </p>
 
         </div>
@@ -1216,13 +766,7 @@
       <div
         id="smart-home-products"
         class="category-products"
-      >
-
-        <div class="empty-category">
-          Smart-home products coming soon.
-        </div>
-
-      </div>
+      ></div>
 
     </section>
 
@@ -1243,6 +787,7 @@
           🛏️
         </span>
 
+
         <div>
 
           <p class="tag">
@@ -1254,7 +799,7 @@
           </h2>
 
           <p class="category-description">
-            Comfort, lighting, storage and accessories.
+            Comfort and ambient room products.
           </p>
 
         </div>
@@ -1265,13 +810,7 @@
       <div
         id="bedroom-products"
         class="category-products"
-      >
-
-        <div class="empty-category">
-          Bedroom products coming soon.
-        </div>
-
-      </div>
+      ></div>
 
     </section>
 
@@ -1311,7 +850,7 @@
 
 
   <!-- =========================================
-       LIKES PANEL
+       LIKES
   ========================================== -->
 
   <div
@@ -1345,7 +884,7 @@
 
 
   <!-- =========================================
-       CART PANEL
+       CART
   ========================================== -->
 
   <div
@@ -1449,830 +988,2136 @@
 
 
   <!-- =========================================
-       OIL DISPENSER JAVASCRIPT
+       FINAL PRODUCT CATALOG
   ========================================== -->
 
   <script>
 
-    /* =========================================
-       DARK VERSION MEDIA
-    ========================================== */
+    const PRODUCTS = {
 
-    const oilDarkMedia = [
 
-      {
-        type: "video",
+      /* =======================================
+         1. ELECTRIC SPIN SCRUBBER
+      ======================================= */
 
-        src:
-          "https://video.aliexpress-media.com/play/u/ae_sg_item/3000001848793/p/1/e/6/t/10301/5000484474124.mp4?from=edge&definition=h265"
+      "spinning-sponge-001": {
+
+        id:
+          "spinning-sponge-001",
+
+        category:
+          "cleaning",
+
+        tag:
+          "CLEANING",
+
+        name:
+          "Electric Spin Scrubber Sponge",
+
+        description:
+          "Make everyday cleaning easier with a powered spinning cleaning head designed to help tackle dirt and grime on common household surfaces.",
+
+        features: [
+          "Powered spinning cleaning head",
+          "Compact handheld design",
+          "Helps reduce manual scrubbing",
+          "Useful for kitchens and bathrooms",
+          "Suitable for sinks, tiles and hard surfaces"
+        ],
+
+        price:
+          27.99,
+
+        likeable:
+          true,
+
+        media: [
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Se11ffac394ff459d9895d8295bbe27ead.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Scf67aebae10449a2822454605ed56195N.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sda9899dbd8ef4af39775d1a20d1ced0ao.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S4178ac99ae1d4d9f96a4f9425578af8bY.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S10033e683b6047109d777d23c45b3131x.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sb865bea0bd644c689b16d424dc9cae1fV.jpg_220x220q75.jpg_.avif"
+          }
+
+        ]
+
       },
 
 
-      {
-        type: "image",
 
-        src:
-          "https://ae-pic-a1.aliexpress-media.com/kf/S6d9ee7baf36b4e6a8375e288ca4bb7c32.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
-      },
-
-
-      {
-        type: "image",
-
-        src:
-          "https://ae-pic-a1.aliexpress-media.com/kf/Sf9c33a3e973d43ccb8d9d56bc1e9ebb6B.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
-      },
-
-
-      {
-        type: "image",
-
-        src:
-          "https://ae-pic-a1.aliexpress-media.com/kf/Se80f2b93425b49cd8e99909b2cd41283D.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
-      },
-
-
-      {
-        type: "image",
-
-        src:
-          "https://ae-pic-a1.aliexpress-media.com/kf/S945af6e2d1f047c0a5152d3ac963a78aH.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
-      },
-
-
-      {
-        type: "image",
-
-        src:
-          "https://ae-pic-a1.aliexpress-media.com/kf/S3d8dac18b262410485b6bd1088aeec27i.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
-      },
-
-
-      {
-        type: "image",
-
-        src:
-          "https://ae-pic-a1.aliexpress-media.com/kf/S62e6449b84f34c228e5c4c0240277e298.png?has_lang=1&ver=2_220x220.png_.avif"
-      }
-
-    ];
-
-
-
-    /* =========================================
-       CLEAR VERSION MEDIA
-    ========================================== */
-
-    const oilClearMedia = [
-
-      {
-        type: "image",
-
-        src:
-          "https://ae-pic-a1.aliexpress-media.com/kf/S5e7656bd434644bd9c129f96cb4b8ae4q.jpg_220x220q75.jpg_.avif"
-      },
-
-
-      {
-        type: "image",
-
-        src:
-          "https://ae-pic-a1.aliexpress-media.com/kf/S490079a3ccc3442fadbda6836209cf5fE.jpg_220x220q75.jpg_.avif"
-      },
-
-
-      {
-        type: "image",
-
-        src:
-          "https://ae-pic-a1.aliexpress-media.com/kf/S9afb5d18dca14df9bac9bfe01324ea08D.jpg_220x220q75.jpg_.avif"
-      },
-
-
-      {
-        type: "image",
-
-        src:
-          "https://ae-pic-a1.aliexpress-media.com/kf/Sdee4eebac79840709c50400f863235932.jpg_220x220q75.jpg_.avif"
-      },
-
-
-      {
-        type: "image",
-
-        src:
-          "https://ae-pic-a1.aliexpress-media.com/kf/S59fbe8fdc191483198e54886e7969bc6m.jpg_220x220q75.jpg_.avif"
-      }
-
-    ];
-
-
-
-    /* =========================================
-       PRODUCT VARIANTS
-    ========================================== */
-
-    const oilSingleVariants = [
-
-      [
-        "Dark-BLACK",
-        "Dark Black"
-      ],
-
-      [
-        "Dark-WHITE",
-        "Dark White"
-      ],
-
-      [
-        "Dark-GREEN",
-        "Dark Green"
-      ],
-
-      [
-        "Clear-BLACK",
-        "Clear Black"
-      ],
-
-      [
-        "Clear-WHITE",
-        "Clear White"
-      ],
-
-      [
-        "Clear-GREEN",
-        "Clear Green"
-      ],
-
-      [
-        "Clear-YELLOW",
-        "Clear Yellow"
-      ],
-
-      [
-        "Clear-GREY",
-        "Clear Grey"
-      ]
-
-    ];
-
-
-
-    const oilDoubleVariants = [
-
-      [
-        "Dark2psc-BLACK",
-        "Black + Black"
-      ],
-
-      [
-        "Dark2psc-GREEN",
-        "Green + Green"
-      ],
-
-      [
-        "Dark2psc-WHITE",
-        "White + White"
-      ],
-
-      [
-        "Dark2psc-BLACK-GREEN",
-        "Black + Green"
-      ],
-
-      [
-        "Dark2psc-BLACK-WHITE",
-        "Black + White"
-      ]
-
-    ];
-
-
-
-    let currentOilMediaSet =
-      oilDarkMedia;
-
-
-    let oilGalleryIndex =
-      1;
-
-
-
-    /* =========================================
-       CHOOSE MEDIA SET
-    ========================================== */
-
-    function getOilCurrentMediaSet() {
-
-      const packSelect =
-        document.getElementById(
-          "oil-pack-size"
-        );
-
-
-      const variantSelect =
-        document.getElementById(
-          "oil-variant"
-        );
-
-
-      if (!packSelect) {
-
-        return oilDarkMedia;
-
-      }
-
-
-      const isDouble =
-        packSelect.value ===
-        "double";
-
-
-      if (isDouble) {
-
-        return oilDarkMedia;
-
-      }
-
-
-      const variant =
-        variantSelect
-          ? variantSelect.value
-          : "";
-
-
-      if (
-        typeof variant ===
-          "string" &&
-
-        variant.startsWith(
-          "Clear-"
-        )
-      ) {
-
-        return oilClearMedia;
-
-      }
-
-
-      return oilDarkMedia;
-
-    }
-
-
-
-    /* =========================================
-       RENDER THUMBNAILS
-    ========================================== */
-
-    function renderOilThumbnails() {
-
-      const thumbnails =
-        document.getElementById(
-          "oil-thumbnails"
-        );
-
-
-      if (!thumbnails) {
-
-        return;
-
-      }
-
-
-      thumbnails.innerHTML =
-        currentOilMediaSet
-          .map(
-
-            function(
-              media,
-              index
-            ) {
-
-
-              if (
-                media.type ===
-                "video"
-              ) {
-
-                return `
-                  <button
-                    type="button"
-                    class="gallery-thumbnail ${index === oilGalleryIndex ? "active" : ""}"
-                    onclick="setOilMedia(${index})"
-                    aria-label="Product video"
-                  >
-
-                    <span class="oil-video-thumbnail">
-                      ▶
-                    </span>
-
-                  </button>
-                `;
-
+      /* =======================================
+         2. NEW OIL SPRAYER
+      ======================================= */
+
+      "oil-sprayer-470ml-001": {
+
+        id:
+          "oil-sprayer-470ml-001",
+
+        category:
+          "kitchen",
+
+        tag:
+          "KITCHEN",
+
+        name:
+          "470ML 2-in-1 Oil Sprayer & Dispenser",
+
+        description:
+          "A 470ML glass oil bottle combining a fine spray function with a traditional pouring dispenser in one compact kitchen design.",
+
+        features: [
+          "470ML / 16oz capacity",
+          "2-in-1 spray and pour design",
+          "Glass bottle construction",
+          "Light-blocking bottle design",
+          "Four colour options"
+        ],
+
+        price:
+          32.99,
+
+        options: [
+
+          {
+            key:
+              "colour",
+
+            label:
+              "Colour",
+
+            values: [
+
+              {
+                value: "yellow",
+                label: "Yellow",
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/S0c0ed86bed93408c81ff2e5f8cffd72fW.jpg_220x220q75.jpg_.avif"
+              },
+
+              {
+                value: "green",
+                label: "Green",
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/Sf21bae7943264aa7859794cb14b422d60.jpg_220x220q75.jpg_.avif"
+              },
+
+              {
+                value: "black",
+                label: "Black",
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/Sf6985264e4fc4397b0d1bbe4c00e0564p.jpg_220x220q75.jpg_.avif"
+              },
+
+              {
+                value: "white",
+                label: "White",
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/S63af4e8d31c24c6898e19b74f6e84293j.jpg_220x220q75.jpg_.avif"
               }
 
+            ]
 
-              return `
-                <button
-                  type="button"
-                  class="gallery-thumbnail ${index === oilGalleryIndex ? "active" : ""}"
-                  onclick="setOilMedia(${index})"
-                  aria-label="Product image ${index + 1}"
-                >
+          }
 
-                  <img
-                    src="${media.src}"
-                    alt="Oil dispenser product image ${index + 1}"
-                  >
+        ],
 
-                </button>
-              `;
+        media: [
 
-            }
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S0f98dcb72fdf46b3b0c7a788655ade404.jpg?has_lang=1&ver=1_960x960q75.jpg_.avif"
+          },
 
-          )
-          .join("");
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S16e5c708f248453c9f55815ada9cad971.jpg_220x220q75.jpg_.avif"
+          },
 
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S7966e5f9996b4335992184fc4219a365c.jpg?has_lang=1&ver=1_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S309735392487413f92bfc44c9c295e0eA.jpg?has_lang=1&ver=1_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sefb64d7c0f3348c4bb2849d856a01176B.jpg?has_lang=1&ver=1_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S0ae9265f4fa64c588d34709b1c32a7c1o.jpg?has_lang=1&ver=1_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S0c0ed86bed93408c81ff2e5f8cffd72fW.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sf21bae7943264aa7859794cb14b422d60.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sf6985264e4fc4397b0d1bbe4c00e0564p.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S63af4e8d31c24c6898e19b74f6e84293j.jpg_220x220q75.jpg_.avif"
+          }
+
+        ]
+
+      },
+
+
+
+      /* =======================================
+         3. RGB NEON STRIP
+      ======================================= */
+
+      "rgb-neon-strip-001": {
+
+        id:
+          "rgb-neon-strip-001",
+
+        category:
+          "lighting",
+
+        tag:
+          "LIGHTING",
+
+        name:
+          "Smart RGB Neon LED Strip",
+
+        description:
+          "Flexible RGB neon-style lighting with Bluetooth or Tuya WiFi control and multiple length options for rooms, gaming setups and home decoration.",
+
+        features: [
+          "RGB neon-style lighting",
+          "Bluetooth or Tuya WiFi control",
+          "1m, 2m, 3m and 5m options",
+          "96 LEDs per metre",
+          "IP65-rated strip",
+          "Tuya WiFi version supports smart-home control"
+        ],
+
+        options: [
+
+          {
+            key:
+              "control",
+
+            label:
+              "Control",
+
+            values: [
+
+              {
+                value: "bluetooth",
+                label: "Bluetooth Control",
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/S3e9ef30bd9e84d0d878f61ff39ae9e83v.jpg_220x220q75.jpg_.avif"
+              },
+
+              {
+                value: "tuya",
+                label: "Tuya WiFi Control",
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/S9a6e63777bef4b42911f3b226db7ccd1g.jpg_220x220q75.jpg_.avif"
+              }
+
+            ]
+
+          },
+
+
+          {
+            key:
+              "length",
+
+            label:
+              "Length",
+
+            values: [
+
+              {
+                value: "1m",
+                label: "1 Metre"
+              },
+
+              {
+                value: "2m",
+                label: "2 Metres"
+              },
+
+              {
+                value: "3m",
+                label: "3 Metres"
+              },
+
+              {
+                value: "5m",
+                label: "5 Metres"
+              }
+
+            ]
+
+          }
+
+        ],
+
+        variantPriceMap: {
+
+          "bluetooth|1m":
+            17.99,
+
+          "bluetooth|2m":
+            21.99,
+
+          "bluetooth|3m":
+            26.99,
+
+          "bluetooth|5m":
+            44.99,
+
+          "tuya|1m":
+            21.99,
+
+          "tuya|2m":
+            24.99,
+
+          "tuya|3m":
+            39.99,
+
+          "tuya|5m":
+            49.99
+
+        },
+
+        media: [
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S44cf459fea844dd3895ca7895fcdaca43.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sa2d0925b91a0446da8e28e4026d1d59ey.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S16ee2d228b6c43699031cbc10653a9aa8.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S6c03ca1192994a1a8306801d464574a1I.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S2f87e00216114a1793db398f60f76991B.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S23fb886c28fd439f909db20dc0d556e6p.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S3e9ef30bd9e84d0d878f61ff39ae9e83v.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S9a6e63777bef4b42911f3b226db7ccd1g.jpg_220x220q75.jpg_.avif"
+          }
+
+        ]
+
+      },
+
+
+
+      /* =======================================
+         4. TOWEL WARMER
+      ======================================= */
+
+      "towel-warmer-001": {
+
+        id:
+          "towel-warmer-001",
+
+        category:
+          "home-products",
+
+        tag:
+          "HOME",
+
+        name:
+          "Electric Towel Warmer Bucket",
+
+        description:
+          "A large electric warming bucket designed for towels, bathrobes and blankets with digital controls and multiple capacity options.",
+
+        features: [
+          "20L, 25L and 35L capacity options",
+          "LED control display",
+          "Auto shut-off function",
+          "Child lock",
+          "24-hour reservation function",
+          "Suitable for towels, robes and blankets"
+        ],
+
+        options: [
+
+          {
+            key:
+              "size",
+
+            label:
+              "Capacity",
+
+            values: [
+
+              {
+                value: "20l",
+                label: "20L"
+              },
+
+              {
+                value: "25l",
+                label: "25L"
+              },
+
+              {
+                value: "35l",
+                label: "35L"
+              }
+
+            ]
+
+          }
+
+        ],
+
+        variantPriceMap: {
+
+          "20l":
+            129.99,
+
+          "25l":
+            134.99,
+
+          "35l":
+            161.99
+
+        },
+
+        media: [
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S2d1c7277f75045fb97d11a12a6123416D.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sf8369fe280dd46368924d39b23909026Z.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S5bab5ecdeed2472e8c40052e02ca8672W.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sb7c86974a78b4bbf92a2db399ff1a958m.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S6445ce923ca84d4faf1fc58eda915535J.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S115e07cc4f29433391d62ed78840b1faM.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S33f371d1321a4d8fa496bbdd8726d39fv.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Saed9b30b5a0d4d659979c2b859846f985.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sb26008097e52480abd7850be8d0175d2P.jpg_220x220q75.jpg_.avif"
+          }
+
+        ]
+
+      },
+
+
+
+      /* =======================================
+         5. MINI VACUUM
+      ======================================= */
+
+      "mini-vacuum-9000pa-001": {
+
+        id:
+          "mini-vacuum-9000pa-001",
+
+        category:
+          "cleaning",
+
+        tag:
+          "CLEANING",
+
+        name:
+          "9000Pa Cordless Mini Vacuum Cleaner",
+
+        description:
+          "A compact cordless vacuum designed for quick dry cleaning around desks, furniture and other small household areas.",
+
+        features: [
+          "Up to 9000Pa suction",
+          "Cordless handheld design",
+          "USB rechargeable",
+          "1200mAh battery",
+          "60W motor",
+          "Dry cleaning only"
+        ],
+
+        price:
+          18.99,
+
+        likeable:
+          true,
+
+        media: [
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sc6f0477ef8d541938cab77559c45e7bbK.png?has_lang=1&ver=2_220x220.png_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S380816d6a8b74a34adc447917395f1ca1.png_220x220.png_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sc6a69e65d7414daaa22b19ba55ee4951D.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sf26908f851ed486fbbe15f04d2939c48P.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S1b12e3228f624e3dae49a4ab3481f05cE.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S7b8682801f824f89b81531cefa121ad40.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S6ca57dca60244b2fbd5388744b34724az.png_220x220.png_.avif"
+          }
+
+        ]
+
+      },
+
+
+
+      /* =======================================
+         6. FOOD WARMING TRAY
+      ======================================= */
+
+      "warming-tray-001": {
+
+        id:
+          "warming-tray-001",
+
+        category:
+          "kitchen",
+
+        tag:
+          "KITCHEN",
+
+        name:
+          "Foldable Electric Food Warming Tray",
+
+        description:
+          "A portable foldable electric warming mat designed to help keep prepared food and drinks warm at the table.",
+
+        features: [
+          "50°C to 120°C temperature control",
+          "Foldable portable design",
+          "300W rated power",
+          "ABS and silicone construction",
+          "White colour",
+          "EU plug version"
+        ],
+
+        fixedDetail:
+          "White • EU Plug",
+
+        price:
+          45.99,
+
+        likeable:
+          true,
+
+        media: [
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S4cf8756e3e4d4b92b2ab91ed907c05b0G.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S1c3044e25f0a4be59eb0201fe6fb3f30L.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Safc7427705944f5fa1bcab137d04ce44T.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S300893ba7309488dae29f134acd2a59cn.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sadbde673ab1d407182a73f1ff7e8f06fV.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sb88196725cd6485eaa381752eff3b520S.jpg_220x220q75.jpg_.avif"
+          }
+
+        ]
+
+      },
+
+
+
+      /* =======================================
+         7. MOTION NIGHT LIGHTS
+      ======================================= */
+
+      "motion-night-lights-001": {
+
+        id:
+          "motion-night-lights-001",
+
+        category:
+          "lighting",
+
+        tag:
+          "LIGHTING",
+
+        name:
+          "Rechargeable Motion Sensor LED Night Lights",
+
+        description:
+          "Compact rechargeable LED night lights with PIR motion sensing and a wireless design for bedrooms, hallways, wardrobes and other indoor spaces.",
+
+        features: [
+          "PIR motion sensor",
+          "USB rechargeable",
+          "Wireless installation",
+          "White or Warm White light",
+          "Heart-shaped compact design",
+          "Available in multiple pack sizes"
+        ],
+
+        options: [
+
+          {
+            key:
+              "colour",
+
+            label:
+              "Light Colour",
+
+            values: [
+
+              {
+                value: "white",
+                label: "White",
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/S1aef4897d16e4c2f983f74a18f09c655R.jpg_220x220q75.jpg_.avif"
+              },
+
+              {
+                value: "warm-white",
+                label: "Warm White",
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/Saf9e3384110743a2ab7d29f83469be1fs.jpg_220x220q75.jpg_.avif"
+              }
+
+            ]
+
+          },
+
+
+          {
+            key:
+              "pack",
+
+            label:
+              "Pack Size",
+
+            values: [
+
+              {
+                value: "2pcs",
+                label: "2 Pieces"
+              },
+
+              {
+                value: "3pcs",
+                label: "3 Pieces"
+              },
+
+              {
+                value: "4pcs",
+                label: "4 Pieces"
+              },
+
+              {
+                value: "5pcs",
+                label: "5 Pieces"
+              },
+
+              {
+                value: "6pcs",
+                label: "6 Pieces"
+              }
+
+            ]
+
+          }
+
+        ],
+
+        variantPriceKeyOptions: [
+          "pack"
+        ],
+
+        variantPriceMap: {
+
+          "2pcs":
+            18.99,
+
+          "3pcs":
+            20.99,
+
+          "4pcs":
+            24.99,
+
+          "5pcs":
+            27.99,
+
+          "6pcs":
+            30.99
+
+        },
+
+        media: [
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S52c78ed3e792474dbbe97a4cc2929ac49.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S0ed46628f79e403db0de74ef61b7c383A.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S42ee9b3c3cc34409b0abe1e8988eadebv.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sa72ee93d09e948f28d1bc8522bb266a5z.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sa79857ff135c44f593a450eb92da2e58Y.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S1aef4897d16e4c2f983f74a18f09c655R.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Saf9e3384110743a2ab7d29f83469be1fs.jpg_220x220q75.jpg_.avif"
+          }
+
+        ]
+
+      },
+
+
+
+      /* =======================================
+         8. FLAME DIFFUSER
+      ======================================= */
+
+      "flame-diffuser-pro-001": {
+
+        id:
+          "flame-diffuser-pro-001",
+
+        category:
+          "bedroom",
+
+        tag:
+          "BEDROOM",
+
+        name:
+          "7-Color Flame Aroma Diffuser & Humidifier Pro",
+
+        description:
+          "A USB-powered aroma diffuser and humidifier with a flame-style seven-colour lighting effect designed for ambient room use.",
+
+        features: [
+          "Aroma diffuser and humidifier",
+          "Flame-style light effect",
+          "7-colour ambient lighting",
+          "USB powered",
+          "White Pro or Black Pro"
+        ],
+
+        price:
+          24.99,
+
+        options: [
+
+          {
+            key:
+              "colour",
+
+            label:
+              "Colour",
+
+            values: [
+
+              {
+                value: "white-pro",
+                label: "White Pro",
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/S8a47a7ff619440caa46af984bc5701b1d.jpg_220x220q75.jpg_.avif"
+              },
+
+              {
+                value: "black-pro",
+                label: "Black Pro",
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/S38a39389871c4337a7c00bb56a6e6d9dT.jpg_220x220q75.jpg_.avif"
+              }
+
+            ]
+
+          }
+
+        ],
+
+        media: [
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S6ea04875e6ac4188803a76dd0ce4906bB.png?has_lang=1&ver=2_220x220.png_.avif"
+          },
+
+          {
+            type: "video",
+            src:
+              "https://video.aliexpress-media.com/play/u/ae_sg_item/3000924361499/p/1/e/6/t/10301/5000303940762.mp4?from=edge&definition=h265"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S50cf5e9bebe142a3b2919db643f693cb2.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S3195e7b68b0b4f698c1f16ae8b43ab66z.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S498e35c4c0914d14984ebb5b9f6cf9ccw.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S8de792b0c971448da0345507eb52eb3co.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S53eacf91650e46c688bc532dc7832e0fy.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S8a47a7ff619440caa46af984bc5701b1d.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S38a39389871c4337a7c00bb56a6e6d9dT.jpg_220x220q75.jpg_.avif"
+          }
+
+        ]
+
+      },
+
+
+
+      /* =======================================
+         9. IPHONE BATTERY CASE
+      ======================================= */
+
+      "iphone-battery-case-6800mah-001": {
+
+        id:
+          "iphone-battery-case-6800mah-001",
+
+        category:
+          "smart-home",
+
+        tag:
+          "TECH",
+
+        name:
+          "6800mAh Battery Charging Case for iPhone",
+
+        description:
+          "A rechargeable external battery case designed for selected iPhone models, combining phone protection with additional portable battery capacity.",
+
+        features: [
+          "6800mAh listed battery capacity",
+          "Protective charging-case design",
+          "Multiple iPhone model options",
+          "White and Black options depending on model",
+          "Portable external power"
+        ],
+
+        price:
+          39.99,
+
+        options: [
+
+          {
+            key:
+              "model",
+
+            label:
+              "Model / Colour",
+
+            values: [
+
+              {
+                value: "White For 17",
+                label: "White For 17"
+              },
+
+              {
+                value: "White for 12 12 pro",
+                label: "White for 12 / 12 Pro"
+              },
+
+              {
+                value: "White For 12 13mini",
+                label: "White For 12 / 13 Mini"
+              },
+
+              {
+                value: "For 12 13 promax",
+                label: "White For 12 / 13 Pro Max"
+              },
+
+              {
+                value: "White for 13 14",
+                label: "White for 13 / 14"
+              },
+
+              {
+                value: "White For 13pro",
+                label: "White For 13 Pro"
+              },
+
+              {
+                value: "White For 14pro",
+                label: "White For 14 Pro"
+              },
+
+              {
+                value: "White For 14promax",
+                label: "White For 14 Pro Max"
+              },
+
+              {
+                value: "White For 16",
+                label: "White For 16"
+              },
+
+              {
+                value: "Black for 12",
+                label: "Black for 12"
+              },
+
+              {
+                value: "Black for 12mini",
+                label: "Black for 12 Mini"
+              },
+
+              {
+                value: "Black for 12 pro",
+                label: "Black for 12 Pro"
+              },
+
+              {
+                value: "Black for 12 promax",
+                label: "Black for 12 Pro Max"
+              },
+
+              {
+                value: "Black for 13",
+                label: "Black for 13"
+              },
+
+              {
+                value: "Black 13 mini",
+                label: "Black 13 Mini"
+              },
+
+              {
+                value: "Black 13 pro",
+                label: "Black 13 Pro"
+              },
+
+              {
+                value: "Black 13 promax",
+                label: "Black 13 Pro Max"
+              },
+
+              {
+                value: "Black 14",
+                label: "Black 14"
+              },
+
+              {
+                value: "Black 14pro",
+                label: "Black 14 Pro"
+              },
+
+              {
+                value: "Black 14promax",
+                label: "Black 14 Pro Max"
+              },
+
+              {
+                value: "Black 15",
+                label: "Black 15"
+              },
+
+              {
+                value: "Black 15pro",
+                label: "Black 15 Pro"
+              },
+
+              {
+                value: "Black 15Plus",
+                label: "Black 15 Plus"
+              },
+
+              {
+                value: "Black 15 Promax",
+                label: "Black 15 Pro Max"
+              },
+
+              {
+                value: "Black For iPhone 16",
+                label: "Black For iPhone 16"
+              }
+
+            ]
+
+          }
+
+        ],
+
+        media: [
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sc61c91e7ef0d428b83e1d20414eb537bk.jpg_960x960q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Se19ee8e5eace4797bb6ebef5fb6cd27ee.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sf97ea68c2c5e4382b52d071e3545d1d4s.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S2d2978f4da2a467aa41622d45e09330fW.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sfd3f928001fc403099ecb949075c54a9R.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S42fc45beb0eb47ed90aff085b3a455660.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S0b9face04e064b929f0f111fab7ba780V.jpg_220x220q75.jpg_.avif"
+          }
+
+        ]
+
+      },
+
+
+
+      /* =======================================
+         10. HOLOGRAPHIC FAN
+      ======================================= */
+
+      "holographic-fan-42cm-001": {
+
+        id:
+          "holographic-fan-42cm-001",
+
+        category:
+          "smart-home",
+
+        tag:
+          "SMART TECH",
+
+        name:
+          "42cm WiFi 3D Holographic LED Fan Display",
+
+        description:
+          "A rotating LED holographic display designed to show videos, pictures and logo-style content with a floating 3D visual effect.",
+
+        features: [
+          "42cm Basic Edition",
+          "3D holographic-style LED display",
+          "Supports video, pictures and logo content",
+          "WiFi content control",
+          "Remote-control support",
+          "Multiple plug options"
+        ],
+
+        fixedDetail:
+          "42cm Basic Edition",
+
+        price:
+          74.99,
+
+        options: [
+
+          {
+            key:
+              "plug",
+
+            label:
+              "Plug",
+
+            values: [
+
+              {
+                value: "EU PLUG",
+                label: "EU Plug"
+              },
+
+              {
+                value: "UK PLUG",
+                label: "UK Plug"
+              },
+
+              {
+                value: "AU PLUG",
+                label: "AU Plug"
+              },
+
+              {
+                value: "US PLUG",
+                label: "US Plug"
+              }
+
+            ]
+
+          }
+
+        ],
+
+        media: [
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sae3082fea0b54d5a933b52ae9ee31258S.png_220x220.png_.avif"
+          }
+
+        ]
+
+      },
+
+
+
+      /* =======================================
+         11. PORTABLE MIST FAN
+      ======================================= */
+
+      "portable-mist-fan-001": {
+
+        id:
+          "portable-mist-fan-001",
+
+        category:
+          "home-products",
+
+        tag:
+          "HOME",
+
+        name:
+          "2-in-1 Portable Mist Fan",
+
+        description:
+          "A rechargeable handheld fan combining high-speed airflow with a fine water-mist function for portable cooling.",
+
+        features: [
+          "2-in-1 fan and fine mist function",
+          "Rechargeable portable design",
+          "Compact handheld size",
+          "Suitable for indoor and outdoor use",
+          "White, Purple and Pink options"
+        ],
+
+        price:
+          39.99,
+
+        options: [
+
+          {
+            key:
+              "colour",
+
+            label:
+              "Colour",
+
+            values: [
+
+              {
+                value: "white",
+                label: "White",
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/S59cc998c21054671913ddd1b5e99f4d9i.jpg_220x220q75.jpg_.avif"
+              },
+
+              {
+                value: "purple",
+                label: "Purple",
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/S7f461ab727374d47865ccf13dd3173ceW.jpg_220x220q75.jpg_.avif"
+              },
+
+              {
+                value: "pink",
+                label: "Pink",
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/Sb563c2f6f35d4b889ed72059530a93889.jpg_220x220q75.jpg_.avif"
+              }
+
+            ]
+
+          }
+
+        ],
+
+        media: [
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S4d2f29d7002c4a418b543b24a896e94cN.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S1eba2c1149f449e4975412f800c34a55Q.png_220x220.png_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S53b31d2841f547d795d5c80b36167c3ee.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S286f4b6a69074c6a89698251f1004511Y.png_220x220.png_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sefa9f97974764a6095ac649e9d3ad2b70.png_220x220.png_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sc16bd185d1e041d58dfae8f5023cf322Q.png_220x220.png_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S59cc998c21054671913ddd1b5e99f4d9i.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S7f461ab727374d47865ccf13dd3173ceW.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sb563c2f6f35d4b889ed72059530a93889.jpg_220x220q75.jpg_.avif"
+          }
+
+        ]
+
+      },
+
+
+
+      /* =======================================
+         12. AURORA PROJECTOR
+      ======================================= */
+
+      "aurora-projector-16color-001": {
+
+        id:
+          "aurora-projector-16color-001",
+
+        category:
+          "bedroom",
+
+        tag:
+          "BEDROOM",
+
+        name:
+          "16-Color Ocean Wave Aurora Projector",
+
+        description:
+          "A rechargeable RGB night light that projects colourful ocean-wave and aurora-style effects across walls and ceilings.",
+
+        features: [
+          "16 RGB colour choices",
+          "Remote control",
+          "Ocean-wave projection effect",
+          "Aurora-style ambient lighting",
+          "Rechargeable design",
+          "Compact cube design"
+        ],
+
+        fixedDetail:
+          "Cube • 16 Colors",
+
+        price:
+          29.99,
+
+        likeable:
+          true,
+
+        media: [
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S39c56fd9abbb4c82acb180fcb00f2141l.jpg?has_lang=1&ver=2_960x960q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S4d165e28688d4cb88fec9d864ab4e361K.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S36423f3ff4b64bde990824095dcadbfdU.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S2e881b6ad65f4668a5e733321771d39dH.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S8fe06c1c899144dc8731ec8c68e0fcccg.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S1f0754cd007941938141bdf559f48a60c.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S4e40d7ff0e2b48c7ac5c5d50b79e1a2fr.jpg_220x220q75.jpg_.avif"
+          }
+
+        ]
+
+      },
+
+
+
+      /* =======================================
+         13. DEFROST TRAY
+      ======================================= */
+
+      "defrost-tray-001": {
+
+        id:
+          "defrost-tray-001",
+
+        category:
+          "kitchen",
+
+        tag:
+          "KITCHEN",
+
+        name:
+          "Fast Defrost Aluminum Tray",
+
+        description:
+          "A slim aluminum thawing plate designed to transfer surrounding heat efficiently and help frozen food defrost faster than leaving it on a regular plate.",
+
+        features: [
+          "Aluminum construction",
+          "Approx. 23 × 16.5cm",
+          "Slim 0.2cm profile",
+          "No electricity required",
+          "Compact and easy to store",
+          "Black finish"
+        ],
+
+        fixedDetail:
+          "Black",
+
+        price:
+          25.99,
+
+        likeable:
+          true,
+
+        media: [
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S8c585865972d42e693bd0b1802925634T.jpg_960x960q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sc9c0e20308564294bc66e67721f4bc75G.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S694ebf8135664f93a92bbb36c9446fd21.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S4759b98e71b94791800922be37b13bb8A.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Scffbac6bcdf34d21ad119f642c6c6777w.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S32377113eda64fce91f9cef2e139db77b.jpg_220x220q75.jpg_.avif"
+          }
+
+        ]
+
+      },
+
+
+
+      /* =======================================
+         14. EGG OPENER SET
+      ======================================= */
+
+      "egg-opener-set-001": {
+
+        id:
+          "egg-opener-set-001",
+
+        category:
+          "kitchen",
+
+        tag:
+          "KITCHEN",
+
+        name:
+          "Stainless Steel Egg Opener Breakfast Set",
+
+        description:
+          "A practical breakfast accessory set featuring a stainless-steel egg shell opening tool with selectable pack sizes.",
+
+        features: [
+          "Stainless-steel egg opening tool",
+          "Designed for breakfast and boiled eggs",
+          "Compact kitchen accessory",
+          "Multiple pack-size options",
+          "Easy to store"
+        ],
+
+        options: [
+
+          {
+            key:
+              "pack",
+
+            label:
+              "Pack Size",
+
+            values: [
+
+              {
+                value: "2pcs",
+                label: "2 Pieces",
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/S6bc5ed979e6749588faca779da060933F.jpg_220x220q75.jpg_.avif"
+              },
+
+              {
+                value: "3pcs",
+                label: "3 Pieces",
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/Sf372257356144dc1ac0e80ae65f5b4b9A.jpg_220x220q75.jpg_.avif"
+              },
+
+              {
+                value: "4pcs",
+                label: "4 Pieces",
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/Sf8449fbc1b1a4fad9763717e1235598d7.jpg_220x220q75.jpg_.avif"
+              },
+
+              {
+                value: "6pcs",
+                label: "6 Pieces",
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/S9321beb589f94f4296b6c2f32ef1de9au.jpg_220x220q75.jpg_.avif"
+              },
+
+              {
+                value: "10pcs",
+                label: "10 Pieces",
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/Sdd134c244a394419818151ae6eff22854.jpg_220x220q75.jpg_.avif"
+              }
+
+            ]
+
+          }
+
+        ],
+
+        variantPriceMap: {
+
+          "2pcs":
+            14.99,
+
+          "3pcs":
+            17.99,
+
+          "4pcs":
+            19.99,
+
+          "6pcs":
+            27.99,
+
+          "10pcs":
+            34.99
+
+        },
+
+        media: [
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sbb624c8e315246aabbda134b990434eb7.jpg?has_lang=1&ver=2_960x960q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sa7423bd7a43a4a639b08a27fe5d12463a.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sb53309de563b46e4938bd3615084b584a.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S6f2f19e3828b48f9a7050290a9304747t.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sd81008088d504fc9a93cda69351eb576Q.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sd26695a7cdac4824ac4f485d0384ad96A.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sf372257356144dc1ac0e80ae65f5b4b9A.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S9321beb589f94f4296b6c2f32ef1de9au.jpg_220x220q75.jpg_.avif"
+          },
+
+          {
+            type: "image",
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sdd134c244a394419818151ae6eff22854.jpg_220x220q75.jpg_.avif"
+          }
+
+        ]
+
+      }
+
+    };
+
+
+
+    /* =========================================
+       CATEGORY TARGETS
+    ========================================== */
+
+    const categoryTargets = {
+
+      cleaning:
+        "cleaning-products",
+
+      lighting:
+        "lighting-products",
+
+      "home-products":
+        "home-products-container",
+
+      kitchen:
+        "kitchen-products",
+
+      "smart-home":
+        "smart-home-products",
+
+      bedroom:
+        "bedroom-products"
+
+    };
+
+
+
+    /* =========================================
+       GALLERY STATE
+    ========================================== */
+
+    const productGalleryIndexes =
+      {};
+
+
+
+    /* =========================================
+       GET SELECTED OPTIONS
+    ========================================== */
+
+    function getSelectedProductOptions(
+      product
+    ) {
+
+      const selected =
+        {};
+
+      if (!product.options) {
+        return selected;
+      }
+
+
+      product.options.forEach(
+        function(option) {
+
+          const element =
+            document.getElementById(
+              product.id +
+              "-option-" +
+              option.key
+            );
+
+
+          if (element) {
+
+            selected[
+              option.key
+            ] =
+              element.value;
+
+          }
+
+        }
+      );
+
+
+      return selected;
     }
 
 
 
     /* =========================================
-       SWITCH DARK / CLEAR GALLERY
+       OPTION DISPLAY LABEL
     ========================================== */
 
-    function syncOilMediaToSelection(
-      forceReset = false
+    function getOptionDisplayLabel(
+      option,
+      value
     ) {
 
-      const newMediaSet =
-        getOilCurrentMediaSet();
+      const match =
+        option.values.find(
+          function(item) {
+            return (
+              item.value === value
+            );
+          }
+        );
 
 
-      const mediaChanged =
-        currentOilMediaSet !==
-        newMediaSet;
+      return match
+        ? match.label
+        : value;
+    }
 
 
-      currentOilMediaSet =
-        newMediaSet;
+
+    /* =========================================
+       VARIANT CODE
+    ========================================== */
+
+    function getProductVariantCode(
+      product,
+      selected
+    ) {
+
+      if (
+        !product.options ||
+        product.options.length === 0
+      ) {
+
+        return "";
+
+      }
+
+
+      return product.options
+        .map(
+          function(option) {
+
+            return (
+              selected[
+                option.key
+              ] || ""
+            );
+
+          }
+        )
+        .join("|");
+    }
+
+
+
+    /* =========================================
+       VARIANT LABEL
+    ========================================== */
+
+    function getProductVariantLabel(
+      product,
+      selected
+    ) {
+
+      if (
+        !product.options ||
+        product.options.length === 0
+      ) {
+
+        return (
+          product.fixedDetail ||
+          ""
+        );
+
+      }
+
+
+      const parts =
+        product.options.map(
+          function(option) {
+
+            return getOptionDisplayLabel(
+              option,
+              selected[
+                option.key
+              ]
+            );
+
+          }
+        );
+
+
+      if (product.fixedDetail) {
+
+        parts.unshift(
+          product.fixedDetail
+        );
+
+      }
+
+
+      return parts.join(
+        " • "
+      );
+    }
+
+
+
+    /* =========================================
+       PRICE KEY
+    ========================================== */
+
+    function getProductPriceKey(
+      product,
+      selected
+    ) {
+
+      const keys =
+        product.variantPriceKeyOptions ||
+        (
+          product.options
+            ? product.options.map(
+                function(option) {
+                  return option.key;
+                }
+              )
+            : []
+        );
+
+
+      return keys
+        .map(
+          function(key) {
+
+            return (
+              selected[key] ||
+              ""
+            );
+
+          }
+        )
+        .join("|");
+    }
+
+
+
+    /* =========================================
+       CURRENT PRICE
+    ========================================== */
+
+    function getProductCurrentPrice(
+      product
+    ) {
+
+      if (
+        typeof product.price ===
+        "number"
+      ) {
+
+        return product.price;
+      }
+
+
+      const selected =
+        getSelectedProductOptions(
+          product
+        );
+
+
+      const key =
+        getProductPriceKey(
+          product,
+          selected
+        );
+
+
+      const price =
+        product.variantPriceMap
+          ? product.variantPriceMap[
+              key
+            ]
+          : undefined;
 
 
       if (
-        forceReset ||
-        mediaChanged ||
-        oilGalleryIndex >=
-          currentOilMediaSet.length
+        typeof price ===
+        "number"
       ) {
 
+        return price;
+      }
 
-        if (
-          currentOilMediaSet ===
-          oilDarkMedia
+
+      return 0;
+    }
+
+
+
+    /* =========================================
+       CURRENT CART IMAGE
+    ========================================== */
+
+    function getProductCartImage(
+      product,
+      selected
+    ) {
+
+      if (product.options) {
+
+        for (
+          const option
+          of product.options
         ) {
 
-          oilGalleryIndex =
-            1;
+          const selectedValue =
+            selected[
+              option.key
+            ];
 
-        } else {
 
-          oilGalleryIndex =
-            0;
+          const value =
+            option.values.find(
+              function(item) {
+                return (
+                  item.value ===
+                  selectedValue
+                );
+              }
+            );
+
+
+          if (
+            value &&
+            value.image
+          ) {
+
+            return value.image;
+
+          }
 
         }
 
       }
 
 
-      renderOilThumbnails();
-
-
-      setOilMedia(
-        oilGalleryIndex
-      );
-
-    }
-
-
-
-    /* =========================================
-       UPDATE PACK + COLOUR OPTIONS
-    ========================================== */
-
-    function updateOilVariantOptions() {
-
-      const packSelect =
-        document.getElementById(
-          "oil-pack-size"
-        );
-
-
-      const variantSelect =
-        document.getElementById(
-          "oil-variant"
-        );
-
-
-      const priceElement =
-        document.getElementById(
-          "oil-product-price"
-        );
-
-
-      const packLabel =
-        document.getElementById(
-          "oil-pack-label"
-        );
-
-
-      const bestValue =
-        document.getElementById(
-          "oil-best-value-note"
-        );
-
-
-      if (
-        !packSelect ||
-        !variantSelect
-      ) {
-
-        return;
-
-      }
-
-
-      const previousValue =
-        variantSelect.value;
-
-
-      const isDouble =
-        packSelect.value ===
-        "double";
-
-
-      const variants =
-        isDouble
-          ? oilDoubleVariants
-          : oilSingleVariants;
-
-
-      variantSelect.innerHTML =
-        variants
-          .map(
-
-            function(variant) {
-
-              return `
-                <option
-                  value="${variant[0]}"
-                >
-                  ${variant[1]}
-                </option>
-              `;
-
-            }
-
-          )
-          .join("");
-
-
-      const stillExists =
-        variants.some(
-
-          function(variant) {
-
-            return (
-              variant[0] ===
-              previousValue
-            );
-
-          }
-
-        );
-
-
-      if (
-        previousValue &&
-        stillExists
-      ) {
-
-        variantSelect.value =
-          previousValue;
-
-      }
-
-
-      if (priceElement) {
-
-        priceElement.textContent =
-          isDouble
-            ? "€22.99"
-            : "€15.99";
-
-      }
-
-
-      if (packLabel) {
-
-        packLabel.textContent =
-          isDouble
-            ? "2 bottles"
-            : "1 bottle";
-
-      }
-
-
-      if (bestValue) {
-
-        bestValue.style.display =
-          isDouble
-            ? "inline-block"
-            : "none";
-
-      }
-
-
-      syncOilMediaToSelection(
-        true
-      );
-
-    }
-
-
-
-    /* =========================================
-       SET MAIN PRODUCT MEDIA
-    ========================================== */
-
-    function setOilMedia(
-      index
-    ) {
-
-      if (
-        index < 0 ||
-        index >=
-          currentOilMediaSet.length
-      ) {
-
-        return;
-
-      }
-
-
-      oilGalleryIndex =
-        index;
-
-
-      const media =
-        currentOilMediaSet[
-          index
-        ];
-
-
-      const main =
-        document.getElementById(
-          "oil-gallery-main"
-        );
-
-
-      if (!main) {
-
-        return;
-
-      }
-
-
-      const current =
-        main.querySelector(
-          ".oil-main-media"
-        );
-
-
-      if (current) {
-
-        current.remove();
-
-      }
-
-
-      let element;
-
-
-      if (
-        media.type ===
-        "video"
-      ) {
-
-        element =
-          document.createElement(
-            "video"
-          );
-
-
-        element.src =
-          media.src;
-
-
-        element.controls =
-          true;
-
-
-        element.muted =
-          true;
-
-
-        element.playsInline =
-          true;
-
-
-        element.preload =
-          "metadata";
-
-      } else {
-
-        element =
-          document.createElement(
-            "img"
-          );
-
-
-        element.src =
-          media.src;
-
-
-        element.alt =
-          "2-in-1 Oil Dispenser and Sprayer";
-
-      }
-
-
-      element.className =
-        "oil-main-media";
-
-
-      const rightArrow =
-        main.querySelector(
-          ".gallery-right"
-        );
-
-
-      main.insertBefore(
-        element,
-        rightArrow
-      );
-
-
-      document
-        .querySelectorAll(
-          "#oil-thumbnails .gallery-thumbnail"
-        )
-        .forEach(
-
-          function(
-            thumbnail,
-            thumbnailIndex
-          ) {
-
-            thumbnail.classList.toggle(
-              "active",
-              thumbnailIndex ===
-                index
-            );
-
-          }
-
-        );
-
-    }
-
-
-
-    /* =========================================
-       PREVIOUS / NEXT MEDIA
-    ========================================== */
-
-    function changeOilMedia(
-      direction
-    ) {
-
-      if (
-        !currentOilMediaSet.length
-      ) {
-
-        return;
-
-      }
-
-
-      let next =
-        oilGalleryIndex +
-        direction;
-
-
-      if (
-        next >=
-        currentOilMediaSet.length
-      ) {
-
-        next =
-          0;
-
-      }
-
-
-      if (
-        next < 0
-      ) {
-
-        next =
-          currentOilMediaSet.length -
-          1;
-
-      }
-
-
-      setOilMedia(
-        next
-      );
-
-    }
-
-
-
-    /* =========================================
-       ADD OIL DISPENSER TO CART
-    ========================================== */
-
-    function addOilDispenserToCart() {
-
-      const packSelect =
-        document.getElementById(
-          "oil-pack-size"
-        );
-
-
-      const variantSelect =
-        document.getElementById(
-          "oil-variant"
-        );
-
-
-      if (
-        !packSelect ||
-        !variantSelect
-      ) {
-
-        return;
-
-      }
-
-
-      const isDouble =
-        packSelect.value ===
-        "double";
-
-
-      const checkoutId =
-        isDouble
-          ? "oil-dispenser-double-001"
-          : "oil-dispenser-single-001";
-
-
-      const price =
-        isDouble
-          ? 22.99
-          : 15.99;
-
-
-      const variant =
-        variantSelect.value;
-
-
-      const colourLabel =
-        variantSelect.options[
-          variantSelect.selectedIndex
-        ].textContent;
-
-
-      const packLabel =
-        isDouble
-          ? "2 Bottles"
-          : "1 Bottle";
-
-
-      const cartId =
-        checkoutId +
-        "::" +
-        variant;
-
-
-      const displayMediaSet =
-        getOilCurrentMediaSet();
-
-
-      const imageMedia =
-        displayMediaSet.find(
+      const firstImage =
+        product.media.find(
           function(media) {
 
             return (
@@ -2284,15 +3129,888 @@
         );
 
 
-      const imageForCart =
-        imageMedia
-          ? imageMedia.src
+      return firstImage
+        ? firstImage.src
+        : "";
+    }
+
+
+
+    /* =========================================
+       PRODUCT OPTION CHANGED
+    ========================================== */
+
+    function handleProductOptionChange(
+      productId
+    ) {
+
+      const product =
+        PRODUCTS[
+          productId
+        ];
+
+
+      if (!product) {
+        return;
+      }
+
+
+      const price =
+        getProductCurrentPrice(
+          product
+        );
+
+
+      const priceElement =
+        document.getElementById(
+          product.id +
+          "-price"
+        );
+
+
+      if (priceElement) {
+
+        priceElement.textContent =
+          "€" +
+          price.toFixed(2);
+
+      }
+
+
+      const selected =
+        getSelectedProductOptions(
+          product
+        );
+
+
+      if (product.options) {
+
+        for (
+          const option
+          of product.options
+        ) {
+
+          const item =
+            option.values.find(
+              function(value) {
+
+                return (
+                  value.value ===
+                  selected[
+                    option.key
+                  ]
+                );
+
+              }
+            );
+
+
+          if (
+            item &&
+            item.image
+          ) {
+
+            const main =
+              document.getElementById(
+                product.id +
+                "-main-media"
+              );
+
+
+            if (main) {
+
+              main.innerHTML = `
+
+                <img
+                  class="generic-main-media"
+                  src="${item.image}"
+                  alt="${product.name}"
+                >
+
+              `;
+
+            }
+
+
+            break;
+          }
+
+        }
+
+      }
+
+    }
+
+
+
+    /* =========================================
+       MAIN GALLERY MEDIA
+    ========================================== */
+
+    function renderProductMainMedia(
+      productId
+    ) {
+
+      const product =
+        PRODUCTS[
+          productId
+        ];
+
+
+      if (
+        !product ||
+        !product.media.length
+      ) {
+
+        return;
+      }
+
+
+      let index =
+        productGalleryIndexes[
+          productId
+        ] || 0;
+
+
+      if (
+        index >=
+        product.media.length
+      ) {
+
+        index = 0;
+
+      }
+
+
+      productGalleryIndexes[
+        productId
+      ] =
+        index;
+
+
+      const media =
+        product.media[
+          index
+        ];
+
+
+      const main =
+        document.getElementById(
+          productId +
+          "-main-media"
+        );
+
+
+      if (!main) {
+        return;
+      }
+
+
+      if (
+        media.type ===
+        "video"
+      ) {
+
+        main.innerHTML = `
+
+          <video
+            class="generic-main-media"
+            controls
+            muted
+            playsinline
+            preload="metadata"
+          >
+            <source
+              src="${media.src}"
+            >
+          </video>
+
+        `;
+
+      } else {
+
+        main.innerHTML = `
+
+          <img
+            class="generic-main-media"
+            src="${media.src}"
+            alt="${product.name}"
+          >
+
+        `;
+
+      }
+
+
+      document
+        .querySelectorAll(
+          `[data-gallery-product="${productId}"]`
+        )
+        .forEach(
+          function(button) {
+
+            const buttonIndex =
+              Number(
+                button.dataset.galleryIndex
+              );
+
+
+            button.classList.toggle(
+              "active",
+              buttonIndex === index
+            );
+
+          }
+        );
+
+    }
+
+
+
+    /* =========================================
+       SET GALLERY IMAGE
+    ========================================== */
+
+    function setProductMedia(
+      productId,
+      index
+    ) {
+
+      const product =
+        PRODUCTS[
+          productId
+        ];
+
+
+      if (
+        !product ||
+        index < 0 ||
+        index >=
+          product.media.length
+      ) {
+
+        return;
+      }
+
+
+      productGalleryIndexes[
+        productId
+      ] =
+        index;
+
+
+      renderProductMainMedia(
+        productId
+      );
+
+    }
+
+
+
+    /* =========================================
+       GALLERY ARROWS
+    ========================================== */
+
+    function changeProductMedia(
+      productId,
+      direction
+    ) {
+
+      const product =
+        PRODUCTS[
+          productId
+        ];
+
+
+      if (
+        !product ||
+        !product.media.length
+      ) {
+
+        return;
+      }
+
+
+      let next =
+        (
+          productGalleryIndexes[
+            productId
+          ] || 0
+        ) +
+        direction;
+
+
+      if (
+        next >=
+        product.media.length
+      ) {
+
+        next = 0;
+
+      }
+
+
+      if (next < 0) {
+
+        next =
+          product.media.length -
+          1;
+
+      }
+
+
+      setProductMedia(
+        productId,
+        next
+      );
+
+    }
+
+
+
+    /* =========================================
+       RENDER OPTIONS
+    ========================================== */
+
+    function renderProductOptions(
+      product
+    ) {
+
+      if (
+        !product.options ||
+        product.options.length === 0
+      ) {
+
+        return "";
+      }
+
+
+      return `
+
+        <div class="product-options">
+
+          ${
+
+            product.options
+              .map(
+                function(option) {
+
+                  return `
+
+                    <div
+                      class="product-option-group"
+                    >
+
+                      <label
+                        for="${product.id}-option-${option.key}"
+                      >
+                        ${option.label}
+                      </label>
+
+                      <select
+                        id="${product.id}-option-${option.key}"
+                        onchange="handleProductOptionChange('${product.id}')"
+                      >
+
+                        ${
+
+                          option.values
+                            .map(
+                              function(value) {
+
+                                return `
+
+                                  <option
+                                    value="${value.value}"
+                                  >
+                                    ${value.label}
+                                  </option>
+
+                                `;
+
+                              }
+                            )
+                            .join("")
+
+                        }
+
+                      </select>
+
+                    </div>
+
+                  `;
+
+                }
+              )
+              .join("")
+
+          }
+
+        </div>
+
+      `;
+    }
+
+
+
+    /* =========================================
+       RENDER THUMBNAILS
+    ========================================== */
+
+    function renderProductThumbnails(
+      product
+    ) {
+
+      return product.media
+        .map(
+          function(media, index) {
+
+            if (
+              media.type ===
+              "video"
+            ) {
+
+              return `
+
+                <button
+                  type="button"
+                  class="gallery-thumbnail ${index === 0 ? "active" : ""}"
+                  data-gallery-product="${product.id}"
+                  data-gallery-index="${index}"
+                  onclick="setProductMedia('${product.id}', ${index})"
+                  aria-label="Product video"
+                >
+
+                  <span class="video-thumbnail">
+                    ▶
+                  </span>
+
+                </button>
+
+              `;
+
+            }
+
+
+            return `
+
+              <button
+                type="button"
+                class="gallery-thumbnail ${index === 0 ? "active" : ""}"
+                data-gallery-product="${product.id}"
+                data-gallery-index="${index}"
+                onclick="setProductMedia('${product.id}', ${index})"
+                aria-label="Product image ${index + 1}"
+              >
+
+                <img
+                  src="${media.src}"
+                  alt="${product.name} image ${index + 1}"
+                  loading="lazy"
+                >
+
+              </button>
+
+            `;
+
+          }
+        )
+        .join("");
+    }
+
+
+
+    /* =========================================
+       PRODUCT CARD
+    ========================================== */
+
+    function renderProductCard(
+      product
+    ) {
+
+      const initialPrice =
+        typeof product.price ===
+          "number"
+          ? product.price
+          : Object.values(
+              product.variantPriceMap
+            )[0];
+
+
+      const firstImage =
+        product.media.find(
+          function(media) {
+
+            return (
+              media.type ===
+              "image"
+            );
+
+          }
+        );
+
+
+      const likeButton =
+        product.likeable
+          ? `
+
+              <button
+                type="button"
+                class="like-button"
+                data-product-like="${product.id}"
+                onclick="toggleLike(
+                  '${product.id}',
+                  '${product.name.replace(/'/g, "\\'")}',
+                  ${initialPrice},
+                  '${firstImage ? firstImage.src : ""}'
+                )"
+              >
+                ♡ Like
+              </button>
+
+            `
           : "";
+
+
+      return `
+
+        <div
+          class="product-card"
+          id="product-${product.id}"
+        >
+
+
+          <div class="product-gallery">
+
+
+            <div class="gallery-main">
+
+              ${
+                product.media.length > 1
+                  ? `
+
+                      <button
+                        type="button"
+                        class="gallery-arrow gallery-left"
+                        onclick="changeProductMedia('${product.id}', -1)"
+                        aria-label="Previous product image"
+                      >
+                        ‹
+                      </button>
+
+                    `
+                  : ""
+              }
+
+
+              <div
+                id="${product.id}-main-media"
+                style="
+                  width:100%;
+                  height:100%;
+                "
+              >
+
+                ${
+                  firstImage
+                    ? `
+
+                        <img
+                          class="generic-main-media"
+                          src="${firstImage.src}"
+                          alt="${product.name}"
+                        >
+
+                      `
+                    : ""
+                }
+
+              </div>
+
+
+              ${
+                product.media.length > 1
+                  ? `
+
+                      <button
+                        type="button"
+                        class="gallery-arrow gallery-right"
+                        onclick="changeProductMedia('${product.id}', 1)"
+                        aria-label="Next product image"
+                      >
+                        ›
+                      </button>
+
+                    `
+                  : ""
+              }
+
+            </div>
+
+
+            ${
+              product.media.length > 1
+                ? `
+
+                    <div class="gallery-thumbnails">
+
+                      ${renderProductThumbnails(
+                        product
+                      )}
+
+                    </div>
+
+                  `
+                : ""
+            }
+
+          </div>
+
+
+
+          <div class="product-info">
+
+
+            <p class="tag">
+              ${product.tag}
+            </p>
+
+
+            <h3 class="product-title">
+              ${product.name}
+            </h3>
+
+
+            <p class="product-description">
+              ${product.description}
+            </p>
+
+
+            <ul class="product-features">
+
+              ${
+
+                product.features
+                  .map(
+                    function(feature) {
+
+                      return `
+
+                        <li>
+                          ${feature}
+                        </li>
+
+                      `;
+
+                    }
+                  )
+                  .join("")
+
+              }
+
+            </ul>
+
+
+            ${
+              product.fixedDetail
+                ? `
+
+                    <div class="product-fixed-detail">
+                      ${product.fixedDetail}
+                    </div>
+
+                  `
+                : ""
+            }
+
+
+            ${renderProductOptions(
+              product
+            )}
+
+
+            <div
+              id="${product.id}-price"
+              class="product-price"
+            >
+              €${Number(
+                initialPrice
+              ).toFixed(2)}
+            </div>
+
+
+            <div class="product-actions">
+
+              <button
+                type="button"
+                class="main-button"
+                onclick="addFinalProductToCart('${product.id}')"
+              >
+                Add to cart
+              </button>
+
+
+              ${likeButton}
+
+            </div>
+
+          </div>
+
+        </div>
+
+      `;
+    }
+
+
+
+    /* =========================================
+       RENDER ALL PRODUCTS
+    ========================================== */
+
+    function renderAllProducts() {
+
+      Object.values(
+        categoryTargets
+      )
+      .forEach(
+        function(targetId) {
+
+          const target =
+            document.getElementById(
+              targetId
+            );
+
+
+          if (target) {
+
+            target.innerHTML =
+              "";
+
+          }
+
+        }
+      );
+
+
+      Object.values(
+        PRODUCTS
+      )
+      .forEach(
+        function(product) {
+
+          const targetId =
+            categoryTargets[
+              product.category
+            ];
+
+
+          const target =
+            document.getElementById(
+              targetId
+            );
+
+
+          if (!target) {
+            return;
+          }
+
+
+          target.insertAdjacentHTML(
+            "beforeend",
+            renderProductCard(
+              product
+            )
+          );
+
+
+          productGalleryIndexes[
+            product.id
+          ] =
+            0;
+
+        }
+      );
+
+
+      if (
+        typeof updateProductLikeButtons ===
+        "function"
+      ) {
+
+        updateProductLikeButtons();
+
+      }
+
+    }
+
+
+
+    /* =========================================
+       ADD FINAL PRODUCT TO CART
+    ========================================== */
+
+    function addFinalProductToCart(
+      productId
+    ) {
+
+      const product =
+        PRODUCTS[
+          productId
+        ];
+
+
+      if (!product) {
+        return;
+      }
+
+
+      const selected =
+        getSelectedProductOptions(
+          product
+        );
+
+
+      const price =
+        getProductCurrentPrice(
+          product
+        );
+
+
+      const variant =
+        getProductVariantCode(
+          product,
+          selected
+        );
+
+
+      const variantLabel =
+        getProductVariantLabel(
+          product,
+          selected
+        );
+
+
+      const cartImage =
+        getProductCartImage(
+          product,
+          selected
+        );
+
+
+      const cartId =
+        variant
+          ? (
+              product.id +
+              "::" +
+              encodeURIComponent(
+                variant
+              )
+            )
+          : product.id;
 
 
       const existing =
         cart.find(
-
           function(item) {
 
             return (
@@ -2301,7 +4019,6 @@
             );
 
           }
-
         );
 
 
@@ -2318,24 +4035,22 @@
             cartId,
 
           checkoutId:
-            checkoutId,
+            product.id,
 
           variant:
             variant,
 
           variantLabel:
-            packLabel +
-            " • " +
-            colourLabel,
+            variantLabel,
 
           name:
-            "2-in-1 Oil Dispenser & Sprayer",
+            product.name,
 
           price:
             price,
 
           image:
-            imageForCart,
+            cartImage,
 
           quantity:
             1
@@ -2347,11 +4062,68 @@
 
       saveCart();
 
-
       updateCart();
 
-
       openCart();
+
+    }
+
+
+
+    /* =========================================
+       REMOVE RETIRED OIL PRODUCT
+    ========================================== */
+
+    function removeRetiredProducts() {
+
+      const retired =
+        new Set([
+
+          "oil-dispenser-single-001",
+          "oil-dispenser-double-001"
+
+        ]);
+
+
+      cart =
+        cart.filter(
+          function(item) {
+
+            const checkoutId =
+              item.checkoutId ||
+              String(
+                item.id
+              )
+              .split("::")[0];
+
+
+            return (
+              !retired.has(
+                checkoutId
+              )
+            );
+
+          }
+        );
+
+
+      likedItems =
+        likedItems.filter(
+          function(item) {
+
+            return (
+              !retired.has(
+                item.id
+              )
+            );
+
+          }
+        );
+
+
+      saveCart();
+
+      saveLikes();
 
     }
 
@@ -2361,15 +4133,14 @@
        SHOW VARIANT IN CART
     ========================================== */
 
-    const originalUpdateCart =
+    const baseUpdateCart =
       updateCart;
 
 
     updateCart =
       function() {
 
-
-        originalUpdateCart();
+        baseUpdateCart();
 
 
         const container =
@@ -2395,15 +4166,15 @@
 
 
         rows.forEach(
-
           function(
             row,
             index
           ) {
 
-
             const item =
-              cart[index];
+              cart[
+                index
+              ];
 
 
             if (
@@ -2444,9 +4215,7 @@
               );
 
 
-            if (
-              oldVariant
-            ) {
+            if (oldVariant) {
 
               oldVariant.remove();
 
@@ -2473,7 +4242,6 @@
             );
 
           }
-
         );
 
       };
@@ -2481,7 +4249,9 @@
 
 
     /* =========================================
-       CHECKOUT WITH VARIANTS
+       CHECKOUT
+       + LIGHT / DARK THEME
+       + VARIANTS
     ========================================== */
 
     checkout =
@@ -2501,6 +4271,19 @@
         }
 
 
+        if (
+          cart.length > 10
+        ) {
+
+          alert(
+            "Please keep your order to 10 different product options or fewer per checkout."
+          );
+
+          return;
+
+        }
+
+
         const checkoutButton =
           document.querySelector(
             ".checkout-button"
@@ -2513,9 +4296,7 @@
             : "Checkout";
 
 
-        if (
-          checkoutButton
-        ) {
+        if (checkoutButton) {
 
           checkoutButton.disabled =
             true;
@@ -2532,7 +4313,6 @@
 
           const items =
             cart.map(
-
               function(item) {
 
                 return {
@@ -2557,9 +4337,17 @@
                 };
 
               }
-
             );
 
+
+          const currentTheme =
+            document.body
+              .classList
+              .contains(
+                "dark-mode"
+              )
+                ? "dark"
+                : "light";
 
 
           const response =
@@ -2586,6 +4374,9 @@
                     items:
                       items,
 
+                    theme:
+                      currentTheme,
+
                     notificationToken:
                       localStorage.getItem(
                         "mavrenx-notification-token"
@@ -2598,7 +4389,6 @@
             );
 
 
-
           let data =
             {};
 
@@ -2608,9 +4398,7 @@
             data =
               await response.json();
 
-          } catch (
-            error
-          ) {
+          } catch (error) {
 
             data =
               {};
@@ -2618,15 +4406,11 @@
           }
 
 
-
-          if (
-            !response.ok
-          ) {
+          if (!response.ok) {
 
             throw new Error(
 
               data.error ||
-
               "Checkout could not be started."
 
             );
@@ -2634,51 +4418,35 @@
           }
 
 
-
-          if (
-            !data.url
-          ) {
+          if (!data.url) {
 
             throw new Error(
-
               "Stripe checkout URL was not returned."
-
             );
 
           }
-
 
 
           window.location.href =
             data.url;
 
 
-        } catch (
-          error
-        ) {
+        } catch (error) {
 
 
           console.error(
-
             "MAVRENX checkout error:",
-
             error
-
           );
 
 
           alert(
-
             error.message ||
-
             "Checkout could not be started. Please try again."
-
           );
 
 
-          if (
-            checkoutButton
-          ) {
+          if (checkoutButton) {
 
             checkoutButton.disabled =
               false;
@@ -2696,19 +4464,22 @@
 
 
     /* =========================================
-       START OIL PRODUCT
+       START FINAL STORE
     ========================================== */
 
     document.addEventListener(
-
       "DOMContentLoaded",
-
       function() {
 
-        updateOilVariantOptions();
+        removeRetiredProducts();
+
+        renderAllProducts();
+
+        updateCart();
+
+        updateLikes();
 
       }
-
     );
 
   </script>
