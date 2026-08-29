@@ -594,6 +594,10 @@
       >
 
 
+        <!-- =========================================
+             ELECTRIC SPIN SCRUBBER
+        ========================================== -->
+
         <div class="product-card">
 
 
@@ -994,7 +998,6 @@
 
 
               <img
-                id="oil-main-media"
                 class="oil-main-media"
                 src="https://ae-pic-a1.aliexpress-media.com/kf/S6d9ee7baf36b4e6a8375e288ca4bb7c32.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
                 alt="2-in-1 Oil Dispenser and Sprayer"
@@ -1013,97 +1016,10 @@
             </div>
 
 
-
             <div
               class="gallery-thumbnails"
               id="oil-thumbnails"
             >
-
-
-              <button
-                type="button"
-                class="gallery-thumbnail"
-                onclick="setOilMedia(0)"
-                aria-label="Product video"
-              >
-                <span class="oil-video-thumbnail">
-                  ▶
-                </span>
-              </button>
-
-
-              <button
-                type="button"
-                class="gallery-thumbnail active"
-                onclick="setOilMedia(1)"
-              >
-                <img
-                  src="https://ae-pic-a1.aliexpress-media.com/kf/S6d9ee7baf36b4e6a8375e288ca4bb7c32.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
-                  alt="Oil dispenser product image 1"
-                >
-              </button>
-
-
-              <button
-                type="button"
-                class="gallery-thumbnail"
-                onclick="setOilMedia(2)"
-              >
-                <img
-                  src="https://ae-pic-a1.aliexpress-media.com/kf/Sf9c33a3e973d43ccb8d9d56bc1e9ebb6B.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
-                  alt="Oil dispenser product image 2"
-                >
-              </button>
-
-
-              <button
-                type="button"
-                class="gallery-thumbnail"
-                onclick="setOilMedia(3)"
-              >
-                <img
-                  src="https://ae-pic-a1.aliexpress-media.com/kf/Se80f2b93425b49cd8e99909b2cd41283D.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
-                  alt="Oil dispenser product image 3"
-                >
-              </button>
-
-
-              <button
-                type="button"
-                class="gallery-thumbnail"
-                onclick="setOilMedia(4)"
-              >
-                <img
-                  src="https://ae-pic-a1.aliexpress-media.com/kf/S945af6e2d1f047c0a5152d3ac963a78aH.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
-                  alt="Oil dispenser product image 4"
-                >
-              </button>
-
-
-              <button
-                type="button"
-                class="gallery-thumbnail"
-                onclick="setOilMedia(5)"
-              >
-                <img
-                  src="https://ae-pic-a1.aliexpress-media.com/kf/S3d8dac18b262410485b6bd1088aeec27i.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
-                  alt="Oil dispenser product image 5"
-                >
-              </button>
-
-
-              <button
-                type="button"
-                class="gallery-thumbnail"
-                onclick="setOilMedia(6)"
-              >
-                <img
-                  src="https://ae-pic-a1.aliexpress-media.com/kf/S62e6449b84f34c228e5c4c0240277e298.png?has_lang=1&ver=2_220x220.png_.avif"
-                  alt="Oil dispenser product image 6"
-                >
-              </button>
-
-
             </div>
 
           </div>
@@ -1140,6 +1056,10 @@
 
               <li>
                 Choose between 1 bottle or 2 bottles
+              </li>
+
+              <li>
+                Dark and clear bottle styles available
               </li>
 
               <li>
@@ -1192,7 +1112,10 @@
                   Colour
                 </label>
 
-                <select id="oil-variant">
+                <select
+                  id="oil-variant"
+                  onchange="syncOilMediaToSelection(true)"
+                >
                 </select>
 
               </div>
@@ -1531,7 +1454,11 @@
 
   <script>
 
-    const oilDispenserMedia = [
+    /* =========================================
+       DARK VERSION MEDIA
+    ========================================== */
+
+    const oilDarkMedia = [
 
       {
         type: "video",
@@ -1591,6 +1518,59 @@
     ];
 
 
+
+    /* =========================================
+       CLEAR VERSION MEDIA
+    ========================================== */
+
+    const oilClearMedia = [
+
+      {
+        type: "image",
+
+        src:
+          "https://ae-pic-a1.aliexpress-media.com/kf/S5e7656bd434644bd9c129f96cb4b8ae4q.jpg_220x220q75.jpg_.avif"
+      },
+
+
+      {
+        type: "image",
+
+        src:
+          "https://ae-pic-a1.aliexpress-media.com/kf/S490079a3ccc3442fadbda6836209cf5fE.jpg_220x220q75.jpg_.avif"
+      },
+
+
+      {
+        type: "image",
+
+        src:
+          "https://ae-pic-a1.aliexpress-media.com/kf/S9afb5d18dca14df9bac9bfe01324ea08D.jpg_220x220q75.jpg_.avif"
+      },
+
+
+      {
+        type: "image",
+
+        src:
+          "https://ae-pic-a1.aliexpress-media.com/kf/Sdee4eebac79840709c50400f863235932.jpg_220x220q75.jpg_.avif"
+      },
+
+
+      {
+        type: "image",
+
+        src:
+          "https://ae-pic-a1.aliexpress-media.com/kf/S59fbe8fdc191483198e54886e7969bc6m.jpg_220x220q75.jpg_.avif"
+      }
+
+    ];
+
+
+
+    /* =========================================
+       PRODUCT VARIANTS
+    ========================================== */
 
     const oilSingleVariants = [
 
@@ -1669,9 +1649,216 @@
 
 
 
-    let oilGalleryIndex = 1;
+    let currentOilMediaSet =
+      oilDarkMedia;
 
 
+    let oilGalleryIndex =
+      1;
+
+
+
+    /* =========================================
+       CHOOSE MEDIA SET
+    ========================================== */
+
+    function getOilCurrentMediaSet() {
+
+      const packSelect =
+        document.getElementById(
+          "oil-pack-size"
+        );
+
+
+      const variantSelect =
+        document.getElementById(
+          "oil-variant"
+        );
+
+
+      if (!packSelect) {
+
+        return oilDarkMedia;
+
+      }
+
+
+      const isDouble =
+        packSelect.value ===
+        "double";
+
+
+      if (isDouble) {
+
+        return oilDarkMedia;
+
+      }
+
+
+      const variant =
+        variantSelect
+          ? variantSelect.value
+          : "";
+
+
+      if (
+        typeof variant ===
+          "string" &&
+
+        variant.startsWith(
+          "Clear-"
+        )
+      ) {
+
+        return oilClearMedia;
+
+      }
+
+
+      return oilDarkMedia;
+
+    }
+
+
+
+    /* =========================================
+       RENDER THUMBNAILS
+    ========================================== */
+
+    function renderOilThumbnails() {
+
+      const thumbnails =
+        document.getElementById(
+          "oil-thumbnails"
+        );
+
+
+      if (!thumbnails) {
+
+        return;
+
+      }
+
+
+      thumbnails.innerHTML =
+        currentOilMediaSet
+          .map(
+
+            function(
+              media,
+              index
+            ) {
+
+
+              if (
+                media.type ===
+                "video"
+              ) {
+
+                return `
+                  <button
+                    type="button"
+                    class="gallery-thumbnail ${index === oilGalleryIndex ? "active" : ""}"
+                    onclick="setOilMedia(${index})"
+                    aria-label="Product video"
+                  >
+
+                    <span class="oil-video-thumbnail">
+                      ▶
+                    </span>
+
+                  </button>
+                `;
+
+              }
+
+
+              return `
+                <button
+                  type="button"
+                  class="gallery-thumbnail ${index === oilGalleryIndex ? "active" : ""}"
+                  onclick="setOilMedia(${index})"
+                  aria-label="Product image ${index + 1}"
+                >
+
+                  <img
+                    src="${media.src}"
+                    alt="Oil dispenser product image ${index + 1}"
+                  >
+
+                </button>
+              `;
+
+            }
+
+          )
+          .join("");
+
+    }
+
+
+
+    /* =========================================
+       SWITCH DARK / CLEAR GALLERY
+    ========================================== */
+
+    function syncOilMediaToSelection(
+      forceReset = false
+    ) {
+
+      const newMediaSet =
+        getOilCurrentMediaSet();
+
+
+      const mediaChanged =
+        currentOilMediaSet !==
+        newMediaSet;
+
+
+      currentOilMediaSet =
+        newMediaSet;
+
+
+      if (
+        forceReset ||
+        mediaChanged ||
+        oilGalleryIndex >=
+          currentOilMediaSet.length
+      ) {
+
+
+        if (
+          currentOilMediaSet ===
+          oilDarkMedia
+        ) {
+
+          oilGalleryIndex =
+            1;
+
+        } else {
+
+          oilGalleryIndex =
+            0;
+
+        }
+
+      }
+
+
+      renderOilThumbnails();
+
+
+      setOilMedia(
+        oilGalleryIndex
+      );
+
+    }
+
+
+
+    /* =========================================
+       UPDATE PACK + COLOUR OPTIONS
+    ========================================== */
 
     function updateOilVariantOptions() {
 
@@ -1709,8 +1896,14 @@
         !packSelect ||
         !variantSelect
       ) {
+
         return;
+
       }
+
+
+      const previousValue =
+        variantSelect.value;
 
 
       const isDouble =
@@ -1727,6 +1920,7 @@
       variantSelect.innerHTML =
         variants
           .map(
+
             function(variant) {
 
               return `
@@ -1738,8 +1932,35 @@
               `;
 
             }
+
           )
           .join("");
+
+
+      const stillExists =
+        variants.some(
+
+          function(variant) {
+
+            return (
+              variant[0] ===
+              previousValue
+            );
+
+          }
+
+        );
+
+
+      if (
+        previousValue &&
+        stillExists
+      ) {
+
+        variantSelect.value =
+          previousValue;
+
+      }
 
 
       if (priceElement) {
@@ -1771,18 +1992,31 @@
 
       }
 
+
+      syncOilMediaToSelection(
+        true
+      );
+
     }
 
 
 
-    function setOilMedia(index) {
+    /* =========================================
+       SET MAIN PRODUCT MEDIA
+    ========================================== */
+
+    function setOilMedia(
+      index
+    ) {
 
       if (
         index < 0 ||
         index >=
-          oilDispenserMedia.length
+          currentOilMediaSet.length
       ) {
+
         return;
+
       }
 
 
@@ -1791,7 +2025,9 @@
 
 
       const media =
-        oilDispenserMedia[index];
+        currentOilMediaSet[
+          index
+        ];
 
 
       const main =
@@ -1801,7 +2037,9 @@
 
 
       if (!main) {
+
         return;
+
       }
 
 
@@ -1812,7 +2050,9 @@
 
 
       if (current) {
+
         current.remove();
+
       }
 
 
@@ -1888,6 +2128,7 @@
           "#oil-thumbnails .gallery-thumbnail"
         )
         .forEach(
+
           function(
             thumbnail,
             thumbnailIndex
@@ -1895,19 +2136,34 @@
 
             thumbnail.classList.toggle(
               "active",
-              thumbnailIndex === index
+              thumbnailIndex ===
+                index
             );
 
           }
+
         );
 
     }
 
 
 
+    /* =========================================
+       PREVIOUS / NEXT MEDIA
+    ========================================== */
+
     function changeOilMedia(
       direction
     ) {
+
+      if (
+        !currentOilMediaSet.length
+      ) {
+
+        return;
+
+      }
+
 
       let next =
         oilGalleryIndex +
@@ -1916,18 +2172,21 @@
 
       if (
         next >=
-        oilDispenserMedia.length
+        currentOilMediaSet.length
       ) {
 
-        next = 0;
+        next =
+          0;
 
       }
 
 
-      if (next < 0) {
+      if (
+        next < 0
+      ) {
 
         next =
-          oilDispenserMedia.length -
+          currentOilMediaSet.length -
           1;
 
       }
@@ -1940,6 +2199,10 @@
     }
 
 
+
+    /* =========================================
+       ADD OIL DISPENSER TO CART
+    ========================================== */
 
     function addOilDispenserToCart() {
 
@@ -1959,7 +2222,9 @@
         !packSelect ||
         !variantSelect
       ) {
+
         return;
+
       }
 
 
@@ -2002,8 +2267,32 @@
         variant;
 
 
+      const displayMediaSet =
+        getOilCurrentMediaSet();
+
+
+      const imageMedia =
+        displayMediaSet.find(
+          function(media) {
+
+            return (
+              media.type ===
+              "image"
+            );
+
+          }
+        );
+
+
+      const imageForCart =
+        imageMedia
+          ? imageMedia.src
+          : "";
+
+
       const existing =
         cart.find(
+
           function(item) {
 
             return (
@@ -2012,12 +2301,14 @@
             );
 
           }
+
         );
 
 
       if (existing) {
 
-        existing.quantity += 1;
+        existing.quantity +=
+          1;
 
       } else {
 
@@ -2044,7 +2335,7 @@
             price,
 
           image:
-            oilDispenserMedia[1].src,
+            imageForCart,
 
           quantity:
             1
@@ -2056,7 +2347,9 @@
 
       saveCart();
 
+
       updateCart();
+
 
       openCart();
 
@@ -2075,6 +2368,7 @@
     updateCart =
       function() {
 
+
         originalUpdateCart();
 
 
@@ -2088,7 +2382,9 @@
           !container ||
           cart.length === 0
         ) {
+
           return;
+
         }
 
 
@@ -2099,10 +2395,12 @@
 
 
         rows.forEach(
+
           function(
             row,
             index
           ) {
+
 
             const item =
               cart[index];
@@ -2112,7 +2410,9 @@
               !item ||
               !item.variantLabel
             ) {
+
               return;
+
             }
 
 
@@ -2132,7 +2432,24 @@
               !info ||
               !price
             ) {
+
               return;
+
+            }
+
+
+            const oldVariant =
+              info.querySelector(
+                ".cart-variant"
+              );
+
+
+            if (
+              oldVariant
+            ) {
+
+              oldVariant.remove();
+
             }
 
 
@@ -2156,6 +2473,7 @@
             );
 
           }
+
         );
 
       };
@@ -2168,6 +2486,7 @@
 
     checkout =
       async function() {
+
 
         if (
           cart.length === 0
@@ -2194,7 +2513,9 @@
             : "Checkout";
 
 
-        if (checkoutButton) {
+        if (
+          checkoutButton
+        ) {
 
           checkoutButton.disabled =
             true;
@@ -2211,6 +2532,7 @@
 
           const items =
             cart.map(
+
               function(item) {
 
                 return {
@@ -2235,6 +2557,7 @@
                 };
 
               }
+
             );
 
 
@@ -2276,7 +2599,8 @@
 
 
 
-          let data = {};
+          let data =
+            {};
 
 
           try {
@@ -2284,9 +2608,12 @@
             data =
               await response.json();
 
-          } catch (error) {
+          } catch (
+            error
+          ) {
 
-            data = {};
+            data =
+              {};
 
           }
 
@@ -2308,7 +2635,9 @@
 
 
 
-          if (!data.url) {
+          if (
+            !data.url
+          ) {
 
             throw new Error(
 
@@ -2324,7 +2653,9 @@
             data.url;
 
 
-        } catch (error) {
+        } catch (
+          error
+        ) {
 
 
           console.error(
@@ -2345,7 +2676,9 @@
           );
 
 
-          if (checkoutButton) {
+          if (
+            checkoutButton
+          ) {
 
             checkoutButton.disabled =
               false;
@@ -2362,6 +2695,10 @@
 
 
 
+    /* =========================================
+       START OIL PRODUCT
+    ========================================== */
+
     document.addEventListener(
 
       "DOMContentLoaded",
@@ -2369,8 +2706,6 @@
       function() {
 
         updateOilVariantOptions();
-
-        setOilMedia(1);
 
       }
 
