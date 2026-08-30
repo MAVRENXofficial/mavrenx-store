@@ -698,7 +698,7 @@ function changeSpongeImage(
 ========================================= */
 
 const checkoutBackendUrl =
-  "https://mavrenx-checkout.matthewrizzwani.workers.dev";
+  "https://api.mavrenx.com";
 
 
 async function checkout() {
