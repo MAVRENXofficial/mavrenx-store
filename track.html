@@ -758,17 +758,22 @@
     src="https://www.gstatic.com/firebasejs/10.13.2/firebase-messaging-compat.js"
   ></script>
 
-  <script
-    src="https://www.gstatic.com/firebasejs/10.13.2/firebase-database-compat.js"
-  ></script>
-
 
   <script src="script.js"></script>
 
 
   <script>
 
-    let activeTrackingReference = null;
+    const TRACKING_API =
+      "https://api.mavrenx.com/track-order";
+
+
+    let trackingTimer =
+      null;
+
+
+    let activeOrderNumber =
+      "";
 
 
     const statusOrder = [
@@ -790,14 +795,6 @@
       "Delivered"
 
     ];
-
-
-    const trackingDatabase =
-      firebase
-        .app()
-        .database(
-          "https://mavrenxsecurity-default-rtdb.europe-west1.firebasedatabase.app"
-        );
 
 
     document
@@ -824,8 +821,12 @@
               .toUpperCase();
 
 
-          if (!orderNumber) {
+          if (
+            !orderNumber
+          ) {
+
             return;
+
           }
 
 
@@ -875,6 +876,57 @@
       orderNumber
     ) {
 
+      activeOrderNumber =
+        orderNumber;
+
+
+      if (
+        trackingTimer
+      ) {
+
+        clearInterval(
+          trackingTimer
+        );
+
+        trackingTimer =
+          null;
+
+      }
+
+
+      loadTrackingStatus(
+        orderNumber
+      );
+
+
+      trackingTimer =
+        setInterval(
+          function() {
+
+            if (
+              activeOrderNumber ===
+              orderNumber
+            ) {
+
+              loadTrackingStatus(
+                orderNumber,
+                true
+              );
+
+            }
+
+          },
+          15000
+        );
+
+    }
+
+
+    async function loadTrackingStatus(
+      orderNumber,
+      silent = false
+    ) {
+
       const result =
         document.getElementById(
           "tracking-result"
@@ -887,91 +939,69 @@
         );
 
 
-      result.classList.remove(
-        "show"
-      );
+      if (
+        !/^MAVRENX-[A-F0-9]{12}$/.test(
+          orderNumber
+        )
+      ) {
 
-
-      error.classList.remove(
-        "show"
-      );
-
-
-      if (activeTrackingReference) {
-        activeTrackingReference.off();
-      }
-
-
-      activeTrackingReference =
-        trackingDatabase.ref(
-          "tracking/" + orderNumber
+        result.classList.remove(
+          "show"
         );
 
 
-      activeTrackingReference.on(
-
-        "value",
-
-        function(snapshot) {
+        error.textContent =
+          "That order number format is invalid. Check it and try again.";
 
 
-          if (!snapshot.exists()) {
+        error.classList.add(
+          "show"
+        );
 
-            result.classList.remove(
-              "show"
+
+        return;
+
+      }
+
+
+      try {
+
+        const response =
+          await fetch(
+            TRACKING_API +
+            "?orderId=" +
+            encodeURIComponent(
+              orderNumber
+            ),
+            {
+              method:
+                "GET",
+
+              headers: {
+                "Accept":
+                  "application/json"
+              },
+
+              cache:
+                "no-store"
+            }
+          );
+
+
+        const data =
+          await response
+            .json()
+            .catch(
+              function() {
+                return {};
+              }
             );
 
 
-            error.textContent =
-              "We couldn't find that order. Check the order number and try again.";
-
-
-            error.classList.add(
-              "show"
-            );
-
-
-            return;
-
-          }
-
-
-          const status =
-            snapshot.val();
-
-
-          error.classList.remove(
-            "show"
-          );
-
-
-          result.classList.add(
-            "show"
-          );
-
-
-          document
-            .getElementById(
-              "tracked-order-number"
-            )
-            .textContent =
-            orderNumber;
-
-
-          updateTrackingDisplay(
-            status
-          );
-
-        },
-
-
-        function(firebaseError) {
-
-          console.error(
-            "Tracking error:",
-            firebaseError
-          );
-
+        if (
+          response.status ===
+          404
+        ) {
 
           result.classList.remove(
             "show"
@@ -979,16 +1009,99 @@
 
 
           error.textContent =
-            "Tracking is unavailable right now. Please try again.";
+            "We couldn't find that order. Check the order number and try again.";
 
 
           error.classList.add(
             "show"
           );
 
+
+          return;
+
         }
 
-      );
+
+        if (
+          !response.ok ||
+          !data.ok ||
+          typeof data.status !==
+            "string"
+        ) {
+
+          throw new Error(
+            "Tracking request failed."
+          );
+
+        }
+
+
+        if (
+          activeOrderNumber !==
+          orderNumber
+        ) {
+
+          return;
+
+        }
+
+
+        error.classList.remove(
+          "show"
+        );
+
+
+        result.classList.add(
+          "show"
+        );
+
+
+        document
+          .getElementById(
+            "tracked-order-number"
+          )
+          .textContent =
+          data.orderId ||
+          orderNumber;
+
+
+        updateTrackingDisplay(
+          data.status
+        );
+
+      } catch (
+        trackingError
+      ) {
+
+        console.error(
+          "Tracking error:",
+          trackingError
+        );
+
+
+        if (
+          silent
+        ) {
+
+          return;
+
+        }
+
+
+        result.classList.remove(
+          "show"
+        );
+
+
+        error.textContent =
+          "Tracking is unavailable right now. Please try again.";
+
+
+        error.classList.add(
+          "show"
+        );
+
+      }
 
     }
 
@@ -1016,8 +1129,10 @@
           ".tracking-step"
         )
         .forEach(
-          function(step, index) {
-
+          function(
+            step,
+            index
+          ) {
 
             step.classList.remove(
               "complete"
@@ -1029,12 +1144,20 @@
             );
 
 
-            if (currentIndex === -1) {
+            if (
+              currentIndex ===
+              -1
+            ) {
+
               return;
+
             }
 
 
-            if (index < currentIndex) {
+            if (
+              index <
+              currentIndex
+            ) {
 
               step.classList.add(
                 "complete"
@@ -1043,7 +1166,10 @@
             }
 
 
-            if (index === currentIndex) {
+            if (
+              index ===
+              currentIndex
+            ) {
 
               step.classList.add(
                 "complete"
@@ -1062,13 +1188,6 @@
     }
 
 
-    /*
-      DIRECT TRACKING LINK
-
-      Example:
-      track.html?order=MAVRENX-ABC123456789
-    */
-
     const urlParameters =
       new URLSearchParams(
         window.location.search
@@ -1079,13 +1198,16 @@
       (
         urlParameters.get(
           "order"
-        ) || ""
+        ) ||
+        ""
       )
         .trim()
         .toUpperCase();
 
 
-    if (directOrderNumber) {
+    if (
+      directOrderNumber
+    ) {
 
       const input =
         document.getElementById(
@@ -1110,6 +1232,24 @@
       );
 
     }
+
+
+    window.addEventListener(
+      "beforeunload",
+      function() {
+
+        if (
+          trackingTimer
+        ) {
+
+          clearInterval(
+            trackingTimer
+          );
+
+        }
+
+      }
+    );
 
   </script>
 
