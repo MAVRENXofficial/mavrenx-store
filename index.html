@@ -1,677 +1,1298 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
   <title>MAVRENX — Home & Everyday</title>
-  <meta name="description" content="Discover useful MAVRENX products for your home, cleaning, kitchen, bedroom, lighting and everyday life.">
-  <link rel="stylesheet" href="styles.css">
+
+  <meta
+    name="description"
+    content="Discover useful MAVRENX products for your home, cleaning, kitchen, bedroom, lighting and everyday life."
+  >
+
+  <link
+    rel="stylesheet"
+    href="styles.css"
+  >
 
   <script src="https://js.stripe.com/clover/stripe.js"></script>
 
+
   <style>
-    .product-options{
-      margin-top:20px;
-      display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:12px;
+
+    /* =========================================================
+       MAVRENX FINAL PRODUCT + CHECKOUT OVERRIDES
+    ========================================================== */
+
+    .product-options {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
     }
 
-    .product-option-group label{
-      display:block;
-      margin-bottom:7px;
-      font-size:13px;
-      font-weight:800;
-      letter-spacing:.3px;
+
+    .product-option-group label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .3px;
     }
 
-    .product-option-group select{
-      width:100%;
-      min-height:46px;
-      padding:10px 12px;
-      border:1px solid #d9dfda;
-      border-radius:9px;
-      background:#fff;
-      color:#171717;
-      font:inherit;
-      cursor:pointer;
+
+    .product-option-group select {
+      width: 100%;
+      min-height: 46px;
+      padding: 10px 12px;
+      border: 1px solid #d9dfda;
+      border-radius: 9px;
+      background: #fff;
+      color: #171717;
+      font: inherit;
+      cursor: pointer;
     }
 
-    body.dark-mode .product-option-group select{
-      background:#151815;
-      color:#fff;
-      border-color:#343a34;
+
+    body.dark-mode .product-option-group select {
+      background: #151815;
+      color: #fff;
+      border-color: #343a34;
     }
 
-    .product-fixed-detail{
-      display:inline-block;
-      width:fit-content;
-      margin-top:14px;
-      padding:7px 11px;
-      border-radius:999px;
-      background:rgba(21,153,71,.10);
-      color:#159947;
-      font-size:12px;
-      font-weight:800;
+
+    .product-fixed-detail {
+      display: inline-block;
+      width: fit-content;
+      margin-top: 14px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(21, 153, 71, .10);
+      color: #159947;
+      font-size: 12px;
+      font-weight: 800;
     }
 
-    .cart-variant{
-      margin:3px 0 6px;
-      color:#747474;
-      font-size:13px;
-      line-height:1.4;
+
+    .cart-variant {
+      margin: 3px 0 6px;
+      color: #747474;
+      font-size: 13px;
+      line-height: 1.4;
     }
 
-    body.dark-mode .cart-variant{
-      color:#aaa;
+
+    body.dark-mode .cart-variant {
+      color: #aaa;
     }
 
-    .product-card{
-      grid-template-columns:minmax(250px,.72fr) minmax(320px,1.28fr) !important;
+
+    .product-card {
+      grid-template-columns:
+        minmax(250px, .72fr)
+        minmax(320px, 1.28fr) !important;
     }
 
-    .product-gallery{
-      padding:14px !important;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
+
+    .product-gallery {
+      padding: 14px !important;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
-    .gallery-main{
-      width:100%;
-      max-width:410px;
-      aspect-ratio:1/1;
-      margin-inline:auto;
+
+    .gallery-main {
+      width: 100%;
+      max-width: 410px;
+      aspect-ratio: 1 / 1;
+      margin-inline: auto;
     }
 
-    .generic-main-media{
-      width:100%;
-      height:100%;
-      display:block;
-      object-fit:contain;
-      padding:0 !important;
+
+    .generic-main-media {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+      padding: 0 !important;
     }
 
-    video.generic-main-media{
-      background:#111;
+
+    video.generic-main-media {
+      background: #111;
     }
 
-    .gallery-thumbnails{
-      width:100%;
-      max-width:410px;
-      grid-template-columns:repeat(auto-fit,minmax(48px,1fr)) !important;
-      gap:7px !important;
+
+    .gallery-thumbnails {
+      width: 100%;
+      max-width: 410px;
+      grid-template-columns:
+        repeat(
+          auto-fit,
+          minmax(48px, 1fr)
+        ) !important;
+      gap: 7px !important;
     }
 
-    .gallery-thumbnail{
-      max-width:68px;
+
+    .gallery-thumbnail {
+      max-width: 68px;
     }
 
-    .gallery-thumbnail img{
-      object-fit:contain !important;
+
+    .gallery-thumbnail img {
+      object-fit: contain !important;
     }
 
-    .video-thumbnail{
-      width:100%;
-      height:100%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      border-radius:5px;
-      background:#151815;
-      color:#fff;
-      font-size:20px;
-      font-weight:900;
+
+    .video-thumbnail {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 5px;
+      background: #151815;
+      color: #fff;
+      font-size: 20px;
+      font-weight: 900;
     }
+
 
     body.dark-mode .gallery-main,
-    body.dark-mode .gallery-thumbnail{
-      background:#151815;
+    body.dark-mode .gallery-thumbnail {
+      background: #151815;
     }
 
-    .product-card + .product-card{
-      margin-top:26px;
+
+    .product-card + .product-card {
+      margin-top: 26px;
     }
 
-    .mav-checkout-overlay{
-      position:fixed;
-      inset:0;
-      z-index:20000;
-      display:none;
-      align-items:flex-start;
-      justify-content:center;
-      overflow:auto;
-      padding:28px 16px;
-      background:rgba(0,0,0,.62);
-      backdrop-filter:blur(8px);
+
+    /* =========================================================
+       CUSTOM MAVRENX CHECKOUT
+    ========================================================== */
+
+    .mav-checkout-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 20000;
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      overflow: auto;
+      padding: 28px 16px;
+      background: rgba(0, 0, 0, .62);
+      backdrop-filter: blur(8px);
     }
 
-    .mav-checkout-overlay.active{
-      display:flex;
+
+    .mav-checkout-overlay.active {
+      display: flex;
     }
 
-    .mav-checkout-shell{
-      width:min(1040px,100%);
-      min-height:620px;
-      display:grid;
-      grid-template-columns:minmax(270px,.72fr) minmax(360px,1.28fr);
-      overflow:hidden;
-      border:1px solid #dfe5df;
-      border-radius:22px;
-      background:#fff;
-      color:#171717;
-      box-shadow:0 28px 90px rgba(0,0,0,.3);
+
+    .mav-checkout-shell {
+      width: min(1040px, 100%);
+      min-height: 620px;
+      display: grid;
+      grid-template-columns:
+        minmax(270px, .72fr)
+        minmax(360px, 1.28fr);
+      overflow: hidden;
+      border: 1px solid #dfe5df;
+      border-radius: 22px;
+      background: #fff;
+      color: #171717;
+      box-shadow:
+        0 28px 90px rgba(0, 0, 0, .3);
     }
 
-    body.dark-mode .mav-checkout-shell{
-      border-color:#2d352d;
-      background:#111511;
-      color:#f5f7f5;
+
+    body.dark-mode .mav-checkout-shell {
+      border-color: #2d352d;
+      background: #111511;
+      color: #f5f7f5;
     }
 
-    .mav-checkout-summary{
-      padding:34px 28px;
-      border-right:1px solid #e1e6e1;
-      background:#f4f8f4;
+
+    .mav-checkout-summary {
+      padding: 34px 28px;
+      border-right: 1px solid #e1e6e1;
+      background: #f4f8f4;
     }
 
-    body.dark-mode .mav-checkout-summary{
-      border-color:#2d352d;
-      background:#0d120e;
+
+    body.dark-mode .mav-checkout-summary {
+      border-color: #2d352d;
+      background: #0d120e;
     }
+
 
     .mav-checkout-summary h2,
-    .mav-checkout-form h2{
-      margin:0 0 8px;
+    .mav-checkout-form h2 {
+      margin: 0 0 8px;
     }
 
-    .mav-checkout-sub{
-      margin:0 0 24px;
-      color:#717771;
-      line-height:1.5;
+
+    .mav-checkout-sub {
+      margin: 0 0 24px;
+      color: #717771;
+      line-height: 1.5;
     }
 
-    body.dark-mode .mav-checkout-sub{
-      color:#aeb6ae;
+
+    body.dark-mode .mav-checkout-sub {
+      color: #aeb6ae;
     }
 
-    .mav-summary-items{
-      display:grid;
-      gap:13px;
+
+    .mav-summary-items {
+      display: grid;
+      gap: 13px;
     }
 
-    .mav-summary-item{
-      display:grid;
-      grid-template-columns:58px 1fr auto;
-      gap:11px;
-      align-items:center;
-      padding-bottom:13px;
-      border-bottom:1px solid #dfe5df;
+
+    .mav-summary-item {
+      display: grid;
+      grid-template-columns:
+        58px
+        1fr
+        auto;
+      gap: 11px;
+      align-items: center;
+      padding-bottom: 13px;
+      border-bottom:
+        1px solid #dfe5df;
     }
 
-    body.dark-mode .mav-summary-item{
-      border-color:#293129;
+
+    body.dark-mode .mav-summary-item {
+      border-color: #293129;
     }
 
-    .mav-summary-item img{
-      width:58px;
-      height:58px;
-      object-fit:contain;
-      border-radius:9px;
-      background:#fff;
+
+    .mav-summary-item img {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+      border-radius: 9px;
+      background: #fff;
     }
 
-    body.dark-mode .mav-summary-item img{
-      background:#151a15;
+
+    body.dark-mode .mav-summary-item img {
+      background: #151a15;
     }
 
-    .mav-summary-name{
-      font-weight:800;
-      font-size:14px;
-      line-height:1.3;
+
+    .mav-summary-name {
+      font-weight: 800;
+      font-size: 14px;
+      line-height: 1.3;
     }
 
-    .mav-summary-variant{
-      margin-top:3px;
-      color:#777;
-      font-size:12px;
+
+    .mav-summary-variant {
+      margin-top: 3px;
+      color: #777;
+      font-size: 12px;
     }
 
-    body.dark-mode .mav-summary-variant{
-      color:#aeb6ae;
+
+    body.dark-mode .mav-summary-variant {
+      color: #aeb6ae;
     }
 
-    .mav-summary-price{
-      font-weight:900;
-      white-space:nowrap;
+
+    .mav-summary-price {
+      font-weight: 900;
+      white-space: nowrap;
     }
 
-    .mav-summary-total{
-      margin-top:22px;
-      padding-top:17px;
-      display:flex;
-      justify-content:space-between;
-      gap:20px;
-      border-top:2px solid #d9e0d9;
-      font-size:21px;
-      font-weight:900;
+
+    .mav-summary-total {
+      margin-top: 22px;
+      padding-top: 17px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      border-top:
+        2px solid #d9e0d9;
+      font-size: 21px;
+      font-weight: 900;
     }
 
-    body.dark-mode .mav-summary-total{
-      border-color:#344034;
+
+    body.dark-mode .mav-summary-total {
+      border-color: #344034;
     }
 
-    .mav-checkout-form{
-      position:relative;
-      padding:34px 32px 38px;
-      background:#fff;
+
+    .mav-local-currency {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background:
+        rgba(21, 153, 71, .08);
+      color: #4d5a4d;
+      font-size: 12px;
+      line-height: 1.45;
     }
 
-    body.dark-mode .mav-checkout-form{
-      background:#111511;
+
+    body.dark-mode .mav-local-currency {
+      background:
+        rgba(21, 153, 71, .12);
+      color: #b9c5b9;
     }
 
-    .mav-checkout-close{
-      position:absolute;
-      top:15px;
-      right:15px;
-      width:40px;
-      height:40px;
-      border:0;
-      border-radius:50%;
-      background:#ebefeb;
-      color:#171717;
-      font-size:26px;
-      line-height:1;
-      cursor:pointer;
+
+    .mav-local-currency strong {
+      color: #159947;
+      font-size: 14px;
     }
 
-    body.dark-mode .mav-checkout-close{
-      background:#202820;
-      color:#fff;
+
+    .mav-checkout-form {
+      position: relative;
+      padding: 34px 32px 38px;
+      background: #fff;
     }
 
-    .mav-email-input{
-      width:100%;
-      min-height:48px;
-      padding:12px 13px;
-      border:1px solid #d9dfda;
-      border-radius:10px;
-      background:#fff;
-      color:#171717;
-      font:inherit;
-      outline:none;
+
+    body.dark-mode .mav-checkout-form {
+      background: #111511;
     }
 
-    .mav-email-input:focus{
-      border-color:#159947;
-      box-shadow:0 0 0 2px rgba(21,153,71,.13);
+
+    .mav-checkout-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 40px;
+      height: 40px;
+      border: 0;
+      border-radius: 50%;
+      background: #ebefeb;
+      color: #171717;
+      font-size: 26px;
+      line-height: 1;
+      cursor: pointer;
     }
 
-    body.dark-mode .mav-email-input{
-      border-color:#343a34;
-      background:#151815;
-      color:#fff;
+
+    body.dark-mode .mav-checkout-close {
+      background: #202820;
+      color: #fff;
     }
 
-    .mav-email-error{
-      min-height:18px;
-      margin-top:6px;
-      color:#c62828;
-      font-size:12px;
+
+    .mav-email-input {
+      width: 100%;
+      min-height: 48px;
+      padding: 12px 13px;
+      border: 1px solid #d9dfda;
+      border-radius: 10px;
+      background: #fff;
+      color: #171717;
+      font: inherit;
+      outline: none;
     }
 
-    .mav-checkout-section{
-      margin-top:22px;
+
+    .mav-email-input:focus {
+      border-color: #159947;
+
+      box-shadow:
+        0 0 0 2px
+        rgba(21, 153, 71, .13);
     }
 
-    .mav-checkout-section h3{
-      margin:0 0 11px;
-      font-size:16px;
+
+    body.dark-mode .mav-email-input {
+      border-color: #343a34;
+      background: #151815;
+      color: #fff;
     }
 
-    .mav-checkout-pay{
-      width:100%;
-      min-height:52px;
-      margin-top:24px;
-      border:0;
-      border-radius:10px;
-      background:#159947;
-      color:#fff;
-      font-size:16px;
-      font-weight:900;
-      cursor:pointer;
+
+    .mav-email-error {
+      min-height: 18px;
+      margin-top: 6px;
+      color: #c62828;
+      font-size: 12px;
     }
 
-    .mav-checkout-pay:disabled{
-      opacity:.58;
-      cursor:not-allowed;
+
+    .mav-checkout-section {
+      margin-top: 22px;
     }
 
-    .mav-checkout-message{
-      min-height:22px;
-      margin-top:13px;
-      color:#c62828;
-      font-size:14px;
-      line-height:1.5;
+
+    .mav-checkout-section h3 {
+      margin: 0 0 11px;
+      font-size: 16px;
     }
 
-    .mav-secure-note{
-      margin-top:12px;
-      color:#777;
-      text-align:center;
-      font-size:12px;
+
+    .mav-checkout-pay {
+      width: 100%;
+      min-height: 52px;
+      margin-top: 24px;
+      border: 0;
+      border-radius: 10px;
+      background: #159947;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 900;
+      cursor: pointer;
     }
 
-    body.dark-mode .mav-secure-note{
-      color:#9ea79e;
+
+    .mav-checkout-pay:disabled {
+      opacity: .58;
+      cursor: not-allowed;
     }
 
-    @media(max-width:850px){
-      .product-card{
-        grid-template-columns:1fr !important;
+
+    .mav-checkout-message {
+      min-height: 22px;
+      margin-top: 13px;
+      color: #c62828;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+
+    .mav-secure-note {
+      margin-top: 12px;
+      color: #777;
+      text-align: center;
+      font-size: 12px;
+    }
+
+
+    body.dark-mode .mav-secure-note {
+      color: #9ea79e;
+    }
+
+
+    @media (max-width: 850px) {
+
+      .product-card {
+        grid-template-columns:
+          1fr !important;
       }
+
 
       .gallery-main,
-      .gallery-thumbnails{
-        max-width:350px;
+      .gallery-thumbnails {
+        max-width: 350px;
       }
 
-      .mav-checkout-shell{
-        grid-template-columns:1fr;
+
+      .mav-checkout-shell {
+        grid-template-columns:
+          1fr;
       }
 
-      .mav-checkout-summary{
-        border-right:0;
-        border-bottom:1px solid #e1e6e1;
+
+      .mav-checkout-summary {
+        border-right: 0;
+        border-bottom:
+          1px solid #e1e6e1;
       }
 
-      body.dark-mode .mav-checkout-summary{
-        border-color:#2d352d;
+
+      body.dark-mode .mav-checkout-summary {
+        border-color: #2d352d;
       }
+
     }
 
-    @media(max-width:520px){
-      .product-options{
-        grid-template-columns:1fr;
+
+    @media (max-width: 520px) {
+
+      .product-options {
+        grid-template-columns:
+          1fr;
       }
+
 
       .gallery-main,
-      .gallery-thumbnails{
-        max-width:300px;
+      .gallery-thumbnails {
+        max-width: 300px;
       }
 
-      .gallery-thumbnails{
-        grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+
+      .gallery-thumbnails {
+        grid-template-columns:
+          repeat(
+            5,
+            minmax(0, 1fr)
+          ) !important;
       }
 
-      .gallery-thumbnail{
-        max-width:none;
+
+      .gallery-thumbnail {
+        max-width: none;
       }
 
-      .mav-checkout-overlay{
-        padding:0;
+
+      .mav-checkout-overlay {
+        padding: 0;
       }
 
-      .mav-checkout-shell{
-        min-height:100vh;
-        border-radius:0;
+
+      .mav-checkout-shell {
+        min-height: 100vh;
+        border-radius: 0;
       }
+
 
       .mav-checkout-summary,
-      .mav-checkout-form{
-        padding:28px 18px;
+      .mav-checkout-form {
+        padding: 28px 18px;
       }
+
     }
+
   </style>
+
 </head>
+
 
 <body>
 
+
   <header>
-    <div class="logo-text">MAVRENX</div>
+
+    <div class="logo-text">
+      MAVRENX
+    </div>
+
 
     <nav>
-      <a href="index.html">Home</a>
-      <a href="#categories">Categories</a>
-      <a href="#categories">Shop</a>
-      <a href="track.html">Track Order</a>
-      <a href="contact.html">Support</a>
-      <a href="#about">About</a>
+
+      <a href="index.html">
+        Home
+      </a>
+
+      <a href="#categories">
+        Categories
+      </a>
+
+      <a href="#categories">
+        Shop
+      </a>
+
+      <a href="track.html">
+        Track Order
+      </a>
+
+      <a href="contact.html">
+        Support
+      </a>
+
+      <a href="#about">
+        About
+      </a>
+
     </nav>
 
+
     <div class="header-actions">
-      <button class="like-button" onclick="openLikes()">
-        ♡ <span id="likes-count">0</span>
+
+      <button
+        class="like-button"
+        onclick="openLikes()"
+      >
+        ♡
+        <span id="likes-count">
+          0
+        </span>
       </button>
 
-      <button class="cart-button" onclick="openCart()">
-        Cart (<span id="cart-count">0</span>)
+
+      <button
+        class="cart-button"
+        onclick="openCart()"
+      >
+        Cart (
+        <span id="cart-count">
+          0
+        </span>
+        )
       </button>
 
-      <button id="theme-button" class="theme-button" onclick="toggleTheme()">☾</button>
+
+      <button
+        id="theme-button"
+        class="theme-button"
+        onclick="toggleTheme()"
+      >
+        ☾
+      </button>
+
     </div>
+
   </header>
 
 
-  <div id="notification-overlay" class="notification-overlay">
+  <div
+    id="notification-overlay"
+    class="notification-overlay"
+  >
+
     <div class="notification-modal">
-      <button class="notification-close" onclick="closeNotificationPopup()" aria-label="Close notification popup">×</button>
-      <div class="notification-big-icon">🔔</div>
-      <h2>Stay updated with <span>MAVRENX</span></h2>
+
+      <button
+        class="notification-close"
+        onclick="closeNotificationPopup()"
+        aria-label="Close notification popup"
+      >
+        ×
+      </button>
+
+
+      <div class="notification-big-icon">
+        🔔
+      </div>
+
+
+      <h2>
+        Stay updated with
+        <span>
+          MAVRENX
+        </span>
+      </h2>
+
+
       <p>
         Get real-time updates about your order.
         We'll notify you when your order is confirmed,
-        prepared, shipped, in transit, out for delivery and delivered.
+        prepared, shipped, in transit,
+        out for delivery and delivered.
       </p>
-      <button class="enable-notifications-button" onclick="enableNotificationsFromPopup()">Enable notifications</button>
-      <button class="not-now-button" onclick="closeNotificationPopup()">Not now</button>
+
+
+      <button
+        class="enable-notifications-button"
+        onclick="enableNotificationsFromPopup()"
+      >
+        Enable notifications
+      </button>
+
+
+      <button
+        class="not-now-button"
+        onclick="closeNotificationPopup()"
+      >
+        Not now
+      </button>
+
     </div>
+
   </div>
 
 
   <main>
 
-    <section id="home" class="hero">
+
+    <section
+      id="home"
+      class="hero"
+    >
+
       <div class="hero-content">
-        <p class="tag">MAVRENX HOME</p>
-        <h1>Better things.<br><span>Better home.</span></h1>
-        <p class="hero-text">
-          Discover useful products for your home, kitchen, bedroom,
-          cleaning, lighting and everyday life.
+
+        <p class="tag">
+          MAVRENX HOME
         </p>
-        <a href="#categories" class="main-button">Shop now</a>
+
+
+        <h1>
+          Better things.
+          <br>
+
+          <span>
+            Better home.
+          </span>
+        </h1>
+
+
+        <p class="hero-text">
+          Discover useful products for your home,
+          kitchen, bedroom, cleaning,
+          lighting and everyday life.
+        </p>
+
+
+        <a
+          href="#categories"
+          class="main-button"
+        >
+          Shop now
+        </a>
+
       </div>
+
 
       <div class="hero-art">
-        <div class="hero-shape">MAVRENX</div>
+
+        <div class="hero-shape">
+          MAVRENX
+        </div>
+
       </div>
+
     </section>
 
 
-    <section id="categories" class="categories">
-      <p class="tag">SHOP BY CATEGORY</p>
-      <h2>Find what you<br><span>need.</span></h2>
+    <section
+      id="categories"
+      class="categories"
+    >
+
+      <p class="tag">
+        SHOP BY CATEGORY
+      </p>
+
+
+      <h2>
+        Find what you
+        <br>
+
+        <span>
+          need.
+        </span>
+      </h2>
+
 
       <div class="category-grid">
-        <a href="#cleaning" class="category-card">
-          <span class="category-icon">🧹</span>
-          <h3>Cleaning</h3>
-          <p>Cleaning tools and useful accessories.</p>
+
+
+        <a
+          href="#cleaning"
+          class="category-card"
+        >
+
+          <span class="category-icon">
+            🧹
+          </span>
+
+          <h3>
+            Cleaning
+          </h3>
+
+          <p>
+            Cleaning tools and useful accessories.
+          </p>
+
         </a>
 
-        <a href="#lighting" class="category-card">
-          <span class="category-icon">💡</span>
-          <h3>Lighting</h3>
-          <p>LEDs, ambient lights and useful lighting.</p>
+
+        <a
+          href="#lighting"
+          class="category-card"
+        >
+
+          <span class="category-icon">
+            💡
+          </span>
+
+          <h3>
+            Lighting
+          </h3>
+
+          <p>
+            LEDs, ambient lights and useful lighting.
+          </p>
+
         </a>
 
-        <a href="#home-products" class="category-card">
-          <span class="category-icon">🏠</span>
-          <h3>Home</h3>
-          <p>Everyday essentials and useful gadgets.</p>
+
+        <a
+          href="#home-products"
+          class="category-card"
+        >
+
+          <span class="category-icon">
+            🏠
+          </span>
+
+          <h3>
+            Home
+          </h3>
+
+          <p>
+            Everyday essentials and useful gadgets.
+          </p>
+
         </a>
 
-        <a href="#kitchen" class="category-card">
-          <span class="category-icon">🍳</span>
-          <h3>Kitchen</h3>
-          <p>Cooking tools and kitchen accessories.</p>
+
+        <a
+          href="#kitchen"
+          class="category-card"
+        >
+
+          <span class="category-icon">
+            🍳
+          </span>
+
+          <h3>
+            Kitchen
+          </h3>
+
+          <p>
+            Cooking tools and kitchen accessories.
+          </p>
+
         </a>
 
-        <a href="#smart-home" class="category-card">
-          <span class="category-icon">🔌</span>
-          <h3>Smart Home</h3>
-          <p>Smart devices and useful technology.</p>
+
+        <a
+          href="#smart-home"
+          class="category-card"
+        >
+
+          <span class="category-icon">
+            🔌
+          </span>
+
+          <h3>
+            Smart Home
+          </h3>
+
+          <p>
+            Smart devices and useful technology.
+          </p>
+
         </a>
 
-        <a href="#bedroom" class="category-card">
-          <span class="category-icon">🛏️</span>
-          <h3>Bedroom</h3>
-          <p>Comfort and ambient room products.</p>
+
+        <a
+          href="#bedroom"
+          class="category-card"
+        >
+
+          <span class="category-icon">
+            🛏️
+          </span>
+
+          <h3>
+            Bedroom
+          </h3>
+
+          <p>
+            Comfort and ambient room products.
+          </p>
+
         </a>
+
+
       </div>
+
     </section>
 
 
-    <section id="cleaning" class="category-section">
+    <section
+      id="cleaning"
+      class="category-section"
+    >
+
       <div class="category-heading">
-        <span class="big-icon">🧹</span>
+
+        <span class="big-icon">
+          🧹
+        </span>
+
+
         <div>
-          <p class="tag">CATEGORY</p>
-          <h2>Cleaning</h2>
-          <p class="category-description">Cleaning tools and useful accessories.</p>
+
+          <p class="tag">
+            CATEGORY
+          </p>
+
+          <h2>
+            Cleaning
+          </h2>
+
+          <p class="category-description">
+            Cleaning tools and useful accessories.
+          </p>
+
         </div>
+
       </div>
 
-      <div id="cleaning-products" class="category-products"></div>
+
+      <div
+        id="cleaning-products"
+        class="category-products"
+      ></div>
+
     </section>
 
 
-    <section id="lighting" class="category-section">
+    <section
+      id="lighting"
+      class="category-section"
+    >
+
       <div class="category-heading">
-        <span class="big-icon">💡</span>
+
+        <span class="big-icon">
+          💡
+        </span>
+
+
         <div>
-          <p class="tag">CATEGORY</p>
-          <h2>Lighting</h2>
-          <p class="category-description">LEDs, ambient lights and useful lighting.</p>
+
+          <p class="tag">
+            CATEGORY
+          </p>
+
+          <h2>
+            Lighting
+          </h2>
+
+          <p class="category-description">
+            LEDs, ambient lights and useful lighting.
+          </p>
+
         </div>
+
       </div>
 
-      <div id="lighting-products" class="category-products"></div>
+
+      <div
+        id="lighting-products"
+        class="category-products"
+      ></div>
+
     </section>
 
 
-    <section id="home-products" class="category-section">
+    <section
+      id="home-products"
+      class="category-section"
+    >
+
       <div class="category-heading">
-        <span class="big-icon">🏠</span>
+
+        <span class="big-icon">
+          🏠
+        </span>
+
+
         <div>
-          <p class="tag">CATEGORY</p>
-          <h2>Home</h2>
-          <p class="category-description">Everyday essentials and useful gadgets.</p>
+
+          <p class="tag">
+            CATEGORY
+          </p>
+
+          <h2>
+            Home
+          </h2>
+
+          <p class="category-description">
+            Everyday essentials and useful gadgets.
+          </p>
+
         </div>
+
       </div>
 
-      <div id="home-products-container" class="category-products"></div>
+
+      <div
+        id="home-products-container"
+        class="category-products"
+      ></div>
+
     </section>
 
 
-    <section id="kitchen" class="category-section">
+    <section
+      id="kitchen"
+      class="category-section"
+    >
+
       <div class="category-heading">
-        <span class="big-icon">🍳</span>
+
+        <span class="big-icon">
+          🍳
+        </span>
+
+
         <div>
-          <p class="tag">CATEGORY</p>
-          <h2>Kitchen</h2>
-          <p class="category-description">Cooking tools and useful kitchen accessories.</p>
+
+          <p class="tag">
+            CATEGORY
+          </p>
+
+          <h2>
+            Kitchen
+          </h2>
+
+          <p class="category-description">
+            Cooking tools and useful kitchen accessories.
+          </p>
+
         </div>
+
       </div>
 
-      <div id="kitchen-products" class="category-products"></div>
+
+      <div
+        id="kitchen-products"
+        class="category-products"
+      ></div>
+
     </section>
 
 
-    <section id="smart-home" class="category-section">
+    <section
+      id="smart-home"
+      class="category-section"
+    >
+
       <div class="category-heading">
-        <span class="big-icon">🔌</span>
+
+        <span class="big-icon">
+          🔌
+        </span>
+
+
         <div>
-          <p class="tag">CATEGORY</p>
-          <h2>Smart Home</h2>
-          <p class="category-description">Smart devices and useful everyday technology.</p>
+
+          <p class="tag">
+            CATEGORY
+          </p>
+
+          <h2>
+            Smart Home
+          </h2>
+
+          <p class="category-description">
+            Smart devices and useful everyday technology.
+          </p>
+
         </div>
+
       </div>
 
-      <div id="smart-home-products" class="category-products"></div>
+
+      <div
+        id="smart-home-products"
+        class="category-products"
+      ></div>
+
     </section>
 
 
-    <section id="bedroom" class="category-section">
+    <section
+      id="bedroom"
+      class="category-section"
+    >
+
       <div class="category-heading">
-        <span class="big-icon">🛏️</span>
+
+        <span class="big-icon">
+          🛏️
+        </span>
+
+
         <div>
-          <p class="tag">CATEGORY</p>
-          <h2>Bedroom</h2>
-          <p class="category-description">Comfort and ambient room products.</p>
+
+          <p class="tag">
+            CATEGORY
+          </p>
+
+          <h2>
+            Bedroom
+          </h2>
+
+          <p class="category-description">
+            Comfort and ambient room products.
+          </p>
+
         </div>
+
       </div>
 
-      <div id="bedroom-products" class="category-products"></div>
+
+      <div
+        id="bedroom-products"
+        class="category-products"
+      ></div>
+
     </section>
 
 
-    <section id="about" class="about">
-      <p class="tag">ABOUT MAVRENX</p>
-      <h2>Useful products.<br><span>Simple shopping.</span></h2>
-      <p class="about-text">MAVRENX brings together useful products for your home and everyday life.</p>
+    <section
+      id="about"
+      class="about"
+    >
+
+      <p class="tag">
+        ABOUT MAVRENX
+      </p>
+
+
+      <h2>
+        Useful products.
+        <br>
+
+        <span>
+          Simple shopping.
+        </span>
+      </h2>
+
+
+      <p class="about-text">
+        MAVRENX brings together useful products
+        for your home and everyday life.
+      </p>
+
     </section>
+
 
   </main>
 
 
-  <div id="likes-panel" class="side-panel">
-    <button class="close-panel" onclick="closeLikes()">×</button>
-    <h2>Liked Items</h2>
+  <div
+    id="likes-panel"
+    class="side-panel"
+  >
+
+    <button
+      class="close-panel"
+      onclick="closeLikes()"
+    >
+      ×
+    </button>
+
+
+    <h2>
+      Liked Items
+    </h2>
+
 
     <div id="liked-items">
-      <p class="empty-message">You haven't liked anything yet.</p>
+
+      <p class="empty-message">
+        You haven't liked anything yet.
+      </p>
+
     </div>
+
   </div>
 
 
-  <div id="cart-panel" class="side-panel">
-    <button class="close-panel" onclick="closeCart()">×</button>
-    <h2>Your Cart</h2>
+  <div
+    id="cart-panel"
+    class="side-panel"
+  >
+
+    <button
+      class="close-panel"
+      onclick="closeCart()"
+    >
+      ×
+    </button>
+
+
+    <h2>
+      Your Cart
+    </h2>
+
 
     <div id="cart-items">
-      <p class="empty-message">Your cart is empty.</p>
+
+      <p class="empty-message">
+        Your cart is empty.
+      </p>
+
     </div>
+
   </div>
 
 
-  <div id="mav-checkout-overlay" class="mav-checkout-overlay" aria-hidden="true">
+  <!-- =========================================================
+       CUSTOM STRIPE CHECKOUT
+  ========================================================== -->
+
+  <div
+    id="mav-checkout-overlay"
+    class="mav-checkout-overlay"
+    aria-hidden="true"
+  >
 
     <div class="mav-checkout-shell">
 
+
       <aside class="mav-checkout-summary">
 
-        <p class="tag">MAVRENX CHECKOUT</p>
+        <p class="tag">
+          MAVRENX CHECKOUT
+        </p>
 
-        <h2>Your order</h2>
+
+        <h2>
+          Your order
+        </h2>
+
 
         <p class="mav-checkout-sub">
           Review your items before completing payment.
         </p>
 
-        <div id="mav-summary-items" class="mav-summary-items"></div>
+
+        <div
+          id="mav-summary-items"
+          class="mav-summary-items"
+        ></div>
+
 
         <div class="mav-summary-total">
-          <span>Total</span>
-          <span id="mav-summary-total">€0.00</span>
+
+          <span>
+            Total
+          </span>
+
+
+          <span id="mav-summary-total">
+            €0.00
+          </span>
+
+        </div>
+
+
+        <div
+          id="mav-local-currency"
+          class="mav-local-currency"
+        >
+          Prices are shown in EUR until
+          a shipping country is selected.
         </div>
 
       </aside>
 
 
       <section class="mav-checkout-form">
+
 
         <button
           class="mav-checkout-close"
@@ -682,9 +1303,16 @@
           ×
         </button>
 
-        <p class="tag">SECURE PAYMENT</p>
 
-        <h2>Checkout</h2>
+        <p class="tag">
+          SECURE PAYMENT
+        </p>
+
+
+        <h2>
+          Checkout
+        </h2>
+
 
         <p class="mav-checkout-sub">
           Your payment details are handled securely by Stripe.
@@ -693,9 +1321,13 @@
 
         <form id="mav-payment-form">
 
+
           <div class="mav-checkout-section">
 
-            <h3>Contact</h3>
+            <h3>
+              Contact
+            </h3>
+
 
             <input
               id="mav-email"
@@ -706,6 +1338,7 @@
               placeholder="Email address"
               required
             >
+
 
             <div
               id="mav-email-error"
@@ -724,6 +1357,7 @@
               style="margin-top:10px;"
             >
 
+
             <div
               id="mav-phone-error"
               class="mav-email-error"
@@ -734,18 +1368,26 @@
 
           <div class="mav-checkout-section">
 
-            <h3>Shipping address</h3>
+            <h3>
+              Shipping address
+            </h3>
 
-            <div id="shipping-address-element"></div>
+            <div
+              id="shipping-address-element"
+            ></div>
 
           </div>
 
 
           <div class="mav-checkout-section">
 
-            <h3>Payment</h3>
+            <h3>
+              Payment
+            </h3>
 
-            <div id="payment-element"></div>
+            <div
+              id="payment-element"
+            ></div>
 
           </div>
 
@@ -774,9 +1416,11 @@
             Secure payment powered by Stripe
           </div>
 
+
         </form>
 
       </section>
+
 
     </div>
 
@@ -785,764 +1429,2138 @@
 
   <footer>
 
-    <div class="footer-logo">MAVRENX</div>
-
-    <p>Better things. Better home.</p>
-
-    <div class="footer-links">
-      <a href="shipping.html">Shipping Policy</a>
-      <a href="returns.html">Returns & Refunds</a>
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms & Conditions</a>
-      <a href="track.html">Track Order</a>
-      <a href="contact.html">Contact</a>
+    <div class="footer-logo">
+      MAVRENX
     </div>
 
-    <small>© 2026 MAVRENX</small>
+
+    <p>
+      Better things. Better home.
+    </p>
+
+
+    <div class="footer-links">
+
+      <a href="shipping.html">
+        Shipping Policy
+      </a>
+
+      <a href="returns.html">
+        Returns & Refunds
+      </a>
+
+      <a href="privacy.html">
+        Privacy Policy
+      </a>
+
+      <a href="terms.html">
+        Terms & Conditions
+      </a>
+
+      <a href="track.html">
+        Track Order
+      </a>
+
+      <a href="contact.html">
+        Contact
+      </a>
+
+    </div>
+
+
+    <small>
+      © 2026 MAVRENX
+    </small>
 
   </footer>
 
 
-  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-messaging-compat.js"></script>
+  <script
+    src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"
+  ></script>
+
+  <script
+    src="https://www.gstatic.com/firebasejs/10.13.2/firebase-messaging-compat.js"
+  ></script>
+
+
   <script src="script.js"></script>
 
 
   <script>
 
+
+    /* =========================================================
+       PRODUCT CATALOG
+    ========================================================== */
+
+
     const PRODUCTS = {
 
+
       "spinning-sponge-001": {
-        id:"spinning-sponge-001",
-        category:"cleaning",
-        tag:"CLEANING",
-        name:"Electric Spin Scrubber Sponge",
-        description:"Make everyday cleaning easier with a powered spinning cleaning head designed to help tackle dirt and grime on common household surfaces.",
-        features:[
+
+        id:
+          "spinning-sponge-001",
+
+        category:
+          "cleaning",
+
+        tag:
+          "CLEANING",
+
+        name:
+          "Electric Spin Scrubber Sponge",
+
+        description:
+          "Make everyday cleaning easier with a powered spinning cleaning head designed to help tackle dirt and grime on common household surfaces.",
+
+
+        features: [
+
           "Powered spinning cleaning head",
+
           "Compact handheld design",
+
           "Helps reduce manual scrubbing",
+
           "Useful for kitchens and bathrooms",
+
           "Suitable for sinks, tiles and hard surfaces"
+
         ],
-        price:27.99,
-        media:[
-          {type:"image",src:"https://ae-pic-a1.aliexpress-media.com/kf/Se11ffac394ff459d9895d8295bbe27ead.jpg_220x220q75.jpg_.avif"},
-          {type:"image",src:"https://ae-pic-a1.aliexpress-media.com/kf/Scf67aebae10449a2822454605ed56195N.jpg_220x220q75.jpg_.avif"},
-          {type:"image",src:"https://ae-pic-a1.aliexpress-media.com/kf/Sda9899dbd8ef4af39775d1a20d1ced0ao.jpg_220x220q75.jpg_.avif"},
-          {type:"image",src:"https://ae-pic-a1.aliexpress-media.com/kf/S4178ac99ae1d4d9f96a4f9425578af8bY.jpg_220x220q75.jpg_.avif"},
-          {type:"image",src:"https://ae-pic-a1.aliexpress-media.com/kf/S10033e683b6047109d777d23c45b3131x.jpg_220x220q75.jpg_.avif"},
-          {type:"image",src:"https://ae-pic-a1.aliexpress-media.com/kf/Sb865bea0bd644c689b16d424dc9cae1fV.jpg_220x220q75.jpg_.avif"}
+
+
+        price:
+          27.99,
+
+
+        media: [
+
+          {
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Se11ffac394ff459d9895d8295bbe27ead.jpg_220x220q75.jpg_.avif"
+          },
+
+
+          {
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Scf67aebae10449a2822454605ed56195N.jpg_220x220q75.jpg_.avif"
+          },
+
+
+          {
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sda9899dbd8ef4af39775d1a20d1ced0ao.jpg_220x220q75.jpg_.avif"
+          },
+
+
+          {
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S4178ac99ae1d4d9f96a4f9425578af8bY.jpg_220x220q75.jpg_.avif"
+          },
+
+
+          {
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S10033e683b6047109d777d23c45b3131x.jpg_220x220q75.jpg_.avif"
+          },
+
+
+          {
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sb865bea0bd644c689b16d424dc9cae1fV.jpg_220x220q75.jpg_.avif"
+          }
+
         ]
+
       },
 
 
       "oil-sprayer-470ml-001": {
-        id:"oil-sprayer-470ml-001",
-        category:"kitchen",
-        tag:"KITCHEN",
-        name:"470ML 2-in-1 Oil Sprayer & Dispenser",
-        description:"A 470ML glass oil bottle combining a spray function with a traditional pouring dispenser in one compact kitchen design.",
-        features:[
+
+        id:
+          "oil-sprayer-470ml-001",
+
+        category:
+          "kitchen",
+
+        tag:
+          "KITCHEN",
+
+        name:
+          "470ML 2-in-1 Oil Sprayer & Dispenser",
+
+        description:
+          "A 470ML glass oil bottle combining a spray function with a traditional pouring dispenser in one compact kitchen design.",
+
+
+        features: [
+
           "470ML / 16oz capacity",
+
           "2-in-1 spray and pour design",
+
           "Glass bottle construction",
+
           "Light-blocking bottle design",
+
           "Four colour options"
+
         ],
-        price:32.99,
-        options:[
+
+
+        price:
+          32.99,
+
+
+        options: [
+
           {
-            key:"colour",
-            label:"Colour",
-            values:[
+
+            key:
+              "colour",
+
+            label:
+              "Colour",
+
+            values: [
+
               {
-                value:"yellow",
-                label:"Yellow",
-                image:"https://ae-pic-a1.aliexpress-media.com/kf/S0c0ed86bed93408c81ff2e5f8cffd72fW.jpg_220x220q75.jpg_.avif"
+                value:
+                  "yellow",
+
+                label:
+                  "Yellow",
+
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/S0c0ed86bed93408c81ff2e5f8cffd72fW.jpg_220x220q75.jpg_.avif"
               },
+
+
               {
-                value:"green",
-                label:"Green",
-                image:"https://ae-pic-a1.aliexpress-media.com/kf/Sf21bae7943264aa7859794cb14b422d60.jpg_220x220q75.jpg_.avif"
+                value:
+                  "green",
+
+                label:
+                  "Green",
+
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/Sf21bae7943264aa7859794cb14b422d60.jpg_220x220q75.jpg_.avif"
               },
+
+
               {
-                value:"black",
-                label:"Black",
-                image:"https://ae-pic-a1.aliexpress-media.com/kf/Sf6985264e4fc4397b0d1bbe4c00e0564p.jpg_220x220q75.jpg_.avif"
+                value:
+                  "black",
+
+                label:
+                  "Black",
+
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/Sf6985264e4fc4397b0d1bbe4c00e0564p.jpg_220x220q75.jpg_.avif"
               },
+
+
               {
-                value:"white",
-                label:"White",
-                image:"https://ae-pic-a1.aliexpress-media.com/kf/S63af4e8d31c24c6898e19b74f6e84293j.jpg_220x220q75.jpg_.avif"
+                value:
+                  "white",
+
+                label:
+                  "White",
+
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/S63af4e8d31c24c6898e19b74f6e84293j.jpg_220x220q75.jpg_.avif"
               }
+
             ]
+
           }
+
         ],
-        media:[
-          {type:"image",src:"https://ae-pic-a1.aliexpress-media.com/kf/S0f98dcb72fdf46b3b0c7a788655ade404.jpg?has_lang=1&ver=1_960x960q75.jpg_.avif"},
-          {type:"image",src:"https://ae-pic-a1.aliexpress-media.com/kf/S16e5c708f248453c9f55815ada9cad971.jpg_220x220q75.jpg_.avif"},
-          {type:"image",src:"https://ae-pic-a1.aliexpress-media.com/kf/S7966e5f9996b4335992184fc4219a365c.jpg?has_lang=1&ver=1_220x220q75.jpg_.avif"},
-          {type:"image",src:"https://ae-pic-a1.aliexpress-media.com/kf/S309735392487413f92bfc44c9c295e0eA.jpg?has_lang=1&ver=1_220x220q75.jpg_.avif"},
-          {type:"image",src:"https://ae-pic-a1.aliexpress-media.com/kf/Sefb64d7c0f3348c4bb2849d856a01176B.jpg?has_lang=1&ver=1_220x220q75.jpg_.avif"},
-          {type:"image",src:"https://ae-pic-a1.aliexpress-media.com/kf/S0ae9265f4fa64c588d34709b1c32a7c1o.jpg?has_lang=1&ver=1_220x220q75.jpg_.avif"}
+
+
+        media: [
+
+          {
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S0f98dcb72fdf46b3b0c7a788655ade404.jpg?has_lang=1&ver=1_960x960q75.jpg_.avif"
+          },
+
+
+          {
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S16e5c708f248453c9f55815ada9cad971.jpg_220x220q75.jpg_.avif"
+          },
+
+
+          {
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S7966e5f9996b4335992184fc4219a365c.jpg?has_lang=1&ver=1_220x220q75.jpg_.avif"
+          },
+
+
+          {
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S309735392487413f92bfc44c9c295e0eA.jpg?has_lang=1&ver=1_220x220q75.jpg_.avif"
+          },
+
+
+          {
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sefb64d7c0f3348c4bb2849d856a01176B.jpg?has_lang=1&ver=1_220x220q75.jpg_.avif"
+          },
+
+
+          {
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S0ae9265f4fa64c588d34709b1c32a7c1o.jpg?has_lang=1&ver=1_220x220q75.jpg_.avif"
+          }
+
         ]
+
       },
 
 
       "rgb-neon-strip-001": {
-        id:"rgb-neon-strip-001",
-        category:"lighting",
-        tag:"LIGHTING",
-        name:"Smart RGB Neon LED Strip",
-        description:"Flexible RGB neon-style lighting with Bluetooth or Tuya WiFi control and multiple length options for rooms, gaming setups and home decoration.",
-        features:[
+
+        id:
+          "rgb-neon-strip-001",
+
+        category:
+          "lighting",
+
+        tag:
+          "LIGHTING",
+
+        name:
+          "Smart RGB Neon LED Strip",
+
+        description:
+          "Flexible RGB neon-style lighting with Bluetooth or Tuya WiFi control and multiple length options for rooms, gaming setups and home decoration.",
+
+
+        features: [
+
           "RGB neon-style lighting",
+
           "Bluetooth or Tuya WiFi control",
+
           "1m, 2m, 3m and 5m options",
+
           "96 LEDs per metre",
+
           "IP65 listed strip",
+
           "Tuya WiFi version supports smart-home control"
+
         ],
-        options:[
+
+
+        options: [
+
           {
-            key:"control",
-            label:"Control",
-            values:[
+
+            key:
+              "control",
+
+            label:
+              "Control",
+
+            values: [
+
               {
-                value:"bluetooth",
-                label:"Bluetooth Control",
-                image:"https://ae-pic-a1.aliexpress-media.com/kf/S3e9ef30bd9e84d0d878f61ff39ae9e83v.jpg_220x220q75.jpg_.avif"
+                value:
+                  "bluetooth",
+
+                label:
+                  "Bluetooth Control",
+
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/S3e9ef30bd9e84d0d878f61ff39ae9e83v.jpg_220x220q75.jpg_.avif"
               },
+
+
               {
-                value:"tuya",
-                label:"Tuya WiFi Control",
-                image:"https://ae-pic-a1.aliexpress-media.com/kf/S9a6e63777bef4b42911f3b226db7ccd1g.jpg_220x220q75.jpg_.avif"
+                value:
+                  "tuya",
+
+                label:
+                  "Tuya WiFi Control",
+
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/S9a6e63777bef4b42911f3b226db7ccd1g.jpg_220x220q75.jpg_.avif"
               }
+
             ]
+
           },
 
+
           {
-            key:"length",
-            label:"Length",
-            values:[
-              {value:"1m",label:"1 Metre"},
-              {value:"2m",label:"2 Metres"},
-              {value:"3m",label:"3 Metres"},
-              {value:"5m",label:"5 Metres"}
+
+            key:
+              "length",
+
+            label:
+              "Length",
+
+            values: [
+
+              {
+                value:
+                  "1m",
+
+                label:
+                  "1 Metre"
+              },
+
+
+              {
+                value:
+                  "2m",
+
+                label:
+                  "2 Metres"
+              },
+
+
+              {
+                value:
+                  "3m",
+
+                label:
+                  "3 Metres"
+              },
+
+
+              {
+                value:
+                  "5m",
+
+                label:
+                  "5 Metres"
+              }
+
             ]
+
           }
+
         ],
 
-        variantPriceMap:{
-          "bluetooth|1m":17.99,
-          "bluetooth|2m":21.99,
-          "bluetooth|3m":26.99,
-          "bluetooth|5m":44.99,
-          "tuya|1m":21.99,
-          "tuya|2m":24.99,
-          "tuya|3m":39.99,
-          "tuya|5m":49.99
+
+        variantPriceMap: {
+
+          "bluetooth|1m":
+            17.99,
+
+          "bluetooth|2m":
+            21.99,
+
+          "bluetooth|3m":
+            26.99,
+
+          "bluetooth|5m":
+            44.99,
+
+          "tuya|1m":
+            21.99,
+
+          "tuya|2m":
+            24.99,
+
+          "tuya|3m":
+            39.99,
+
+          "tuya|5m":
+            49.99
+
         },
 
-        media:[
+
+        media: [
+
           {
-            type:"image",
-            src:"https://ae-pic-a1.aliexpress-media.com/kf/S3e9ef30bd9e84d0d878f61ff39ae9e83v.jpg_220x220q75.jpg_.avif"
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S3e9ef30bd9e84d0d878f61ff39ae9e83v.jpg_220x220q75.jpg_.avif"
           },
+
+
           {
-            type:"image",
-            src:"https://ae-pic-a1.aliexpress-media.com/kf/S9a6e63777bef4b42911f3b226db7ccd1g.jpg_220x220q75.jpg_.avif"
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S9a6e63777bef4b42911f3b226db7ccd1g.jpg_220x220q75.jpg_.avif"
           }
+
         ]
+
       },
 
 
       "towel-warmer-001": {
-        id:"towel-warmer-001",
-        category:"home-products",
-        tag:"HOME",
-        name:"Electric Towel Warmer Bucket",
-        description:"A large electric warming bucket designed for towels, bathrobes and blankets with digital controls and multiple capacity options.",
-        features:[
+
+        id:
+          "towel-warmer-001",
+
+        category:
+          "home-products",
+
+        tag:
+          "HOME",
+
+        name:
+          "Electric Towel Warmer Bucket",
+
+        description:
+          "A large electric warming bucket designed for towels, bathrobes and blankets with digital controls and multiple capacity options.",
+
+
+        features: [
+
           "20L, 25L and 35L capacity options",
+
           "LED control display",
+
           "Auto shut-off function",
+
           "Child lock",
+
           "24-hour reservation function",
+
           "Suitable for towels, robes and blankets"
+
         ],
-        options:[
+
+
+        options: [
+
           {
-            key:"size",
-            label:"Capacity",
-            values:[
-              {value:"20l",label:"20L"},
-              {value:"25l",label:"25L"},
-              {value:"35l",label:"35L"}
+
+            key:
+              "size",
+
+            label:
+              "Capacity",
+
+            values: [
+
+              {
+                value:
+                  "20l",
+
+                label:
+                  "20L"
+              },
+
+
+              {
+                value:
+                  "25l",
+
+                label:
+                  "25L"
+              },
+
+
+              {
+                value:
+                  "35l",
+
+                label:
+                  "35L"
+              }
+
             ]
+
           }
+
         ],
-        variantPriceMap:{
-          "20l":129.99,
-          "25l":134.99,
-          "35l":161.99
+
+
+        variantPriceMap: {
+
+          "20l":
+            129.99,
+
+          "25l":
+            134.99,
+
+          "35l":
+            161.99
+
         },
-        media:[
-          {type:"image",src:"https://ae-pic-a1.aliexpress-media.com/kf/S2d1c7277f75045fb97d11a12a6123416D.jpg_220x220q75.jpg_.avif"},
-          {type:"image",src:"https://ae-pic-a1.aliexpress-media.com/kf/Sf8369fe280dd46368924d39b23909026Z.jpg_220x220q75.jpg_.avif"},
-          {type:"image",src:"https://ae-pic-a1.aliexpress-media.com/kf/S5bab5ecdeed2472e8c40052e02ca8672W.jpg_220x220q75.jpg_.avif"},
-          {type:"image",src:"https://ae-pic-a1.aliexpress-media.com/kf/Sb7c86974a78b4bbf92a2db399ff1a958m.jpg_220x220q75.jpg_.avif"},
-          {type:"image",src:"https://ae-pic-a1.aliexpress-media.com/kf/S6445ce923ca84d4faf1fc58eda915535J.jpg_220x220q75.jpg_.avif"}
+
+
+        media: [
+
+          {
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S2d1c7277f75045fb97d11a12a6123416D.jpg_220x220q75.jpg_.avif"
+          },
+
+
+          {
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sf8369fe280dd46368924d39b23909026Z.jpg_220x220q75.jpg_.avif"
+          },
+
+
+          {
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S5bab5ecdeed2472e8c40052e02ca8672W.jpg_220x220q75.jpg_.avif"
+          },
+
+
+          {
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sb7c86974a78b4bbf92a2db399ff1a958m.jpg_220x220q75.jpg_.avif"
+          },
+
+
+          {
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S6445ce923ca84d4faf1fc58eda915535J.jpg_220x220q75.jpg_.avif"
+          }
+
         ]
+
       },
 
 
       "mini-vacuum-9000pa-001": {
-        id:"mini-vacuum-9000pa-001",
-        category:"cleaning",
-        tag:"CLEANING",
-        name:"9000Pa Cordless Mini Vacuum Cleaner",
-        description:"A compact cordless vacuum designed for quick dry cleaning around desks, furniture and other small household areas.",
-        features:[
+
+        id:
+          "mini-vacuum-9000pa-001",
+
+        category:
+          "cleaning",
+
+        tag:
+          "CLEANING",
+
+        name:
+          "9000Pa Cordless Mini Vacuum Cleaner",
+
+        description:
+          "A compact cordless vacuum designed for quick dry cleaning around desks, furniture and other small household areas.",
+
+
+        features: [
+
           "Up to 9000Pa listed suction",
+
           "Cordless handheld design",
+
           "USB rechargeable",
+
           "1200mAh battery",
+
           "60W motor",
+
           "Dry cleaning only"
+
         ],
-        price:18.99,
-        media:[
-          {type:"image",src:"https://ae-pic-a1.aliexpress-media.com/kf/Sc6f0477ef8d541938cab77559c45e7bbK.png?has_lang=1&ver=2_220x220.png_.avif"},
-          {type:"image",src:"https://ae-pic-a1.aliexpress-media.com/kf/S380816d6a8b74a34adc447917395f1ca1.png_220x220.png_.avif"},
-          {type:"image",src:"https://ae-pic-a1.aliexpress-media.com/kf/Sc6a69e65d7414daaa22b19ba55ee4951D.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"},
-          {type:"image",src:"https://ae-pic-a1.aliexpress-media.com/kf/Sf26908f851ed486fbbe15f04d2939c48P.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"}
+
+
+        price:
+          18.99,
+
+
+        media: [
+
+          {
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sc6f0477ef8d541938cab77559c45e7bbK.png?has_lang=1&ver=2_220x220.png_.avif"
+          },
+
+
+          {
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S380816d6a8b74a34adc447917395f1ca1.png_220x220.png_.avif"
+          },
+
+
+          {
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sc6a69e65d7414daaa22b19ba55ee4951D.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+          },
+
+
+          {
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sf26908f851ed486fbbe15f04d2939c48P.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+          }
+
         ]
+
       },
 
 
       "warming-tray-001": {
-        id:"warming-tray-001",
-        category:"kitchen",
-        tag:"KITCHEN",
-        name:"Foldable Electric Food Warming Tray",
-        description:"A portable foldable electric warming mat designed to help keep prepared food and drinks warm at the table.",
-        features:[
+
+        id:
+          "warming-tray-001",
+
+        category:
+          "kitchen",
+
+        tag:
+          "KITCHEN",
+
+        name:
+          "Foldable Electric Food Warming Tray",
+
+        description:
+          "A portable foldable electric warming mat designed to help keep prepared food and drinks warm at the table.",
+
+
+        features: [
+
           "50°C to 120°C temperature control",
+
           "Foldable portable design",
+
           "300W rated power",
+
           "ABS and silicone construction",
+
           "White colour",
+
           "EU plug version"
+
         ],
-        fixedDetail:"White • EU Plug",
-        price:45.99,
-        media:[
-          {type:"image",src:"https://ae-pic-a1.aliexpress-media.com/kf/S4cf8756e3e4d4b92b2ab91ed907c05b0G.jpg_220x220q75.jpg_.avif"},
-          {type:"image",src:"https://ae-pic-a1.aliexpress-media.com/kf/S1c3044e25f0a4be59eb0201fe6fb3f30L.jpg_220x220q75.jpg_.avif"},
-          {type:"image",src:"https://ae-pic-a1.aliexpress-media.com/kf/Safc7427705944f5fa1bcab137d04ce44T.jpg_220x220q75.jpg_.avif"}
+
+
+        fixedDetail:
+          "White • EU Plug",
+
+
+        price:
+          45.99,
+
+
+        media: [
+
+          {
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S4cf8756e3e4d4b92b2ab91ed907c05b0G.jpg_220x220q75.jpg_.avif"
+          },
+
+
+          {
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S1c3044e25f0a4be59eb0201fe6fb3f30L.jpg_220x220q75.jpg_.avif"
+          },
+
+
+          {
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Safc7427705944f5fa1bcab137d04ce44T.jpg_220x220q75.jpg_.avif"
+          }
+
         ]
+
       },
 
 
       "motion-night-lights-001": {
-        id:"motion-night-lights-001",
-        category:"lighting",
-        tag:"LIGHTING",
-        name:"Rechargeable Motion Sensor LED Night Lights",
-        description:"Compact rechargeable LED night lights with PIR motion sensing and a wireless design for bedrooms, hallways, wardrobes and other indoor spaces.",
-        features:[
+
+        id:
+          "motion-night-lights-001",
+
+        category:
+          "lighting",
+
+        tag:
+          "LIGHTING",
+
+        name:
+          "Rechargeable Motion Sensor LED Night Lights",
+
+        description:
+          "Compact rechargeable LED night lights with PIR motion sensing and a wireless design for bedrooms, hallways, wardrobes and other indoor spaces.",
+
+
+        features: [
+
           "PIR motion sensor",
+
           "USB rechargeable",
+
           "Wireless installation",
+
           "White or Warm White light",
+
           "Heart-shaped compact design",
+
           "Available in multiple pack sizes"
+
         ],
-        options:[
+
+
+        options: [
+
           {
-            key:"colour",
-            label:"Light Colour",
-            values:[
+
+            key:
+              "colour",
+
+            label:
+              "Light Colour",
+
+            values: [
+
               {
-                value:"white",
-                label:"White",
-                image:"https://ae-pic-a1.aliexpress-media.com/kf/S1aef4897d16e4c2f983f74a18f09c655R.jpg_220x220q75.jpg_.avif"
+                value:
+                  "white",
+
+                label:
+                  "White",
+
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/S1aef4897d16e4c2f983f74a18f09c655R.jpg_220x220q75.jpg_.avif"
               },
+
+
               {
-                value:"warm-white",
-                label:"Warm White",
-                image:"https://ae-pic-a1.aliexpress-media.com/kf/Saf9e3384110743a2ab7d29f83469be1fs.jpg_220x220q75.jpg_.avif"
+                value:
+                  "warm-white",
+
+                label:
+                  "Warm White",
+
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/Saf9e3384110743a2ab7d29f83469be1fs.jpg_220x220q75.jpg_.avif"
               }
+
             ]
+
           },
 
+
           {
-            key:"pack",
-            label:"Pack Size",
-            values:[
-              {value:"2pcs",label:"2 Pieces"},
-              {value:"3pcs",label:"3 Pieces"},
-              {value:"4pcs",label:"4 Pieces"},
-              {value:"5pcs",label:"5 Pieces"},
-              {value:"6pcs",label:"6 Pieces"}
+
+            key:
+              "pack",
+
+            label:
+              "Pack Size",
+
+            values: [
+
+              {
+                value:
+                  "2pcs",
+
+                label:
+                  "2 Pieces"
+              },
+
+
+              {
+                value:
+                  "3pcs",
+
+                label:
+                  "3 Pieces"
+              },
+
+
+              {
+                value:
+                  "4pcs",
+
+                label:
+                  "4 Pieces"
+              },
+
+
+              {
+                value:
+                  "5pcs",
+
+                label:
+                  "5 Pieces"
+              },
+
+
+              {
+                value:
+                  "6pcs",
+
+                label:
+                  "6 Pieces"
+              }
+
             ]
+
           }
+
         ],
 
-        variantPriceKeyOptions:["pack"],
 
-        variantPriceMap:{
-          "2pcs":18.99,
-          "3pcs":20.99,
-          "4pcs":24.99,
-          "5pcs":27.99,
-          "6pcs":30.99
+        variantPriceKeyOptions: [
+          "pack"
+        ],
+
+
+        variantPriceMap: {
+
+          "2pcs":
+            18.99,
+
+          "3pcs":
+            20.99,
+
+          "4pcs":
+            24.99,
+
+          "5pcs":
+            27.99,
+
+          "6pcs":
+            30.99
+
         },
 
-        media:[
+
+        media: [
+
           {
-            type:"image",
-            src:"https://ae-pic-a1.aliexpress-media.com/kf/S1aef4897d16e4c2f983f74a18f09c655R.jpg_220x220q75.jpg_.avif"
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S1aef4897d16e4c2f983f74a18f09c655R.jpg_220x220q75.jpg_.avif"
           },
+
+
           {
-            type:"image",
-            src:"https://ae-pic-a1.aliexpress-media.com/kf/Saf9e3384110743a2ab7d29f83469be1fs.jpg_220x220q75.jpg_.avif"
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Saf9e3384110743a2ab7d29f83469be1fs.jpg_220x220q75.jpg_.avif"
           }
+
         ]
+
       },
 
 
       "flame-diffuser-pro-001": {
-        id:"flame-diffuser-pro-001",
-        category:"bedroom",
-        tag:"BEDROOM",
-        name:"7-Color Flame Aroma Diffuser & Humidifier Pro",
-        description:"A USB-powered aroma diffuser and humidifier with a flame-style seven-colour lighting effect designed for ambient room use.",
-        features:[
+
+        id:
+          "flame-diffuser-pro-001",
+
+        category:
+          "bedroom",
+
+        tag:
+          "BEDROOM",
+
+        name:
+          "7-Color Flame Aroma Diffuser & Humidifier Pro",
+
+        description:
+          "A USB-powered aroma diffuser and humidifier with a flame-style seven-colour lighting effect designed for ambient room use.",
+
+
+        features: [
+
           "Aroma diffuser and humidifier",
+
           "Flame-style light effect",
+
           "7-colour ambient lighting",
+
           "USB powered",
+
           "White Pro or Black Pro"
+
         ],
-        price:24.99,
-        options:[
+
+
+        price:
+          24.99,
+
+
+        options: [
+
           {
-            key:"colour",
-            label:"Colour",
-            values:[
+
+            key:
+              "colour",
+
+            label:
+              "Colour",
+
+            values: [
+
               {
-                value:"white-pro",
-                label:"White Pro",
-                image:"https://ae-pic-a1.aliexpress-media.com/kf/S8a47a7ff619440caa46af984bc5701b1d.jpg_220x220q75.jpg_.avif"
+                value:
+                  "white-pro",
+
+                label:
+                  "White Pro",
+
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/S8a47a7ff619440caa46af984bc5701b1d.jpg_220x220q75.jpg_.avif"
               },
+
+
               {
-                value:"black-pro",
-                label:"Black Pro",
-                image:"https://ae-pic-a1.aliexpress-media.com/kf/S38a39389871c4337a7c00bb56a6e6d9dT.jpg_220x220q75.jpg_.avif"
+                value:
+                  "black-pro",
+
+                label:
+                  "Black Pro",
+
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/S38a39389871c4337a7c00bb56a6e6d9dT.jpg_220x220q75.jpg_.avif"
               }
+
             ]
+
           }
+
         ],
-        media:[
+
+
+        media: [
+
           {
-            type:"image",
-            src:"https://ae-pic-a1.aliexpress-media.com/kf/S8a47a7ff619440caa46af984bc5701b1d.jpg_220x220q75.jpg_.avif"
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S8a47a7ff619440caa46af984bc5701b1d.jpg_220x220q75.jpg_.avif"
           },
+
+
           {
-            type:"video",
-            src:"https://video.aliexpress-media.com/play/u/ae_sg_item/3000924361499/p/1/e/6/t/10301/5000303940762.mp4?from=edge&definition=h265"
+            type: "video",
+
+            src:
+              "https://video.aliexpress-media.com/play/u/ae_sg_item/3000924361499/p/1/e/6/t/10301/5000303940762.mp4?from=edge&definition=h265"
           },
+
+
           {
-            type:"image",
-            src:"https://ae-pic-a1.aliexpress-media.com/kf/S38a39389871c4337a7c00bb56a6e6d9dT.jpg_220x220q75.jpg_.avif"
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S38a39389871c4337a7c00bb56a6e6d9dT.jpg_220x220q75.jpg_.avif"
           }
+
         ]
+
       },
 
 
       "iphone-battery-case-6800mah-001": {
-        id:"iphone-battery-case-6800mah-001",
-        category:"smart-home",
-        tag:"TECH",
-        name:"6800mAh Battery Charging Case for iPhone",
-        description:"A rechargeable external battery case designed for selected iPhone models, combining phone protection with additional portable battery capacity.",
-        features:[
+
+        id:
+          "iphone-battery-case-6800mah-001",
+
+        category:
+          "smart-home",
+
+        tag:
+          "TECH",
+
+        name:
+          "6800mAh Battery Charging Case for iPhone",
+
+        description:
+          "A rechargeable external battery case designed for selected iPhone models, combining phone protection with additional portable battery capacity.",
+
+
+        features: [
+
           "6800mAh listed battery capacity",
+
           "Protective charging-case design",
+
           "Multiple iPhone model options",
+
           "White and Black options depending on model",
+
           "Portable external power"
+
         ],
-        price:39.99,
-        options:[
+
+
+        price:
+          39.99,
+
+
+        options: [
+
           {
-            key:"model",
-            label:"Model / Colour",
-            values:[
-              {value:"White For 17",label:"White For 17"},
-              {value:"White for 12 12 pro",label:"White for 12 / 12 Pro"},
-              {value:"White For 12 13mini",label:"White For 12 / 13 Mini"},
-              {value:"For 12 13 promax",label:"White For 12 / 13 Pro Max"},
-              {value:"White for 13 14",label:"White for 13 / 14"},
-              {value:"White For 13pro",label:"White For 13 Pro"},
-              {value:"White For 14pro",label:"White For 14 Pro"},
-              {value:"White For 14promax",label:"White For 14 Pro Max"},
-              {value:"White For 16",label:"White For 16"},
-              {value:"Black for 12",label:"Black for 12"},
-              {value:"Black for 12mini",label:"Black for 12 Mini"},
-              {value:"Black for 12 pro",label:"Black for 12 Pro"},
-              {value:"Black for 12 promax",label:"Black for 12 Pro Max"},
-              {value:"Black for 13",label:"Black for 13"},
-              {value:"Black 13 mini",label:"Black for 13 Mini"},
-              {value:"Black 13 pro",label:"Black for 13 Pro"},
-              {value:"Black 13 promax",label:"Black for 13 Pro Max"},
-              {value:"Black 14",label:"Black 14"},
-              {value:"Black 14pro",label:"Black 14 Pro"},
-              {value:"Black 14promax",label:"Black 14 Pro Max"},
-              {value:"Black 15",label:"Black 15"},
-              {value:"Black 15pro",label:"Black 15 Pro"},
-              {value:"Black 15Plus",label:"Black 15 Plus"},
-              {value:"Black 15 Promax",label:"Black 15 Pro Max"},
-              {value:"Black For iPhone 16",label:"Black For iPhone 16"}
+
+            key:
+              "model",
+
+            label:
+              "Model / Colour",
+
+            values: [
+
+              {
+                value:
+                  "White For 17",
+
+                label:
+                  "White For 17"
+              },
+
+
+              {
+                value:
+                  "White for 12 12 pro",
+
+                label:
+                  "White for 12 / 12 Pro"
+              },
+
+
+              {
+                value:
+                  "White For 12 13mini",
+
+                label:
+                  "White For 12 / 13 Mini"
+              },
+
+
+              {
+                value:
+                  "For 12 13 promax",
+
+                label:
+                  "White For 12 / 13 Pro Max"
+              },
+
+
+              {
+                value:
+                  "White for 13 14",
+
+                label:
+                  "White for 13 / 14"
+              },
+
+
+              {
+                value:
+                  "White For 13pro",
+
+                label:
+                  "White For 13 Pro"
+              },
+
+
+              {
+                value:
+                  "White For 14pro",
+
+                label:
+                  "White For 14 Pro"
+              },
+
+
+              {
+                value:
+                  "White For 14promax",
+
+                label:
+                  "White For 14 Pro Max"
+              },
+
+
+              {
+                value:
+                  "White For 16",
+
+                label:
+                  "White For 16"
+              },
+
+
+              {
+                value:
+                  "Black for 12",
+
+                label:
+                  "Black for 12"
+              },
+
+
+              {
+                value:
+                  "Black for 12mini",
+
+                label:
+                  "Black for 12 Mini"
+              },
+
+
+              {
+                value:
+                  "Black for 12 pro",
+
+                label:
+                  "Black for 12 Pro"
+              },
+
+
+              {
+                value:
+                  "Black for 12 promax",
+
+                label:
+                  "Black for 12 Pro Max"
+              },
+
+
+              {
+                value:
+                  "Black for 13",
+
+                label:
+                  "Black for 13"
+              },
+
+
+              {
+                value:
+                  "Black 13 mini",
+
+                label:
+                  "Black 13 Mini"
+              },
+
+
+              {
+                value:
+                  "Black 13 pro",
+
+                label:
+                  "Black 13 Pro"
+              },
+
+
+              {
+                value:
+                  "Black 13 promax",
+
+                label:
+                  "Black 13 Pro Max"
+              },
+
+
+              {
+                value:
+                  "Black 14",
+
+                label:
+                  "Black 14"
+              },
+
+
+              {
+                value:
+                  "Black 14pro",
+
+                label:
+                  "Black 14 Pro"
+              },
+
+
+              {
+                value:
+                  "Black 14promax",
+
+                label:
+                  "Black 14 Pro Max"
+              },
+
+
+              {
+                value:
+                  "Black 15",
+
+                label:
+                  "Black 15"
+              },
+
+
+              {
+                value:
+                  "Black 15pro",
+
+                label:
+                  "Black 15 Pro"
+              },
+
+
+              {
+                value:
+                  "Black 15Plus",
+
+                label:
+                  "Black 15 Plus"
+              },
+
+
+              {
+                value:
+                  "Black 15 Promax",
+
+                label:
+                  "Black 15 Pro Max"
+              },
+
+
+              {
+                value:
+                  "Black For iPhone 16",
+
+                label:
+                  "Black For iPhone 16"
+              }
+
             ]
+
           }
+
         ],
-        media:[
+
+
+        media: [
+
           {
-            type:"image",
-            src:"https://ae-pic-a1.aliexpress-media.com/kf/Sc61c91e7ef0d428b83e1d20414eb537bk.jpg_960x960q75.jpg_.avif"
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sc61c91e7ef0d428b83e1d20414eb537bk.jpg_960x960q75.jpg_.avif"
           }
+
         ]
+
       },
 
 
       "holographic-fan-42cm-001": {
-        id:"holographic-fan-42cm-001",
-        category:"smart-home",
-        tag:"SMART TECH",
-        name:"42cm WiFi 3D Holographic LED Fan Display",
-        description:"A rotating LED holographic display designed to show videos, pictures and logo-style content with a floating 3D visual effect.",
-        features:[
+
+        id:
+          "holographic-fan-42cm-001",
+
+        category:
+          "smart-home",
+
+        tag:
+          "SMART TECH",
+
+        name:
+          "42cm WiFi 3D Holographic LED Fan Display",
+
+        description:
+          "A rotating LED holographic display designed to show videos, pictures and logo-style content with a floating 3D visual effect.",
+
+
+        features: [
+
           "42cm Basic Edition",
+
           "3D holographic-style LED display",
+
           "Supports video, pictures and logo content",
+
           "WiFi content control",
+
           "Remote-control support",
+
           "Multiple plug options"
+
         ],
-        fixedDetail:"42cm Basic Edition",
-        price:74.99,
-        options:[
+
+
+        fixedDetail:
+          "42cm Basic Edition",
+
+
+        price:
+          74.99,
+
+
+        options: [
+
           {
-            key:"plug",
-            label:"Plug",
-            values:[
-              {value:"EU PLUG",label:"EU Plug"},
-              {value:"UK PLUG",label:"UK Plug"},
-              {value:"AU PLUG",label:"AU Plug"},
-              {value:"US PLUG",label:"US Plug"}
+
+            key:
+              "plug",
+
+            label:
+              "Plug",
+
+            values: [
+
+              {
+                value:
+                  "EU PLUG",
+
+                label:
+                  "EU Plug"
+              },
+
+
+              {
+                value:
+                  "UK PLUG",
+
+                label:
+                  "UK Plug"
+              },
+
+
+              {
+                value:
+                  "AU PLUG",
+
+                label:
+                  "AU Plug"
+              },
+
+
+              {
+                value:
+                  "US PLUG",
+
+                label:
+                  "US Plug"
+              }
+
             ]
+
           }
+
         ],
-        media:[
+
+
+        media: [
+
           {
-            type:"image",
-            src:"https://ae-pic-a1.aliexpress-media.com/kf/Sae3082fea0b54d5a933b52ae9ee31258S.png_220x220.png_.avif"
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sae3082fea0b54d5a933b52ae9ee31258S.png_220x220.png_.avif"
           }
+
         ]
+
       },
 
 
       "portable-mist-fan-001": {
-        id:"portable-mist-fan-001",
-        category:"home-products",
-        tag:"HOME",
-        name:"2-in-1 Portable Mist Fan",
-        description:"A rechargeable handheld fan combining high-speed airflow with a fine water-mist function for portable cooling.",
-        features:[
+
+        id:
+          "portable-mist-fan-001",
+
+        category:
+          "home-products",
+
+        tag:
+          "HOME",
+
+        name:
+          "2-in-1 Portable Mist Fan",
+
+        description:
+          "A rechargeable handheld fan combining high-speed airflow with a fine water-mist function for portable cooling.",
+
+
+        features: [
+
           "2-in-1 fan and fine mist function",
+
           "Rechargeable portable design",
+
           "Compact handheld size",
+
           "Suitable for indoor and outdoor use",
+
           "White, Purple and Pink options"
+
         ],
-        price:39.99,
-        options:[
+
+
+        price:
+          39.99,
+
+
+        options: [
+
           {
-            key:"colour",
-            label:"Colour",
-            values:[
+
+            key:
+              "colour",
+
+            label:
+              "Colour",
+
+            values: [
+
               {
-                value:"white",
-                label:"White",
-                image:"https://ae-pic-a1.aliexpress-media.com/kf/S59cc998c21054671913ddd1b5e99f4d9i.jpg_220x220q75.jpg_.avif"
+                value:
+                  "white",
+
+                label:
+                  "White",
+
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/S59cc998c21054671913ddd1b5e99f4d9i.jpg_220x220q75.jpg_.avif"
               },
+
+
               {
-                value:"purple",
-                label:"Purple",
-                image:"https://ae-pic-a1.aliexpress-media.com/kf/S7f461ab727374d47865ccf13dd3173ceW.jpg_220x220q75.jpg_.avif"
+                value:
+                  "purple",
+
+                label:
+                  "Purple",
+
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/S7f461ab727374d47865ccf13dd3173ceW.jpg_220x220q75.jpg_.avif"
               },
+
+
               {
-                value:"pink",
-                label:"Pink",
-                image:"https://ae-pic-a1.aliexpress-media.com/kf/Sb563c2f6f35d4b889ed72059530a93889.jpg_220x220q75.jpg_.avif"
+                value:
+                  "pink",
+
+                label:
+                  "Pink",
+
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/Sb563c2f6f35d4b889ed72059530a93889.jpg_220x220q75.jpg_.avif"
               }
+
             ]
+
           }
+
         ],
-        media:[
+
+
+        media: [
+
           {
-            type:"image",
-            src:"https://ae-pic-a1.aliexpress-media.com/kf/S59cc998c21054671913ddd1b5e99f4d9i.jpg_220x220q75.jpg_.avif"
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S59cc998c21054671913ddd1b5e99f4d9i.jpg_220x220q75.jpg_.avif"
           },
+
+
           {
-            type:"image",
-            src:"https://ae-pic-a1.aliexpress-media.com/kf/S7f461ab727374d47865ccf13dd3173ceW.jpg_220x220q75.jpg_.avif"
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S7f461ab727374d47865ccf13dd3173ceW.jpg_220x220q75.jpg_.avif"
           },
+
+
           {
-            type:"image",
-            src:"https://ae-pic-a1.aliexpress-media.com/kf/Sb563c2f6f35d4b889ed72059530a93889.jpg_220x220q75.jpg_.avif"
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sb563c2f6f35d4b889ed72059530a93889.jpg_220x220q75.jpg_.avif"
           }
+
         ]
+
       },
 
 
       "aurora-projector-16color-001": {
-        id:"aurora-projector-16color-001",
-        category:"bedroom",
-        tag:"BEDROOM",
-        name:"16-Color Ocean Wave Aurora Projector",
-        description:"A rechargeable RGB night light that projects colourful ocean-wave and aurora-style effects across walls and ceilings.",
-        features:[
+
+        id:
+          "aurora-projector-16color-001",
+
+        category:
+          "bedroom",
+
+        tag:
+          "BEDROOM",
+
+        name:
+          "16-Color Ocean Wave Aurora Projector",
+
+        description:
+          "A rechargeable RGB night light that projects colourful ocean-wave and aurora-style effects across walls and ceilings.",
+
+
+        features: [
+
           "16 RGB colour choices",
+
           "Remote control",
+
           "Ocean-wave projection effect",
+
           "Aurora-style ambient lighting",
+
           "Rechargeable design",
+
           "Compact cube design"
+
         ],
-        fixedDetail:"Cube • 16 Colors",
-        price:29.99,
-        media:[
+
+
+        fixedDetail:
+          "Cube • 16 Colors",
+
+
+        price:
+          29.99,
+
+
+        media: [
+
           {
-            type:"image",
-            src:"https://ae-pic-a1.aliexpress-media.com/kf/S39c56fd9abbb4c82acb180fcb00f2141l.jpg?has_lang=1&ver=2_960x960q75.jpg_.avif"
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S39c56fd9abbb4c82acb180fcb00f2141l.jpg?has_lang=1&ver=2_960x960q75.jpg_.avif"
           }
+
         ]
+
       },
 
 
       "defrost-tray-001": {
-        id:"defrost-tray-001",
-        category:"kitchen",
-        tag:"KITCHEN",
-        name:"Fast Defrost Aluminum Tray",
-        description:"A slim aluminum thawing plate designed to transfer surrounding heat efficiently and help frozen food defrost faster than leaving it on a regular plate.",
-        features:[
+
+        id:
+          "defrost-tray-001",
+
+        category:
+          "kitchen",
+
+        tag:
+          "KITCHEN",
+
+        name:
+          "Fast Defrost Aluminum Tray",
+
+        description:
+          "A slim aluminum thawing plate designed to transfer surrounding heat efficiently and help frozen food defrost faster than leaving it on a regular plate.",
+
+
+        features: [
+
           "Aluminum construction",
+
           "Approx. 23 × 16.5cm",
+
           "Slim 0.2cm profile",
+
           "No electricity required",
+
           "Compact and easy to store",
+
           "Black finish"
+
         ],
-        fixedDetail:"Black",
-        price:25.99,
-        media:[
+
+
+        fixedDetail:
+          "Black",
+
+
+        price:
+          25.99,
+
+
+        media: [
+
           {
-            type:"image",
-            src:"https://ae-pic-a1.aliexpress-media.com/kf/S8c585865972d42e693bd0b1802925634T.jpg_960x960q75.jpg_.avif"
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S8c585865972d42e693bd0b1802925634T.jpg_960x960q75.jpg_.avif"
           },
+
+
           {
-            type:"image",
-            src:"https://ae-pic-a1.aliexpress-media.com/kf/Sc9c0e20308564294bc66e67721f4bc75G.jpg_220x220q75.jpg_.avif"
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sc9c0e20308564294bc66e67721f4bc75G.jpg_220x220q75.jpg_.avif"
           },
+
+
           {
-            type:"image",
-            src:"https://ae-pic-a1.aliexpress-media.com/kf/S694ebf8135664f93a92bbb36c9446fd21.jpg_220x220q75.jpg_.avif"
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S694ebf8135664f93a92bbb36c9446fd21.jpg_220x220q75.jpg_.avif"
           }
+
         ]
+
       },
 
 
       "egg-opener-set-001": {
-        id:"egg-opener-set-001",
-        category:"kitchen",
-        tag:"KITCHEN",
-        name:"Stainless Steel Egg Opener Breakfast Set",
-        description:"A practical breakfast accessory set featuring a stainless-steel egg shell opening tool with selectable pack sizes.",
-        features:[
+
+        id:
+          "egg-opener-set-001",
+
+        category:
+          "kitchen",
+
+        tag:
+          "KITCHEN",
+
+        name:
+          "Stainless Steel Egg Opener Breakfast Set",
+
+        description:
+          "A practical breakfast accessory set featuring a stainless-steel egg shell opening tool with selectable pack sizes.",
+
+
+        features: [
+
           "Stainless-steel egg opening tool",
+
           "Designed for breakfast and boiled eggs",
+
           "Compact kitchen accessory",
+
           "Multiple pack-size options",
+
           "Easy to store"
-        ],
-        options:[
-          {
-            key:"pack",
-            label:"Pack Size",
-            values:[
-              {
-                value:"2pcs",
-                label:"2 Pieces",
-                image:"https://ae-pic-a1.aliexpress-media.com/kf/S6bc5ed979e6749588faca779da060933F.jpg_220x220q75.jpg_.avif"
-              },
-              {
-                value:"3pcs",
-                label:"3 Pieces",
-                image:"https://ae-pic-a1.aliexpress-media.com/kf/Sf372257356144dc1ac0e80ae65f5b4b9A.jpg_220x220q75.jpg_.avif"
-              },
-              {
-                value:"4pcs",
-                label:"4 Pieces",
-                image:"https://ae-pic-a1.aliexpress-media.com/kf/Sf8449fbc1b1a4fad9763717e1235598d7.jpg_220x220q75.jpg_.avif"
-              },
-              {
-                value:"6pcs",
-                label:"6 Pieces",
-                image:"https://ae-pic-a1.aliexpress-media.com/kf/S9321beb589f94f4296b6c2f32ef1de9au.jpg_220x220q75.jpg_.avif"
-              },
-              {
-                value:"10pcs",
-                label:"10 Pieces",
-                image:"https://ae-pic-a1.aliexpress-media.com/kf/Sdd134c244a394419818151ae6eff22854.jpg_220x220q75.jpg_.avif"
-              }
-            ]
-          }
+
         ],
 
-        variantPriceMap:{
-          "2pcs":14.99,
-          "3pcs":17.99,
-          "4pcs":19.99,
-          "6pcs":27.99,
-          "10pcs":34.99
+
+        options: [
+
+          {
+
+            key:
+              "pack",
+
+            label:
+              "Pack Size",
+
+            values: [
+
+              {
+                value:
+                  "2pcs",
+
+                label:
+                  "2 Pieces",
+
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/S6bc5ed979e6749588faca779da060933F.jpg_220x220q75.jpg_.avif"
+              },
+
+
+              {
+                value:
+                  "3pcs",
+
+                label:
+                  "3 Pieces",
+
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/Sf372257356144dc1ac0e80ae65f5b4b9A.jpg_220x220q75.jpg_.avif"
+              },
+
+
+              {
+                value:
+                  "4pcs",
+
+                label:
+                  "4 Pieces",
+
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/Sf8449fbc1b1a4fad9763717e1235598d7.jpg_220x220q75.jpg_.avif"
+              },
+
+
+              {
+                value:
+                  "6pcs",
+
+                label:
+                  "6 Pieces",
+
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/S9321beb589f94f4296b6c2f32ef1de9au.jpg_220x220q75.jpg_.avif"
+              },
+
+
+              {
+                value:
+                  "10pcs",
+
+                label:
+                  "10 Pieces",
+
+                image:
+                  "https://ae-pic-a1.aliexpress-media.com/kf/Sdd134c244a394419818151ae6eff22854.jpg_220x220q75.jpg_.avif"
+              }
+
+            ]
+
+          }
+
+        ],
+
+
+        variantPriceMap: {
+
+          "2pcs":
+            14.99,
+
+          "3pcs":
+            17.99,
+
+          "4pcs":
+            19.99,
+
+          "6pcs":
+            27.99,
+
+          "10pcs":
+            34.99
+
         },
 
-        media:[
+
+        media: [
+
           {
-            type:"image",
-            src:"https://ae-pic-a1.aliexpress-media.com/kf/Sbb624c8e315246aabbda134b990434eb7.jpg?has_lang=1&ver=2_960x960q75.jpg_.avif"
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sbb624c8e315246aabbda134b990434eb7.jpg?has_lang=1&ver=2_960x960q75.jpg_.avif"
           },
+
+
           {
-            type:"image",
-            src:"https://ae-pic-a1.aliexpress-media.com/kf/Sa7423bd7a43a4a639b08a27fe5d12463a.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sa7423bd7a43a4a639b08a27fe5d12463a.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
           },
+
+
           {
-            type:"image",
-            src:"https://ae-pic-a1.aliexpress-media.com/kf/Sb53309de563b46e4938bd3615084b584a.jpg_220x220q75.jpg_.avif"
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/Sb53309de563b46e4938bd3615084b584a.jpg_220x220q75.jpg_.avif"
           },
+
+
           {
-            type:"image",
-            src:"https://ae-pic-a1.aliexpress-media.com/kf/S6f2f19e3828b48f9a7050290a9304747t.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
+            type: "image",
+
+            src:
+              "https://ae-pic-a1.aliexpress-media.com/kf/S6f2f19e3828b48f9a7050290a9304747t.jpg?has_lang=1&ver=2_220x220q75.jpg_.avif"
           }
+
         ]
+
       }
+
+
     };
+
+
+    /* =========================================================
+       CATEGORY TARGETS
+    ========================================================== */
 
 
     const categoryTargets = {
-      cleaning:"cleaning-products",
-      lighting:"lighting-products",
-      "home-products":"home-products-container",
-      kitchen:"kitchen-products",
-      "smart-home":"smart-home-products",
-      bedroom:"bedroom-products"
+
+      cleaning:
+        "cleaning-products",
+
+      lighting:
+        "lighting-products",
+
+      "home-products":
+        "home-products-container",
+
+      kitchen:
+        "kitchen-products",
+
+      "smart-home":
+        "smart-home-products",
+
+      bedroom:
+        "bedroom-products"
+
     };
 
 
-    const productGalleryIndexes = {};
+    const productGalleryIndexes =
+      {};
 
 
-    function getSelectedProductOptions(product){
-      const selected = {};
+    /* =========================================================
+       PRODUCT OPTIONS
+    ========================================================== */
 
-      (product.options || []).forEach(option=>{
-        const element =
-          document.getElementById(
-            product.id +
-            "-option-" +
-            option.key
-          );
 
-        if(element){
-          selected[option.key] =
-            element.value;
+    function getSelectedProductOptions(
+      product
+    ) {
+
+      const selected =
+        {};
+
+
+      (
+        product.options ||
+        []
+      ).forEach(
+        option => {
+
+          const element =
+            document.getElementById(
+              product.id +
+              "-option-" +
+              option.key
+            );
+
+
+          if (
+            element
+          ) {
+
+            selected[
+              option.key
+            ] =
+              element.value;
+
+          }
+
         }
-      });
+      );
+
 
       return selected;
+
     }
 
 
-    function getOptionDisplayLabel(option,value){
+    function getOptionDisplayLabel(
+      option,
+      value
+    ) {
+
       const match =
         option.values.find(
-          item => item.value === value
+          item =>
+            item.value ===
+            value
         );
+
 
       return match
         ? match.label
         : value;
+
     }
 
 
-    function getProductVariantCode(product,selected){
-      if(!product.options || !product.options.length){
+    function getProductVariantCode(
+      product,
+      selected
+    ) {
+
+      if (
+        !product.options ||
+        !product.options.length
+      ) {
+
         return "";
+
       }
+
 
       return product.options
         .map(
           option =>
-            selected[option.key] || ""
+            selected[
+              option.key
+            ] ||
+            ""
         )
-        .join("|");
+        .join(
+          "|"
+        );
+
     }
 
 
-    function getProductVariantLabel(product,selected){
-      const parts = [];
+    function getProductVariantLabel(
+      product,
+      selected
+    ) {
 
-      if(product.fixedDetail){
-        parts.push(product.fixedDetail);
+      const parts =
+        [];
+
+
+      if (
+        product.fixedDetail
+      ) {
+
+        parts.push(
+          product.fixedDetail
+        );
+
       }
 
-      (product.options || []).forEach(option=>{
-        parts.push(
-          getOptionDisplayLabel(
-            option,
-            selected[option.key]
-          )
-        );
-      });
 
-      return parts.join(" • ");
+      (
+        product.options ||
+        []
+      ).forEach(
+        option => {
+
+          parts.push(
+            getOptionDisplayLabel(
+              option,
+              selected[
+                option.key
+              ]
+            )
+          );
+
+        }
+      );
+
+
+      return parts.join(
+        " • "
+      );
+
     }
 
 
-    function getProductPriceKey(product,selected){
+    function getProductPriceKey(
+      product,
+      selected
+    ) {
+
       const keys =
         product.variantPriceKeyOptions ||
-        ((product.options || []).map(option=>option.key));
+        (
+          (
+            product.options ||
+            []
+          ).map(
+            option =>
+              option.key
+          )
+        );
+
 
       return keys
-        .map(key=>selected[key] || "")
-        .join("|");
+        .map(
+          key =>
+            selected[
+              key
+            ] ||
+            ""
+        )
+        .join(
+          "|"
+        );
+
     }
 
 
-    function getProductCurrentPrice(product){
-      if(typeof product.price === "number"){
+    function getProductCurrentPrice(
+      product
+    ) {
+
+      if (
+        typeof product.price ===
+        "number"
+      ) {
+
         return product.price;
+
       }
 
+
       const selected =
-        getSelectedProductOptions(product);
+        getSelectedProductOptions(
+          product
+        );
+
 
       const key =
         getProductPriceKey(
@@ -1550,44 +3568,82 @@
           selected
         );
 
+
       const price =
         product.variantPriceMap
-          ? product.variantPriceMap[key]
+          ? product.variantPriceMap[
+              key
+            ]
           : undefined;
 
-      return typeof price === "number"
-        ? price
-        : 0;
+
+      return typeof price ===
+        "number"
+          ? price
+          : 0;
+
     }
 
 
-    function getProductCartImage(product,selected){
-      for(const option of (product.options || [])){
+    function getProductCartImage(
+      product,
+      selected
+    ) {
+
+      for (
+        const option of
+        (
+          product.options ||
+          []
+        )
+      ) {
+
         const value =
           option.values.find(
             item =>
-              item.value === selected[option.key]
+              item.value ===
+              selected[
+                option.key
+              ]
           );
 
-        if(value && value.image){
+
+        if (
+          value &&
+          value.image
+        ) {
+
           return value.image;
+
         }
+
       }
+
 
       const first =
         product.media.find(
-          media => media.type === "image"
+          media =>
+            media.type ===
+            "image"
         );
+
 
       return first
         ? first.src
         : "";
+
     }
 
 
-    function getCurrentLikeId(product){
+    function getCurrentLikeId(
+      product
+    ) {
+
       const selected =
-        getSelectedProductOptions(product);
+        getSelectedProductOptions(
+          product
+        );
+
 
       const variant =
         getProductVariantCode(
@@ -1595,47 +3651,93 @@
           selected
         );
 
+
       return variant
+
         ? product.id +
           "::" +
-          encodeURIComponent(variant)
+          encodeURIComponent(
+            variant
+          )
+
         : product.id;
+
     }
 
 
-    function handleProductOptionChange(productId){
-      const product =
-        PRODUCTS[productId];
+    function handleProductOptionChange(
+      productId
+    ) {
 
-      if(!product){
+      const product =
+        PRODUCTS[
+          productId
+        ];
+
+
+      if (
+        !product
+      ) {
+
         return;
+
       }
 
+
       const price =
-        getProductCurrentPrice(product);
+        getProductCurrentPrice(
+          product
+        );
+
 
       const priceElement =
         document.getElementById(
-          product.id + "-price"
+          product.id +
+          "-price"
         );
 
-      if(priceElement){
+
+      if (
+        priceElement
+      ) {
+
         priceElement.textContent =
-          "€" + price.toFixed(2);
+          "€" +
+          price.toFixed(
+            2
+          );
+
       }
 
-      const selected =
-        getSelectedProductOptions(product);
 
-      for(const option of (product.options || [])){
+      const selected =
+        getSelectedProductOptions(
+          product
+        );
+
+
+      for (
+        const option of
+        (
+          product.options ||
+          []
+        )
+      ) {
 
         const item =
           option.values.find(
             value =>
-              value.value === selected[option.key]
+              value.value ===
+              selected[
+                option.key
+              ]
           );
 
-        if(item && item.image){
+
+        if (
+          item &&
+          item.image
+        ) {
 
           const main =
             document.getElementById(
@@ -1643,72 +3745,133 @@
               "-main-media"
             );
 
-          if(main){
+
+          if (
+            main
+          ) {
+
             main.innerHTML =
               '<img class="generic-main-media" src="' +
               item.image +
               '" alt="' +
-              escapeHtmlText(product.name) +
+              escapeHtmlText(
+                product.name
+              ) +
               '">';
+
           }
 
+
           break;
+
         }
+
       }
 
+
       updateProductLikeButtons();
+
     }
 
 
-    function renderProductMainMedia(productId){
-      const product =
-        PRODUCTS[productId];
+    /* =========================================================
+       PRODUCT GALLERY
+    ========================================================== */
 
-      if(!product || !product.media.length){
+
+    function renderProductMainMedia(
+      productId
+    ) {
+
+      const product =
+        PRODUCTS[
+          productId
+        ];
+
+
+      if (
+        !product ||
+        !product.media.length
+      ) {
+
         return;
+
       }
+
 
       let index =
-        productGalleryIndexes[productId] || 0;
+        productGalleryIndexes[
+          productId
+        ] ||
+        0;
 
-      if(index >= product.media.length){
-        index = 0;
+
+      if (
+        index >=
+        product.media.length
+      ) {
+
+        index =
+          0;
+
       }
 
-      productGalleryIndexes[productId] =
+
+      productGalleryIndexes[
+        productId
+      ] =
         index;
 
+
       const media =
-        product.media[index];
+        product.media[
+          index
+        ];
+
 
       const main =
         document.getElementById(
-          productId + "-main-media"
+          productId +
+          "-main-media"
         );
 
-      if(!main){
+
+      if (
+        !main
+      ) {
+
         return;
+
       }
 
-      if(media.type === "video"){
+
+      if (
+        media.type ===
+        "video"
+      ) {
 
         main.innerHTML =
           '<video class="generic-main-media" controls muted playsinline preload="metadata">' +
+
           '<source src="' +
           media.src +
           '">' +
+
           '</video>';
 
-      }else{
+      } else {
 
         main.innerHTML =
           '<img class="generic-main-media" src="' +
           media.src +
           '" alt="' +
-          escapeHtmlText(product.name) +
+          escapeHtmlText(
+            product.name
+          ) +
           '">';
 
       }
+
 
       document
         .querySelectorAll(
@@ -1716,188 +3879,367 @@
           productId +
           '"]'
         )
-        .forEach(button=>{
+        .forEach(
+          button => {
 
-          button.classList.toggle(
-            "active",
-            Number(
-              button.dataset.galleryIndex
-            ) === index
-          );
+            button.classList.toggle(
+              "active",
 
-        });
+              Number(
+                button.dataset.galleryIndex
+              ) ===
+              index
+            );
+
+          }
+        );
+
     }
 
 
-    function setProductMedia(productId,index){
-      const product =
-        PRODUCTS[productId];
+    function setProductMedia(
+      productId,
+      index
+    ) {
 
-      if(
+      const product =
+        PRODUCTS[
+          productId
+        ];
+
+
+      if (
         !product ||
         index < 0 ||
-        index >= product.media.length
-      ){
+        index >=
+          product.media.length
+      ) {
+
         return;
+
       }
 
-      productGalleryIndexes[productId] =
+
+      productGalleryIndexes[
+        productId
+      ] =
         index;
 
-      renderProductMainMedia(productId);
+
+      renderProductMainMedia(
+        productId
+      );
+
     }
 
 
-    function changeProductMedia(productId,direction){
-      const product =
-        PRODUCTS[productId];
+    function changeProductMedia(
+      productId,
+      direction
+    ) {
 
-      if(!product || !product.media.length){
+      const product =
+        PRODUCTS[
+          productId
+        ];
+
+
+      if (
+        !product ||
+        !product.media.length
+      ) {
+
         return;
+
       }
+
 
       let next =
-        (productGalleryIndexes[productId] || 0) +
+        (
+          productGalleryIndexes[
+            productId
+          ] ||
+          0
+        ) +
         direction;
 
-      if(next >= product.media.length){
-        next = 0;
+
+      if (
+        next >=
+        product.media.length
+      ) {
+
+        next =
+          0;
+
       }
 
-      if(next < 0){
+
+      if (
+        next <
+        0
+      ) {
+
         next =
-          product.media.length - 1;
+          product.media.length -
+          1;
+
       }
+
 
       setProductMedia(
         productId,
         next
       );
+
     }
 
 
-    function renderProductOptions(product){
-      if(!product.options || !product.options.length){
+    /* =========================================================
+       PRODUCT RENDERING
+    ========================================================== */
+
+
+    function renderProductOptions(
+      product
+    ) {
+
+      if (
+        !product.options ||
+        !product.options.length
+      ) {
+
         return "";
+
       }
 
+
       return (
+
         '<div class="product-options">' +
 
-        product.options.map(option=>
 
-          '<div class="product-option-group">' +
+        product.options.map(
+          option =>
 
-            '<label for="' +
+            '<div class="product-option-group">' +
+
+
+              '<label for="' +
               product.id +
               '-option-' +
               option.key +
-            '">' +
-              escapeHtmlText(option.label) +
-            '</label>' +
+              '">' +
 
-            '<select id="' +
+                escapeHtmlText(
+                  option.label
+                ) +
+
+              '</label>' +
+
+
+              '<select id="' +
               product.id +
               '-option-' +
               option.key +
-              '" onchange="handleProductOptionChange(\'' +
+              '" ' +
+
+              'onchange="handleProductOptionChange(\'' +
               product.id +
               '\')">' +
 
-              option.values.map(value=>
 
-                '<option value="' +
-                  escapeAttribute(value.value) +
-                '">' +
-                  escapeHtmlText(value.label) +
-                '</option>'
+                option.values.map(
+                  value =>
 
-              ).join("") +
+                    '<option value="' +
+                    escapeAttribute(
+                      value.value
+                    ) +
+                    '">' +
 
-            '</select>' +
+                      escapeHtmlText(
+                        value.label
+                      ) +
 
-          '</div>'
+                    '</option>'
 
-        ).join("") +
+                ).join(
+                  ""
+                ) +
+
+
+              '</select>' +
+
+
+            '</div>'
+
+        ).join(
+          ""
+        ) +
+
 
         '</div>'
+
       );
+
     }
 
 
-    function renderProductThumbnails(product){
-      return product.media.map((media,index)=>{
+    function renderProductThumbnails(
+      product
+    ) {
 
-        if(media.type === "video"){
+      return product.media.map(
+        (
+          media,
+          index
+        ) => {
+
+
+          if (
+            media.type ===
+            "video"
+          ) {
+
+            return (
+
+              '<button type="button" ' +
+
+              'class="gallery-thumbnail ' +
+
+              (
+                index === 0
+                  ? "active"
+                  : ""
+              ) +
+
+              '" ' +
+
+              'data-gallery-product="' +
+              product.id +
+              '" ' +
+
+              'data-gallery-index="' +
+              index +
+              '" ' +
+
+              'onclick="setProductMedia(\'' +
+              product.id +
+              '\',' +
+              index +
+              ')" ' +
+
+              'aria-label="Product video">' +
+
+
+                '<span class="video-thumbnail">' +
+                  '▶' +
+                '</span>' +
+
+
+              '</button>'
+
+            );
+
+          }
+
 
           return (
-            '<button type="button" class="gallery-thumbnail ' +
-            (index === 0 ? "active" : "") +
-            '" data-gallery-product="' +
+
+            '<button type="button" ' +
+
+            'class="gallery-thumbnail ' +
+
+            (
+              index === 0
+                ? "active"
+                : ""
+            ) +
+
+            '" ' +
+
+            'data-gallery-product="' +
             product.id +
-            '" data-gallery-index="' +
+            '" ' +
+
+            'data-gallery-index="' +
             index +
-            '" onclick="setProductMedia(\'' +
+            '" ' +
+
+            'onclick="setProductMedia(\'' +
             product.id +
             '\',' +
             index +
-            ')" aria-label="Product video">' +
+            ')" ' +
 
-              '<span class="video-thumbnail">▶</span>' +
+            'aria-label="Product image">' +
+
+
+              '<img src="' +
+              media.src +
+              '" alt="' +
+              escapeAttribute(
+                product.name
+              ) +
+              '" loading="lazy">' +
+
 
             '</button>'
+
           );
+
         }
+      ).join(
+        ""
+      );
 
-        return (
-          '<button type="button" class="gallery-thumbnail ' +
-          (index === 0 ? "active" : "") +
-          '" data-gallery-product="' +
-          product.id +
-          '" data-gallery-index="' +
-          index +
-          '" onclick="setProductMedia(\'' +
-          product.id +
-          '\',' +
-          index +
-          ')" aria-label="Product image">' +
-
-            '<img src="' +
-            media.src +
-            '" alt="' +
-            escapeAttribute(product.name) +
-            '" loading="lazy">' +
-
-          '</button>'
-        );
-      }).join("");
     }
 
 
-    function renderProductCard(product){
+    function renderProductCard(
+      product
+    ) {
+
       const initialPrice =
-        typeof product.price === "number"
+        typeof product.price ===
+        "number"
+
           ? product.price
+
           : Object.values(
-              product.variantPriceMap || {}
-            )[0] || 0;
+              product.variantPriceMap ||
+              {}
+            )[
+              0
+            ] ||
+            0;
+
 
       const firstImage =
         product.media.find(
-          media => media.type === "image"
+          media =>
+            media.type ===
+            "image"
         );
 
+
       return (
+
         '<div class="product-card" id="product-' +
         product.id +
         '">' +
 
+
           '<div class="product-gallery">' +
+
 
             '<div class="gallery-main">' +
 
+
               (
-                product.media.length > 1
+                product.media.length >
+                1
 
                   ? '<button type="button" class="gallery-arrow gallery-left" onclick="changeProductMedia(\'' +
                     product.id +
@@ -1906,9 +4248,11 @@
                   : ''
               ) +
 
+
               '<div id="' +
               product.id +
               '-main-media" style="width:100%;height:100%;">' +
+
 
                 (
                   firstImage
@@ -1916,16 +4260,21 @@
                     ? '<img class="generic-main-media" src="' +
                       firstImage.src +
                       '" alt="' +
-                      escapeAttribute(product.name) +
+                      escapeAttribute(
+                        product.name
+                      ) +
                       '">'
 
                     : ''
                 ) +
 
+
               '</div>' +
 
+
               (
-                product.media.length > 1
+                product.media.length >
+                1
 
                   ? '<button type="button" class="gallery-arrow gallery-right" onclick="changeProductMedia(\'' +
                     product.id +
@@ -1934,140 +4283,247 @@
                   : ''
               ) +
 
+
             '</div>' +
 
+
             (
-              product.media.length > 1
+              product.media.length >
+              1
 
                 ? '<div class="gallery-thumbnails">' +
-                  renderProductThumbnails(product) +
+
+                  renderProductThumbnails(
+                    product
+                  ) +
+
                   '</div>'
 
                 : ''
             ) +
+
 
           '</div>' +
 
 
           '<div class="product-info">' +
 
+
             '<p class="tag">' +
-            escapeHtmlText(product.tag) +
+              escapeHtmlText(
+                product.tag
+              ) +
             '</p>' +
+
 
             '<h3 class="product-title">' +
-            escapeHtmlText(product.name) +
+              escapeHtmlText(
+                product.name
+              ) +
             '</h3>' +
 
+
             '<p class="product-description">' +
-            escapeHtmlText(product.description) +
+              escapeHtmlText(
+                product.description
+              ) +
             '</p>' +
+
 
             '<ul class="product-features">' +
 
-              product.features
-                .map(
-                  feature =>
-                    '<li>' +
-                    escapeHtmlText(feature) +
-                    '</li>'
-                )
-                .join("") +
+              product.features.map(
+                feature =>
+
+                  '<li>' +
+                    escapeHtmlText(
+                      feature
+                    ) +
+                  '</li>'
+
+              ).join(
+                ""
+              ) +
 
             '</ul>' +
+
 
             (
               product.fixedDetail
 
                 ? '<div class="product-fixed-detail">' +
-                  escapeHtmlText(product.fixedDetail) +
+                  escapeHtmlText(
+                    product.fixedDetail
+                  ) +
                   '</div>'
 
                 : ''
             ) +
 
-            renderProductOptions(product) +
+
+            renderProductOptions(
+              product
+            ) +
+
 
             '<div id="' +
             product.id +
-            '-price" class="product-price">€' +
-            Number(initialPrice).toFixed(2) +
+            '-price" class="product-price">' +
+
+              '€' +
+              Number(
+                initialPrice
+              ).toFixed(
+                2
+              ) +
+
             '</div>' +
+
 
             '<div class="product-actions">' +
 
+
               '<button type="button" class="main-button" onclick="addFinalProductToCart(\'' +
               product.id +
-              '\')">Add to cart</button>' +
+              '\')">' +
+
+                'Add to cart' +
+
+              '</button>' +
+
 
               '<button type="button" class="like-button" data-product-like-base="' +
               product.id +
-              '" onclick="toggleFinalProductLike(\'' +
+              '" ' +
+
+              'onclick="toggleFinalProductLike(\'' +
               product.id +
-              '\')">♡ Like</button>' +
+              '\')">' +
+
+                '♡ Like' +
+
+              '</button>' +
+
 
             '</div>' +
 
+
           '</div>' +
 
+
         '</div>'
+
       );
+
     }
 
 
-    function renderAllProducts(){
+    function renderAllProducts() {
 
-      Object.values(categoryTargets).forEach(targetId=>{
+      Object.values(
+        categoryTargets
+      ).forEach(
+        targetId => {
 
-        const target =
-          document.getElementById(targetId);
+          const target =
+            document.getElementById(
+              targetId
+            );
 
-        if(target){
-          target.innerHTML = "";
+
+          if (
+            target
+          ) {
+
+            target.innerHTML =
+              "";
+
+          }
+
         }
+      );
 
-      });
+
+      Object.values(
+        PRODUCTS
+      ).forEach(
+        product => {
+
+          const target =
+            document.getElementById(
+              categoryTargets[
+                product.category
+              ]
+            );
 
 
-      Object.values(PRODUCTS).forEach(product=>{
+          if (
+            !target
+          ) {
 
-        const target =
-          document.getElementById(
-            categoryTargets[product.category]
+            return;
+
+          }
+
+
+          target.insertAdjacentHTML(
+            "beforeend",
+
+            renderProductCard(
+              product
+            )
           );
 
-        if(!target){
-          return;
+
+          productGalleryIndexes[
+            product.id
+          ] =
+            0;
+
         }
-
-        target.insertAdjacentHTML(
-          "beforeend",
-          renderProductCard(product)
-        );
-
-        productGalleryIndexes[product.id] =
-          0;
-
-      });
+      );
 
 
       updateProductLikeButtons();
+
     }
 
 
-    function addFinalProductToCart(productId){
-      const product =
-        PRODUCTS[productId];
+    /* =========================================================
+       ADD PRODUCTS TO CART
+    ========================================================== */
 
-      if(!product){
+
+    function addFinalProductToCart(
+      productId
+    ) {
+
+      const product =
+        PRODUCTS[
+          productId
+        ];
+
+
+      if (
+        !product
+      ) {
+
         return;
+
       }
 
+
       const selected =
-        getSelectedProductOptions(product);
+        getSelectedProductOptions(
+          product
+        );
+
 
       const price =
-        getProductCurrentPrice(product);
+        getProductCurrentPrice(
+          product
+        );
+
 
       const variant =
         getProductVariantCode(
@@ -2075,70 +4531,119 @@
           selected
         );
 
+
       const variantLabel =
         getProductVariantLabel(
           product,
           selected
         );
 
+
       const image =
         getProductCartImage(
           product,
           selected
         );
+
 
       const cartId =
         variant
 
           ? product.id +
             "::" +
-            encodeURIComponent(variant)
+            encodeURIComponent(
+              variant
+            )
 
           : product.id;
 
+
       const existing =
         cart.find(
-          item => item.id === cartId
+          item =>
+            item.id ===
+            cartId
         );
 
-      if(existing){
 
-        existing.quantity += 1;
+      if (
+        existing
+      ) {
 
-      }else{
+        existing.quantity +=
+          1;
+
+      } else {
 
         cart.push({
-          id:cartId,
-          checkoutId:product.id,
-          variant:variant,
-          variantLabel:variantLabel,
-          name:product.name,
-          price:price,
-          image:image,
-          quantity:1
+
+          id:
+            cartId,
+
+          checkoutId:
+            product.id,
+
+          variant:
+            variant,
+
+          variantLabel:
+            variantLabel,
+
+          name:
+            product.name,
+
+          price:
+            price,
+
+          image:
+            image,
+
+          quantity:
+            1
+
         });
 
       }
+
 
       saveCart();
 
       updateCart();
 
       openCart();
+
     }
 
 
-    function toggleFinalProductLike(productId){
+    /* =========================================================
+       VARIANT-AWARE LIKES
+    ========================================================== */
+
+
+    function toggleFinalProductLike(
+      productId
+    ) {
 
       const product =
-        PRODUCTS[productId];
+        PRODUCTS[
+          productId
+        ];
 
-      if(!product){
+
+      if (
+        !product
+      ) {
+
         return;
+
       }
 
+
       const selected =
-        getSelectedProductOptions(product);
+        getSelectedProductOptions(
+          product
+        );
+
 
       const variant =
         getProductVariantCode(
@@ -2146,14 +4651,19 @@
           selected
         );
 
+
       const variantLabel =
         getProductVariantLabel(
           product,
           selected
         );
 
+
       const price =
-        getProductCurrentPrice(product);
+        getProductCurrentPrice(
+          product
+        );
+
 
       const image =
         getProductCartImage(
@@ -2161,285 +4671,486 @@
           selected
         );
 
+
       const likeId =
         variant
 
           ? product.id +
             "::" +
-            encodeURIComponent(variant)
+            encodeURIComponent(
+              variant
+            )
 
           : product.id;
 
+
       const existing =
         likedItems.some(
-          item => item.id === likeId
+          item =>
+            item.id ===
+            likeId
         );
 
-      if(existing){
+
+      if (
+        existing
+      ) {
 
         likedItems =
           likedItems.filter(
-            item => item.id !== likeId
+            item =>
+              item.id !==
+              likeId
           );
 
-      }else{
+      } else {
 
         likedItems.push({
-          id:likeId,
-          checkoutId:product.id,
-          variant:variant,
-          variantLabel:variantLabel,
-          name:product.name,
-          price:price,
-          image:image
+
+          id:
+            likeId,
+
+          checkoutId:
+            product.id,
+
+          variant:
+            variant,
+
+          variantLabel:
+            variantLabel,
+
+          name:
+            product.name,
+
+          price:
+            price,
+
+          image:
+            image
+
         });
 
       }
+
 
       saveLikes();
 
       updateLikes();
 
       updateProductLikeButtons();
+
     }
 
 
-    function addLikedItemToCart(id){
+    function addLikedItemToCart(
+      id
+    ) {
 
       const item =
         likedItems.find(
-          product => product.id === id
+          product =>
+            product.id ===
+            id
         );
 
-      if(!item){
+
+      if (
+        !item
+      ) {
+
         return;
+
       }
+
 
       const existing =
         cart.find(
           cartItem =>
-            cartItem.id === item.id
+            cartItem.id ===
+            item.id
         );
 
-      if(existing){
 
-        existing.quantity += 1;
+      if (
+        existing
+      ) {
 
-      }else{
+        existing.quantity +=
+          1;
+
+      } else {
 
         cart.push({
-          id:item.id,
+
+          id:
+            item.id,
+
           checkoutId:
             item.checkoutId ||
-            item.id.split("::")[0],
-          variant:item.variant || "",
-          variantLabel:item.variantLabel || "",
-          name:item.name,
-          price:Number(item.price),
-          image:item.image,
-          quantity:1
+            item.id.split(
+              "::"
+            )[
+              0
+            ],
+
+          variant:
+            item.variant ||
+            "",
+
+          variantLabel:
+            item.variantLabel ||
+            "",
+
+          name:
+            item.name,
+
+          price:
+            Number(
+              item.price
+            ),
+
+          image:
+            item.image,
+
+          quantity:
+            1
+
         });
 
       }
+
 
       saveCart();
 
       updateCart();
 
       openCart();
+
     }
 
 
-    function updateLikes(){
+    function updateLikes() {
 
       const count =
         document.getElementById(
           "likes-count"
         );
 
+
       const container =
         document.getElementById(
           "liked-items"
         );
 
-      if(count){
+
+      if (
+        count
+      ) {
+
         count.textContent =
           likedItems.length;
+
       }
 
-      if(!container){
+
+      if (
+        !container
+      ) {
+
         return;
+
       }
 
-      if(!likedItems.length){
+
+      if (
+        !likedItems.length
+      ) {
 
         container.innerHTML =
           '<p class="empty-message">You haven\'t liked anything yet.</p>';
 
         return;
+
       }
 
+
       container.innerHTML =
-        likedItems.map(item=>
+        likedItems.map(
+          item =>
 
-          '<div class="liked-item">' +
+            '<div class="liked-item">' +
 
-            (
-              item.image
-                ? '<img src="' +
-                  item.image +
-                  '" alt="' +
-                  escapeAttribute(item.name) +
-                  '">'
-                : ''
-            ) +
-
-            '<div class="liked-info">' +
-
-              '<h3>' +
-              escapeHtmlText(item.name) +
-              '</h3>' +
 
               (
-                item.variantLabel
-                  ? '<p class="cart-variant">' +
-                    escapeHtmlText(item.variantLabel) +
-                    '</p>'
+                item.image
+
+                  ? '<img src="' +
+                    item.image +
+                    '" alt="' +
+                    escapeAttribute(
+                      item.name
+                    ) +
+                    '">'
+
                   : ''
               ) +
 
-              '<p class="cart-price">€' +
-              Number(item.price).toFixed(2) +
-              '</p>' +
 
-              '<button type="button" class="main-button" onclick="addLikedItemToCart(\'' +
-              escapeJsSingle(item.id) +
-              '\')">Add to cart</button>' +
+              '<div class="liked-info">' +
 
-              '<button type="button" class="remove-item" onclick="removeLike(\'' +
-              escapeJsSingle(item.id) +
-              '\')">Remove</button>' +
 
-            '</div>' +
+                '<h3>' +
+                  escapeHtmlText(
+                    item.name
+                  ) +
+                '</h3>' +
 
-          '</div>'
 
-        ).join("");
+                (
+                  item.variantLabel
+
+                    ? '<p class="cart-variant">' +
+                      escapeHtmlText(
+                        item.variantLabel
+                      ) +
+                      '</p>'
+
+                    : ''
+                ) +
+
+
+                '<p class="cart-price">' +
+                  '€' +
+                  Number(
+                    item.price
+                  ).toFixed(
+                    2
+                  ) +
+                '</p>' +
+
+
+                '<button type="button" class="main-button" onclick="addLikedItemToCart(\'' +
+
+                  escapeJsSingle(
+                    item.id
+                  ) +
+
+                  '\')">' +
+
+                  'Add to cart' +
+
+                '</button>' +
+
+
+                '<button type="button" class="remove-item" onclick="removeLike(\'' +
+
+                  escapeJsSingle(
+                    item.id
+                  ) +
+
+                  '\')">' +
+
+                  'Remove' +
+
+                '</button>' +
+
+
+              '</div>' +
+
+
+            '</div>'
+
+        ).join(
+          ""
+        );
+
     }
 
 
-    function updateProductLikeButtons(){
+    function updateProductLikeButtons() {
 
       document
         .querySelectorAll(
           "[data-product-like-base]"
         )
-        .forEach(button=>{
+        .forEach(
+          button => {
 
-          const product =
-            PRODUCTS[
-              button.dataset.productLikeBase
-            ];
+            const product =
+              PRODUCTS[
+                button.dataset.productLikeBase
+              ];
 
-          if(!product){
-            return;
-          }
 
-          const likeId =
-            getCurrentLikeId(product);
+            if (
+              !product
+            ) {
 
-          const liked =
-            likedItems.some(
-              item => item.id === likeId
+              return;
+
+            }
+
+
+            const likeId =
+              getCurrentLikeId(
+                product
+              );
+
+
+            const liked =
+              likedItems.some(
+                item =>
+                  item.id ===
+                  likeId
+              );
+
+
+            button.textContent =
+              liked
+
+                ? "♥ Liked"
+
+                : "♡ Like";
+
+
+            button.classList.toggle(
+              "liked",
+              liked
             );
 
-          button.textContent =
-            liked
-              ? "♥ Liked"
-              : "♡ Like";
+          }
+        );
 
-          button.classList.toggle(
-            "liked",
-            liked
-          );
-
-        });
     }
+
+
+    /* =========================================================
+       CART VARIANT DISPLAY
+    ========================================================== */
 
 
     const baseUpdateCart =
       updateCart;
 
 
-    updateCart = function(){
+    updateCart =
+      function() {
 
-      baseUpdateCart();
+        baseUpdateCart();
 
-      const container =
-        document.getElementById(
-          "cart-items"
-        );
 
-      if(!container || !cart.length){
-        return;
-      }
+        const container =
+          document.getElementById(
+            "cart-items"
+          );
 
-      const rows =
-        container.querySelectorAll(
-          ".cart-item"
-        );
 
-      rows.forEach((row,index)=>{
+        if (
+          !container ||
+          !cart.length
+        ) {
 
-        const item =
-          cart[index];
-
-        if(!item || !item.variantLabel){
           return;
+
         }
 
-        const info =
-          row.querySelector(
-            ".cart-item-info"
+
+        const rows =
+          container.querySelectorAll(
+            ".cart-item"
           );
 
-        const price =
-          row.querySelector(
-            ".cart-price"
-          );
 
-        if(!info || !price){
-          return;
-        }
+        rows.forEach(
+          (
+            row,
+            index
+          ) => {
 
-        const old =
-          info.querySelector(
-            ".cart-variant"
-          );
+            const item =
+              cart[
+                index
+              ];
 
-        if(old){
-          old.remove();
-        }
 
-        const variant =
-          document.createElement("p");
+            if (
+              !item ||
+              !item.variantLabel
+            ) {
 
-        variant.className =
-          "cart-variant";
+              return;
 
-        variant.textContent =
-          item.variantLabel;
+            }
 
-        info.insertBefore(
-          variant,
-          price
+
+            const info =
+              row.querySelector(
+                ".cart-item-info"
+              );
+
+
+            const price =
+              row.querySelector(
+                ".cart-price"
+              );
+
+
+            if (
+              !info ||
+              !price
+            ) {
+
+              return;
+
+            }
+
+
+            const old =
+              info.querySelector(
+                ".cart-variant"
+              );
+
+
+            if (
+              old
+            ) {
+
+              old.remove();
+
+            }
+
+
+            const variant =
+              document.createElement(
+                "p"
+              );
+
+
+            variant.className =
+              "cart-variant";
+
+
+            variant.textContent =
+              item.variantLabel;
+
+
+            info.insertBefore(
+              variant,
+              price
+            );
+
+          }
         );
 
-      });
-    };
+      };
 
 
-    function removeRetiredProducts(){
+    /* =========================================================
+       CLEAN OLD RETIRED PRODUCTS
+    ========================================================== */
+
+
+    function removeRetiredProducts() {
 
       const retired =
         new Set([
@@ -2447,30 +5158,63 @@
           "oil-dispenser-double-001"
         ]);
 
+
       cart =
-        cart.filter(item=>{
+        cart.filter(
+          item => {
 
-          const checkoutId =
-            item.checkoutId ||
-            String(item.id).split("::")[0];
+            const checkoutId =
+              item.checkoutId ||
+              String(
+                item.id
+              ).split(
+                "::"
+              )[
+                0
+              ];
 
-          return !retired.has(checkoutId);
-        });
+
+            return !retired.has(
+              checkoutId
+            );
+
+          }
+        );
+
 
       likedItems =
-        likedItems.filter(item=>{
+        likedItems.filter(
+          item => {
 
-          const baseId =
-            item.checkoutId ||
-            String(item.id).split("::")[0];
+            const baseId =
+              item.checkoutId ||
+              String(
+                item.id
+              ).split(
+                "::"
+              )[
+                0
+              ];
 
-          return !retired.has(baseId);
-        });
+
+            return !retired.has(
+              baseId
+            );
+
+          }
+        );
+
 
       saveCart();
 
       saveLikes();
+
     }
+
+
+    /* =========================================================
+       STRIPE
+    ========================================================== */
 
 
     const MAVRENX_STRIPE_PUBLISHABLE_KEY =
@@ -2483,321 +5227,1072 @@
       );
 
 
-    let mavCheckout = null;
-
-    let mavCheckoutActions = null;
-
-    let mavMountedElements = [];
-
-    let mavCheckoutStarting = false;
+    let mavCheckout =
+      null;
 
 
-    function getCheckoutAppearance(){
+    let mavCheckoutActions =
+      null;
+
+
+    let mavMountedElements =
+      [];
+
+
+    let mavCheckoutStarting =
+      false;
+
+
+    /* =========================================================
+       VISUAL-ONLY CURRENCY
+    ========================================================== */
+
+
+    const MAVRENX_COUNTRY_CURRENCY = {
+
+      RO: "RON",
+
+      GB: "GBP",
+
+      US: "USD",
+
+      CA: "CAD",
+
+      AU: "AUD",
+
+      PL: "PLN",
+
+      CH: "CHF",
+
+      CZ: "CZK",
+
+      HU: "HUF",
+
+      SE: "SEK",
+
+      NO: "NOK",
+
+      DK: "DKK",
+
+      IS: "ISK",
+
+      JP: "JPY",
+
+      CN: "CNY",
+
+      IN: "INR",
+
+      NZ: "NZD",
+
+      SG: "SGD",
+
+      HK: "HKD",
+
+      KR: "KRW",
+
+      AE: "AED",
+
+      SA: "SAR",
+
+      TR: "TRY",
+
+      BR: "BRL",
+
+      MX: "MXN",
+
+      ZA: "ZAR",
+
+      IL: "ILS",
+
+      UA: "UAH",
+
+      MD: "MDL"
+
+    };
+
+
+    const MAVRENX_EUR_FALLBACK_RATES = {
+
+      EUR:
+        1,
+
+      RON:
+        5.09,
+
+      GBP:
+        0.85,
+
+      USD:
+        1.14,
+
+      CAD:
+        1.58,
+
+      AUD:
+        1.76,
+
+      PLN:
+        4.27,
+
+      CHF:
+        0.93,
+
+      CZK:
+        24.60,
+
+      HUF:
+        393,
+
+      SEK:
+        11.20,
+
+      NOK:
+        11.80,
+
+      DKK:
+        7.46,
+
+      ISK:
+        143,
+
+      JPY:
+        186,
+
+      CNY:
+        8.20,
+
+      INR:
+        103,
+
+      NZD:
+        1.95,
+
+      SGD:
+        1.49,
+
+      HKD:
+        8.90,
+
+      KRW:
+        1590,
+
+      AED:
+        4.20,
+
+      SAR:
+        4.28,
+
+      TRY:
+        46,
+
+      BRL:
+        6.30,
+
+      MXN:
+        21.3,
+
+      ZAR:
+        20.4,
+
+      ILS:
+        3.90,
+
+      UAH:
+        47.5,
+
+      MDL:
+        19.6
+
+    };
+
+
+    const mavCurrencyRateCache = {
+      EUR:
+        1
+    };
+
+
+    let mavDisplayCountry =
+      "";
+
+
+    let mavDisplayCurrency =
+      "EUR";
+
+
+    let mavActualEuroTotal =
+      null;
+
+
+    function getMavCurrencyForCountry(
+      country
+    ) {
+
+      const code =
+        String(
+          country ||
+          ""
+        ).toUpperCase();
+
+
+      return MAVRENX_COUNTRY_CURRENCY[
+        code
+      ] ||
+      "EUR";
+
+    }
+
+
+    function getMavCurrencyRate(
+      currency
+    ) {
+
+      return (
+        mavCurrencyRateCache[
+          currency
+        ] ||
+
+        MAVRENX_EUR_FALLBACK_RATES[
+          currency
+        ] ||
+
+        1
+      );
+
+    }
+
+
+    async function refreshMavCurrencyRate(
+      currency
+    ) {
+
+      if (
+        !currency ||
+        currency ===
+          "EUR" ||
+        mavCurrencyRateCache[
+          currency
+        ]
+      ) {
+
+        return;
+
+      }
+
+
+      try {
+
+        const response =
+          await fetch(
+            "https://api.frankfurter.dev/v2/rate/EUR/" +
+            encodeURIComponent(
+              currency
+            )
+          );
+
+
+        if (
+          !response.ok
+        ) {
+
+          return;
+
+        }
+
+
+        const data =
+          await response.json();
+
+
+        const rate =
+          Number(
+            data &&
+            data.rate
+          );
+
+
+        if (
+          Number.isFinite(
+            rate
+          ) &&
+          rate >
+            0
+        ) {
+
+          mavCurrencyRateCache[
+            currency
+          ] =
+            rate;
+
+
+          if (
+            mavDisplayCurrency ===
+            currency
+          ) {
+
+            renderCheckoutSummary();
+
+          }
+
+        }
+
+      } catch (
+        error
+      ) {
+
+        console.warn(
+          "MAVRENX currency fallback rate in use:",
+          error
+        );
+
+      }
+
+    }
+
+
+    function formatMavCurrencyFromEuro(
+      euroAmount,
+      currency
+    ) {
+
+      const converted =
+        Number(
+          euroAmount ||
+          0
+        ) *
+        getMavCurrencyRate(
+          currency
+        );
+
+
+      try {
+
+        return new Intl.NumberFormat(
+          undefined,
+          {
+
+            style:
+              "currency",
+
+            currency:
+              currency,
+
+            maximumFractionDigits:
+              [
+                "JPY",
+                "KRW",
+                "HUF",
+                "ISK"
+              ].includes(
+                currency
+              )
+
+                ? 0
+
+                : 2
+
+          }
+        ).format(
+          converted
+        );
+
+      } catch (
+        error
+      ) {
+
+        return (
+          currency +
+          " " +
+          converted.toFixed(
+            2
+          )
+        );
+
+      }
+
+    }
+
+
+    function updateMavCurrencyNote(
+      euroAmount
+    ) {
+
+      const note =
+        document.getElementById(
+          "mav-local-currency"
+        );
+
+
+      if (
+        !note
+      ) {
+
+        return;
+
+      }
+
+
+      if (
+        !mavDisplayCountry
+      ) {
+
+        note.textContent =
+          "Prices are shown in EUR until a shipping country is selected.";
+
+        return;
+
+      }
+
+
+      if (
+        mavDisplayCurrency ===
+        "EUR"
+      ) {
+
+        note.innerHTML =
+          "Payment currency: <strong>EUR</strong>.";
+
+        return;
+
+      }
+
+
+      note.innerHTML =
+        "Estimated local total: <strong>" +
+
+        formatMavCurrencyFromEuro(
+          euroAmount,
+          mavDisplayCurrency
+        ) +
+
+        "</strong><br>" +
+
+        "Estimated local price only — payment is charged in EUR.";
+
+    }
+
+
+    function setMavDisplayCountry(
+      country
+    ) {
+
+      const nextCountry =
+        String(
+          country ||
+          ""
+        ).toUpperCase();
+
+
+      if (
+        !nextCountry
+      ) {
+
+        return;
+
+      }
+
+
+      mavDisplayCountry =
+        nextCountry;
+
+
+      mavDisplayCurrency =
+        getMavCurrencyForCountry(
+          nextCountry
+        );
+
+
+      renderCheckoutSummary();
+
+
+      refreshMavCurrencyRate(
+        mavDisplayCurrency
+      );
+
+    }
+
+
+    /* =========================================================
+       CHECKOUT APPEARANCE
+    ========================================================== */
+
+
+    function getCheckoutAppearance() {
 
       const dark =
         document.body.classList.contains(
           "dark-mode"
         );
 
-      if(dark){
+
+      if (
+        dark
+      ) {
 
         return {
-          theme:"night",
 
-          variables:{
-            colorPrimary:"#159947",
-            colorBackground:"#111511",
-            colorText:"#F4F7F4",
-            colorDanger:"#FF6B6B",
-            colorSuccess:"#28C76F",
-            borderRadius:"10px",
-            fontFamily:"Arial, system-ui, sans-serif",
-            spacingUnit:"4px"
+          theme:
+            "night",
+
+          variables: {
+
+            colorPrimary:
+              "#159947",
+
+            colorBackground:
+              "#111511",
+
+            colorText:
+              "#F4F7F4",
+
+            colorDanger:
+              "#FF6B6B",
+
+            colorSuccess:
+              "#28C76F",
+
+            borderRadius:
+              "10px",
+
+            fontFamily:
+              "Arial, system-ui, sans-serif",
+
+            spacingUnit:
+              "4px"
+
           }
+
         };
 
       }
 
-      return {
-        theme:"stripe",
 
-        variables:{
-          colorPrimary:"#159947",
-          colorBackground:"#FFFFFF",
-          colorText:"#171717",
-          colorDanger:"#C62828",
-          colorSuccess:"#159947",
-          borderRadius:"10px",
-          fontFamily:"Arial, system-ui, sans-serif",
-          spacingUnit:"4px"
+      return {
+
+        theme:
+          "stripe",
+
+        variables: {
+
+          colorPrimary:
+            "#159947",
+
+          colorBackground:
+            "#FFFFFF",
+
+          colorText:
+            "#171717",
+
+          colorDanger:
+            "#C62828",
+
+          colorSuccess:
+            "#159947",
+
+          borderRadius:
+            "10px",
+
+          fontFamily:
+            "Arial, system-ui, sans-serif",
+
+          spacingUnit:
+            "4px"
+
         }
+
       };
+
     }
 
 
-    function renderCheckoutSummary(){
+    /* =========================================================
+       CHECKOUT SUMMARY
+    ========================================================== */
+
+
+    function renderCheckoutSummary() {
 
       const items =
         document.getElementById(
           "mav-summary-items"
         );
 
+
       const total =
         document.getElementById(
           "mav-summary-total"
         );
 
-      if(!items || !total){
+
+      if (
+        !items ||
+        !total
+      ) {
+
         return;
+
       }
 
-      let amount = 0;
+
+      let cartEuroAmount =
+        0;
+
 
       items.innerHTML =
-        cart.map(item=>{
+        cart.map(
+          item => {
 
-          const qty =
-            Number(item.quantity) || 1;
+            const qty =
+              Number(
+                item.quantity
+              ) ||
+              1;
 
-          const price =
-            Number(item.price) || 0;
 
-          amount +=
-            price * qty;
+            const price =
+              Number(
+                item.price
+              ) ||
+              0;
 
-          return (
-            '<div class="mav-summary-item">' +
 
-              (
-                item.image
-                  ? '<img src="' +
-                    item.image +
-                    '" alt="' +
-                    escapeAttribute(item.name) +
-                    '">'
-                  : '<div></div>'
-              ) +
+            const lineEuro =
+              price *
+              qty;
 
-              '<div>' +
 
-                '<div class="mav-summary-name">' +
-                escapeHtmlText(item.name) +
-                ' × ' +
-                qty +
-                '</div>' +
+            cartEuroAmount +=
+              lineEuro;
+
+
+            const displayedLine =
+              mavDisplayCountry
+
+                ? formatMavCurrencyFromEuro(
+                    lineEuro,
+                    mavDisplayCurrency
+                  )
+
+                : "€" +
+                  lineEuro.toFixed(
+                    2
+                  );
+
+
+            return (
+
+              '<div class="mav-summary-item">' +
+
 
                 (
-                  item.variantLabel
-                    ? '<div class="mav-summary-variant">' +
-                      escapeHtmlText(item.variantLabel) +
-                      '</div>'
-                    : ''
+                  item.image
+
+                    ? '<img src="' +
+                      item.image +
+                      '" alt="' +
+                      escapeAttribute(
+                        item.name
+                      ) +
+                      '">'
+
+                    : '<div></div>'
                 ) +
 
-              '</div>' +
 
-              '<div class="mav-summary-price">€' +
-              (price * qty).toFixed(2) +
-              '</div>' +
+                '<div>' +
 
-            '</div>'
-          );
 
-        }).join("");
+                  '<div class="mav-summary-name">' +
+
+                    escapeHtmlText(
+                      item.name
+                    ) +
+
+                    ' × ' +
+                    qty +
+
+                  '</div>' +
+
+
+                  (
+                    item.variantLabel
+
+                      ? '<div class="mav-summary-variant">' +
+
+                        escapeHtmlText(
+                          item.variantLabel
+                        ) +
+
+                        '</div>'
+
+                      : ''
+                  ) +
+
+
+                '</div>' +
+
+
+                '<div class="mav-summary-price">' +
+
+                  displayedLine +
+
+                '</div>' +
+
+
+              '</div>'
+
+            );
+
+          }
+        ).join(
+          ""
+        );
+
+
+      const euroTotal =
+        typeof mavActualEuroTotal ===
+        "number"
+
+          ? mavActualEuroTotal
+
+          : cartEuroAmount;
+
 
       total.textContent =
-        "€" + amount.toFixed(2);
+        mavDisplayCountry
+
+          ? formatMavCurrencyFromEuro(
+              euroTotal,
+              mavDisplayCurrency
+            )
+
+          : "€" +
+            euroTotal.toFixed(
+              2
+            );
+
+
+      updateMavCurrencyNote(
+        euroTotal
+      );
+
     }
 
 
-    function cleanupCheckoutElements(){
+    /* =========================================================
+       CHECKOUT CLEANUP
+    ========================================================== */
 
-      mavMountedElements.forEach(element=>{
 
-        try{
+    function cleanupCheckoutElements() {
 
-          if(
-            element &&
-            typeof element.unmount === "function"
-          ){
-            element.unmount();
-          }
+      mavMountedElements.forEach(
+        element => {
 
-        }catch(error){}
+          try {
 
-      });
+            if (
+              element &&
+              typeof element.unmount ===
+                "function"
+            ) {
 
-      mavMountedElements = [];
+              element.unmount();
+
+            }
+
+          } catch (
+            error
+          ) {}
+
+        }
+      );
+
+
+      mavMountedElements =
+        [];
+
 
       [
         "shipping-address-element",
         "payment-element"
-      ]
-      .forEach(id=>{
+      ].forEach(
+        id => {
 
-        const el =
-          document.getElementById(id);
+          const element =
+            document.getElementById(
+              id
+            );
 
-        if(el){
-          el.innerHTML = "";
+
+          if (
+            element
+          ) {
+
+            element.innerHTML =
+              "";
+
+          }
+
         }
+      );
 
-      });
 
-      mavCheckout = null;
+      mavCheckout =
+        null;
 
-      mavCheckoutActions = null;
+
+      mavCheckoutActions =
+        null;
+
+
+      mavDisplayCountry =
+        "";
+
+
+      mavDisplayCurrency =
+        "EUR";
+
+
+      mavActualEuroTotal =
+        null;
+
     }
 
 
-    function closeMavCheckout(){
+    function closeMavCheckout() {
 
       const overlay =
         document.getElementById(
           "mav-checkout-overlay"
         );
 
-      if(overlay){
+
+      if (
+        overlay
+      ) {
 
         overlay.classList.remove(
           "active"
         );
 
+
         overlay.setAttribute(
           "aria-hidden",
           "true"
         );
+
       }
+
 
       document.body.style.overflow =
         "";
 
+
       cleanupCheckoutElements();
+
     }
 
 
-    async function checkout(){
+    /* =========================================================
+       OPEN CHECKOUT
+    ========================================================== */
 
-      if(!cart.length){
+
+    async function checkout() {
+
+      if (
+        !cart.length
+      ) {
 
         alert(
           "Your cart is empty."
         );
 
         return;
+
       }
 
-      if(cart.length > 10){
+
+      if (
+        cart.length >
+        10
+      ) {
 
         alert(
           "Please keep your order to 10 different product options or fewer per checkout."
         );
 
         return;
+
       }
 
-      if(mavCheckoutStarting){
+
+      if (
+        mavCheckoutStarting
+      ) {
+
         return;
+
       }
+
 
       mavCheckoutStarting =
         true;
+
 
       const overlay =
         document.getElementById(
           "mav-checkout-overlay"
         );
 
+
       const message =
         document.getElementById(
           "mav-checkout-message"
         );
+
 
       const payButton =
         document.getElementById(
           "mav-checkout-pay"
         );
 
+
       const payText =
         document.getElementById(
           "mav-checkout-pay-text"
         );
 
-      if(message){
-        message.textContent = "";
+
+      if (
+        message
+      ) {
+
+        message.textContent =
+          "";
+
       }
 
-      if(payButton){
-        payButton.disabled = true;
+
+      if (
+        payButton
+      ) {
+
+        payButton.disabled =
+          true;
+
       }
 
-      if(payText){
+
+      if (
+        payText
+      ) {
+
         payText.textContent =
           "Loading secure checkout...";
+
       }
 
-      renderCheckoutSummary();
 
-      if(overlay){
+      if (
+        overlay
+      ) {
 
         overlay.classList.add(
           "active"
         );
 
+
         overlay.setAttribute(
           "aria-hidden",
           "false"
         );
+
       }
+
 
       document.body.style.overflow =
         "hidden";
 
 
-      try{
+      try {
+
 
         cleanupCheckoutElements();
 
 
+        renderCheckoutSummary();
+
+
         const items =
-          cart.map(item=>({
-            id:
-              item.checkoutId ||
-              String(item.id).split("::")[0],
+          cart.map(
+            item => ({
 
-            quantity:
-              Number(item.quantity) || 1,
+              id:
+                item.checkoutId ||
+                String(
+                  item.id
+                ).split(
+                  "::"
+                )[
+                  0
+                ],
 
-            variant:
-              item.variant || "",
 
-            variantLabel:
-              item.variantLabel || ""
-          }));
+              quantity:
+                Number(
+                  item.quantity
+                ) ||
+                1,
+
+
+              variant:
+                item.variant ||
+                "",
+
+
+              variantLabel:
+                item.variantLabel ||
+                ""
+
+            })
+          );
 
 
         const response =
           await fetch(
             checkoutBackendUrl +
             "/create-checkout-session",
-
             {
-              method:"POST",
 
-              headers:{
+              method:
+                "POST",
+
+
+              headers: {
+
                 "Content-Type":
                   "application/json"
+
               },
+
 
               body:
                 JSON.stringify({
-                  items:items,
+
+                  items:
+                    items,
+
 
                   notificationToken:
                     localStorage.getItem(
                       "mavrenx-notification-token"
-                    ) || ""
+                    ) ||
+                    ""
+
                 })
+
             }
           );
 
@@ -2805,93 +6300,272 @@
         const data =
           await response
             .json()
-            .catch(()=>({}));
+            .catch(
+              () => ({})
+            );
 
 
-        if(!response.ok){
+        if (
+          !response.ok
+        ) {
 
           throw new Error(
             data.error ||
             "Checkout could not be started."
           );
+
         }
 
 
-        if(!data.clientSecret){
+        if (
+          !data.clientSecret
+        ) {
 
           throw new Error(
-            "The Worker is still using the old hosted Checkout mode. Replace the Worker with the next file before testing checkout."
+            "Checkout session could not be loaded."
           );
+
         }
 
 
         mavCheckout =
           mavStripe.initCheckout({
+
             clientSecret:
               data.clientSecret,
 
-            elementsOptions:{
+
+            elementsOptions: {
+
               appearance:
                 getCheckoutAppearance()
+
             }
+
           });
 
 
+        /*
+          Checkout session change event.
+          This is a second way to catch
+          the selected shipping country.
+        */
+
         mavCheckout.on(
           "change",
-          session=>{
+          session => {
 
-            if(payButton){
+
+            if (
+              payButton
+            ) {
+
               payButton.disabled =
                 !session.canConfirm;
+
             }
 
-            if(
+
+            if (
               session.total &&
-              session.total.total &&
-              session.total.total.amount
-            ){
+              session.total.total
+            ) {
 
               const formattedTotal =
                 session.total.total.amount;
 
-              if(payText){
+
+              if (
+                payText &&
+                formattedTotal
+              ) {
+
                 payText.textContent =
                   "Pay " +
                   formattedTotal;
+
               }
 
-              const totalElement =
-                document.getElementById(
-                  "mav-summary-total"
-                );
 
-              if(totalElement){
-                totalElement.textContent =
-                  formattedTotal;
+              if (
+                typeof
+                session.total.total.minorUnitsAmount ===
+                "number"
+              ) {
+
+                const divisor =
+                  Number(
+                    session.minorUnitsAmountDivisor
+                  ) ||
+                  100;
+
+
+                mavActualEuroTotal =
+                  session.total.total.minorUnitsAmount /
+                  divisor;
+
               }
+
             }
+
+
+            const sessionCountry =
+              session.shippingAddress &&
+              session.shippingAddress.address
+
+                ? session.shippingAddress.address.country
+
+                : "";
+
+
+            if (
+              sessionCountry
+            ) {
+
+              setMavDisplayCountry(
+                sessionCountry
+              );
+
+            } else {
+
+              renderCheckoutSummary();
+
+            }
+
           }
         );
 
 
+        /*
+          SHIPPING ADDRESS ELEMENT
+        */
+
         const shipping =
           mavCheckout.createShippingAddressElement();
+
 
         shipping.mount(
           "#shipping-address-element"
         );
 
 
+        /*
+          IMPORTANT:
+          Stripe AddressElement change event
+          exposes event.value.address.country.
+        */
+
+        shipping.on(
+          "change",
+          event => {
+
+
+            const country =
+              event &&
+              event.value &&
+              event.value.address
+
+                ? event.value.address.country
+
+                : "";
+
+
+            if (
+              country
+            ) {
+
+              setMavDisplayCountry(
+                country
+              );
+
+            }
+
+          }
+        );
+
+
+        /*
+          If Stripe loaded an already-selected
+          country, read it once the element is ready.
+        */
+
+        shipping.on(
+          "ready",
+          async () => {
+
+            try {
+
+              if (
+                typeof shipping.getValue ===
+                "function"
+              ) {
+
+                const result =
+                  await shipping.getValue();
+
+
+                const country =
+                  result &&
+                  result.value &&
+                  result.value.address
+
+                    ? result.value.address.country
+
+                    : "";
+
+
+                if (
+                  country
+                ) {
+
+                  setMavDisplayCountry(
+                    country
+                  );
+
+                }
+
+              }
+
+            } catch (
+              error
+            ) {
+
+              console.warn(
+                "Could not read initial shipping country:",
+                error
+              );
+
+            }
+
+          }
+        );
+
+
+        /*
+          PAYMENT ELEMENT
+        */
+
         const payment =
           mavCheckout.createPaymentElement({
-            layout:{
-              type:"accordion",
-              defaultCollapsed:false,
-              radios:"auto",
-              spacedAccordionItems:true
+
+            layout: {
+
+              type:
+                "accordion",
+
+              defaultCollapsed:
+                false,
+
+              radios:
+                "auto",
+
+              spacedAccordionItems:
+                true
+
             }
+
           });
+
 
         payment.mount(
           "#payment-element"
@@ -2908,11 +6582,12 @@
           await mavCheckout.loadActions();
 
 
-        if(
+        if (
           !loadActionsResult ||
-          loadActionsResult.type !== "success" ||
+          loadActionsResult.type !==
+            "success" ||
           !loadActionsResult.actions
-        ){
+        ) {
 
           throw new Error(
 
@@ -2925,6 +6600,7 @@
               : "Could not load Stripe checkout actions."
 
           );
+
         }
 
 
@@ -2932,32 +6608,53 @@
           loadActionsResult.actions;
 
 
-      }catch(error){
+      } catch (
+        error
+      ) {
+
 
         console.error(
           "MAVRENX custom checkout error:",
           error
         );
 
-        if(message){
+
+        if (
+          message
+        ) {
 
           message.textContent =
             error.message ||
             "Checkout could not be started. Please try again.";
+
         }
 
-        if(payText){
+
+        if (
+          payText
+        ) {
 
           payText.textContent =
             "Checkout unavailable";
+
         }
 
-      }finally{
+
+      } finally {
+
 
         mavCheckoutStarting =
           false;
+
+
       }
+
     }
+
+
+    /* =========================================================
+       CHECKOUT SUBMIT
+    ========================================================== */
 
 
     document
@@ -2966,19 +6663,26 @@
       )
       .addEventListener(
         "submit",
-        async function(event){
+
+        async function(
+          event
+        ) {
+
 
           event.preventDefault();
+
 
           const payButton =
             document.getElementById(
               "mav-checkout-pay"
             );
 
+
           const payText =
             document.getElementById(
               "mav-checkout-pay-text"
             );
+
 
           const message =
             document.getElementById(
@@ -2986,56 +6690,83 @@
             );
 
 
-          if(!mavCheckoutActions){
+          if (
+            !mavCheckoutActions
+          ) {
 
-            if(message){
+            if (
+              message
+            ) {
+
               message.textContent =
                 "Checkout is still loading.";
+
             }
 
+
             return;
+
           }
 
 
-          if(payButton){
+          if (
+            payButton
+          ) {
+
             payButton.disabled =
               true;
+
           }
 
-          if(message){
+
+          if (
+            message
+          ) {
+
             message.textContent =
               "";
+
           }
 
 
           const oldText =
             payText
+
               ? payText.textContent
+
               : "Pay now";
 
 
-          if(payText){
+          if (
+            payText
+          ) {
+
             payText.textContent =
               "Processing...";
+
           }
 
 
-          try{
+          try {
+
 
             const emailInput =
               document.getElementById(
                 "mav-email"
               );
 
+
             const emailError =
               document.getElementById(
                 "mav-email-error"
               );
 
+
             const phoneInput =
               document.getElementById(
                 "mav-phone"
               );
+
 
             const phoneError =
               document.getElementById(
@@ -3045,45 +6776,69 @@
 
             const email =
               emailInput
+
                 ? emailInput.value.trim()
+
                 : "";
+
 
             const phone =
               phoneInput
+
                 ? phoneInput.value.trim()
+
                 : "";
 
 
-            if(emailError){
+            if (
+              emailError
+            ) {
+
               emailError.textContent =
                 "";
+
             }
 
 
-            if(phoneError){
+            if (
+              phoneError
+            ) {
+
               phoneError.textContent =
                 "";
+
             }
 
 
-            if(!email){
+            if (
+              !email
+            ) {
 
               throw new Error(
                 "Enter your email address."
               );
+
             }
 
 
-            if(!phone){
+            if (
+              !phone
+            ) {
 
-              if(phoneError){
+              if (
+                phoneError
+              ) {
+
                 phoneError.textContent =
                   "Enter your phone number.";
+
               }
+
 
               throw new Error(
                 "Enter your phone number."
               );
+
             }
 
 
@@ -3093,22 +6848,27 @@
               );
 
 
-            if(
+            if (
               emailResult &&
               emailResult.error
-            ){
+            ) {
 
-              if(emailError){
+              if (
+                emailError
+              ) {
 
                 emailError.textContent =
                   emailResult.error.message ||
                   "Enter a valid email address.";
+
               }
+
 
               throw new Error(
                 emailResult.error.message ||
                 "Enter a valid email address."
               );
+
             }
 
 
@@ -3118,22 +6878,27 @@
               );
 
 
-            if(
+            if (
               phoneResult &&
               phoneResult.error
-            ){
+            ) {
 
-              if(phoneError){
+              if (
+                phoneError
+              ) {
 
                 phoneError.textContent =
                   phoneResult.error.message ||
                   "Enter a valid phone number.";
+
               }
+
 
               throw new Error(
                 phoneResult.error.message ||
                 "Enter a valid phone number."
               );
+
             }
 
 
@@ -3141,71 +6906,138 @@
               await mavCheckoutActions.confirm();
 
 
-            if(
+            if (
               result &&
-              result.type === "error"
-            ){
+              result.type ===
+                "error"
+            ) {
 
               throw new Error(
+
                 result.error &&
                 result.error.message
+
                   ? result.error.message
+
                   : "Payment could not be completed."
+
               );
+
             }
 
 
-          }catch(error){
+          } catch (
+            error
+          ) {
 
-            if(message){
+
+            if (
+              message
+            ) {
 
               message.textContent =
                 error.message ||
                 "Payment could not be completed.";
+
             }
 
-            if(payButton){
+
+            if (
+              payButton
+            ) {
+
               payButton.disabled =
                 false;
+
             }
 
-            if(payText){
+
+            if (
+              payText
+            ) {
+
               payText.textContent =
                 oldText;
+
             }
+
+
           }
 
         }
       );
 
 
-    function escapeHtmlText(value){
+    /* =========================================================
+       HELPERS
+    ========================================================== */
 
-      return String(value)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+
+    function escapeHtmlText(
+      value
+    ) {
+
+      return String(
+        value
+      )
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+        .replace(
+          /</g,
+          "&lt;"
+        )
+        .replace(
+          />/g,
+          "&gt;"
+        )
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
     }
 
 
-    function escapeAttribute(value){
-      return escapeHtmlText(value);
+    function escapeAttribute(
+      value
+    ) {
+
+      return escapeHtmlText(
+        value
+      );
+
     }
 
 
-    function escapeJsSingle(value){
+    function escapeJsSingle(
+      value
+    ) {
 
-      return String(value)
-        .replace(/\\/g,"\\\\")
-        .replace(/'/g,"\\'");
+      return String(
+        value
+      )
+        .replace(
+          /\\/g,
+          "\\\\"
+        )
+        .replace(
+          /'/g,
+          "\\'"
+        );
+
     }
 
 
     document.addEventListener(
       "DOMContentLoaded",
-      function(){
+
+      function() {
 
         removeRetiredProducts();
 
@@ -3220,7 +7052,10 @@
       }
     );
 
+
   </script>
 
+
 </body>
+
 </html>
